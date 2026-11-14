@@ -1,7 +1,7 @@
 # ============================================================
-#  S.O.L.O. — Monorepo (front-end + back-end)
+#  S.O.L.O. — Front-end (Next.js)
 #  Os padrões não estão ancorados à raiz, por isso valem
-#  para qualquer sub-pasta (front-end/, back-end/, etc.)
+#  para qualquer sub-pasta (src/, public/, etc.)
 # ============================================================
 
 # Dependencies
