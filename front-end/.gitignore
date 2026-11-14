@@ -1,0 +1,46 @@
+# ============================================================
+#  S.O.L.O. — Monorepo (front-end + back-end)
+#  Os padrões não estão ancorados à raiz, por isso valem
+#  para qualquer sub-pasta (front-end/, back-end/, etc.)
+# ============================================================
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/cache
+
+# Testing
+coverage/
+
+# Next.js / builds
+.next/
+out/
+build/
+dist/
+
+# Misc
+.DS_Store
+Thumbs.db
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local env files
+.env
+.env*.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Editores / ferramentas locais (pessoais)
+.agents/
+.vscode/
