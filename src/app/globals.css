@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* ============================================================
+   S.O.L.O. — Design Tokens "Campo Amigo"
+   Tema claro, alto contraste, pensado para leitura ao sol
+   e para pessoas idosas. Fonte: Atkinson Hyperlegible.
+   ============================================================ */
+
+@theme {
+  /* Superfícies */
+  --color-bg: #faf6ef;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f2ece1;
+  --color-border: #e0d8c8;
+
+  /* Texto */
+  --color-text-primary: #1f1b17;
+  --color-text-secondary: #3e4a3d;
+  --color-text-muted: #6e7b6c;
+
+  /* Marca */
+  --color-primary: #006b2c;
+  --color-primary-hover: #005423;
+  --color-primary-soft: #e3f0e4;
+
+  /* Acessibilidade / áudio */
+  --color-warm: #ffddb0;
+  --color-warm-text: #281800;
+
+  /* Estados */
+  --color-danger: #b3261e;
+  --color-warning: #8a5a00;
+  --color-warning-soft: #fff4dc;
+
+  /* Raios */
+  --radius-card: 20px;
+  --radius-input: 14px;
+
+  /* Tipografia */
+  --font-sans: var(--font-atkinson), system-ui, sans-serif;
+
+  /* Alturas mínimas de toque (WCAG / campo) */
+  --spacing-touch: 48px;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* Foco visível para navegação por teclado (NFR-02) */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
