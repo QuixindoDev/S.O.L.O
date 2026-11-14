@@ -6,88 +6,322 @@
 
 Plataforma de suporte à decisão para **agricultura familiar**, que traduz dados de satélite da NASA em conselhos simples e visuais para quem tem mais de 60 anos e cultiva a terra.
 
+> 📍 Esta pasta é a **parte front-end** do projecto. O back-end vive em `../back-end/`.
+
 ---
 
-## 📁 Organização do repositório
+## 📌 Onde meter cada coisa
 
-O projecto está dividido em **monorepo** — cada equipa trabalha na sua pasta, sem conflitos de ficheiros.
+> **Este é o guia principal para a divisão de tarefas.**
+> O design completo das 12 telas está no ficheiro **`login.pen`** (pen.dev). Cada ecrã do design corresponde a **uma pasta/rota** indicada na tabela abaixo.
+
+### 🧩 Componentes já construídos
+
+**`src/components/ui/`** — blocos reutilizáveis (sem lógica de negócio)
+
+| Componente | Variantes / _props | Notas |
+|---|---|---|
+| `Button` | `primary` · `soft` · `outline` · `ghost` · `sm/md/lg` | Alturas 40/56/64px. `icon` + `iconPosition` + `fullWidth` |
+| `IconButton` | `surface` · `soft` · `primary` · `warm` | `label` **obrigatório** (nunca ícone sem rótulo) |
+| `Card` | `default` · `soft` · `outline` · `padding` | `rounded-card` (20px) |
+| `Badge` | `primary` · `soft` · `warning` · `danger` · `neutral` · `onPrimary` | |
+| `IconBox` | `sm/md/lg` × `surface/soft/primary/warm/warning` | Contentor de ícone |
+| `Eyebrow` | com/sem ícone | Etiqueta de categoria acima do título |
+| `Input` / `Field` | — | `Field` = rótulo + ícone + input + texto de ajuda |
+| `Select` | `options[]`, `onChange` | **Substitui o `<select>` nativo** — menu em cartões |
+| `ProgressBar` | `value` 0-100, `displayValue` | Barras de sustentabilidade |
+| `ScoreRing` | `value`, `label`, `size`, `tone` | Medidor circular SVG |
+| `Avatar` | `initials`, `sm/md/lg` | Sem fotos — iniciais |
+| `Divider` | — | Linha de 1px |
+| `EmptyState` | `icon`, `title`, `description`, `action` | Estado vazio |
+
+**`src/components/layout/`**
+
+| Componente | Descrição |
+|---|---|
+| `Sidebar` | Barra lateral esquerda. Activo por `usePathname`; `activeHref` para prévias; `isDrawer` + `onClose` para telemóvel |
+| `TopBar` | Título + subtítulo + localização + botão "Ouvir Ajuda" + **botão hamburger** (só < 1024px) |
+| `AppShell` | Junta Sidebar + TopBar + conteúdo. Gere o estado do drawer (abrir/fechar, Escape, bloqueio de scroll) |
+| `navItems` | Definição dos 4 grupos / 9 subsecções do menu |
+
+**`src/lib/cn.ts`** — helper `cn()` (clsx + tailwind-merge).
+
+---
+
+### 📱 Responsividade
+
+Todos os componentes são responsivos. Breakpoints usados:
+
+| Largura | Comportamento |
+|---|---|
+| `< 640px` (mobile) | 1 coluna. Botão "Ouvir Ajuda" vira só ícone. Localização escondida. |
+| `640-1023px` (tablet) | 1-2 colunas. Menu hamburger activo. Localização visível a partir de `md`. |
+| `≥ 1024px` (desktop) | Barra lateral fixa (280px) + conteúdo em 2-3 colunas. |
+
+**A barra lateral transforma-se em drawer no telemóvel:**
+
+- O botão **☰ (hamburger)** aparece no `TopBar` apenas abaixo de 1024px.
+- O drawer desliza da esquerda (300px máx.), com fundo escurecido por cima.
+- Fecha ao tocar no fundo, no botão **✕**, ao escolher um item, ou com a tecla **Escape**.
+- A rolagem do fundo é bloqueada enquanto o drawer está aberto.
+
+> Para testar: estreita a janela do browser abaixo de 1024px, ou abre no telemóvel.
+
+**Regras para quem construir ecrãs:**
+
+- Usar grelhas `grid-cols-1 md:grid-cols-2 xl:grid-cols-3` — nunca `grid-cols-3` fixo.
+- Nunca fixar largura em pixels para conteúdo: usar `w-full`, `min-w-0` e `flex-1`.
+- Botões dentro de listas devem ter `fullWidth` no mobile.
+- Tabelas e listas longas → `overflow-x-auto` num contentor.
+
+---
+
+### 🚧 Rota temporária de avaliação
+
+> **Rota:** `http://localhost:3000/design-system`
+> Ficheiro: `src/app/design-system/page.tsx`
+> **É temporária — apagar antes da demonstração final.**
+
+Mostra lado a lado todos os componentes com todas as variantes, para avaliação visual e para servir de referência de estilo ao teu colega.
+
+---
+
+### Árvore de pastas do projecto
 
 ```text
-S.O.L.O/
-├── front-end/          # ⬅️ Next.js 15 · React · TypeScript · Tailwind CSS
-│   ├── src/            #   aplicação (rotas, componentes, hooks, lib, tipos)
-│   ├── public/
-│   ├── login.pen       #   🎨 DESIGN COMPLETO das 12 telas (pen.dev)
-│   ├── index.html      #   protótipo funcional original
-│   ├── package.json
-│   └── README.md       #   📖 arquitectura de pastas + divisão de tarefas
+src/
+├── app/
+│   ├── layout.tsx                    # Shell global: fonte Atkinson, metatags, <body>
+│   ├── globals.css                   # TOKENS DO DESIGN (fonte de verdade)
+│   ├── page.tsx                      # Landing / redirect → /entrar
+│   │
+│   ├── (auth)/                       # Telas SEM barra lateral (login/cadastro)
+│   │   ├── layout.tsx                # Wrapper simples centrado
+│   │   ├── criar-conta/page.tsx      # Ecrã 1  — Criar Conta
+│   │   ├── entrar/page.tsx           # Ecrã 1B — Entrar
+│   │   ├── sms-enviado/page.tsx      # Ecrã 2  — SMS Enviado
+│   │   └── verificar/page.tsx        # Ecrã 3  — Código de Segurança (2FA)
+│   │
+│   ├── (app)/                        # Telas COM barra lateral (a app em si)
+│   │   ├── layout.tsx                # AppShell = <Sidebar/> + <TopBar/> + <main/>
+│   │   ├── inicio/page.tsx           # Ecrã 4  — Meu Caderno da Terra
+│   │   ├── clima/page.tsx            # Ecrã 6  — Previsão do Tempo   (NASA POWER)
+│   │   ├── terra/page.tsx            # Ecrã 7  — Minha Terra e Horta (NASA SMAP)
+│   │   ├── plantas/page.tsx          # Ecrã 8  — Minhas Plantas
+│   │   ├── rotacao/page.tsx          # Ecrã 5  — Rotação de Culturas (SIMULADOR)
+│   │   ├── plantio/page.tsx          # Ecrã 10 — Calendário de Plantio
+│   │   ├── contas/page.tsx           # Ecrã 9  — Meu Caderninho de Contas
+│   │   ├── agronoma/page.tsx         # Ecrã 11 — Falar com a Agrônoma (WhatsApp)
+│   │   └── ajuda/page.tsx            # Ecrã 12 — Ouvir Ajuda (áudio)
+│   │
+│   └── api/
+│       └── nasa/
+│           ├── power/route.ts        # Proxy + cache 24h para NASA POWER  ← TECH LEAD
+│           ├── smap/route.ts         # Umidade do solo (SMAP)            ← TECH LEAD
+│           └── ecoStress/route.ts    # Estresse térmico (ECOSTRESS)       ← TECH LEAD
 │
-└── back-end/           # ⬅️ API de dados da NASA (a criar pelo colega)
-    ├── src/
-    ├── package.json
-    └── README.md
+├── components/
+│   ├── layout/                       # Estrutura da aplicação
+│   │   ├── Sidebar.tsx               # Barra lateral (component do design)
+│   │   ├── TopBar.tsx                # Cabeçalho com título + "Ouvir Ajuda"
+│   │   └── AppShell.tsx              # Junta Sidebar + TopBar + conteúdo
+│   │
+│   ├── ui/                           # Blocos reutilizáveis (SEM lógica de negócio)
+│   │   ├── Button.tsx                # Alturas: sm 40px | md 56px | lg 64px
+│   │   ├── Card.tsx                  # Variantes: default | soft | outline
+│   │   ├── Badge.tsx                 # Estados: success | warning | neutral | danger
+│   │   ├── Field.tsx                 # Label + Input + Texto de ajuda
+│   │   ├── Input.tsx
+│   │   ├── Select.tsx                # Substitui o <select> nativo por cards
+│   │   ├── IconButton.tsx
+│   │   ├── ProgressBar.tsx           # Barras de pontuação
+│   │   ├── ScoreRing.tsx             # Medidor circular 0-100%
+│   │   └── EmptyState.tsx
+│   │
+│   ├── charts/                       # Gráficos (Recharts)
+│   │   ├── WaterBalanceChart.tsx     # Chuva vs. Evapotranspiração
+│   │   ├── TemperatureChart.tsx      # Máx/mín + radiação
+│   │   └── ChartTooltip.tsx
+│   │
+│   └── features/                     # Componentes por domínio
+│       ├── dashboard/                # Ecrã 4
+│       │   ├── WeatherCard.tsx
+│       │   ├── GardenCard.tsx
+│       │   ├── TipsGrid.tsx
+│       │   └── QuickActions.tsx
+│       ├── clima/                    # Ecrã 6
+│       │   ├── TodaySummary.tsx
+│       │   ├── WeekForecast.tsx
+│       │   └── NasaAlerts.tsx
+│       ├── terra/                    # Ecrã 7
+│       │   ├── SoilGauge.tsx
+│       │   ├── PlotCard.tsx
+│       │   └── SoilActions.tsx
+│       ├── plantas/                  # Ecrã 8
+│       │   ├── PlantRow.tsx
+│       │   └── HarvestCard.tsx
+│       ├── rotacao/                  # Ecrã 5 (core)
+│       │   ├── PriorityPicker.tsx    # 4 cartões grandes
+│       │   ├── CycleCard.tsx         # 3 cartões de ciclo
+│       │   ├── RotationScoreboard.tsx
+│       │   └── RotationAdvice.tsx
+│       ├── plantio/                  # Ecrã 10
+│       │   ├── MonthCard.tsx
+│       │   └── TaskList.tsx
+│       ├── contas/                   # Ecrã 9
+│       │   ├── MoneySummary.tsx
+│       │   └── TransactionRow.tsx
+│       ├── agronoma/                 # Ecrã 11
+│       │   ├── ChatBubble.tsx
+│       │   └── QuickQuestions.tsx
+│       └── ajuda/                    # Ecrã 12
+│           ├── AudioPlayer.tsx
+│           ├── ListenSection.tsx
+│           └── SpeechPreferences.tsx
+│
+├── hooks/
+│   ├── useNasaAgro.ts                # Consome /api/nasa/power  ← TECH LEAD
+│   ├── useSimulator.ts               # Motor de scores da rotação ← TECH LEAD
+│   ├── useFarmProfile.ts             # Estado do perfil (localStorage)
+│   ├── useSpeech.ts                  # Text-to-Speech (áudio) ← TECH LEAD
+│   └── useOffline.ts                 # Cache local para uso sem rede
+│
+├── lib/
+│   ├── nasa/
+│   │   ├── client.ts                 # fetch + cache + normalização POWER
+│   │   └── normalize.ts              # Converte a resposta crua em AgroSummary
+│   ├── agronomia.ts                  # Fórmulas de balanço hídrico, ET0, GDD
+│   ├── scores.ts                     # Pesos por prioridade do produtor
+│   └── format.ts                     # Datas, moeda, números em pt-BR
+│
+├── types/
+│   ├── agronomy.ts                   # Culturas, solos, biomas, prioridades
+│   ├── nasa.ts                       # Contratos das respostas NASA
+│   └── ui.ts                         # Props dos componentes de ui/
+│
+└── data/
+    ├── crops.json                    # Matriz agronómica das culturas
+    └── biomes.json                   # Chuva de referência por bioma
 ```
 
-**Regra da equipa:** cada pasta é território de uma equipa. **Não mexer** em `front-end/` e `back-end/` ao mesmo tempo sem avisar no grupo.
+### Mapa: ecrã do design → ficheiro
 
----
-
-## 👥 Equipa
-
-| Pasta | Equipa | Responsabilidade |
+| Ecrã (`login.pen`) | Rota | Componentes principais |
 |---|---|---|
-| `front-end/` | 🎨 Frontend UI Dev + 🚀 Tech Lead | Interface Next.js, components, integração da API |
-| `back-end/` | 👨‍💻 Back-end Dev | Endpoints, proxy/cache da NASA POWER, SMAP, ECOSTRESS |
+| 1. Criar Conta | `/criar-conta` | `ui/Field`, `ui/Button` |
+| 1-B. Entrar | `/entrar` | `ui/Field`, `ui/Button` |
+| 2. SMS Enviado | `/sms-enviado` | `ui/Card`, `ui/Badge` |
+| 3. Código de Segurança | `/verificar` | `ui/Card`, `CodeInputs` |
+| 4. Meu Caderno da Terra | `/inicio` | `features/dashboard/*` |
+| 5. Rotação de Culturas | `/rotacao` | `features/rotacao/*` |
+| 6. Previsão do Tempo | `/clima` | `features/clima/*`, `charts/*` |
+| 7. Minha Terra e Horta | `/terra` | `features/terra/*` |
+| 8. Minhas Plantas | `/plantas` | `features/plantas/*` |
+| 9. Meu Caderninho | `/contas` | `features/contas/*` |
+| 10. Calendário de Plantio | `/plantio` | `features/plantio/*` |
+| 11. Falar com a Agrônoma | `/agronoma` | `features/agronoma/*` |
+| 12. Ouvir Ajuda | `/ajuda` | `features/ajuda/*` |
 
 ---
 
-## 🚀 Frontend — arranque rápido
+## 🧑‍💻 Divisão de tarefas
+
+> ⚠️ **Nota sobre a API.** O proxy `src/app/api/nasa/power/route.ts` já existe e funciona (com cache de 24h na edge).
+> Assim que o colega entregar o `back-end/`, este handler passa a fazer **proxy para `http://localhost:PORT/api/nasa/power`** — ou pode ser removido em favour do URL público do back-end.
+> Combinem o contrato antes de mexer: ver **Contrato da API NASA** mais abaixo.
+
+### 🚀 Tech Lead (dados, lógica, motor)
+
+| # | Tarefa | Onde |
+|---|---|---|
+| 1 | Ligar o proxy ao back-end do colega | `src/app/api/nasa/power/route.ts` |
+| 2 | Rotas SMAP e ECOSTRESS | `src/app/api/nasa/*/route.ts` |
+| 3 | Cliente NASA + normalização de tipos | `src/lib/nasa/` |
+| 4 | Hook de consumo da API | `src/hooks/useNasaAgro.ts` |
+| 5 | Motor de scores da rotação | `src/hooks/useSimulator.ts` + `src/lib/scores.ts` |
+| 6 | Fórmulas agronómicas (ET0, GDD, balanço hídrico) | `src/lib/agronomia.ts` |
+| 7 | Leitura em voz alta (Text-to-Speech) | `src/hooks/useSpeech.ts` |
+| 8 | Cache offline (localStorage / IndexedDB) | `src/hooks/useOffline.ts` |
+| 9 | Tipos e dados agronómicos | `src/types/`, `src/data/` |
+| 10 | Build de produção e verificação de tipos | `npm run build` |
+
+### 🎨 Frontend UI Dev (ecrãs e componentes)
+
+| # | Tarefa | Onde |
+|---|---|---|
+| 1 | Blocos base (`ui/`) | `src/components/ui/` |
+| 2 | Estrutura (`Sidebar`, `TopBar`, `AppShell`) | `src/components/layout/` |
+| 3 | Ecrãs de autenticação (1, 1B, 2, 3) | `src/app/(auth)/` |
+| 4 | Dashboard "Meu Caderno da Terra" (4) | `src/app/(app)/inicio/` |
+| 5 | Simulador de Rotação (5) | `src/app/(app)/rotacao/` |
+| 6 | Previsão do Tempo (6) | `src/app/(app)/clima/` |
+| 7 | Terra e Horta (7) | `src/app/(app)/terra/` |
+| 8 | Plantas (8) | `src/app/(app)/plantas/` |
+| 9 | Caderninho (9) | `src/app/(app)/contas/` |
+| 10 | Calendário de Plantio (10) | `src/app/(app)/plantio/` |
+| 11 | Chat com a Agrônoma (11) | `src/app/(app)/agronoma/` |
+| 12 | Ouvir Ajuda (12) | `src/app/(app)/ajuda/` |
+| 13 | Gráficos | `src/components/charts/` |
+| 14 | Responsividade mobile (360px → 4K) | transversal |
+
+---
+
+## 🎨 Regras de design (não negociar)
+
+O público-alvo tem **mais de 60 anos**, usa o telemóvel **ao sol no campo** e por vezes **sem internet**. Daí as regras:
+
+1. **Fonte única:** Atkinson Hyperlegible (já configurada). Sem serifadas, sem fontes condensadas.
+2. **Tamanho mínimo de texto: 14px.** Corpo de texto a 16-19px. Títulos a 24-34px. Números grandes a 28-56px.
+3. **Alvos de toque ≥ 48px.** Botões principais com 64px de altura.
+4. **Contraste alto.** Fundo creme `#FAF6EF`, texto `#1F1B17`. Nunca texto cinza-claro sobre branco.
+5. **Sem `<select>` nativo.** Usar `ui/Select` (cards com seta) — é mais fácil de tocar e de ler.
+6. **Uma ideia por ecrã.** Cada ecrã responde a UMA pergunta.
+7. **"Ouvir Ajuda" sempre visível** no `TopBar` de todas as páginas.
+8. **Sem ícones sem rótulo.** Todo o ícone com texto ao lado.
+9. **Sem gradientes decorativos, sem sombras pesadas.** Só `border` de 1px e `surface-soft`.
+
+### Tokens
+
+A fonte de verdade é o bloco `@theme` em **`src/app/globals.css`**:
+
+| Token | Valor | Uso |
+|---|---|---|
+| `bg` | `#FAF6EF` | Fundo da página |
+| `surface` | `#FFFFFF` | Cartões |
+| `surface-soft` | `#F2ECE1` | Cartões secundários, campos |
+| `border` | `#E0D8C8` | Bordas |
+| `text-primary` | `#1F1B17` | Títulos |
+| `text-secondary` | `#3E4A3D` | Texto corrido |
+| `text-muted` | `#6E7B6C` | Texto de apoio |
+| `primary` | `#006B2C` | Marca, botões, acção |
+| `primary-soft` | `#E3F0E4` | Fundos de destaque e badges |
+| `warm` / `warm-text` | `#FFDDB0` / `#281800` | Botão "Ouvir Ajuda" |
+| `warning` / `warning-soft` | `#8A5A00` / `#FFF4DC` | Alertas |
+| `danger` | `#B3261E` | Erro / risco |
+
+---
+
+## 🔌 Contrato da API NASA
+
+`GET /api/nasa/power?lat=-12.97&lon=-39.51&start=20260101&end=20261231`
+
+Devolve a resposta normalizada da NASA POWER (`T2M`, `T2M_MAX`, `T2M_MIN`, `PRECTOTCORR`, `RH2M`, `ALLSKY_SFC_SW_DWN`). Cache de **24 horas** na edge (`revalidate: 86400`) para poupar dados móveis.
+
+Consultar `src/types/nasa.ts` para os tipos exactos.
+
+---
+
+## 🚀 Comandos
 
 ```bash
+# a partir da raiz do repositório
 cd front-end
-npm install
-npm run dev     # → http://localhost:3000
+
+npm install        # instalar dependências
+npm run dev        # servidor de desenvolvimento → http://localhost:3000
+npm run build      # build de produção (verifica tipos)
+npm run lint       # verificação de tipos (tsc --noEmit)
 ```
-
-📖 **A documentação completa do frontend está em [`front-end/README.md`](./front-end/README.md)** — contém:
-
-- Árvore de pastas completa (onde meter cada ficheiro)
-- Mapa de cada ecrã do design → rota → componente
-- Divisão de tarefas detalhada (10 para Tech Lead, 14 para Frontend UI Dev)
-- Tokens do design e as 9 regras inegociáveis de acessibilidade
-- Contrato da API NASA
-
----
-
-## 🎨 Design
-
-O design completo das **12 telas** está em **`front-end/login.pen`** (ferramenta pen.dev / Pencil).
-
-> ⚠️ **Não abrir nem editar o `.pen` com um editor de texto normal.**
-> O ficheiro é encriptado — só a extensão Pencil / MCP do pen.dev o pode abrir e alterar.
-
-| Ecrã | Ecrã |
-|---|---|
-| 1. Criar Conta | 2. SMS Enviado |
-| 1-B. Entrar | 3. Código de Segurança (2FA) |
-| 4. Meu Caderno da Terra (Início) | 5. Rotação de Culturas (Simulador NASA) |
-| 6. Previsão do Tempo (POWER) | 7. Minha Terra e Horta (SMAP) |
-| 8. Minhas Plantas | 9. Meu Caderninho de Contas |
-| 10. Calendário de Plantio | 11. Falar com a Agrônoma (WhatsApp) |
-| 12. Ouvir Ajuda (Áudio) | |
-
----
-
-## 📡 Fontes de dados da NASA
-
-| Fonte | Parâmetros | Uso no projecto |
-|---|---|---|
-| **NASA POWER** | `T2M`, `T2M_MAX`, `T2M_MIN`, `PRECTOTCORR`, `RH2M`, `ALLSKY_SFC_SW_DWN` | Balanço hídrico, ET0, previsão de semeadura |
-| **NASA SMAP** | Umidade superficial (0-5 cm) e zona radicular (0-100 cm) | Diagnóstico de reserva de água do solo |
-| **NASA ECOSTRESS** | `ETa`, `ESI`, `WUE` | Alerta precoce de estresse térmico na copa |
-| **GPM IMERG / MODIS** | Precipitação, `NDVI`, `NDWI` | Anomalias de chuva e vigor vegetativo |
-
-Todas as APIs são **REST públicas e gratuitas**, sem API key.
 
 ---
 
@@ -95,18 +329,21 @@ Todas as APIs são **REST públicas e gratuitas**, sem API key.
 
 | Ficheiro | Conteúdo |
 |---|---|
-| [`front-end/README.md`](./front-end/README.md) | **Arquitectura de pastas, mapa ecrã→código, divisão de tarefas** |
-| `front-end/login.pen` | Design das 12 telas (pen.dev) |
-| `front-end/escopo-projecto.md` | Escopo técnico e critérios de avaliação da NASA |
-| `front-end/stitch-design-system-prompt.md` | Especificação original do design system |
-| `front-end/index.html` | Protótipo funcional com simulador e catálogo de APIs |
+| **`login.pen`** | **Design completo das 12 telas** (pen.dev) — abrir na extensão Pencil |
+| `escopo-projecto.md` | Escopo técnico, objectivos e critérios de avaliação da NASA |
+| `stitch-design-system-prompt.md` | Especificação original do design system (9 ecrãs) |
+| `index.html` | Protótipo funcional original com simulador e catálogo de APIs |
+| `AGENTS.md` | Regras geradas automaticamente pelo Next.js 16 para agentes de IA |
+| `README.md` | Este documento |
 
 ---
 
-## 🌐 Caso de uso em foco
+## ✅ Checklist de acessibilidade (validar em cada ecrã)
 
-> Dona Maria, 68 anos, cultiva uma horta em Feira de Santana - BA.
-> Abre a app no telemóvel, ao sol, e o S.O.L.O. diz-lhe **em português simples**:
-> *"Hoje é um ótimo dia para cuidar da horta. O solo está bem úmido. Não precisa regar."*
-
-É esse o teste de todas as decisões de design: **se a Dona Maria não entende, a gente refaz.**
+- [ ] Texto mínimo 14px, corpo a 16px+
+- [ ] Alvos de toque ≥ 48×48px
+- [ ] Contraste ≥ 4.5:1 (WCAG AA)
+- [ ] Navegação por teclado com anel de foco visível
+- [ ] Todas as imagens/ícones têm texto alternativo ou rótulo
+- [ ] Funciona com a largura mínima de 360px
+- [ ] Título e subtítulo de cada ecrã dizem o que a pessoa vai encontrar
