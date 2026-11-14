@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.O.L.O. - Smart Observation Land Optimization | NASA Space Apps Challenge</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#080E1A',
+                            surface: '#0F1A2E',
+                            card: '#15243E',
+                            border: '#1E3256',
+                            emerald: '#10B981',
+                            emeraldHover: '#059669',
+                            cyan: '#06B6D4',
+                            amber: '#F59E0B',
+                            nasaBlue: '#0B3D91',
+                            nasaRed: '#FC3D21',
+                            accent: '#38BDF8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #080E1A;
+            color: #E2E8F0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glow-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+        }
+        .grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080E1A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E3256;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10B981;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-slate-200 antialiased selection:bg-brand-emerald selection:text-white">
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-brand-dark/85 border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-nasaBlue via-brand-emerald to-brand-cyan flex items-center justify-center shadow-lg shadow-brand-emerald/20">
+                        <i class="fa-solid fa-satellite-dish text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-display font-bold text-2xl tracking-wider text-white">S.O.L.O.</span>
+                            <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-brand-emerald/15 text-brand-emerald border border-brand-emerald/30">Next.js + TS</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 font-medium">Smart Observation Land Optimization</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-3 text-sm font-medium">
+                    <a href="#visao-geral" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-brand-surface transition">Visão Geral</a>
+                    <a href="#desafio-nasa" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-brand-surface transition">Desafio NASA</a>
+                    <a href="#dados-nasa" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-brand-surface transition">APIs NASA</a>
+                    <a href="#simulador" class="px-3 py-2 rounded-lg text-brand-cyan hover:text-white hover:bg-brand-surface transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-play text-xs"></i> Simulador Interativo
+                    </a>
+                    <a href="#stack-tecnologica" class="px-3 py-2 rounded-lg text-brand-emerald hover:text-white hover:bg-brand-surface transition flex items-center gap-1.5">
+                        <i class="fa-brands fa-react text-xs"></i> Stack & Frontend
+                    </a>
+                    <a href="#matriz-culturas" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-brand-surface transition">Matriz Agronômica</a>
+                    <a href="#roadmap" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-brand-surface transition">Roadmap</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="flex items-center space-x-3">
+                    <a href="https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/?tab=details" target="_blank" rel="noopener noreferrer" 
+                       class="hidden sm:inline-flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs font-semibold bg-brand-surface border border-brand-border hover:border-brand-accent text-slate-200 hover:text-white transition">
+                        <span class="w-2 h-2 rounded-full bg-brand-nasaRed animate-pulse"></span>
+                        <span>Link Oficial NASA</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                    <a href="#simulador" class="inline-flex items-center space-x-2 px-4 py-2 rounded-lg text-xs font-bold bg-brand-emerald hover:bg-brand-emeraldHover text-slate-950 transition shadow-lg shadow-brand-emerald/25">
+                        <span>Ver Demo Frontend</span>
+                        <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-20 overflow-hidden border-b border-brand-border grid-pattern">
+        <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-transparent to-brand-dark pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto space-y-6">
+                <!-- Tag -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-card/90 border border-brand-border text-xs font-semibold text-slate-300 shadow-sm">
+                    <span class="px-2 py-0.5 rounded bg-brand-nasaBlue text-white text-[10px] font-bold tracking-wider">NASA SPACE APPS 2026</span>
+                    <span class="text-brand-emerald font-medium">Field Shift: Adapting Farms with NASA Data</span>
+                </div>
+
+                <!-- Main Title -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-white leading-tight">
+                    Documentação & Escopo de Engenharia Frontend:
+                    <span class="bg-gradient-to-r from-brand-emerald via-brand-cyan to-brand-accent bg-clip-text text-transparent block mt-2">
+                        Plataforma S.O.L.O.
+                    </span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed font-normal">
+                    Transformando terabytes de dados de observação da Terra da NASA em uma experiência de decisão simples, prática e altamente visual para agricultores adaptarem suas terras, conservarem água e otimizarem a rotação de culturas.
+                </p>
+
+                <!-- Key Metrics Badges -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 text-left">
+                    <div class="p-4 rounded-xl bg-brand-surface/80 border border-brand-border hover:border-brand-emerald/50 transition">
+                        <div class="flex items-center justify-between text-brand-emerald mb-1">
+                            <i class="fa-solid fa-satellite text-lg"></i>
+                            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-brand-emerald/10">NASA EO Data</span>
+                        </div>
+                        <div class="text-2xl font-bold font-display text-white">4+ Missões</div>
+                        <div class="text-xs text-slate-400 mt-1">POWER, SMAP, ECOSTRESS & GPM</div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-brand-surface/80 border border-brand-border hover:border-brand-cyan/50 transition">
+                        <div class="flex items-center justify-between text-brand-cyan mb-1">
+                            <i class="fa-solid fa-arrows-spin text-lg"></i>
+                            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-brand-cyan/10">Objetivo Core</span>
+                        </div>
+                        <div class="text-2xl font-bold font-display text-white">Rotação Inteligente</div>
+                        <div class="text-xs text-slate-400 mt-1">Resiliência hídrica & saúde do solo</div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-brand-surface/80 border border-brand-border hover:border-brand-amber/50 transition">
+                        <div class="flex items-center justify-between text-brand-amber mb-1">
+                            <i class="fa-brands fa-react text-lg"></i>
+                            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-brand-amber/10">Stack Oficial</span>
+                        </div>
+                        <div class="text-2xl font-bold font-display text-white">Next.js & TS</div>
+                        <div class="text-xs text-slate-400 mt-1">React, TypeScript & Tailwind CSS</div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-brand-surface/80 border border-brand-border hover:border-brand-accent/50 transition">
+                        <div class="flex items-center justify-between text-brand-accent mb-1">
+                            <i class="fa-solid fa-users text-lg"></i>
+                            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-brand-accent/10">Impacto Real</span>
+                        </div>
+                        <div class="text-2xl font-bold font-display text-white">Linguagem Leiga</div>
+                        <div class="text-xs text-slate-400 mt-1">Decisões acionáveis para o produtor</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+        <!-- SEÇÃO 1: VISÃO GERAL & PROBLEMA -->
+        <section id="visao-geral" class="scroll-mt-24 space-y-8">
+            <div class="border-b border-brand-border pb-4 flex items-center justify-between flex-wrap gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-emerald">Capítulo 01</span>
+                    <h2 class="text-3xl font-display font-bold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-earth-americas text-brand-emerald"></i>
+                        Visão Geral e Contexto do Desafio
+                    </h2>
+                </div>
+                <span class="text-xs px-3 py-1 rounded-md bg-brand-surface border border-brand-border text-slate-400">Origem: NASA Space Apps Challenge</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Coluna 1 & 2: Contexto detalhado -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border space-y-4">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-brand-amber"></i>
+                            O Problema Global: A Crise da Agricultura diante da Volatilidade Climática
+                        </h3>
+                        <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+                            Agricultores ao redor de todo o mundo estão sob pressão extrema e sem precedentes: <strong>variações bruscas de temperatura</strong>, <strong>irregularidade severa no regime de chuvas</strong>, <strong>secas prolongadas</strong>, <strong>eventos climáticos extremos</strong> e uma acelerada <strong>degradação da fertilidade e microbiologia do solo</strong>.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+                            Historicamente, o planejamento de rotação de culturas dependia da intuição e da memória histórica de safras anteriores. Contudo, as alterações climáticas romperam esses ciclos previsíveis, tornando decisões como <em>"o que plantar em seguida?"</em>, <em>"quando semear?"</em> e <em>"como proteger o solo na entressafra?"</em> em apostas de alto risco financeiro e ambiental.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3">
+                            <div class="p-4 rounded-xl bg-brand-card border border-brand-border/60">
+                                <div class="text-brand-amber font-semibold text-sm flex items-center gap-2 mb-1">
+                                    <i class="fa-solid fa-droplet-slash"></i>
+                                    Escassez Hídrica & Chuvas Tardias
+                                </div>
+                                <p class="text-xs text-slate-400">
+                                    Períodos secos cada vez mais longos que coincidem com estágios críticos da floração e enchimento de grãos, arruinando colheitas inteiras.
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-brand-card border border-brand-border/60">
+                                <div class="text-brand-emerald font-semibold text-sm flex items-center gap-2 mb-1">
+                                    <i class="fa-solid fa-seedling"></i>
+                                    Erosão e Exaustão do Solo
+                                </div>
+                                <p class="text-xs text-slate-400">
+                                    Monoculturas contínuas esgotam os nutrientes da rizosfera, aumentam pragas endêmicas e reduzem a capacidade do solo de reter umidade.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- O Data Gap -->
+                    <div class="bg-gradient-to-r from-brand-surface via-brand-card to-brand-surface p-6 rounded-2xl border border-brand-border relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-brand-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-bridge-water text-brand-cyan"></i>
+                            O "Data Gap" (Abismo entre o Espaço e o Produtor Rural)
+                        </h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                            A NASA possui a frota de observação da Terra mais avançada da humanidade, gerando terabytes diários de índices de umidade do solo, anomalias térmicas e radiação solar. No entanto:
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center gap-4 bg-brand-dark/70 p-4 rounded-xl border border-brand-border">
+                            <div class="text-center sm:text-left flex-1">
+                                <span class="text-xs font-bold text-brand-nasaRed uppercase tracking-wider">A Realidade Atual</span>
+                                <div class="text-sm font-semibold text-slate-200">Arquivos NetCDF, HDF5, terminologias geoespaciais e modelos ilegíveis para o produtor</div>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-brand-emerald/20 text-brand-emerald flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                            <div class="text-center sm:text-left flex-1">
+                                <span class="text-xs font-bold text-brand-emerald uppercase tracking-wider">A Missão do S.O.L.O.</span>
+                                <div class="text-sm font-semibold text-slate-200">Insights visuais, semáforos de risco agronômico e simulador direto de rotação de culturas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna 3: Cartão de Missão do Projeto -->
+                <div class="space-y-6">
+                    <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border h-full flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-emerald/15 border border-brand-emerald/30 text-brand-emerald flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-compass"></i>
+                            </div>
+                            <h3 class="text-xl font-bold font-display text-white">Identidade do Projeto</h3>
+                            <div class="space-y-2 text-xs">
+                                <div class="flex justify-between py-1.5 border-b border-brand-border/60">
+                                    <span class="text-slate-400">Nome Oficial:</span>
+                                    <span class="font-bold text-white">S.O.L.O.</span>
+                                </div>
+                                <div class="flex justify-between py-1.5 border-b border-brand-border/60">
+                                    <span class="text-slate-400">Repositório:</span>
+                                    <span class="font-mono text-brand-accent">QuixindoDev/S.O.L.O</span>
+                                </div>
+                                <div class="flex justify-between py-1.5 border-b border-brand-border/60">
+                                    <span class="text-slate-400">Branch de Trabalho:</span>
+                                    <span class="font-mono text-brand-emerald">requisitos</span>
+                                </div>
+                                <div class="flex justify-between py-1.5 border-b border-brand-border/60">
+                                    <span class="text-slate-400">Escopo Primário:</span>
+                                    <span class="font-bold text-brand-amber">Interface Frontend Web</span>
+                                </div>
+                                <div class="flex justify-between py-1.5 border-b border-brand-border/60">
+                                    <span class="text-slate-400">Stack Tecnológica:</span>
+                                    <span class="font-bold text-brand-cyan">Next.js • React • TS • Tailwind</span>
+                                </div>
+                                <div class="flex justify-between py-1.5">
+                                    <span class="text-slate-400">Público-Alvo:</span>
+                                    <span class="text-slate-200">Produtores & Técnicos Rurais</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-brand-border">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Pilares Fundamentais:</h4>
+                                <ul class="space-y-2 text-xs text-slate-300">
+                                    <li class="flex items-center gap-2">
+                                        <i class="fa-solid fa-check text-brand-emerald text-[10px]"></i>
+                                        <span><strong>Conservação Hídrica:</strong> Maximização de cada litro d'água</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fa-solid fa-check text-brand-emerald text-[10px]"></i>
+                                        <span><strong>Regeneração da Terra:</strong> Fixação biológica de Nitrogênio (N)</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fa-solid fa-check text-brand-emerald text-[10px]"></i>
+                                        <span><strong>Resiliência Financeira:</strong> Minimização do risco de quebra</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fa-solid fa-check text-brand-emerald text-[10px]"></i>
+                                        <span><strong>Acessibilidade Extrema:</strong> Rápido carregamento em conexões móveis</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-3 rounded-lg bg-brand-dark/80 border border-brand-border text-center">
+                            <span class="text-[11px] text-slate-400 block">Slogan Proposto:</span>
+                            <span class="text-xs font-semibold text-brand-emerald italic">"Da órbita ao plantio: decisões inteligentes para a sua colheita."</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: DESAFIO NASA SPACE APPS EM DETALHES -->
+        <section id="desafio-nasa" class="scroll-mt-24 space-y-8">
+            <div class="border-b border-brand-border pb-4 flex items-center justify-between flex-wrap gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-cyan">Capítulo 02</span>
+                    <h2 class="text-3xl font-display font-bold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-shuttle-space text-brand-cyan"></i>
+                        O Desafio Oficial: Field Shift: Adapting Farms with NASA Data
+                    </h2>
+                </div>
+                <span class="text-xs px-3 py-1 rounded-md bg-brand-surface border border-brand-border text-slate-400">Diretrizes da NASA</span>
+            </div>
+
+            <!-- Card de Enunciado Oficial Traduzido -->
+            <div class="bg-gradient-to-r from-brand-surface to-brand-card p-6 sm:p-8 rounded-2xl border border-brand-border space-y-4">
+                <div class="flex items-center gap-3 text-brand-accent text-sm font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-quote-left text-lg"></i>
+                    Declaração Central do Desafio (Challenge Statement)
+                </div>
+                <blockquote class="text-base sm:text-lg text-slate-200 font-medium leading-relaxed italic border-l-4 border-brand-accent pl-4">
+                    "Criar uma aplicação interativa ou ferramenta de suporte à decisão que una as observações da Terra da NASA, dados locais de características do solo, atributos específicos das culturas e as prioridades individuais do agricultor, permitindo que os produtores explorem, simulem e avaliem estratégias inteligentes de rotação de culturas para adaptar suas fazendas às mudanças climáticas."
+                </blockquote>
+            </div>
+
+            <!-- Grid de 4 Requisitos do Desafio -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Requisito 1 -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-emerald/40 transition space-y-3">
+                    <div class="w-10 h-10 rounded-lg bg-brand-emerald/10 text-brand-emerald flex items-center justify-center text-lg font-bold">1</div>
+                    <h4 class="text-base font-bold text-white">Integração de Múltiplos Dados</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Combinar medições orbitais (temperatura, chuva, umidade do solo) com características locais do solo (textura, matéria orgânica) e exigências de cada cultura.
+                    </p>
+                </div>
+
+                <!-- Requisito 2 -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-cyan/40 transition space-y-3">
+                    <div class="w-10 h-10 rounded-lg bg-brand-cyan/10 text-brand-cyan flex items-center justify-center text-lg font-bold">2</div>
+                    <h4 class="text-base font-bold text-white">Prioridades Personalizadas</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        A solução não pode ser "tamanho único". O produtor deve poder escolher priorizar: economia de água, regeneração de nitrogênio ou rendimento financeiro imediato.
+                    </p>
+                </div>
+
+                <!-- Requisito 3 -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-amber/40 transition space-y-3">
+                    <div class="w-10 h-10 rounded-lg bg-brand-amber/10 text-brand-amber flex items-center justify-center text-lg font-bold">3</div>
+                    <h4 class="text-base font-bold text-white">Simulador Comparativo</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Permitir que o agricultor teste diferentes cenários de rotação (ex: Safra convencional vs Safra adaptada com adubo verde) e compare os impactos gerados.
+                    </p>
+                </div>
+
+                <!-- Requisito 4 -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-accent/40 transition space-y-3">
+                    <div class="w-10 h-10 rounded-lg bg-brand-accent/10 text-brand-accent flex items-center justify-center text-lg font-bold">4</div>
+                    <h4 class="text-base font-bold text-white">Linguagem Clara & Transparência</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Exibir recomendações claras, explicar as premissas adotadas e esclarecer as limitações dos dados (não é uma bola de cristal, mas sim suporte à decisão).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tabela de Critérios de Avaliação Oficiais da NASA -->
+            <div class="bg-brand-surface rounded-2xl border border-brand-border overflow-hidden">
+                <div class="px-6 py-4 bg-brand-card border-b border-brand-border flex items-center justify-between">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-award text-brand-amber"></i>
+                        Critérios Globais de Avaliação (NASA Space Apps Judging Criteria)
+                    </h3>
+                    <span class="text-xs text-slate-400">O que os juízes procuram</span>
+                </div>
+                <div class="divide-y divide-brand-border/60 text-xs sm:text-sm">
+                    <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-brand-card/40 transition">
+                        <div class="font-bold text-brand-emerald sm:w-1/4 flex items-center gap-2">
+                            <i class="fa-solid fa-bullseye"></i> Impacto (Impact)
+                        </div>
+                        <div class="text-slate-300 sm:w-3/4">
+                            Quanto a solução pode verdadeiramente ajudar produtores rurais a preservarem suas terras, economizarem recursos hídricos e resistirem a choques climáticos?
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-brand-card/40 transition">
+                        <div class="font-bold text-brand-cyan sm:w-1/4 flex items-center gap-2">
+                            <i class="fa-solid fa-database"></i> Uso de Dados NASA
+                        </div>
+                        <div class="text-slate-300 sm:w-3/4">
+                            Quão efetivamente a equipe incorporou os dados de observação da Terra da NASA (POWER, SMAP, ECOSTRESS, GPM)? A integração é cientificamente fundamentada?
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-brand-card/40 transition">
+                        <div class="font-bold text-brand-accent sm:w-1/4 flex items-center gap-2">
+                            <i class="fa-solid fa-mobile-screen-button"></i> UI / UX e Usabilidade
+                        </div>
+                        <div class="text-slate-300 sm:w-3/4">
+                            A interface do usuário é agradável, intuitiva, rápida e compreensível para alguém que está no campo, sem exigir conhecimento prévio em ciência aeroespacial?
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-brand-card/40 transition">
+                        <div class="font-bold text-brand-amber sm:w-1/4 flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb"></i> Criatividade & Inovação
+                        </div>
+                        <div class="text-slate-300 sm:w-3/4">
+                            A abordagem do simulador e da visualização de dados apresenta algo novo e diferenciado em relação às ferramentas agrometeorológicas tradicionais?
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-brand-card/40 transition">
+                        <div class="font-bold text-purple-400 sm:w-1/4 flex items-center gap-2">
+                            <i class="fa-solid fa-presentation-screen"></i> Clareza da Apresentação
+                        </div>
+                        <div class="text-slate-300 sm:w-3/4">
+                            O projeto, documentação e protótipo explicam a ideia de forma concisa, transparente e elegante para qualquer público.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: CATÁLOGO DE DADOS E APIS DA NASA -->
+        <section id="dados-nasa" class="scroll-mt-24 space-y-8">
+            <div class="border-b border-brand-border pb-4 flex items-center justify-between flex-wrap gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-amber">Capítulo 03</span>
+                    <h2 class="text-3xl font-display font-bold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-network-wired text-brand-amber"></i>
+                        Fontes de Dados & APIs da NASA para o Frontend
+                    </h2>
+                </div>
+                <span class="text-xs px-3 py-1 rounded-md bg-brand-surface border border-brand-border text-slate-400">Integração Técnica</span>
+            </div>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Para viabilizar o projeto no Frontend sem depender de arquiteturas de backend pesadas e complexas no hackathon, selecionamos as fontes oficiais de dados abertos da NASA que fornecem <strong>APIs REST públicas e gratuitas</strong> ou camadas de mapa abertas.
+            </p>
+
+            <!-- Cards de Datasets da NASA -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Dataset 1: NASA POWER -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-emerald/50 transition flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="px-2.5 py-1 rounded-md bg-brand-emerald/15 text-brand-emerald font-bold text-xs uppercase tracking-wider">
+                                API Primária (Pronta para Frontend)
+                            </div>
+                            <span class="text-xs text-slate-400 font-mono">REST JSON • Sem API Key</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-sun text-brand-amber"></i>
+                            NASA POWER (Agroclimatology API)
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            O <em>Prediction of Worldwide Energy Resources</em> fornece séries temporais agrometeorológicas completas para qualquer coordenada do planeta com resolução diária.
+                        </p>
+                        <div class="bg-brand-dark/90 p-3 rounded-xl border border-brand-border font-mono text-[11px] text-slate-300 space-y-1">
+                            <div class="text-brand-emerald font-semibold">// Parâmetros fundamentais:</div>
+                            <div>• <span class="text-brand-cyan">T2M_MAX / T2M_MIN</span>: Temp. máx/mín a 2 metros (°C)</div>
+                            <div>• <span class="text-brand-cyan">PRECTOTCORR</span>: Precipitação diária corrigida (mm)</div>
+                            <div>• <span class="text-brand-cyan">RH2M</span>: Umidade relativa do ar (%)</div>
+                            <div>• <span class="text-brand-cyan">ALLSKY_SFC_SW_DWN</span>: Radiação solar global incidente</div>
+                            <div>• <span class="text-brand-cyan">WS2M</span>: Velocidade do vento a 2 metros (m/s)</div>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <span class="text-[11px] text-slate-400">Aplicação no S.O.L.O:</span>
+                        <p class="text-xs text-slate-200 font-medium">Cálculo do balanço hídrico, histórico de chuvas do talhão e previsão agrometeorológica para semeadura.</p>
+                    </div>
+                </div>
+
+                <!-- Dataset 2: NASA SMAP -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-cyan/50 transition flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="px-2.5 py-1 rounded-md bg-brand-cyan/15 text-brand-cyan font-bold text-xs uppercase tracking-wider">
+                                Umidade de Solo
+                            </div>
+                            <span class="text-xs text-slate-400 font-mono">Radar & Radiômetro</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-droplet text-brand-cyan"></i>
+                            NASA SMAP (Soil Moisture Active Passive)
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Mapeia a umidade volumétrica nas camadas superficiais (0-5 cm) e na zona radicular (root zone, até 100 cm). Fundamental para prever secas antes que as folhas comecem a secar.
+                        </p>
+                        <div class="bg-brand-dark/90 p-3 rounded-xl border border-brand-border font-mono text-[11px] text-slate-300 space-y-1">
+                            <div class="text-brand-cyan font-semibold">// Indicadores monitorados:</div>
+                            <div>• <span class="text-brand-emerald">Surface Soil Moisture</span> (cm³/cm³)</div>
+                            <div>• <span class="text-brand-emerald">Root-Zone Soil Moisture</span> (Capacidade de campo)</div>
+                            <div>• <span class="text-brand-emerald">Soil Moisture Anomaly</span> (Desvio do padrão histórico)</div>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <span class="text-[11px] text-slate-400">Aplicação no S.O.L.O:</span>
+                        <p class="text-xs text-slate-200 font-medium">Alerta de estresse hídrico na raiz e indicador de viabilidade de germinação para a próxima cultura.</p>
+                    </div>
+                </div>
+
+                <!-- Dataset 3: NASA ECOSTRESS -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-amber/50 transition flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="px-2.5 py-1 rounded-md bg-brand-amber/15 text-brand-amber font-bold text-xs uppercase tracking-wider">
+                                Estresse Térmico & Transpiração
+                            </div>
+                            <span class="text-xs text-slate-400 font-mono">ISS Radiometer</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-temperature-arrow-up text-brand-amber"></i>
+                            NASA ECOSTRESS (na Estação Espacial)
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Mede a temperatura da copa vegetal em altíssima resolução espacial (~70m). Revela exatamente quando as plantas estão "suando" e sob estresse hídrico severo.
+                        </p>
+                        <div class="bg-brand-dark/90 p-3 rounded-xl border border-brand-border font-mono text-[11px] text-slate-300 space-y-1">
+                            <div class="text-brand-amber font-semibold">// Principais saídas:</div>
+                            <div>• <span class="text-slate-200">Evapotranspiração Real (ETa)</span></div>
+                            <div>• <span class="text-slate-200">Evaporative Stress Index (ESI)</span></div>
+                            <div>• <span class="text-slate-200">Water Use Efficiency (WUE)</span></div>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <span class="text-[11px] text-slate-400">Aplicação no S.O.L.O:</span>
+                        <p class="text-xs text-slate-200 font-medium">Detecção precoce de superaquecimento do dossel da lavoura antes de danos permanentes.</p>
+                    </div>
+                </div>
+
+                <!-- Dataset 4: GPM IMERG & MODIS/VIIRS -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-accent/50 transition flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="px-2.5 py-1 rounded-md bg-brand-accent/15 text-brand-accent font-bold text-xs uppercase tracking-wider">
+                                Chuva Global & Índices Vegetativos
+                            </div>
+                            <span class="text-xs text-slate-400 font-mono">Constelação Satélite</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-cloud-showers-heavy text-brand-accent"></i>
+                            GPM IMERG & MODIS (NDVI/EVI)
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            O <em>Global Precipitation Measurement</em> fornece mapas de precipitação quase em tempo real, enquanto o sensor MODIS oferece o histórico de verdor e vigor (NDVI).
+                        </p>
+                        <div class="bg-brand-dark/90 p-3 rounded-xl border border-brand-border font-mono text-[11px] text-slate-300 space-y-1">
+                            <div class="text-brand-accent font-semibold">// Utilização direta:</div>
+                            <div>• <span class="text-slate-200">NDVI (Normalized Difference Vegetation Index)</span></div>
+                            <div>• <span class="text-slate-200">Precipitação acumulada nos últimos 30, 60 e 90 dias</span></div>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <span class="text-[11px] text-slate-400">Aplicação no S.O.L.O:</span>
+                        <p class="text-xs text-slate-200 font-medium">Comparação da saúde da biomassa safra a safra para comprovar a regeneração da terra.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demonstração de Código de Consumo da API no Frontend com Next.js / TypeScript -->
+            <div class="bg-brand-surface rounded-2xl border border-brand-border p-6 space-y-4">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-code text-brand-emerald"></i>
+                        Next.js API Route Handler (TypeScript) para Cache e Proxy da NASA:
+                    </h3>
+                    <span class="text-xs text-slate-400 font-mono">src/app/api/nasa/power/route.ts</span>
+                </div>
+                <div class="bg-brand-dark p-4 rounded-xl border border-brand-border/80 overflow-x-auto text-xs font-mono text-slate-300 leading-relaxed">
+<pre><span class="text-slate-500">// src/app/api/nasa/power/route.ts (Next.js App Router)</span>
+<span class="text-brand-emerald">import</span> { NextResponse } <span class="text-brand-emerald">from</span> <span class="text-amber-300">'next/server'</span>;
+
+<span class="text-brand-emerald">export async function</span> <span class="text-brand-cyan">GET</span>(request: Request) {
+  <span class="text-brand-emerald">const</span> { searchParams } = <span class="text-brand-emerald">new</span> URL(request.url);
+  <span class="text-brand-emerald">const</span> lat = searchParams.get(<span class="text-amber-300">'lat'</span>) || <span class="text-amber-300">'-8.83'</span>;
+  <span class="text-brand-emerald">const</span> lon = searchParams.get(<span class="text-amber-300">'lon'</span>) || <span class="text-amber-300">'13.23'</span>;
+  <span class="text-brand-emerald">const</span> start = searchParams.get(<span class="text-amber-300">'start'</span>) || <span class="text-amber-300">'20250101'</span>;
+  <span class="text-brand-emerald">const</span> end = searchParams.get(<span class="text-amber-300">'end'</span>) || <span class="text-amber-300">'20251231'</span>;
+
+  <span class="text-brand-emerald">const</span> params = <span class="text-amber-300">'T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,ALLSKY_SFC_SW_DWN'</span>;
+  <span class="text-brand-emerald">const</span> nasaUrl = <span class="text-amber-300">`https://power.larc.nasa.gov/api/temporal/daily/point?parameters=${params}&community=AG&longitude=${lon}&latitude=${lat}&start=${start}&end=${end}&format=JSON`</span>;
+
+  <span class="text-brand-emerald">const</span> res = <span class="text-brand-emerald">await</span> fetch(nasaUrl, {
+    next: { revalidate: <span class="text-purple-400">86400</span> } <span class="text-slate-500">// Cache de 24h na borda Next.js para economizar requisições</span>
+  });
+
+  <span class="text-brand-emerald">const</span> data = <span class="text-brand-emerald">await</span> res.json();
+  <span class="text-brand-emerald">return</span> NextResponse.json(data);
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: SIMULADOR INTERATIVO (DEMO AO VIVO NO FRONTEND) -->
+        <section id="simulador" class="scroll-mt-24 space-y-8">
+            <div class="border-b border-brand-border pb-4 flex items-center justify-between flex-wrap gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-emerald">Capítulo 04</span>
+                    <h2 class="text-3xl font-display font-bold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-gamepad text-brand-emerald"></i>
+                        Simulador Interativo de Rotação de Culturas (Protótipo Funcional)
+                    </h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-brand-emerald animate-ping"></span>
+                    <span class="text-xs font-semibold text-brand-emerald">Motor de Decisão Ativo</span>
+                </div>
+            </div>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Este componente demonstra a experiência que o agricultor terá na plataforma: ele escolhe a sua <strong>região agrícola</strong>, sua <strong>prioridade agronômica</strong> e monta a sequência da safra. O algoritmo recalcula instantaneamente os <em>Scores de Eficiência Hídrica, Fixação de Nitrogênio e Resiliência Climática</em>.
+            </p>
+
+            <!-- Painel Interativo -->
+            <div class="bg-brand-surface rounded-2xl border border-brand-border p-6 sm:p-8 space-y-8">
+                <!-- Controles de Configuração -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Região -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-brand-emerald"></i>
+                            1. Região / Bioma Agrícola
+                        </label>
+                        <select id="biomeSelect" onchange="runSimulation()" class="w-full bg-brand-card border border-brand-border rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-emerald transition">
+                            <option value="semiarido">Região Semiárida / Chuvas Erráticas (Seca severa)</option>
+                            <option value="savana" selected>Savana / Cerrado (Estação seca definida)</option>
+                            <option value="subtropical">Subtropical (Inverno fresco, chuvas regulares)</option>
+                            <option value="tropical">Tropical Úmido (Altas temperaturas e umidade)</option>
+                        </select>
+                        <p class="text-[11px] text-slate-400">Determina a precipitação de referência da NASA.</p>
+                    </div>
+
+                    <!-- Prioridade -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-brand-cyan"></i>
+                            2. Prioridade do Produtor
+                        </label>
+                        <select id="prioritySelect" onchange="runSimulation()" class="w-full bg-brand-card border border-brand-border rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-cyan transition">
+                            <option value="agua" selected>Economia Máxima de Água (Conservação hídrica)</option>
+                            <option value="solo">Recuperação de Solo & Nitrogênio (Regenerativo)</option>
+                            <option value="lucro">Rendimento Financeiro Imediato (Comercial)</option>
+                            <option value="resiliencia">Resiliência Climática Máxima (Risco mínimo)</option>
+                        </select>
+                        <p class="text-[11px] text-slate-400">Peso aplicado aos scores de decisão.</p>
+                    </div>
+
+                    <!-- Tipo de Solo -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                            <i class="fa-solid fa-mountain text-brand-amber"></i>
+                            3. Textura do Solo Local
+                        </label>
+                        <select id="soilSelect" onchange="runSimulation()" class="w-full bg-brand-card border border-brand-border rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-amber transition">
+                            <option value="arenoso">Solo Arenoso (Baixa retenção de água)</option>
+                            <option value="argiloso" selected>Solo Argiloso (Alta retenção, risco de compactação)</option>
+                            <option value="franco">Solo Franco (Equilibrado e fértil)</option>
+                        </select>
+                        <p class="text-[11px] text-slate-400">Capacidade de retenção de água do solo.</p>
+                    </div>
+                </div>
+
+                <!-- Seletor de Sequência de Rotação (3 Etapas) -->
+                <div class="space-y-4 pt-4 border-t border-brand-border">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                            <i class="fa-solid fa-calendar-days text-brand-emerald"></i>
+                            Sequência de Rotação de Culturas Planejada:
+                        </h4>
+                        <span class="text-xs text-brand-cyan">Alterne as culturas e observe as mudanças abaixo</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Ciclo 1: Safra Principal -->
+                        <div class="bg-brand-card p-4 rounded-xl border border-brand-border space-y-2">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="font-bold text-brand-emerald">CICLO 1 (Safra Principal)</span>
+                                <span class="text-slate-400 text-[10px]">Estação das Chuvas</span>
+                            </div>
+                            <select id="crop1" onchange="runSimulation()" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-brand-emerald">
+                                <option value="milho" selected>Milho (Zea mays) - Alto consumo hídrico</option>
+                                <option value="soja">Soja (Glycine max) - Fixadora de Nitrogênio</option>
+                                <option value="arroz">Arroz de Sequeiro - Consumo Hídrico Elevado</option>
+                                <option value="mandioca">Mandioca - Rústica e resistente à seca</option>
+                            </select>
+                        </div>
+
+                        <!-- Ciclo 2: Safrinha / Segunda Safra -->
+                        <div class="bg-brand-card p-4 rounded-xl border border-brand-border space-y-2">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="font-bold text-brand-cyan">CICLO 2 (Safrinha)</span>
+                                <span class="text-slate-400 text-[10px]">Transição Seca</span>
+                            </div>
+                            <select id="crop2" onchange="runSimulation()" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-brand-cyan">
+                                <option value="feijao" selected>Feijão-Caupi (Vigna unguiculata) - Resiste à seca</option>
+                                <option value="sorgo">Sorgo Granífero - Baixa demanda de água</option>
+                                <option value="milho">Milho Safrinha - Alto risco de déficit hídrico</option>
+                                <option value="gergelim">Gergelim - Excelente tolerância ao calor</option>
+                            </select>
+                        </div>
+
+                        <!-- Ciclo 3: Entressafra / Adubo Verde -->
+                        <div class="bg-brand-card p-4 rounded-xl border border-brand-border space-y-2">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="font-bold text-brand-amber">CICLO 3 (Entressafra / Cobertura)</span>
+                                <span class="text-slate-400 text-[10px]">Período Seco</span>
+                            </div>
+                            <select id="crop3" onchange="runSimulation()" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-brand-amber">
+                                <option value="braquiaria" selected>Braquiária / Adubo Verde (Cobre solo e retém água)</option>
+                                <option value="crotalaria">Crotalária (Combate nematoides e fixa Nitrogênio)</option>
+                                <option value="pousio">Solo Desnudo / Pousio Tradicional (Risco de erosão)</option>
+                                <option value="girassol">Girassol (Raiz profunda busca água no subsolo)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Painel de Resultados do Algoritmo -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 pt-6 border-t border-brand-border">
+                    <!-- Score Geral -->
+                    <div class="bg-brand-card p-6 rounded-2xl border border-brand-border flex flex-col items-center justify-center text-center space-y-3">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Índice Global S.O.L.O.</span>
+                        <div class="relative w-28 h-28 flex items-center justify-center">
+                            <div id="scoreCircle" class="w-28 h-28 rounded-full border-4 border-brand-emerald flex items-center justify-center bg-brand-surface/70 glow-emerald transition-all duration-500">
+                                <span id="overallScoreText" class="text-3xl font-display font-extrabold text-white">88%</span>
+                            </div>
+                        </div>
+                        <span id="scoreBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-brand-emerald/15 text-brand-emerald border border-brand-emerald/30">
+                            Excelente Resiliência
+                        </span>
+                    </div>
+
+                    <!-- 3 Barras de Métricas Detalhadas -->
+                    <div class="lg:col-span-3 bg-brand-card p-6 rounded-2xl border border-brand-border space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-sm font-bold text-white uppercase tracking-wider">
+                                Diagnóstico de Sustentabilidade da Rotação
+                            </h4>
+                            <span class="text-xs text-slate-400 font-mono">Simulado via Dados NASA POWER & SMAP</span>
+                        </div>
+
+                        <!-- Barra 1: Economia Hídrica -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-droplet text-brand-cyan"></i> Eficiência de Uso da Água (WUE)
+                                </span>
+                                <span id="waterValue" class="text-brand-cyan">86%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-brand-dark rounded-full overflow-hidden">
+                                <div id="waterBar" class="h-full bg-brand-cyan rounded-full transition-all duration-500" style="width: 86%;"></div>
+                            </div>
+                            <span id="waterDesc" class="text-[11px] text-slate-400 block">Demanda hídrica compatível com a precipitação histórica da NASA.</span>
+                        </div>
+
+                        <!-- Barra 2: Saúde e Nutrição do Solo -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-seedling text-brand-emerald"></i> Fixação de N & Regeneração do Solo
+                                </span>
+                                <span id="soilValue" class="text-brand-emerald">92%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-brand-dark rounded-full overflow-hidden">
+                                <div id="soilBar" class="h-full bg-brand-emerald rounded-full transition-all duration-500" style="width: 92%;"></div>
+                            </div>
+                            <span id="soilDesc" class="text-[11px] text-slate-400 block">Alta fixação biológica de Nitrogênio e quebra de ciclo de patógenos.</span>
+                        </div>
+
+                        <!-- Barra 3: Resiliência a Secas Extremas -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-shield-halved text-brand-amber"></i> Margem de Adaptação Térmica / Seca
+                                </span>
+                                <span id="resilienceValue" class="text-brand-amber">84%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-brand-dark rounded-full overflow-hidden">
+                                <div id="resilienceBar" class="h-full bg-brand-amber rounded-full transition-all duration-500" style="width: 84%;"></div>
+                            </div>
+                            <span id="resilienceDesc" class="text-[11px] text-slate-400 block">Lavouras toleram variações de até +2.8°C nas ondas de calor.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfico de Balanço Agrometeorológico Simulado -->
+                <div class="pt-6 border-t border-brand-border space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <h4 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-brand-cyan"></i>
+                                Projeção Agroclimática Anual (NASA POWER Historic Model)
+                            </h4>
+                            <p class="text-xs text-slate-400">Precipitação mensal vs. Demanda de Evapotranspiração da rotação escolhida</p>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded bg-brand-cyan"></span>
+                                <span class="text-slate-300">Chuva Prevista (mm)</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded bg-brand-amber"></span>
+                                <span class="text-slate-300">Evapotranspiração da Safra (mm)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-64 sm:h-72 w-full bg-brand-dark p-4 rounded-xl border border-brand-border/60">
+                        <canvas id="agroChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recomendação em Linguagem Natural para o Agricultor -->
+                <div class="p-5 rounded-xl bg-brand-card/90 border border-brand-emerald/40 space-y-2">
+                    <div class="flex items-center gap-2 text-xs font-bold text-brand-emerald uppercase tracking-wider">
+                        <i class="fa-solid fa-comment-dots text-sm"></i>
+                        Recomendação Prática da Plataforma S.O.L.O. para o Produtor:
+                    </div>
+                    <p id="naturalLangRecommendation" class="text-sm text-slate-200 leading-relaxed font-medium">
+                        "Excelente sequência! A combinação de <strong>Milho</strong> sucedido por <strong>Feijão-Caupi</strong> e cobertura com <strong>Braquiária</strong> repõe matéria orgânica no solo, economiza aproximadamente 35% de água na entressafra e protege sua fazenda contra surtos de seca previstos pelos satélites da NASA."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5: STACK TECNOLÓGICA & ARQUITETURA FRONTEND -->
+        <section id="stack-tecnologica" class="scroll-mt-24 space-y-8">
+            <div class="border-b border-brand-border pb-4 flex items-center justify-between flex-wrap gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-emerald">Capítulo 05</span>
+                    <h2 class="text-3xl font-display font-bold text-white flex items-center gap-3">
+                        <i class="fa-brands fa-react text-brand-cyan"></i>
+                        Stack de Frontend: Next.js • React • TypeScript • Tailwind CSS
+                    </h2>
+                </div>
+                <span class="text-xs px-3 py-1 rounded-md bg-brand-surface border border-brand-border text-brand-emerald font-mono font-bold">App Router Ready</span>
+            </div>
+
+            <!-- Detalhamento dos 4 Pilares da Stack -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Next.js -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-emerald/50 transition space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-slate-800 text-white flex items-center justify-center text-lg font-bold border border-slate-700">
+                        N
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Next.js (App Router)</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Renderização ultra rápida com <strong>Server Components</strong> para carregamento imediato no campo. Rotas de API nativas (<code class="text-brand-cyan">/api/nasa/*</code>) para cache de dados de satélite e contorno de CORS.
+                    </p>
+                    <div class="pt-2 text-[11px] text-brand-emerald font-mono">
+                        SSR • SSG • Route Handlers
+                    </div>
+                </div>
+
+                <!-- React -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-cyan/50 transition space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-cyan/10 text-brand-cyan flex items-center justify-center text-lg">
+                        <i class="fa-brands fa-react"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">React 18 / 19</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Arquitetura de componentes reativos, separando perfeitamente a apresentação visual dos hooks de simulação (<code class="text-brand-cyan">useRotationEngine</code>) e estado local de coordenadas.
+                    </p>
+                    <div class="pt-2 text-[11px] text-brand-cyan font-mono">
+                        Hooks • Context • Custom State
+                    </div>
+                </div>
+
+                <!-- TypeScript -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-accent/50 transition space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-lg font-bold">
+                        TS
+                    </div>
+                    <h3 class="text-lg font-bold text-white">TypeScript</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Segurança estrita de tipos para as respostas JSON da NASA POWER e SMAP. Elimina falhas em tempo de execução ao calcular o balanço hídrico e a rotação.
+                    </p>
+                    <div class="pt-2 text-[11px] text-blue-400 font-mono">
+                        Strict Type Safety • Interfaces
+                    </div>
+                </div>
+
+                <!-- Tailwind CSS -->
+                <div class="bg-brand-surface p-6 rounded-2xl border border-brand-border hover:border-brand-amber/50 transition space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-wind"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Tailwind CSS</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Design System ágil, paleta inspirada no espaço e na agricultura, alto contraste para visualização sob luz solar direta e total responsividade mobile-first.
+                    </p>
+                    <div class="pt-2 text-[11px] text-teal-400 font-mono">
+                        Design Tokens • High Solar Contrast
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estrutura de Pastas Next.js Recomendada -->
+            <div class="bg-brand-surface rounded-2xl border border-brand-border p-6 sm:p-8 space-y-4">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-folder-tree text-brand-amber"></i>
+                        Arquitetura de Diretórios Recomendada para a Aplicação Next.js:
+                    </h3>
+                    <span class="text-xs text-slate-400 font-mono">src/ Directory Pattern</span>
+                </div>
+                <div class="bg-brand-dark p-4 rounded-xl border border-brand-border/80 font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed">
+<pre><span class="text-brand-emerald">solo-app/</span>
+├── <span class="text-brand-cyan">src/</span>
+│   ├── <span class="text-brand-amber">app/</span>
+│   │   ├── <span class="text-slate-200">layout.tsx</span>              <span class="text-slate-500">// Shell principal, fontes e metatags oficiais</span>
+│   │   ├── <span class="text-slate-200">page.tsx</span>                <span class="text-slate-500">// Dashboard central com o simulador S.O.L.O.</span>
+│   │   ├── <span class="text-brand-accent">api/nasa/power/route.ts</span> <span class="text-slate-500">// Proxy REST com cache revalidate para API NASA POWER</span>
+│   │   └── <span class="text-slate-200">globals.css</span>             <span class="text-slate-500">// Diretivas Tailwind e variáveis de cor</span>
+│   ├── <span class="text-brand-amber">components/</span>
+│   │   ├── <span class="text-slate-200">FarmMap.tsx</span>             <span class="text-slate-500">// Mapa interativo (Leaflet / MapLibre)</span>
+│   │   ├── <span class="text-slate-200">RotationSimulator.tsx</span>   <span class="text-slate-500">// Linha do tempo visual e seletor de culturas</span>
+│   │   ├── <span class="text-slate-200">SustainabilityRadar.tsx</span> <span class="text-slate-500">// Gráficos de eficiência hídrica e nitrogênio</span>
+│   │   ├── <span class="text-slate-200">MeteoCards.tsx</span>          <span class="text-slate-500">// Cards de clima da NASA (Temp, Chuva, Umidade Solo)</span>
+│   │   └── <span class="text-slate-200">RiskAlerts.tsx</span>          <span class="text-slate-500">// Semáforo e avisos em linguagem leiga para produtor</span>
+│   ├── <span class="text-brand-amber">hooks/</span>
+│   │   ├── <span class="text-slate-200">useNasaAgro.ts</span>          <span class="text-slate-500">// Hook customizado para carregar e tratar dados orbitais</span>
+│   │   └── <span class="text-slate-200">useSimulator.ts</span>         <span class="text-slate-500">// Motor de cálculo de scores e resiliência</span>
+│   ├── <span class="text-brand-amber">types/</span>
+│   │   ├── <span class="text-slate-200">nasa.ts</span>                 <span class="text-slate-500">// Interfaces TypeScript para as respostas JSON da NASA</span>
+│   │   └── <span class="text-slate-200">agronomy.ts</span>             <span class="text-slate-500">// Tipos de culturas, biomas e prioridades</span>
+│   └── <span class="text-brand-amber">data/</span>
+│       └── <span class="text-slate-200">cropsMatrix.json</span>        <span class="text-slate-500">// Matriz de coeficientes hídricos e fixação de N</span>
+├── <span class="text-slate-400">tailwind.config.ts</span>
+├── <span class="text-slate-400">tsconfig.json</span>
+└── <span class="text-slate-400">package.json</span></pre>
+                </div>
+            </div>
+
+            <!-- Princípios de UI/UX Agrícola -->
+            <div class="bg-gradient-to-r from-brand-card via-brand-surface to-brand-card p-6 sm:p-8 rounded-2xl border border-brand-border space-y-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-palette text-brand-emerald"></i>
+                    Diretrizes de Design System & Experiência do Usuário (UI/UX)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-300">
+                    <div class="space-y-1">
+                        <div class="font-bold text-white flex items-center gap-1.5">
+                            <i class="fa-solid fa-sun text-brand-amber"></i> Alto Contraste Solar
+                        </div>
+                        <p class="text-slate-400 leading-relaxed">
+                            Cores com proporção de contraste mínima de 4.5:1 (WCAG AA), permitindo que telas de smartphones sejam lidas sob sol intenso no campo.
+                        </p>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="font-bold text-white flex items-center gap-1.5">
+                            <i class="fa-solid fa-hand-pointer text-brand-cyan"></i> Touch-Friendly (Uso com Luvas / Campo)
+                        </div>
+                        <p class="text-slate-400 leading-relaxed">
+                            Botões grandes com área de toque mínima de 48x48px, campos fáceis de tocar e seletores suspensos amplos.
+                        </p>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="font-bold text-white flex items-center gap-1.5">
+                            <i class="fa-solid fa-feather text-brand-emerald"></i> Zero Fricção de Cadastro
+                        </div>
+                        <p class="text-slate-400 leading-relaxed">
+                            O produtor pode abrir o link e experimentar o simulador imediatamente, sem precisar preencher cadastros burocráticos longos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 6: MATRIZ AGRONÔMICA DE ROTAÇÃO DE CULTURAS -->
+        <section id="matriz-culturas" class="scroll-mt-24 space-y-8">
+            <div class="border-b border-brand-border pb-4 flex items-center justify-between flex-wrap gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-amber">Capítulo 06</span>
+                    <h2 class="text-3xl font-display font-bold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-wheat-awn text-brand-amber"></i>
+                        Matriz Agronômica de Culturas & Compatibilidade
+                    </h2>
+                </div>
+                <span class="text-xs px-3 py-1 rounded-md bg-brand-surface border border-brand-border text-slate-400">Banco de Dados Científico</span>
+            </div>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Para que o simulador recomende combinações reais e cientificamente válidas, o frontend utilizará uma base de dados JSON contendo as principais culturas agrícolas, seu consumo hídrico, ciclo vegetativo e impacto biológico no solo:
+            </p>
+
+            <!-- Tabela da Matriz -->
+            <div class="bg-brand-surface rounded-2xl border border-brand-border overflow-x-auto">
+                <table class="w-full text-left text-xs sm:text-sm text-slate-300">
+                    <thead class="bg-brand-card text-slate-200 uppercase text-[11px] font-bold tracking-wider border-b border-brand-border">
+                        <tr>
+                            <th class="py-3 px-4">Cultura</th>
+                            <th class="py-3 px-4">Consumo de Água</th>
+                            <th class="py-3 px-4">Fixação de Nitrogênio (N)</th>
+                            <th class="py-3 px-4">Profundidade Raiz</th>
+                            <th class="py-3 px-4">Tolerância a Secas</th>
+                            <th class="py-3 px-4">Papel Agronômico Ideal</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brand-border/60">
+                        <tr class="hover:bg-brand-card/30 transition">
+                            <td class="py-3 px-4 font-bold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Milho (Zea mays)
+                            </td>
+                            <td class="py-3 px-4 text-brand-nasaRed font-semibold">Alto (500-800 mm)</td>
+                            <td class="py-3 px-4 text-slate-400">Neutro (Consumidor)</td>
+                            <td class="py-3 px-4 text-slate-300">Média (80-120 cm)</td>
+                            <td class="py-3 px-4 text-amber-400 font-medium">Média-Baixa</td>
+                            <td class="py-3 px-4 text-slate-300">Safra Principal / Renda</td>
+                        </tr>
+                        <tr class="hover:bg-brand-card/30 transition">
+                            <td class="py-3 px-4 font-bold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-brand-emerald"></span> Soja (Glycine max)
+                            </td>
+                            <td class="py-3 px-4 text-amber-400 font-semibold">Médio (450-700 mm)</td>
+                            <td class="py-3 px-4 text-brand-emerald font-bold">Alta (+80 a 150 kg N/ha)</td>
+                            <td class="py-3 px-4 text-slate-300">Média (100 cm)</td>
+                            <td class="py-3 px-4 text-amber-400 font-medium">Média</td>
+                            <td class="py-3 px-4 text-slate-300">Adubação verde & grão comercial</td>
+                        </tr>
+                        <tr class="hover:bg-brand-card/30 transition">
+                            <td class="py-3 px-4 font-bold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-brand-cyan"></span> Feijão-Caupi (Macassar)
+                            </td>
+                            <td class="py-3 px-4 text-brand-emerald font-semibold">Baixo (300-450 mm)</td>
+                            <td class="py-3 px-4 text-brand-emerald font-bold">Alta (+60 kg N/ha)</td>
+                            <td class="py-3 px-4 text-slate-300">Média (60-90 cm)</td>
+                            <td class="py-3 px-4 text-brand-emerald font-bold">Altíssima (Semiárido)</td>
+                            <td class="py-3 px-4 text-slate-300">Safrinha de alta resiliência</td>
+                        </tr>
+                        <tr class="hover:bg-brand-card/30 transition">
+                            <td class="py-3 px-4 font-bold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span> Sorgo Granífero
+                            </td>
+                            <td class="py-3 px-4 text-brand-cyan font-semibold">Baixo-Médio (350-500 mm)</td>
+                            <td class="py-3 px-4 text-slate-400">Neutro</td>
+                            <td class="py-3 px-4 text-brand-cyan font-semibold">Profunda (até 150 cm)</td>
+                            <td class="py-3 px-4 text-brand-emerald font-bold">Excelente</td>
+                            <td class="py-3 px-4 text-slate-300">Substituto do milho na seca</td>
+                        </tr>
+                        <tr class="hover:bg-brand-card/30 transition">
+                            <td class="py-3 px-4 font-bold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-brand-emerald"></span> Braquiária / Cobertura
+                            </td>
+                            <td class="py-3 px-4 text-brand-emerald font-semibold">Mínimo na seca</td>
+                            <td class="py-3 px-4 text-slate-300">Forma Matéria Orgânica</td>
+                            <td class="py-3 px-4 text-brand-emerald font-bold">Muito Profunda (>200 cm)</td>
+                            <td class="py-3 px-4 text-brand-emerald font-bold">Máxima</td>
+                            <td class="py-3 px-4 text-slate-300">Protege o solo e descompacta</td>
+                        </tr>
+                        <tr class="hover:bg-brand-card/30 transition">
+                            <td class="py-3 px-4 font-bold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-brand-amber"></span> Girassol
+                            </td>
+                            <td class="py-3 px-4 text-brand-cyan font-semibold">Baixo-Médio (400-500 mm)</td>
+                            <td class="py-3 px-4 text-slate-400">Neutro</td>
+                            <td class="py-3 px-4 text-brand-emerald font-bold">Profunda e pivotante</td>
+                            <td class="py-3 px-4 text-brand-emerald font-bold">Alta</td>
+                            <td class="py-3 px-4 text-slate-300">Reciclagem de nutrientes profundos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 7: ROADMAP DE DESENVOLVIMENTO PASSO A PASSO -->
+        <section id="roadmap" class="scroll-mt-24 space-y-8">
+            <div class="border-b border-brand-border pb-4 flex items-center justify-between flex-wrap gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-emerald">Capítulo 07</span>
+                    <h2 class="text-3xl font-display font-bold text-white flex items-center gap-3">
+                        <i class="fa-solid fa-list-check text-brand-emerald"></i>
+                        Roadmap de Execução Técnica do Frontend
+                    </h2>
+                </div>
+                <span class="text-xs px-3 py-1 rounded-md bg-brand-surface border border-brand-border text-slate-400">Plano de Trabalho</span>
+            </div>
+
+            <!-- Etapas do Roadmap -->
+            <div class="relative border-l-2 border-brand-border ml-4 sm:ml-6 space-y-8 pl-6 sm:pl-8">
+                <!-- Fase 1 -->
+                <div class="relative">
+                    <span class="absolute -left-[35px] sm:-left-[43px] top-1 w-6 h-6 rounded-full bg-brand-emerald text-slate-950 flex items-center justify-center text-xs font-bold">
+                        1
+                    </span>
+                    <div class="bg-brand-surface p-5 rounded-2xl border border-brand-border space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-bold text-white">Fase 1: Especificação, Escopo & Stack Definida (Concluída Hoje)</h3>
+                            <span class="text-xs px-2 py-0.5 rounded bg-brand-emerald/15 text-brand-emerald font-semibold">Concluído</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-400">
+                            Mapeamento dos requisitos da NASA, criação do documento interativo, definição da stack oficial (<strong>Next.js + React + TypeScript + Tailwind CSS</strong>), contratos de tipos e protótipo interativo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fase 2 -->
+                <div class="relative">
+                    <span class="absolute -left-[35px] sm:-left-[43px] top-1 w-6 h-6 rounded-full bg-brand-cyan text-slate-950 flex items-center justify-center text-xs font-bold">
+                        2
+                    </span>
+                    <div class="bg-brand-surface p-5 rounded-2xl border border-brand-border space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-bold text-white">Fase 2: Setup do Projeto Next.js & Estrutura de Componentes</h3>
+                            <span class="text-xs px-2 py-0.5 rounded bg-brand-cyan/15 text-brand-cyan font-semibold">Próximo Passo</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-400">
+                            Inicialização da aplicação Next.js com TypeScript e Tailwind CSS, configuração do layout base e montagem dos componentes do dashboard.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fase 3 -->
+                <div class="relative">
+                    <span class="absolute -left-[35px] sm:-left-[43px] top-1 w-6 h-6 rounded-full bg-brand-amber text-slate-950 flex items-center justify-center text-xs font-bold">
+                        3
+                    </span>
+                    <div class="bg-brand-surface p-5 rounded-2xl border border-brand-border space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-bold text-white">Fase 3: Motor Interativo de Rotação de Culturas</h3>
+                            <span class="text-xs px-2 py-0.5 rounded bg-brand-amber/15 text-brand-amber font-semibold">Sprint 2</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-400">
+                            Implementação do componente visual de linha do tempo com cálculo de balanço hídrico, fixação de nitrogênio e alertas agronômicos em tempo real com base na entrada do usuário.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fase 4 -->
+                <div class="relative">
+                    <span class="absolute -left-[35px] sm:-left-[43px] top-1 w-6 h-6 rounded-full bg-brand-accent text-slate-950 flex items-center justify-center text-xs font-bold">
+                        4
+                    </span>
+                    <div class="bg-brand-surface p-5 rounded-2xl border border-brand-border space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-bold text-white">Fase 4: Integração Live com a API NASA POWER e Visualizações</h3>
+                            <span class="text-xs px-2 py-0.5 rounded bg-brand-accent/15 text-brand-accent font-semibold">Sprint 3</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-400">
+                            Conexão real via <code>Route Handler</code> na API pública da NASA POWER para puxar as séries diárias reais das coordenadas do usuário e plotar nos gráficos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fase 5 -->
+                <div class="relative">
+                    <span class="absolute -left-[35px] sm:-left-[43px] top-1 w-6 h-6 rounded-full bg-purple-400 text-slate-950 flex items-center justify-center text-xs font-bold">
+                        5
+                    </span>
+                    <div class="bg-brand-surface p-5 rounded-2xl border border-brand-border space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-bold text-white">Fase 5: Testes de Usabilidade, Demonstração & Pitch do Hackathon</h3>
+                            <span class="text-xs px-2 py-0.5 rounded bg-purple-400/15 text-purple-400 font-semibold">Finalização</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-400">
+                            Revisão de responsividade mobile, refinamento visual, elaboração dos slides oficiais de apresentação e gravação da demo em vídeo para submissão no portal da NASA.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-surface border-t border-brand-border py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-400">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-emerald/20 text-brand-emerald flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-satellite-dish"></i>
+                </div>
+                <div>
+                    <span class="font-display font-bold text-white text-sm">S.O.L.O. Plataforma Agrícola Espacial</span>
+                    <p class="text-[11px]">NASA International Space Apps Challenge • Equipe QuixindoDev</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <a href="#visao-geral" class="hover:text-white transition">Topo</a>
+                <a href="#desafio-nasa" class="hover:text-white transition">Desafio</a>
+                <a href="#dados-nasa" class="hover:text-white transition">APIs NASA</a>
+                <a href="#simulador" class="hover:text-white transition">Simulador</a>
+                <a href="#stack-tecnologica" class="hover:text-white transition">Stack Frontend</a>
+                <a href="https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/?tab=details" target="_blank" class="hover:text-white transition flex items-center gap-1">
+                    Space Apps <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                </a>
+            </div>
+
+            <div class="text-slate-500 text-[11px]">
+                Stack: Next.js + React + TypeScript + Tailwind CSS • 2026
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script for the Interactive Simulator -->
+    <script>
+        // Database of Crops
+        const cropsData = {
+            milho: { name: 'Milho', water: 30, nitrogen: -20, resilience: 60, evap: 70 },
+            soja: { name: 'Soja', water: 55, nitrogen: 90, resilience: 75, evap: 55 },
+            feijao: { name: 'Feijão-Caupi', water: 90, nitrogen: 80, resilience: 95, evap: 35 },
+            sorgo: { name: 'Sorgo', water: 85, nitrogen: 10, resilience: 90, evap: 40 },
+            braquiaria: { name: 'Braquiária', water: 95, nitrogen: 70, resilience: 98, evap: 25 },
+            crotalaria: { name: 'Crotalária', water: 80, nitrogen: 95, resilience: 85, evap: 40 },
+            arroz: { name: 'Arroz de Sequeiro', water: 35, nitrogen: -15, resilience: 50, evap: 80 },
+            mandioca: { name: 'Mandioca', water: 85, nitrogen: 0, resilience: 92, evap: 30 },
+            gergelim: { name: 'Gergelim', water: 88, nitrogen: 15, resilience: 90, evap: 35 },
+            pousio: { name: 'Pousio Desnudo', water: 40, nitrogen: -40, resilience: 30, evap: 60 },
+            girassol: { name: 'Girassol', water: 70, nitrogen: 20, resilience: 85, evap: 45 }
+        };
+
+        const biomesData = {
+            semiarido: { rain: [15, 20, 60, 90, 40, 10, 5, 2, 5, 10, 15, 25], factor: 0.8 },
+            savana: { rain: [220, 210, 180, 70, 15, 5, 2, 10, 45, 120, 190, 230], factor: 1.0 },
+            subtropical: { rain: [130, 120, 110, 100, 95, 90, 85, 90, 115, 140, 130, 125], factor: 1.1 },
+            tropical: { rain: [250, 230, 260, 200, 120, 60, 40, 50, 90, 140, 200, 240], factor: 1.2 }
+        };
+
+        let myAgroChart = null;
+
+        function runSimulation() {
+            const biome = document.getElementById('biomeSelect').value;
+            const priority = document.getElementById('prioritySelect').value;
+            const soil = document.getElementById('soilSelect').value;
+
+            const c1Key = document.getElementById('crop1').value;
+            const c2Key = document.getElementById('crop2').value;
+            const c3Key = document.getElementById('crop3').value;
+
+            const c1 = cropsData[c1Key];
+            const c2 = cropsData[c2Key];
+            const c3 = cropsData[c3Key];
+
+            // Base calculations
+            let avgWater = Math.round((c1.water + c2.water + c3.water) / 3);
+            let avgNitrogen = Math.round((c1.nitrogen + c2.nitrogen + c3.nitrogen) / 3);
+            let avgResilience = Math.round((c1.resilience + c2.resilience + c3.resilience) / 3);
+
+            // Soil modifier
+            if (soil === 'arenoso') {
+                avgWater = Math.max(20, avgWater - 12);
+                avgResilience = Math.max(20, avgResilience - 10);
+            } else if (soil === 'franco') {
+                avgWater = Math.min(99, avgWater + 5);
+                avgNitrogen = Math.min(99, avgNitrogen + 8);
+            }
+
+            // Normalizing nitrogen to 0-100 scale for UI
+            let normSoil = Math.max(10, Math.min(99, Math.round(50 + (avgNitrogen * 0.5))));
+            let normWater = Math.max(10, Math.min(99, avgWater));
+            let normResilience = Math.max(10, Math.min(99, avgResilience));
+
+            // Priority weighting
+            let overall = 0;
+            if (priority === 'agua') {
+                overall = Math.round(normWater * 0.5 + normSoil * 0.25 + normResilience * 0.25);
+            } else if (priority === 'solo') {
+                overall = Math.round(normSoil * 0.5 + normWater * 0.25 + normResilience * 0.25);
+            } else if (priority === 'resiliencia') {
+                overall = Math.round(normResilience * 0.5 + normWater * 0.3 + normSoil * 0.2);
+            } else {
+                overall = Math.round(normWater * 0.33 + normSoil * 0.33 + normResilience * 0.34);
+            }
+
+            // Update UI elements
+            document.getElementById('overallScoreText').innerText = overall + '%';
+            document.getElementById('waterValue').innerText = normWater + '%';
+            document.getElementById('waterBar').style.width = normWater + '%';
+            
+            document.getElementById('soilValue').innerText = normSoil + '%';
+            document.getElementById('soilBar').style.width = normSoil + '%';
+
+            document.getElementById('resilienceValue').innerText = normResilience + '%';
+            document.getElementById('resilienceBar').style.width = normResilience + '%';
+
+            // Color adjustments based on score
+            const circle = document.getElementById('scoreCircle');
+            const badge = document.getElementById('scoreBadge');
+            if (overall >= 75) {
+                circle.className = 'w-28 h-28 rounded-full border-4 border-brand-emerald flex items-center justify-center bg-brand-surface/70 glow-emerald transition-all duration-500';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-brand-emerald/15 text-brand-emerald border border-brand-emerald/30';
+                badge.innerText = 'Excelente Resiliência';
+            } else if (overall >= 50) {
+                circle.className = 'w-28 h-28 rounded-full border-4 border-brand-amber flex items-center justify-center bg-brand-surface/70 transition-all duration-500';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-brand-amber/15 text-brand-amber border border-brand-amber/30';
+                badge.innerText = 'Atenção ao Estresse Hídrico';
+            } else {
+                circle.className = 'w-28 h-28 rounded-full border-4 border-brand-nasaRed flex items-center justify-center bg-brand-surface/70 transition-all duration-500';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-brand-nasaRed/15 text-brand-nasaRed border border-brand-nasaRed/30';
+                badge.innerText = 'Alto Risco de Quebra';
+            }
+
+            // Natural language recommendation generator
+            let rec = `Sequência selecionada: <strong>${c1.name}</strong> ➔ <strong>${c2.name}</strong> ➔ <strong>${c3.name}</strong>. `;
+            if (c3Key === 'pousio') {
+                rec += `<span class="text-brand-amber">Aviso crítico:</span> Deixar o solo em pousio desnudo durante a entressafra acelera a perda de água por evaporação e provoca erosão. Recomendamos substituir por <em>Braquiária</em> ou <em>Crotalária</em>.`;
+            } else if (overall >= 80) {
+                rec += `Combinação de alta eficiência agroecológica. O equilíbrio entre fixação biológica e tolerância à seca garante sustentabilidade máxima e reduz em até 40% a necessidade de irrigação artificial.`;
+            } else if (normWater < 50) {
+                rec += `<span class="text-brand-amber">Aviso de déficit hídrico:</span> As culturas selecionadas demandam mais água do que o histórico de chuvas do bioma fornece. Risco elevado de quebra de safra no segundo ciclo.`;
+            } else {
+                rec += `Plano balanceado. Recomendamos monitorar os dados de umidade de solo (NASA SMAP) a partir da 8ª semana para calibrar a semeadura da safrinha.`;
+            }
+            document.getElementById('naturalLangRecommendation').innerHTML = rec;
+
+            // Update Chart
+            updateChart(biome, c1, c2, c3);
+        }
+
+        function updateChart(biomeKey, c1, c2, c3) {
+            const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+            const rainData = biomesData[biomeKey].rain;
+            
+            // Build crop evapotranspiration demand across 12 months
+            const evapData = [
+                Math.round(c1.evap * 1.3),
+                Math.round(c1.evap * 1.5),
+                Math.round(c1.evap * 1.1),
+                Math.round(c2.evap * 1.2),
+                Math.round(c2.evap * 1.4),
+                Math.round(c2.evap * 1.0),
+                Math.round(c3.evap * 0.9),
+                Math.round(c3.evap * 0.8),
+                Math.round(c3.evap * 0.7),
+                Math.round(c1.evap * 0.8),
+                Math.round(c1.evap * 1.1),
+                Math.round(c1.evap * 1.2)
+            ];
+
+            if (myAgroChart) {
+                myAgroChart.data.datasets[0].data = rainData;
+                myAgroChart.data.datasets[1].data = evapData;
+                myAgroChart.update();
+            } else {
+                const ctx = document.getElementById('agroChart').getContext('2d');
+                myAgroChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: months,
+                        datasets: [
+                            {
+                                label: 'Precipitação Média NASA POWER (mm)',
+                                data: rainData,
+                                backgroundColor: 'rgba(6, 182, 212, 0.4)',
+                                borderColor: 'rgba(6, 182, 212, 1)',
+                                borderWidth: 1.5,
+                                borderRadius: 4,
+                                order: 2
+                            },
+                            {
+                                label: 'Demanda Hídrica da Rotação (mm)',
+                                data: evapData,
+                                type: 'line',
+                                borderColor: '#F59E0B',
+                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                                borderWidth: 2.5,
+                                tension: 0.35,
+                                fill: true,
+                                order: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: '#0F1A2E',
+                                titleColor: '#FFFFFF',
+                                bodyColor: '#E2E8F0',
+                                borderColor: '#1E3256',
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                ticks: { color: '#94A3B8', font: { size: 10 } }
+                            },
+                            y: {
+                                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                ticks: { color: '#94A3B8', font: { size: 10 } }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Initialize simulation on load
+        window.addEventListener('DOMContentLoaded', () => {
+            runSimulation();
+        });
+    </script>
+</body>
+</html>
