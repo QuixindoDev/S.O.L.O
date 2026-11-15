@@ -29,8 +29,13 @@
 
   /* Estados */
   --color-danger: #b3261e;
+  --color-danger-soft: #fbeae8;
   --color-warning: #8a5a00;
   --color-warning-soft: #fff4dc;
+
+  /* Confirmação (sucesso) */
+  --color-success: #006b2c;
+  --color-success-soft: #e3f0e4;
 
   /* Raios */
   --radius-card: 20px;
@@ -49,6 +54,18 @@ body {
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Entrada das faixas de estado (sucesso/erro) nos formulários */
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 ::selection {
