@@ -1,98 +1,75 @@
-import React from "react";
-import Link from "next/link";
+import { cn } from "@/lib/utils";
+import type { ButtonSize, ButtonVariant } from "@/types/ui";
 import type { LucideIcon } from "lucide-react";
-import { cn } from "@/lib/cn";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-export type ButtonVariant = "primary" | "soft" | "outline" | "ghost";
-export type ButtonSize = "sm" | "md" | "lg";
-
-const VARIANTS: Record<ButtonVariant, string> = {
-  primary:
-    "bg-primary text-white hover:bg-primary-hover active:bg-primary-hover shadow-sm",
-  soft: "bg-surface-soft text-primary hover:bg-primary-soft",
-  outline:
-    "bg-surface text-text-primary border border-border hover:bg-surface-soft",
-  ghost: "bg-transparent text-text-secondary hover:bg-surface-soft",
-};
-
-const SIZES: Record<ButtonSize, string> = {
-  sm: "h-10 px-4 text-sm gap-1.5 rounded-lg",
-  md: "h-14 px-5 text-lg gap-2 rounded-input",
-  lg: "h-16 px-7 text-xl gap-2.5 rounded-input",
-};
-
-const ICON_SIZES: Record<ButtonSize, number> = {
-  sm: 16,
-  md: 20,
-  lg: 24,
-};
-
-/**
- * Atributos comuns a `<button>` e `<a>`. Usamos `HTMLElement` para que
- * o mesmo conjunto de props sirva para os dois casos.
- */
-export interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  fullWidth?: boolean;
+  /** Formato de cápsula — usado no "Ouvir Ajuda" e no "Falar com a Agrónoma". */
+  pill?: boolean;
   icon?: LucideIcon;
   iconPosition?: "left" | "right";
-  fullWidth?: boolean;
-  /** Se indicado, renderiza um link em vez de um `<button>`. */
-  href?: string;
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
+  children?: ReactNode;
 }
 
+const VARIANTS: Record<ButtonVariant, string> = {
+  primary: "bg-primary text-white hover:bg-primary-hover",
+  outline: "bg-surface text-text-primary border border-border hover:bg-surface-soft",
+  soft: "bg-surface-soft text-text-primary hover:bg-border",
+  warm: "bg-warm text-warm-text hover:brightness-95",
+  ghost: "bg-transparent text-primary hover:bg-primary-soft",
+  link: "bg-transparent text-primary hover:underline",
+};
+
 /**
- * Botão do S.O.L.O.
- * Alturas: sm 40px · md 56px · lg 64px — sempre ≥ 48px para toque com luvas.
- *
- * Com `href` renderiza um `<Link>`; sem `href`, um `<button>`.
+ * Alturas: `sm` 40px | `md` 56px | `lg` 64px.
+ * A regra do projecto é: alvo de toque >= 48px, por isso `sm` só para
+ * acções secundárias dentro de cards.
  */
+const SIZES: Record<ButtonSize, string> = {
+  sm: "h-10 px-4 text-[15px] gap-1.5",
+  md: "h-14 px-5 text-[17px] gap-2",
+  lg: "h-16 px-7 text-[20px] gap-2.5",
+};
+
+const ICON_SIZES: Record<ButtonSize, number> = { sm: 18, md: 20, lg: 22 };
+
 export function Button({
   variant = "primary",
   size = "md",
+  fullWidth = false,
+  pill = false,
   icon: Icon,
   iconPosition = "left",
-  fullWidth = false,
-  href,
   className,
   children,
-  type = "button",
   ...props
 }: ButtonProps) {
-  const iconSize = ICON_SIZES[size];
-
-  const classes = cn(
-    "inline-flex shrink-0 items-center justify-center whitespace-nowrap font-bold transition-colors",
-    "disabled:pointer-events-none disabled:opacity-50",
-    VARIANTS[variant],
-    SIZES[size],
-    fullWidth && "w-full",
-    className,
-  );
-
-  const content = (
-    <>
-      {Icon && iconPosition === "left" && <Icon size={iconSize} aria-hidden />}
-      {children}
-      {Icon && iconPosition === "right" && <Icon size={iconSize} aria-hidden />}
-    </>
-  );
-
-  if (href) {
-    // `type` e `children` já foram extraídos nos parâmetros.
-    const { disabled: _disabled, ...anchorProps } = props;
-    return (
-      <Link href={href} className={classes} {...anchorProps}>
-        {content}
-      </Link>
-    );
-  }
+  const isLink = variant === "link";
 
   return (
-    <button type={type} className={classes} {...props}>
-      {content}
+    <button
+      className={cn(
+        "inline-flex shrink-0 items-center justify-center rounded-input font-bold",
+        "transition-colors focus-visible:outline-3 focus-visible:outline-primary focus-visible:outline-offset-2",
+        "disabled:pointer-events-none disabled:opacity-50",
+        VARIANTS[variant],
+        isLink ? "h-auto gap-2 px-0 py-2 text-[18px]" : SIZES[size],
+        pill && "rounded-full",
+        fullWidth && "w-full",
+        className
+      )}
+      {...props}
+    >
+      {Icon && iconPosition === "left" && (
+        <Icon size={ICON_SIZES[size]} aria-hidden="true" />
+      )}
+      {children}
+      {Icon && iconPosition === "right" && (
+        <Icon size={ICON_SIZES[size]} aria-hidden="true" />
+      )}
     </button>
   );
 }

@@ -1,76 +1,51 @@
-import { normalizePower } from "./normalize";
-import type { AgroSummary, NasaPowerResponse } from "@/types/nasa";
+/** Parâmetros de referência da NASA POWER (comunidade AG — agroclimatologia). */
+export const NASA_POWER_PARAMETERS = [
+  "T2M",
+  "T2M_MAX",
+  "T2M_MIN",
+  "PRECTOTCORR",
+  "RH2M",
+  "ALLSKY_SFC_SW_DWN",
+] as const;
 
-function isoDaysAgo(days: number): string {
-  const d = new Date();
-  d.setUTCDate(d.getUTCDate() - days);
-  return d.toISOString().slice(0, 10).replace(/-/g, "");
+export const NASA_POWER_BASE_URL =
+  "https://power.larc.nasa.gov/api/temporal/daily/point";
+
+export const NASA_POWER_CACHE_SECONDS = 86_400; // 24 h
+
+export interface NasaPowerQuery {
+  lat: number;
+  lon: number;
+  start: string; // YYYYMMDD
+  end: string; // YYYYMMDD
 }
 
-const PARAMETERS =
-  "T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,ALLSKY_SFC_SW_DWN,WS2M";
-
-/**
- * Resumo de reserva quando a NASA não responde.
- * A aplicação tem de funcionar mesmo sem rede — é um requisito
- * do público-alvo (pessoas no campo, com sinal fraco).
- */
-export function fallbackSummary(
-  latitude: number,
-  longitude: number,
-): AgroSummary {
-  return {
-    latitude,
-    longitude,
-    elevationM: 0,
-    current: null,
-    last7: [],
-    series: [],
-    monthlyRainMm: {},
-    rainByMonthOfYear: {},
-    annualRainMm: 0,
-    avgTMax: 28,
-    avgTMin: 19,
-    avgHumidity: 62,
-    lastSatellitePass: null,
-    daysSinceRain: 0,
-  };
+export function buildNasaPowerUrl({ lat, lon, start, end }: NasaPowerQuery) {
+  const params = new URLSearchParams({
+    parameters: NASA_POWER_PARAMETERS.join(","),
+    community: "AG",
+    longitude: String(lon),
+    latitude: String(lat),
+    start,
+    end,
+    format: "JSON",
+  });
+  return `${NASA_POWER_BASE_URL}?${params.toString()}`;
 }
 
 /**
- * Busca a série diária da NASA POWER no servidor e normaliza.
- *
- * Feito no servidor por três motivos:
- *  1. O HTML já chega com os dados — sem ecrã em branco no 3G rural.
- *  2. `revalidate: 86400` guarda a resposta na edge durante 24h,
- *     poupando o telemóvel da Dona Maria.
- *  3. Se a NASA estiver em baixo, a aplicação não quebra.
+ * Consulta a NASA POWER com cache de 24 h na edge.
+ * Poupa os dados móveis do utilizador — requisito do desafio.
  */
-export async function getAgroSummary(
-  latitude: number,
-  longitude: number,
-  windowDays = 90,
-): Promise<AgroSummary> {
-  const start = isoDaysAgo(windowDays);
-  const end = isoDaysAgo(0);
+export async function fetchNasaPower(
+  query: NasaPowerQuery,
+  revalidate: number = NASA_POWER_CACHE_SECONDS
+) {
+  const res = await fetch(buildNasaPowerUrl(query), { next: { revalidate } });
 
-  const url =
-    `https://power.larc.nasa.gov/api/temporal/daily/point` +
-    `?parameters=${PARAMETERS}&community=AG` +
-    `&longitude=${longitude}&latitude=${latitude}` +
-    `&start=${start}&end=${end}&format=JSON`;
-
-  try {
-    const res = await fetch(url, { next: { revalidate: 86400 } });
-
-    if (!res.ok) {
-      throw new Error(`NASA POWER respondeu ${res.status}`);
-    }
-
-    const json = (await res.json()) as NasaPowerResponse;
-    return normalizePower(json);
-  } catch (error) {
-    console.error("[nasa] falha ao buscar POWER:", error);
-    return fallbackSummary(latitude, longitude);
+  if (!res.ok) {
+    throw new Error(`NASA POWER respondeu ${res.status}`);
   }
+
+  return (await res.json()) as unknown;
 }

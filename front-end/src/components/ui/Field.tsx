@@ -1,59 +1,42 @@
-import React from "react";
 import type { LucideIcon } from "lucide-react";
-import { cn } from "@/lib/cn";
-import { Input } from "./Input";
+import type { ReactNode } from "react";
 
-export interface FieldProps {
+interface FieldProps {
+  id: string;
   label: string;
+  hint?: string;
   icon?: LucideIcon;
-  placeholder?: string;
-  helper?: string;
-  type?: React.HTMLInputTypeAttribute;
-  value?: string;
-  defaultValue?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   required?: boolean;
-  autoComplete?: string;
+  error?: string;
+  children: ReactNode;
 }
 
 /**
- * Campo de formulário: rótulo + ícone + caixa + texto de ajuda.
- * O texto de ajuda é sempre em tom suave e nunca em negrito —
- * é a instrução, não o título.
+ * Rótulo + controlo + texto de ajuda.
+ * O texto de ajuda explica sempre o *porquê* do campo, em linguagem simples.
  */
 export function Field({
+  id,
   label,
+  hint,
   icon: Icon,
-  placeholder,
-  helper,
-  type = "text",
-  value,
-  defaultValue,
-  onChange,
   required,
-  autoComplete,
+  error,
+  children,
 }: FieldProps) {
   return (
-    <div className="flex w-full min-w-0 flex-col gap-2">
-      <label className="flex items-center gap-2.5 text-lg font-bold text-text-primary sm:text-xl">
-        {Icon && (
-          <Icon size={22} className="shrink-0 text-primary" aria-hidden />
-        )}
+    <div className="flex w-full flex-col items-start gap-2">
+      <label
+        htmlFor={id}
+        className="flex items-center gap-2.5 text-[20px] font-bold text-text-primary"
+      >
+        {Icon && <Icon size={22} className="text-text-secondary" aria-hidden="true" />}
         {label}
+        {required && <span className="text-danger">*</span>}
       </label>
-      <Input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        defaultValue={defaultValue}
-        onChange={onChange}
-        required={required}
-        autoComplete={autoComplete}
-      />
-      {helper && (
-        <span className="text-base leading-snug text-text-muted sm:text-[17px]">
-          {helper}
-        </span>
+      {children}
+      {!error && hint && (
+        <p className="w-full text-[17px] text-text-muted">{hint}</p>
       )}
     </div>
   );

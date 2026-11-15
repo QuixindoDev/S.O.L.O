@@ -1,385 +1,227 @@
-"use client";
+import type { Metadata } from "next";
+import {
+  Check,
+  CornerDownLeft,
+  Lock,
+  MapPin,
+  MessageSquare,
+  ShieldCheck,
+  Smartphone,
+  User,
+  UserRound,
+  Volume2,
+  WifiOff,
+} from "lucide-react";
+import { AuthHero } from "@/components/features/auth/AuthHero";
+import { StepRow } from "@/components/features/auth/StepRow";
+import { Brand } from "@/components/layout/Brand";
+import {
+  Button,
+  Callout,
+  Card,
+  CodeInputs,
+  Field,
+  Input,
+  PhoneNotice,
+} from "@/components/ui";
+
+export const metadata: Metadata = {
+  title: "Design System | S.O.L.O.",
+  robots: { index: false, follow: false },
+};
 
 /**
- * ⚠️  ROTA TEMPORÁRIA — apenas para avaliação visual dos componentes.
- *     Apagar antes da demonstração final (ou mover para /dev/design-system
- *     fora da build de produção).
+ * Preview dos blocos usados **apenas** nos ecrãs de autenticação:
+ * 1. Criar Conta · 1B. Entrar · 2. SMS Enviado · 3. Código de Segurança.
  */
-
-import React, { useState } from "react";
-import {
-  CalendarDays,
-  Check,
-  CloudRain,
-  Droplets,
-  Leaf,
-  Sprout,
-  Sun,
-  TriangleAlert,
-  Wallet,
-} from "lucide-react";
-import { AppShell } from "@/components/layout/AppShell";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { TopBar } from "@/components/layout/TopBar";
-import { Avatar } from "@/components/ui/Avatar";
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { Divider } from "@/components/ui/Divider";
-import { EmptyState } from "@/components/ui/EmptyState";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-import { Field } from "@/components/ui/Field";
-import { IconBox } from "@/components/ui/IconBox";
-import { IconButton } from "@/components/ui/IconButton";
-import { Input } from "@/components/ui/Input";
-import { ProgressBar } from "@/components/ui/ProgressBar";
-import { ScoreRing } from "@/components/ui/ScoreRing";
-import { Select } from "@/components/ui/Select";
-
-function Section({
-  id,
-  title,
-  note,
-  children,
-}: {
-  id: string;
-  title: string;
-  note?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section id={id} className="flex flex-col gap-5">
-      <div className="flex flex-col gap-1">
-        <h2 className="text-2xl font-bold text-text-primary">{title}</h2>
-        {note && <p className="text-base text-text-muted">{note}</p>}
-      </div>
-      {children}
-    </section>
-  );
-}
-
-function Row({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-wrap items-center gap-4">{children}</div>;
-}
-
 export default function DesignSystemPage() {
-  const [ciclo, setCiclo] = useState("milho");
-
   return (
-    <AppShell
-      title="Biblioteca de Componentes"
-      subtitle="Rota temporária de avaliação — /design-system"
-      location="Feira de Santana - BA"
-    >
-      <div className="flex flex-col gap-10 pb-20 sm:gap-16">
-        {/* AVISO RESPONSIVO */}
-        <Card variant="soft" padding="md" className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-          <IconBox icon={TriangleAlert} tone="warning" size="sm" />
-          <p className="text-base leading-snug text-text-secondary">
-            <strong className="text-text-primary">Responsividade:</strong> estrela a
-            janela do browser (ou abre no telemóvel) para ver a barra lateral
-            transformar-se em menu <strong>hamburger</strong>. No telemóvel, o
-            botão ☰ aparece no canto superior esquerdo.
-          </p>
-        </Card>
+    <main className="flex flex-col gap-12 bg-bg px-8 py-10">
+      <header className="flex flex-col gap-2">
+        <h1 className="text-[34px] font-bold text-text-primary">
+          Sistema de Design — Autenticação
+        </h1>
+        <p className="max-w-2xl text-[17px] text-text-secondary">
+          Blocos usados nos ecrãs <strong>1. Criar Conta</strong>,{" "}
+          <strong>1B. Entrar</strong>, <strong>2. SMS Enviado</strong> e{" "}
+          <strong>3. Verificação de Segurança (2FA)</strong>. Tokens em{" "}
+          <code className="text-primary">src/app/globals.css</code>.
+        </p>
+      </header>
 
-        {/* ÍNDICE */}
-        <nav className="flex flex-wrap gap-2">
-          {[
-            ["botoes", "Botões"],
-            ["cartoes", "Cartões"],
-            ["etiquetas", "Etiquetas"],
-            ["icones", "Ícones"],
-            ["formularios", "Formulários"],
-            ["pontuacao", "Pontuação"],
-            ["estrutura", "Estrutura"],
-          ].map(([id, label]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className="rounded-full border border-border bg-surface px-3.5 py-2 text-sm font-bold text-text-secondary transition-colors hover:bg-surface-soft sm:px-4 sm:text-base"
+      <section className="flex flex-col gap-4">
+        <h2 className="text-[24px] font-bold text-text-primary">
+          Brand + Top Bar (ecrãs 1, 1B, 2 e 3)
+        </h2>
+        <div className="flex w-full items-center justify-between gap-4 rounded-card bg-surface p-[18px_48px]">
+          <Brand />
+          <Button
+            variant="warm"
+            pill
+            icon={Volume2}
+            className="h-12 px-5 text-[17px]"
+          >
+            Ouvir Ajuda
+          </Button>
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="text-[24px] font-bold text-text-primary">Button</h2>
+        <div className="flex flex-wrap items-center gap-4">
+          <Button size="md" icon={Check}>
+            CRIAR MINHA CONTA E COMEÇAR
+          </Button>
+          <Button size="lg" variant="primary" pill className="h-[54px] text-[16px]">
+            Falar com a Agrónoma
+          </Button>
+          <Button
+            variant="warm"
+            pill
+            icon={Volume2}
+            className="h-12 px-5 text-[17px]"
+          >
+            Ouvir Ajuda
+          </Button>
+          <Button variant="ghost" icon={CornerDownLeft}>
+            Já tem uma conta? Entrar
+          </Button>
+          <Button size="sm">Pequeno 40px</Button>
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="text-[24px] font-bold text-text-primary">
+          AuthHero (ícone + título + frase de ajuda)
+        </h2>
+        <div className="flex flex-wrap gap-6">
+          <Card padding="lg" className="max-w-[600px] gap-7">
+            <AuthHero
+              icon={UserRound}
+              title="Entrar na minha conta"
+              subtitle="Bom te ver de novo. Digite seu WhatsApp e sua senha."
+            />
+          </Card>
+          <Card className="max-w-[620px] gap-6">
+            <AuthHero
+              icon={MessageSquare}
+              iconSize={84}
+              title="Mensagem enviada!"
+              subtitle="Mandamos um SMS comum para o seu celular. É só o código de segurança."
+            />
+          </Card>
+        </div>
+      </section>
+
+      <section className="flex max-w-2xl flex-col gap-6">
+        <h2 className="text-[24px] font-bold text-text-primary">Field + Input</h2>
+        <Field
+          id="ds-nome"
+          label="Como você quer ser chamada?"
+          icon={User}
+          hint="Pode ser seu nome, apelido carinhoso ou nome do sítio."
+        >
+          <Input
+            id="ds-nome"
+            placeholder="Ex: Dona Maria da Silva ou Sítio Esperança"
+          />
+        </Field>
+        <Field
+          id="ds-telefone"
+          label="Seu WhatsApp ou Celular"
+          icon={Smartphone}
+          hint="Usado para você receber os alertas do tempo, de forma simples."
+        >
+          <Input id="ds-telefone" placeholder="Ex: (+244) 923 456 789" />
+        </Field>
+        <Field id="ds-cidade" label="Sua Cidade e Estado" icon={MapPin}>
+          <Input id="ds-cidade" placeholder="Ex: Caxito - Bengo" />
+        </Field>
+        <Field
+          id="ds-senha"
+          label="Crie uma Senha Simples"
+          icon={Lock}
+          hint="Escolha algo que você lembre sem esforço no dia a dia."
+        >
+          <Input id="ds-senha" placeholder="Uma palavra ou números fáceis" />
+        </Field>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="text-[24px] font-bold text-text-primary">
+          PhoneNotice (ecrãs 2 e 3)
+        </h2>
+        <PhoneNotice numero="+244 933 300 300" />
+        <PhoneNotice
+          numero="+244 933 3** ***"
+          action={
+            <button
+              type="button"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-surface px-4 py-2.5 text-[16px] font-bold text-primary"
             >
-              {label}
-            </a>
-          ))}
-        </nav>
+              Mudar número
+            </button>
+          }
+        />
+      </section>
 
-        {/* BOTÕES */}
-        <Section
-          id="botoes"
-          title="Botões"
-          note="Variantes × tamanhos. Altura mínima 40px; os principais usam 64px."
-        >
-          <Card padding="lg" className="flex flex-col gap-6">
-            <div className="flex flex-col gap-3">
-              <span className="text-sm font-bold tracking-wider text-text-muted">
-                VARIANTES
-              </span>
-              <Row>
-                <Button variant="primary">Guardar</Button>
-                <Button variant="soft">Anotar</Button>
-                <Button variant="outline">Cancelar</Button>
-                <Button variant="ghost">Saber mais</Button>
-              </Row>
-            </div>
-            <Divider />
-            <div className="flex flex-col gap-3">
-              <span className="text-sm font-bold tracking-wider text-text-muted">
-                TAMANHOS
-              </span>
-              <Row>
-                <Button size="sm">Pequeno</Button>
-                <Button size="md">Médio</Button>
-                <Button size="lg">Grande</Button>
-              </Row>
-            </div>
-            <Divider />
-            <div className="flex flex-col gap-3">
-              <span className="text-sm font-bold tracking-wider text-text-muted">
-                COM ÍCONE
-              </span>
-              <Row>
-                <Button icon={Sprout}>Plantar</Button>
-                <Button icon={CalendarDays} variant="soft">
-                  Calendário
-                </Button>
-                <Button icon={Check} iconPosition="right" variant="outline">
-                  Confirmar
-                </Button>
-              </Row>
-            </div>
-            <Divider />
-            <div className="flex flex-col gap-3">
-              <span className="text-sm font-bold tracking-wider text-text-muted">
-                LARGURA TOTAL (para mobile)
-              </span>
-              <Button fullWidth icon={Sprout}>
-                Registar canteiro
-              </Button>
-            </div>
-            <Divider />
-            <div className="flex flex-col gap-3">
-              <span className="text-sm font-bold tracking-wider text-text-muted">
-                ÍCONE SOZINHO (sempre com aria-label)
-              </span>
-              <Row>
-                <IconButton icon={Sprout} label="Adicionar planta" tone="soft" />
-                <IconButton icon={Check} label="Confirmar" tone="primary" />
-                <IconButton icon={Sun} label="Ouvir" tone="warm" />
-              </Row>
-            </div>
-          </Card>
-        </Section>
+      <section className="flex flex-col gap-4">
+        <h2 className="text-[24px] font-bold text-text-primary">
+          StepRow (ecrã 2 — como fazer agora)
+        </h2>
+        <div className="flex w-full max-w-[620px] flex-col gap-3.5">
+          <StepRow
+            numero={1}
+            title="Abra suas mensagens normais"
+            description="O aplicativo de Mensagens (SMS) do seu celular."
+            icon={MessageSquare}
+          />
+          <StepRow
+            numero={2}
+            title="Veja os 6 números"
+            description="Foram enviados junto com a mensagem."
+            icon={MessageSquare}
+          />
+        </div>
+      </section>
 
-        {/* CARTÕES */}
-        <Section
-          id="cartoes"
-          title="Cartões"
-          note="Três variantes. Nunca aninhar cartões sem razão funcional."
-        >
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-            <Card padding="lg" className="flex flex-col gap-3">
-              <Eyebrow icon={Leaf}>PREVISÃO DA ROÇA</Eyebrow>
-              <h3 className="text-xl font-bold text-text-primary sm:text-2xl">
-                Tempo & Chuva Hoje
-              </h3>
-              <p className="text-base text-text-secondary sm:text-lg">
-                Cartão principal, com fundo branco e borda suave.
-              </p>
-              <div>
-                <Badge>Ideal</Badge>
-              </div>
-            </Card>
-            <Card variant="soft" padding="lg" className="flex flex-col gap-3">
-              <IconBox icon={Droplets} tone="surface" />
-              <h3 className="text-xl font-bold text-text-primary sm:text-2xl">
-                Cartão secundário
-              </h3>
-              <p className="text-base text-text-secondary sm:text-lg">
-                Fundo bege, para informação de apoio.
-              </p>
-            </Card>
-            <Card variant="outline" padding="lg" className="flex flex-col gap-3">
-              <IconBox icon={Wallet} tone="soft" />
-              <h3 className="text-xl font-bold text-text-primary sm:text-2xl">
-                Cartão vazado
-              </h3>
-              <p className="text-base text-text-secondary sm:text-lg">
-                Só a borda, para quando o cartão é mesmo opcional.
-              </p>
-            </Card>
-          </div>
-        </Section>
-
-        {/* ETIQUETAS */}
-        <Section
-          id="etiquetas"
-          title="Etiquetas e avisos"
-          note="Estados usados no semáforo de risco e nos resumos."
-        >
-          <Card padding="lg" className="flex flex-col gap-6">
-            <Row>
-              <Badge tone="primary">Bom</Badge>
-              <Badge tone="soft">Neutro</Badge>
-              <Badge tone="warning">Atenção</Badge>
-              <Badge tone="danger">Risco</Badge>
-              <Badge tone="onPrimary">Confirmado</Badge>
-            </Row>
-            <Divider />
-            <Row>
-              <IconBox icon={TriangleAlert} tone="warning" size="lg" />
-              <IconBox icon={Sun} tone="warm" size="lg" />
-              <IconBox icon={Check} tone="primary" size="lg" />
-              <IconBox icon={CloudRain} tone="surface" size="lg" />
-              <IconBox icon={Leaf} tone="soft" size="lg" />
-            </Row>
-            <Divider />
-            <Row>
-              <Avatar initials="DM" size="sm" />
-              <Avatar initials="DM" size="md" />
-              <Avatar initials="DM" size="lg" />
-            </Row>
-          </Card>
-        </Section>
-
-        {/* FORMULÁRIOS */}
-        <Section
-          id="formularios"
-          title="Formulários"
-          note="Campo com rótulo, ícone e texto de ajuda. Selector em cartões."
-        >
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            <Card padding="lg" className="flex flex-col gap-6">
-              <Field
-                label="Como você quer ser chamada?"
-                icon={Sprout}
-                placeholder="Ex: Dona Maria da Silva"
-                helper="Pode ser seu nome, apelido carinhoso ou nome do sítio."
-              />
-              <Field
-                label="Seu WhatsApp ou Celular"
-                icon={Droplets}
-                placeholder="Ex: (71) 99123-4567"
-                helper="Usado para você receber os alertas do tempo."
-              />
-              <div className="flex flex-col gap-2">
-                <label className="text-lg font-bold text-text-primary sm:text-xl">
-                  Campo simples
-                </label>
-                <Input placeholder="Ex: Feira de Santana - BA" />
-              </div>
-            </Card>
-
-            <Card padding="lg" className="flex flex-col gap-6">
-              <Select
-                label="Cultura da Safra Principal"
-                value={ciclo}
-                onChange={setCiclo}
-                options={[
-                  {
-                    value: "milho",
-                    label: "Milho",
-                    description: "Zea mays — alto consumo de água",
-                  },
-                  {
-                    value: "soja",
-                    label: "Soja",
-                    description: "Glycine max — fixa nitrogénio no solo",
-                  },
-                  {
-                    value: "arroz",
-                    label: "Arroz de Sequeiro",
-                    description: "Consumo de água elevado",
-                  },
-                ]}
-              />
-              <p className="text-base text-text-muted">
-                Valor actual:{" "}
-                <strong className="text-text-primary">{ciclo}</strong> — clique no
-                selector para ver o menu abrir.
-              </p>
-            </Card>
-          </div>
-        </Section>
-
-        {/* PONTUAÇÃO */}
-        <Section
-          id="pontuacao"
-          title="Pontuação"
-          note="Medidor circular e barras de sustentabilidade do simulador."
-        >
-          <Card padding="lg" className="flex flex-col gap-8">
-            <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-10">
-              <ScoreRing value={88} label="Índice S.O.L.O." />
-              <ScoreRing value={72} label="Umidade" size={130} />
-              <ScoreRing value={34} label="Atenção" size={130} tone="warning" />
-            </div>
-            <Divider />
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <ProgressBar label="Economia de Água" value={86} />
-              <ProgressBar label="Saúde do Solo" value={92} />
-              <ProgressBar label="Resiliência à Seca" value={84} />
-            </div>
-          </Card>
-        </Section>
-
-        {/* ESTRUTURA */}
-        <Section
-          id="estrutura"
-          title="Estrutura"
-          note="Barra lateral e cabeçalho — o esqueleto de todos os ecrãs."
-        >
-          <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-            <Card padding="none" className="overflow-hidden">
-              <div className="border-b border-border bg-surface-soft px-5 py-3">
-                <span className="text-sm font-bold tracking-wider text-text-muted">
-                  BARRA LATERAL (desktop)
-                </span>
-              </div>
-              <div className="flex h-[640px] justify-center bg-bg">
-                <Sidebar activeHref="/rotacao-de-culturas" />
-              </div>
-            </Card>
-
-            <Card padding="none" className="overflow-hidden">
-              <div className="border-b border-border bg-surface-soft px-5 py-3">
-                <span className="text-sm font-bold tracking-wider text-text-muted">
-                  CABEÇALHO (desktop)
-                </span>
-              </div>
-              <div className="flex h-[120px] items-stretch bg-bg">
-                <TopBar
-                  title="Rotação de Culturas"
-                  subtitle="Planeie o que plantar em cada etapa da safra"
-                  location="Feira de Santana - BA"
-                />
-              </div>
-              <div className="border-b border-border bg-surface-soft px-5 py-3">
-                <span className="text-sm font-bold tracking-wider text-text-muted">
-                  BARRA LATERAL (drawer do telemóvel)
-                </span>
-              </div>
-              <div className="flex h-[640px] justify-start bg-bg">
-                <Sidebar isDrawer activeHref="/previsao-do-tempo" />
-              </div>
-            </Card>
-          </div>
-        </Section>
-
-        {/* ESTADO VAZIO */}
-        <Section id="vazio" title="Estado vazio" note="Quando ainda não há dados.">
-          <EmptyState
-            icon={Sprout}
-            title="Ainda não tem canteiros registados"
-            description="Assim que registar a sua horta, mostramos aqui a humidade do solo e o que plantar."
+      <section className="flex flex-col gap-4">
+        <h2 className="text-[24px] font-bold text-text-primary">
+          Callout (aviso, boa notícia e ajuda humana)
+        </h2>
+        <div className="flex w-full max-w-[620px] flex-col gap-4">
+          <Callout
+            variant="note"
+            icon={ShieldCheck}
+            description="Seus dados estão protegidos com carinho. Não cobramos nada."
+          />
+          <Callout
+            icon={WifiOff}
+            title="Não precisa de internet no celular"
+            description="Funciona com sinal fraco. É só receber a mensagem."
+          />
+          <Callout
+            variant="help"
+            icon={UserRound}
+            title="Precisa de ajuda de uma pessoa real?"
+            description="Nossa equipe do campo está pronta para te atender com carinho."
             action={
-              <Button icon={Sprout} className="w-full sm:w-auto">
-                Registar canteiro
+              <Button variant="primary" pill fullWidth className="h-[54px] text-[16px]">
+                Falar com a Agrónoma
               </Button>
             }
           />
-        </Section>
-      </div>
-    </AppShell>
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="text-[24px] font-bold text-text-primary">
+          CodeInputs (ecrã 3 — os 6 números do SMS)
+        </h2>
+        <div className="w-full max-w-[640px]">
+          <CodeInputs />
+        </div>
+      </section>
+    </main>
   );
 }

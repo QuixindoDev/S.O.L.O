@@ -1,37 +1,29 @@
-# ============================================================
-#  S.O.L.O. — Front-end (Next.js)
-#  Os padrões não estão ancorados à raiz, por isso valem
-#  para qualquer sub-pasta (src/, public/, etc.)
-# ============================================================
-
 # Dependencies
-node_modules/
-.pnp
+/node_modules
+/.pnp
 .pnp.js
 .yarn/cache
 
 # Testing
-coverage/
+/coverage
 
-# Next.js / builds
-.next/
-out/
-build/
-dist/
+# Next.js
+/.next/
+/out/
+
+# Production
+/build
 
 # Misc
 .DS_Store
-Thumbs.db
-*.pem
+
 
 # Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 
 # Local env files
-.env
 .env*.local
 
 # Vercel
@@ -41,6 +33,14 @@ pnpm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Editores / ferramentas locais (pessoais)
-.agents/
-.vscode/
+#diretorios e meus ficheiros
+/.agents
+/.vscode
+escopo-projecto.md
+index.html
+login.pen
+stitch-design-system-prompt.md
+AGENTS.md
+
+
+

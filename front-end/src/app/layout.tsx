@@ -32,26 +32,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-<<<<<<< HEAD:front-end/src/app/layout.tsx
-    <html
-      lang="pt-BR"
-      className={`${atkinson.variable} scroll-smooth`}
-      suppressHydrationWarning
-    >
-      {/* `suppressHydrationWarning`: algumas extensões de browser
-          (ex.: ChatGPT/Codex) injectam atributos no <body> antes do
-          React arrancar, o que provoca um aviso de hydration mismatch
-          que não tem nada a ver com o nosso código. */}
-      <body
-        className="bg-bg text-text-primary antialiased"
-        suppressHydrationWarning
-      >
-        {children}
-      </body>
-=======
     <html lang="pt-PT" className={`${atkinson.variable} scroll-smooth`}>
       <body className="bg-bg text-text-primary antialiased">{children}</body>
->>>>>>> c7ff2d66 (feat(auth): implementa os 4 ecranas de autenticacao do design):src/app/layout.tsx
     </html>
   );
 }

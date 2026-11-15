@@ -61,7 +61,7 @@
   },
   {
     "id": "braquiaria",
-    "name": "Braquiária",
+    "name": "Braquiária / Adubo Verde",
     "scientificName": "Urochloa ruziziensis",
     "category": "cover_crop",
     "waterDemandScore": 20,
@@ -133,20 +133,5 @@
     "typicalCycleDays": 90,
     "recommendedSeason": "cover_fallow",
     "description": "Prática prejudicial: deixa a terra exposta à radiação solar direta, acelerando evaporação e provocando erosão hídrica e eólica."
-  },
-  {
-    "id": "feijao_guandu",
-    "name": "Feijão-Guandu",
-    "scientificName": "Cajanus cajan",
-    "category": "legume",
-    "waterDemandScore": 35,
-    "waterEfficiencyBase": 88,
-    "nitrogenFixationKgHa": 100,
-    "rootDepthCm": 200,
-    "droughtToleranceScore": 92,
-    "heatToleranceScore": 92,
-    "typicalCycleDays": 120,
-    "recommendedSeason": "cover_fallow",
-    "description": "Leguminosa de raiz muito profunda (2 m). Vive na seca, fixa azoto do ar e serve de forragem para o gado no período mais difícil do ano."
   }
 ]
