@@ -62,7 +62,7 @@ Plataforma de suporte à decisão para **agricultura familiar**, que traduz dado
 | Ecrã | Rota | Ficheiros |
 |---|---|---|
 | **4. Meu Caderno da Terra (Início)** | `/inicio` | `features/dashboard/{WeatherCard,GardenCard,TipsGrid,QuickActions}.tsx` |
-| **6. Previsão do Tempo** | `/clima` | `features/clima/{TodaySummary,WeekForecast,NasaAlerts}.tsx` |
+| **6. Previsão do Tempo** | `/previsao-do-tempo` | `features/clima/{TodaySummary,WeekForecast,NasaAlerts}.tsx` |
 
 Ambas são **Server Components** com `export const revalidate = 86400`:
 os dados do satélite são buscados no servidor e **chegam no HTML inicial** —
@@ -132,14 +132,14 @@ src/
 │   ├── (app)/                        # Telas COM barra lateral (a app em si)
 │   │   ├── layout.tsx                # AppShell = <Sidebar/> + <TopBar/> + <main/>
 │   │   ├── inicio/page.tsx           # Ecrã 4  — Meu Caderno da Terra
-│   │   ├── clima/page.tsx            # Ecrã 6  — Previsão do Tempo   (NASA POWER)
-│   │   ├── terra/page.tsx            # Ecrã 7  — Minha Terra e Horta (NASA SMAP)
-│   │   ├── plantas/page.tsx          # Ecrã 8  — Minhas Plantas
-│   │   ├── rotacao/page.tsx          # Ecrã 5  — Rotação de Culturas (SIMULADOR)
-│   │   ├── plantio/page.tsx          # Ecrã 10 — Calendário de Plantio
-│   │   ├── contas/page.tsx           # Ecrã 9  — Meu Caderninho de Contas
-│   │   ├── agronoma/page.tsx         # Ecrã 11 — Falar com a Agrônoma (WhatsApp)
-│   │   └── ajuda/page.tsx            # Ecrã 12 — Ouvir Ajuda (áudio)
+│   │   ├── previsao-do-tempo/page.tsx # Ecrã 6 — Previsão do Tempo (NASA POWER)
+│   │   ├── minha-terra-e-horta/page.tsx # Ecrã 7 — Minha Terra e Horta (SMAP)
+│   │   ├── minhas-plantas/page.tsx    # Ecrã 8  — Minhas Plantas
+│   │   ├── rotacao-de-culturas/page.tsx # Ecrã 5 — Rotação de Culturas (SIMULADOR)
+│   │   ├── calendario-de-plantio/page.tsx # Ecrã 10 — Calendário de Plantio
+│   │   ├── meu-caderninho/page.tsx   # Ecrã 9  — Meu Caderninho de Contas
+│   │   ├── falar-com-a-agronoma/page.tsx # Ecrã 11 — WhatsApp com a Agrônoma
+│   │   └── ouvir-ajuda/page.tsx      # Ecrã 12 — Ouvir Ajuda (áudio)
 │   │
 │   └── api/
 │       └── nasa/
@@ -207,10 +207,9 @@ src/
 │           └── SpeechPreferences.tsx
 │
 ├── hooks/
-│   ├── useNasaAgro.ts                # Consome /api/nasa/power  ← TECH LEAD
+│   ├── useSpeech.ts                 # Leitura em voz alta (áudio)
 │   ├── useSimulator.ts               # Motor de scores da rotação ← TECH LEAD
 │   ├── useFarmProfile.ts             # Estado do perfil (localStorage)
-│   ├── useSpeech.ts                  # Text-to-Speech (áudio) ← TECH LEAD
 │   └── useOffline.ts                 # Cache local para uso sem rede
 │
 ├── lib/
@@ -240,14 +239,14 @@ src/
 | 2. SMS Enviado | `/sms-enviado` | `ui/Card`, `ui/Badge` |
 | 3. Código de Segurança | `/verificar` | `ui/Card`, `CodeInputs` |
 | 4. Meu Caderno da Terra | `/inicio` | `features/dashboard/*` |
-| 5. Rotação de Culturas | `/rotacao` | `features/rotacao/*` |
-| 6. Previsão do Tempo | `/clima` | `features/clima/*`, `charts/*` |
-| 7. Minha Terra e Horta | `/terra` | `features/terra/*` |
-| 8. Minhas Plantas | `/plantas` | `features/plantas/*` |
-| 9. Meu Caderninho | `/contas` | `features/contas/*` |
-| 10. Calendário de Plantio | `/plantio` | `features/plantio/*` |
-| 11. Falar com a Agrônoma | `/agronoma` | `features/agronoma/*` |
-| 12. Ouvir Ajuda | `/ajuda` | `features/ajuda/*` |
+| 5. Rotação de Culturas | `/rotacao-de-culturas` | `features/rotacao/*` |
+| 6. Previsão do Tempo | `/previsao-do-tempo` | `features/clima/*`, `charts/*` |
+| 7. Minha Terra e Horta | `/minha-terra-e-horta` | `features/terra/*` |
+| 8. Minhas Plantas | `/minhas-plantas` | `features/plantas/*` |
+| 9. Meu Caderninho | `/meu-caderninho` | `features/contas/*` |
+| 10. Calendário de Plantio | `/calendario-de-plantio` | `features/plantio/*` |
+| 11. Falar com a Agrônoma | `/falar-com-a-agronoma` | `features/agronoma/*` |
+| 12. Ouvir Ajuda | `/ouvir-ajuda` | `features/ajuda/*` |
 
 ---
 
@@ -264,7 +263,7 @@ src/
 | 1 | Ligar o proxy ao back-end do colega | `src/app/api/nasa/power/route.ts` |
 | 2 | Rotas SMAP e ECOSTRESS | `src/app/api/nasa/*/route.ts` |
 | 3 | Cliente NASA + normalização de tipos | `src/lib/nasa/` |
-| 4 | Hook de consumo da API | `src/hooks/useNasaAgro.ts` |
+| 4 | Cliente NASA + normalização | `src/lib/nasa/client.ts` + `normalize.ts` |
 | 5 | Motor de scores da rotação | `src/hooks/useSimulator.ts` + `src/lib/scores.ts` |
 | 6 | Fórmulas agronómicas (ET0, GDD, balanço hídrico) | `src/lib/agronomia.ts` |
 | 7 | Leitura em voz alta (Text-to-Speech) | `src/hooks/useSpeech.ts` |
@@ -280,14 +279,14 @@ src/
 | 2 | Estrutura (`Sidebar`, `TopBar`, `AppShell`) | `src/components/layout/` |
 | 3 | Ecrãs de autenticação (1, 1B, 2, 3) | `src/app/(auth)/` |
 | 4 | Dashboard "Meu Caderno da Terra" (4) | `src/app/(app)/inicio/` |
-| 5 | Simulador de Rotação (5) | `src/app/(app)/rotacao/` |
-| 6 | Previsão do Tempo (6) | `src/app/(app)/clima/` |
-| 7 | Terra e Horta (7) | `src/app/(app)/terra/` |
-| 8 | Plantas (8) | `src/app/(app)/plantas/` |
-| 9 | Caderninho (9) | `src/app/(app)/contas/` |
-| 10 | Calendário de Plantio (10) | `src/app/(app)/plantio/` |
-| 11 | Chat com a Agrônoma (11) | `src/app/(app)/agronoma/` |
-| 12 | Ouvir Ajuda (12) | `src/app/(app)/ajuda/` |
+| 5 | Simulador de Rotação (5) | `src/app/(app)/rotacao-de-culturas/` |
+| 6 | Previsão do Tempo (6) | `src/app/(app)/previsao-do-tempo/` |
+| 7 | Terra e Horta (7) | `src/app/(app)/minha-terra-e-horta/` |
+| 8 | Plantas (8) | `src/app/(app)/minhas-plantas/` |
+| 9 | Caderninho (9) | `src/app/(app)/meu-caderninho/` |
+| 10 | Calendário de Plantio (10) | `src/app/(app)/calendario-de-plantio/` |
+| 11 | Chat com a Agrônoma (11) | `src/app/(app)/falar-com-a-agronoma/` |
+| 12 | Ouvir Ajuda (12) | `src/app/(app)/ouvir-ajuda/` |
 | 13 | Gráficos | `src/components/charts/` |
 | 14 | Responsividade mobile (360px → 4K) | transversal |
 
@@ -333,11 +332,13 @@ A fonte de verdade é o bloco `@theme` em **`src/app/globals.css`**:
 Num projecto Next.js, a Vercel lê os rewrites da função `rewrites()` em
 `next.config.mjs` — **não é preciso um `vercel.json` separado**.
 
-| Subdomínio | Rota interna | Ecrã |
+| URL | Rota interna | Ecrã |
 |---|---|---|
-| `agrosolo.earth` | `/` | App principal do agricultor |
-| `admin.agrosolo.earth` | `/admin` | Área de administração |
-| `profile.agrosolo.earth` | `/profile` | Perfil do agricultor |
+| `https://www.agrosolo.earth/` | `/` | App principal do agricultor |
+| `https://www.profile.agrosolo.earth/` | `/inicio` | Dashboard do agricultor |
+| `https://www.profile.agrosolo.earth/minhas-plantas` | `/minhas-plantas` | Minhas Plantas |
+| `https://www.profile.agrosolo.earth/previsao-do-tempo` | `/previsao-do-tempo` | Previsão do Tempo |
+| `https://www.admin.agrosolo.earth/*` | `/admin/*` | Área de administração |
 
 ```js
 // next.config.mjs
@@ -345,34 +346,54 @@ async rewrites() {
   return {
     beforeFiles: [
       {
-        source: "/:path*",
-        has: [{ type: "host", value: "admin.agrosolo.earth" }],
-        destination: "/admin/:path*",
+        // A raiz do subdomínio profile abre directamente o dashboard.
+        source: "/",
+        has: [{ type: "host", value: "www.profile.agrosolo.earth" }],
+        destination: "/inicio",
       },
       {
+        // Área de administração (para quando o subdomínio ficar pronto).
         source: "/:path*",
-        has: [{ type: "host", value: "profile.agrosolo.earth" }],
-        destination: "/profile/:path*",
+        has: [{ type: "host", value: "www.admin.agrosolo.earth" }],
+        destination: "/admin/:path*",
       },
     ],
   };
 }
 ```
 
-**Notas importantes:**
+**Como funciona:**
 
-- **`beforeFiles`** — o rewrite é aplicado *antes* da procura de ficheiros,
+- O subdomínio `profile` serve **a mesma aplicação** do domínio principal.
+  Só a **raiz** precisa de rewrite (para cair em `/inicio`); todas as
+  outras rotas já existem como páginas e são servidas tal e qual.
+- **As rotas da app são slugs em português** — é o que a Dona Maria lê
+  no ecrã do telemóvel e o que aparece no URL.
+- `beforeFiles` → o rewrite é aplicado *antes* da procura de ficheiros,
   por isso o subdomínio tem sempre prioridade.
-- **`:path*` em vez de `/(.)`** — o padrão `/(.)` só apanha **um caractere**
-  (por isso `admin.agrosolo.earth/inicio` não era reescrito e a raiz
-  `/` também não). Com `:path*` o caminho completo é capturado e
-  reencaminhado — `admin.agrosolo.earth/inicio` → `/admin/inicio`.
-- **Os subdomínios têm de estar ligados ao mesmo deployment** na Vercel
+- Os subdomínios têm de estar **ligados ao mesmo deployment** na Vercel
   (Settings → Domains → Add Domain).
 - **Testar localmente** com o header `Host`:
   ```bash
-  curl -H "Host: admin.agrosolo.earth" http://localhost:3000/
+  curl -H "Host: www.profile.agrosolo.earth" http://localhost:3000/
   ```
+
+### Rotas da aplicação
+
+| Slug (URL) | Ecrã | Estado |
+|---|---|---|
+| `/inicio` | 4. Meu Caderno da Terra | ✅ |
+| `/previsao-do-tempo` | 6. Previsão do Tempo (NASA POWER) | ✅ |
+| `/minha-terra-e-horta` | 7. Minha Terra e Horta (SMAP) | ⬜ |
+| `/minhas-plantas` | 8. Minhas Plantas | ⬜ |
+| `/rotacao-de-culturas` | 5. Rotação de Culturas (Simulador) | ⬜ |
+| `/calendario-de-plantio` | 10. Calendário de Plantio | ⬜ |
+| `/meu-caderninho` | 9. Meu Caderninho de Contas | ⬜ |
+| `/falar-com-a-agronoma` | 11. Falar com a Agrônoma | ⬜ |
+| `/ouvir-ajuda` | 12. Ouvir Ajuda | ⬜ |
+
+> As pastas das rotas por criar já existem em `src/app/(app)/` com o
+> nome do slug — basta criar o `page.tsx` dentro.
 
 ---
 
