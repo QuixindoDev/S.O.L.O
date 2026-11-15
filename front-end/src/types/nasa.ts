@@ -49,3 +49,43 @@ export interface AgroclimaticSummary {
   droughtRiskLevel: "low" | "moderate" | "high" | "extreme";
   lastSatelliteSyncDate: string;
 }
+
+/** Um dia de observação normalizado, pronto a ser mostrado. */
+export interface DailyPoint {
+  /** AAAAMMDD tal como vem da NASA POWER */
+  date: string;
+  /** Data já formatada em pt-BR para mostrar à pessoa */
+  label: string;
+  dayOfWeek: string;
+  dayNumber: string;
+  tMax: number;
+  tMin: number;
+  tMean: number;
+  rainMm: number;
+  humidity: number;
+  /** Radiação solar MJ/m²/dia */
+  radiation: number;
+  /** Condição simplificada para escolher o ícone */
+  condition: "sun" | "cloud" | "rain";
+}
+
+/** Resumo agroclimático pronto a consumir pelos ecrãs. */
+export interface AgroSummary {
+  latitude: number;
+  longitude: number;
+  elevationM: number;
+  /** Último dia com dados válidos */
+  current: DailyPoint | null;
+  /** Últimos 7 dias com dados válidos (do mais recente para o mais antigo) */
+  last7: DailyPoint[];
+  /** Chuva acumulada por mês (mm) */
+  monthlyRainMm: Record<string, number>;
+  annualRainMm: number;
+  avgTMax: number;
+  avgTMin: number;
+  avgHumidity: number;
+  /** Data da última passagem do satélite com dados */
+  lastSatellitePass: string | null;
+  /** Número de dias seguidos sem chuva relevante */
+  daysSinceRain: number;
+}

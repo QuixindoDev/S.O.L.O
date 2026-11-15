@@ -38,14 +38,14 @@ export function Sidebar({
   return (
     <aside
       className={cn(
-        "flex h-full shrink-0 flex-col overflow-y-auto border-r border-border bg-surface",
+        "flex h-full shrink-0 flex-col overflow-hidden border-r border-border bg-surface",
         isDrawer
           ? "w-[85vw] max-w-[300px] shadow-2xl"
           : "hidden w-[280px] lg:flex",
       )}
     >
       {/* Marca */}
-      <div className="flex shrink-0 items-center gap-3.5 px-6 pt-5 pb-4">
+      <div className="relative z-10 flex shrink-0 items-center gap-3.5 bg-surface px-6 pt-5 pb-4">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-input bg-primary">
           <Satellite size={24} className="text-white" aria-hidden />
         </div>
@@ -66,56 +66,65 @@ export function Sidebar({
         )}
       </div>
 
-      <div className="h-px w-full shrink-0 bg-border" />
+      <div className="relative z-10 h-px w-full shrink-0 bg-border" />
 
-      {/* Navegação */}
-      <nav className="flex min-h-0 flex-1 flex-col gap-4 px-3.5 py-4">
-        {navGroups.map((group) => (
-          <div key={group.label} className="flex flex-col gap-0.5">
-            <span className="px-2 pt-2 pb-1.5 text-[11px] font-bold tracking-wider text-text-muted">
-              {group.label}
-            </span>
-            {group.items.map((item) => {
-              const isActive =
-                activeHref !== undefined
-                  ? activeHref === item.href
-                  : pathname === item.href;
-              const Icon = item.icon;
+      {/* Navegação — só esta parte é rolável, o rodapé fica fixo.
+          Padding e espaçamento escolhidos para que o texto de cada item
+          comece exactamente na mesma coluna dos rótulos de grupo. */}
+      <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3.5 py-4">
+        <div className="flex flex-col gap-4">
+          {navGroups.map((group) => (
+            <div key={group.label} className="flex flex-col gap-0.5">
+              <span className="px-0.5 pt-2 pb-1.5 text-[11px] font-bold tracking-wider text-text-muted">
+                {group.label}
+              </span>
+              {group.items.map((item) => {
+                const isActive =
+                  activeHref !== undefined
+                    ? activeHref === item.href
+                    : pathname === item.href;
+                const Icon = item.icon;
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={onClose}
-                  aria-current={isActive ? "page" : undefined}
-                  className={cn(
-                    "flex items-center gap-3 rounded-input px-3 py-2.5 text-lg leading-snug transition-colors",
-                    isActive
-                      ? "bg-primary-soft font-bold text-primary"
-                      : "font-normal text-text-secondary hover:bg-surface-soft",
-                  )}
-                >
-                  <Icon size={22} className="shrink-0" aria-hidden />
-                  <span className="truncate">{item.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        ))}
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onClose}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "flex items-center gap-3 rounded-input px-3 py-2.5 text-lg leading-snug transition-colors",
+                      isActive
+                        ? "bg-primary-soft font-bold text-primary"
+                        : "font-normal text-text-secondary hover:bg-surface-soft",
+                    )}
+                  >
+                    <Icon size={22} className="shrink-0" aria-hidden />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
+        </div>
       </nav>
 
-      {/* Fonte de dados */}
-      <div className="mt-auto flex shrink-0 items-center gap-2.5 px-6 py-3">
-        <Satellite size={18} className="shrink-0 text-text-muted" aria-hidden />
-        <span className="text-sm font-bold text-text-muted">Dados da NASA</span>
+      {/* Fonte de dados — alinhado na mesma coluna de texto do menu */}
+      <div className="relative z-10 mt-auto flex shrink-0 bg-surface px-3.5 py-3">
+        <div className="flex w-full items-center gap-4 px-3">
+          <Satellite size={18} className="shrink-0 text-text-muted" aria-hidden />
+          <span className="truncate text-sm font-bold text-text-muted">
+            Dados da NASA
+          </span>
+        </div>
       </div>
 
-      <div className="h-px w-full shrink-0 bg-border" />
+      <div className="relative z-10 h-px w-full shrink-0 bg-border" />
 
-      {/* Perfil */}
-      <div className="flex shrink-0 items-center gap-3 px-5 py-3.5">
-        <Avatar initials={userInitials} />
-        <div className="flex min-w-0 flex-col">
+      {/* Perfil — avatar do mesmo tamanho do logo, para o texto
+          "Dona Maria" ficar exactamente na mesma coluna do "S.O.L.O.". */}
+      <div className="relative z-10 flex shrink-0 items-center gap-3.5 bg-surface px-6 py-3.5">
+        <Avatar initials={userInitials} className="!h-12 !w-12 shrink-0" />
+        <div className="flex min-w-0 flex-1 flex-col">
           <span className="truncate text-[17px] font-bold text-text-primary">
             {userName}
           </span>
@@ -125,10 +134,12 @@ export function Sidebar({
 
       <button
         type="button"
-        className="flex shrink-0 items-center gap-3 px-6 py-3 pb-5 text-left text-base font-bold text-text-muted transition-colors hover:text-danger"
+        className="relative z-10 flex shrink-0 bg-surface px-3.5 py-3 pb-5 text-left transition-colors hover:text-danger"
       >
-        <LogOut size={20} className="shrink-0" aria-hidden />
-        Sair da conta
+        <span className="flex w-full items-center gap-3.5 px-3">
+          <LogOut size={20} className="shrink-0" aria-hidden />
+          <span className="truncate text-base font-bold">Sair da conta</span>
+        </span>
       </button>
     </aside>
   );
