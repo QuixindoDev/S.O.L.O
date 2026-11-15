@@ -434,13 +434,45 @@ async rewrites() {
 
 ---
 
-## 🔌 Contrato da API NASA
+## 🔌 Contrato da API (back-end Field Shift)
 
-`GET /api/nasa/power?lat=-12.97&lon=-39.51&start=20260101&end=20261231`
+O front-end **nunca chama a NASA directamente**: passa sempre pelo
+back-end (`http://localhost:8000` por omissão), que normaliza, cacheia
+(24 h) e protege o telemóvel da Dona Maria.
 
-Devolve a resposta normalizada da NASA POWER (`T2M`, `T2M_MAX`, `T2M_MIN`, `PRECTOTCORR`, `RH2M`, `ALLSKY_SFC_SW_DWN`). Cache de **24 horas** na edge (`revalidate: 86400`) para poupar dados móveis.
+Configuração em `front-end/.env.local`:
 
-Consultar `src/types/nasa.ts` para os tipos exactos.
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+### Camada de acesso (`src/lib/api/`)
+
+| Ficheiro | Papel |
+|---|---|
+| `config.ts` | URL base do back-end e o mapa de todos os endpoints (`API_PATHS`) |
+| `types.ts` | Tipos TypeScript que espelham os schemas Pydantic do back-end |
+| `http.ts` | `apiFetch()` — timeouts, token Bearer, mensagens de erro legíveis |
+| `endpoints.ts` | `api.*` — uma função por endpoint (NASA, horta, plantas, finanças, auth, análises…) |
+| `session.ts` | Token da sessão (localStorage + cookie) |
+| `server.ts` | Versão para Server Components: lê o cookie e usa a cache do Next.js |
+
+### Onde é que cada ecrã vai buscar os dados
+
+| Ecrã | Endpoints |
+|---|---|
+| `/inicio` | `GET /api/nasa/power`, `GET /api/v1/profile` |
+| `/previsao-do-tempo` | `GET /api/nasa/power` (365 dias) |
+| `/minha-terra-e-horta` | `GET /api/nasa/power`, `GET /api/v1/plots`, `GET /api/v1/profile` |
+| `/minhas-plantas` | `GET /api/v1/plants`, `GET /api/v1/harvests`, `GET /api/v1/plots` (+ `POST` ao criar) |
+| `/rotacao-de-culturas` | `GET /api/nasa/power` (365 dias), `GET /api/v1/profile`, `POST /api/v1/analyze` ao guardar |
+| `/calendario-de-plantio` | `GET /api/nasa/power` (365 dias), `GET /api/v1/profile` |
+| `/renda-da-terra` | `GET /api/v1/analyses` / `GET /api/v1/farmers/{uuid}/analyses`, `GET /api/v1/profile` |
+| `/admin` | `GET /api/v1/farmers`, `GET /api/v1/analyses`, `GET /health` |
+| `/api/nasa/power` (route handler) | Proxy para `GET /api/nasa/power` do back-end |
+
+Consultar `src/types/nasa.ts` para os tipos exactos da NASA e
+`../back-end/API-CONTRATO.md` para o contrato completo.
 
 ---
 

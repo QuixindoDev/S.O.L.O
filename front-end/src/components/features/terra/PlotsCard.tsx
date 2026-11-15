@@ -5,7 +5,7 @@ import { Bean, Carrot, Sprout } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { IconBox } from "@/components/ui/IconBox";
-import horta from "@/data/horta.json";
+import type { PlotDto } from "@/lib/api/types";
 
 const PLOT_ICONS = {
   sprout: Sprout,
@@ -14,6 +14,8 @@ const PLOT_ICONS = {
 } as const;
 
 export interface PlotsCardProps {
+  /** Canteiros da horta (vêm do back-end: GET /api/v1/plots). */
+  plots: PlotDto[];
   /** Humidade estimada por canteiro (id → %) */
   moistureByPlot?: Record<string, number>;
 }
@@ -22,7 +24,7 @@ export interface PlotsCardProps {
  * "Meus canteiros" — cada canteiro da Dona Maria, com a humidade
  * estimada a partir do mesmo modelo de solo.
  */
-export function PlotsCard({ moistureByPlot = {} }: PlotsCardProps) {
+export function PlotsCard({ plots, moistureByPlot = {} }: PlotsCardProps) {
   return (
     <Card padding="lg" className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
@@ -35,7 +37,7 @@ export function PlotsCard({ moistureByPlot = {} }: PlotsCardProps) {
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {horta.canteiros.map((plot) => {
+        {plots.map((plot) => {
           const Icon = PLOT_ICONS[plot.icon as keyof typeof PLOT_ICONS] ?? Sprout;
           const pct = moistureByPlot[plot.id];
 
@@ -69,12 +71,14 @@ export function PlotsCard({ moistureByPlot = {} }: PlotsCardProps) {
                   <span className="text-lg font-bold text-text-primary">
                     {plot.name}
                   </span>
-                  <span className="text-sm text-text-muted">{plot.areaM2} m²</span>
+                  <span className="text-sm text-text-muted">
+                    {plot.areaM2 ?? 0} m²
+                  </span>
                 </div>
               </div>
 
               <p className="text-base leading-snug text-text-secondary">
-                {plot.crops}
+                {plot.crops ?? "Sem culturas registadas"}
               </p>
 
               <div className="flex flex-wrap items-center justify-between gap-2">

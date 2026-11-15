@@ -29,6 +29,11 @@ export interface NasaPowerResponse {
     end: string;
   };
   messages: string[];
+  /** Proveniência do dado (acrescentada pelo back-end). */
+  lat?: number;
+  lon?: number;
+  source?: string;
+  generatedAt?: string;
 }
 
 export interface SmapSoilMoistureRecord {

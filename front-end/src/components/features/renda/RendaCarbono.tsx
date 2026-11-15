@@ -2,9 +2,10 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Coins, Leaf, TrendingUp, Wallet } from "lucide-react";
+import { ArrowRight, Coins, Leaf, Satellite, TrendingUp, Wallet } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { Card } from "@/components/ui/Card";
+import { CartaoRendaCarbono } from "@/components/features/renda/CartaoRendaCarbono";
 import { DialogoRegistarMetodo } from "@/components/features/renda/DialogoRegistarMetodo";
 import { DialogoSacar } from "@/components/features/renda/DialogoSacar";
 import {
@@ -16,6 +17,7 @@ import {
 import { defaultFarm } from "@/lib/farm";
 import { cropById, defaultPlantings, loadSavedRotation, type Planting } from "@/lib/plantio";
 import { ROTATION_PLANS } from "@/lib/rotacao";
+import type { DiagnosticoDto } from "@/lib/api/types";
 import {
   addSaque,
   descreverMetodo,
@@ -26,6 +28,15 @@ import {
   type Saque,
 } from "@/lib/saques";
 
+export interface RendaCarbonoProps {
+  /** Área da terra em hectares (vem do perfil no back-end). */
+  areaHectares?: number;
+  /** "Huambo - Huíla" — para a barra lateral. */
+  locationLabel?: string;
+  /** Diagnóstico oficial devolvido pelo back-end (POST /api/v1/analyze). */
+  analiseServidor?: DiagnosticoDto | null;
+}
+
 /**
  * Ecrã 9 — "A Renda da Minha Terra".
  *
@@ -33,7 +44,11 @@ import {
  * levantar. O ecrã diz, em três frases: quanto a terra ganhou, quanto
  * pode sacar agora e onde é que o dinheiro vai.
  */
-export function RendaCarbono() {
+export function RendaCarbono({
+  areaHectares = defaultFarm.areaHectares,
+  locationLabel = defaultFarm.locationLabel,
+  analiseServidor = null,
+}: RendaCarbonoProps) {
   const [plantings, setPlantings] = useState<Planting[]>(() =>
     defaultPlantings([...ROTATION_PLANS[0].crops]),
   );
@@ -62,8 +77,8 @@ export function RendaCarbono() {
   }, []);
 
   const resumo = useMemo(
-    () => calcularRendaCarbono(plantings, defaultFarm.areaHectares),
-    [plantings],
+    () => calcularRendaCarbono(plantings, areaHectares),
+    [plantings, areaHectares],
   );
 
   const jaSacado = totalSacado(saques);
@@ -94,7 +109,7 @@ export function RendaCarbono() {
     <AppShell
       title="A Renda da Minha Terra"
       subtitle="O carbono que a tua terra produz"
-      location={defaultFarm.locationLabel}
+      location={locationLabel}
     >
       <div className="flex flex-col gap-6">
         {/* Quanto a terra ganhou */}
@@ -142,40 +157,59 @@ export function RendaCarbono() {
           </div>
         </Card>
 
-        {/* Quanto pode sacar agora */}
-        <div className="flex flex-col gap-4 rounded-card bg-primary p-6 sm:p-7">
-          <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
+        {/* O que o servidor calculou a partir dos dados de satélite */}
+        {analiseServidor && (
+          <Card padding="lg" className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <span className="text-base font-bold text-primary-soft">
-                Quanto podes sacar agora
-              </span>
-              <span className="text-4xl font-bold text-white sm:text-[40px]">
-                {formatarKz(disponivel)}
-              </span>
-              <span className="text-base text-primary-soft">
-                {`Já sacaste ${formatarKz(jaSacado)} este ano. Podes sacar a partir de ${formatarKz(1000)}.`}
+              <h2 className="text-[22px] font-bold text-text-primary sm:text-2xl">
+                Diagnóstico do servidor
+              </h2>
+              <span className="text-base text-text-muted">
+                Cruzamento da tua terra com os dados de satélite da NASA.
               </span>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setDialogoSaque(true)}
-              className="inline-flex h-14 shrink-0 items-center gap-2.5 rounded-full bg-surface px-7 text-lg font-bold text-primary transition-opacity hover:opacity-90"
-            >
-              <Wallet size={20} aria-hidden />
-              Sacar o meu dinheiro
-            </button>
-          </div>
+            <p className="text-base leading-snug text-text-secondary">
+              Solo classificado como{" "}
+              <strong className="text-text-primary">
+                {analiseServidor.analise_solo.classificacao_saude}
+              </strong>{" "}
+              ({analiseServidor.analise_solo.score_saude}/100), com rotação
+              recomendada de{" "}
+              <strong className="text-text-primary">
+                {analiseServidor.rotacao_principal.cultura_recomendada}
+              </strong>
+              .
+            </p>
 
-          <div className="flex flex-col gap-1 border-t border-primary-hover pt-4">
-            <span className="text-sm font-bold text-white">
-              Método de saque
-            </span>
-            <span className="text-sm text-primary-soft">
-              {descreverMetodo(metodo)}
-            </span>
-          </div>
-        </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <StatCard
+                icon={Leaf}
+                label="Créditos líquidos"
+                value={`${analiseServidor.estimativa_carbono.creditos_liquidos_tco2e.toFixed(1)} tCO₂e`}
+                note={`margem de segurança de ${Math.round(analiseServidor.estimativa_carbono.margem_seguranca * 100)}%`}
+              />
+              <StatCard
+                icon={TrendingUp}
+                label="Valor de mercado"
+                value={`US$ ${analiseServidor.estimativa_carbono.valor_estimado_usd.toFixed(0)}`}
+                note={`a US$ ${analiseServidor.estimativa_carbono.preco_por_credito_usd.toFixed(2)} por tCO₂e`}
+              />
+              <StatCard
+                icon={Satellite}
+                label="Fonte dos dados"
+                value={analiseServidor.metricas_satelite.fonte_dados}
+                note={`NDVI ${analiseServidor.metricas_satelite.ndvi}`}
+              />
+            </div>
+          </Card>
+        )}
+
+        {/* Quanto pode sacar agora */}
+        <CartaoRendaCarbono
+          onSacar={() => setDialogoSaque(true)}
+          areaHectares={areaHectares}
+        />
 
         {/* Mês a mês */}
         <div className="flex flex-col gap-4">

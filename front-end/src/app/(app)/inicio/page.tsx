@@ -7,14 +7,15 @@ import { QuickActions } from "@/components/features/dashboard/QuickActions";
 import { TipsGrid } from "@/components/features/dashboard/TipsGrid";
 import { WeatherCard } from "@/components/features/dashboard/WeatherCard";
 import { estimateSoilMoisture } from "@/lib/agronomia";
-import { defaultFarm } from "@/lib/farm";
+import { getFarmProfile } from "@/lib/api/server";
 import { getAgroSummary } from "@/lib/nasa/client";
 
 /**
  * Ecrã 4 — "Meu Caderno da Terra" (Início).
  *
  * É um Server Component: os dados do satélite são buscados no servidor
- * e chegam já no HTML, para o ecrã aparecer de imediato no 3G rural.
+ * (através do back-end Field Shift) e chegam já no HTML, para o ecrã
+ * aparecer de imediato no 3G rural.
  *
  * ISR: a página é gerada estaticamente e revalidada uma vez por dia,
  * em sincronia com a actualização da NASA POWER.
@@ -22,20 +23,19 @@ import { getAgroSummary } from "@/lib/nasa/client";
 export const revalidate = 86400;
 
 export default async function InicioPage() {
-  const summary = await getAgroSummary(
-    defaultFarm.latitude,
-    defaultFarm.longitude,
-  );
+  const profile = await getFarmProfile();
+
+  const summary = await getAgroSummary(profile.latitude, profile.longitude);
 
   const current = summary.current;
   const greeting = current
-    ? `${current.dayOfWeek}, ${current.label} · ${defaultFarm.city} - ${defaultFarm.state}`
-    : `${defaultFarm.city} - ${defaultFarm.state}`;
+    ? `${current.dayOfWeek}, ${current.label} · ${profile.city} - ${profile.state}`
+    : `${profile.city} - ${profile.state}`;
 
   // O estado do solo vem do mesmo modelo do ecrã 7 — os dois ecrãs
   // têm de contar a mesma história, senão a Dona Maria deixa de
   // confiar em nós.
-  const moisture = estimateSoilMoisture(summary, defaultFarm.soil);
+  const moisture = estimateSoilMoisture(summary, profile.soil);
   const raining = (current?.rainMm ?? 0) >= 2;
 
   const dry = moisture.status !== "ideal";
@@ -72,9 +72,9 @@ export default async function InicioPage() {
 
   return (
     <AppShell
-      title={`Bom dia, ${defaultFarm.userName}!`}
+      title={`Bom dia, ${profile.userName}!`}
       subtitle={greeting}
-      location={defaultFarm.locationLabel}
+      location={profile.locationLabel}
     >
       <div className="flex flex-col gap-5">
         {/* Aviso do dia */}
@@ -92,7 +92,7 @@ export default async function InicioPage() {
 
         {/* Clima + Terra */}
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_380px]">
-          <WeatherCard summary={summary} city={defaultFarm.city} />
+          <WeatherCard summary={summary} city={profile.city} />
           <GardenCard moisture={moisture} />
         </div>
 

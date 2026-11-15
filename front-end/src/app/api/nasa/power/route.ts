@@ -1,34 +1,33 @@
 import { NextResponse } from "next/server";
+import { api } from "@/lib/api/endpoints";
 
+/**
+ * Proxy da NASA POWER.
+ *
+ * O browser nunca fala directamente com a NASA: passa pelo back-end,
+ * que normaliza, cacheia (24 h) e protege de quedas e de CORS.
+ */
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const lat = searchParams.get("lat") || "-8.83";
-  const lon = searchParams.get("lon") || "13.23";
-  const start = searchParams.get("start") || "20250101";
-  const end = searchParams.get("end") || "20251231";
-
-  const parameters =
-    "T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,ALLSKY_SFC_SW_DWN,WS2M";
-  const nasaUrl = `https://power.larc.nasa.gov/api/temporal/daily/point?parameters=${parameters}&community=AG&longitude=${lon}&latitude=${lat}&start=${start}&end=${end}&format=JSON`;
+  const lat = searchParams.get("lat") || "-12.776";
+  const lon = searchParams.get("lon") || "15.739";
+  const start = searchParams.get("start") || undefined;
+  const end = searchParams.get("end") || undefined;
 
   try {
-    const res = await fetch(nasaUrl, {
-      next: { revalidate: 86400 }, // 24-hour edge cache for satellite series
-    });
+    const data = await api.nasa.power(
+      { lat: Number(lat), lon: Number(lon), start, end },
+      { revalidate: 86400, timeoutMs: 25_000 },
+    );
 
-    if (!res.ok) {
-      return NextResponse.json(
-        { error: "Failed to fetch satellite metrics from NASA POWER" },
-        { status: res.status }
-      );
-    }
-
-    const data = await res.json();
     return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json(
-      { error: "Internal proxy connection error", details: (error as Error).message },
-      { status: 500 }
-    );
+    const status = (error as { status?: number }).status ?? 500;
+    const message =
+      status === 502
+        ? "A NASA POWER está indisponível neste momento."
+        : "Falha ao pedir os dados do satélite ao back-end.";
+
+    return NextResponse.json({ error: message }, { status: status || 500 });
   }
 }

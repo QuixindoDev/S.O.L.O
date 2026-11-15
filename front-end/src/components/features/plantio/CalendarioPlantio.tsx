@@ -19,6 +19,7 @@ import {
   type Planting,
 } from "@/lib/plantio";
 import type { AgroSummary } from "@/types/nasa";
+import type { SoilTextureType } from "@/types/agronomy";
 
 const EMPTY_SUMMARY: AgroSummary = {
   latitude: 0,
@@ -40,6 +41,10 @@ const EMPTY_SUMMARY: AgroSummary = {
 export interface CalendarioPlantioProps {
   /** Resumo de um ano de dados da NASA POWER. */
   summary: AgroSummary | null;
+  /** Textura do solo — vem do perfil no back-end. */
+  soil?: SoilTextureType;
+  /** "Huambo - Huíla" — para a barra lateral. */
+  locationLabel?: string;
 }
 
 /**
@@ -52,7 +57,11 @@ export interface CalendarioPlantioProps {
  * cultura desse mês, toca num mês vazio para semear. Tudo o que
  * muda é guardado no dispositivo (e depois vai para o banco).
  */
-export function CalendarioPlantio({ summary }: CalendarioPlantioProps) {
+export function CalendarioPlantio({
+  summary,
+  soil: soilProp,
+  locationLabel = defaultFarm.locationLabel,
+}: CalendarioPlantioProps) {
   const [plantings, setPlantings] = useState<Planting[]>(() =>
     defaultPlantings([...ROTATION_PLANS[0].crops]),
   );
@@ -88,7 +97,7 @@ export function CalendarioPlantio({ summary }: CalendarioPlantioProps) {
       plantingWaterBalance(
         plantings,
         summary ?? EMPTY_SUMMARY,
-        defaultFarm.soil,
+        soilProp ?? defaultFarm.soil,
         (point) => referenceEvapotranspiration(point, summary?.latitude ?? 0),
       ),
     [plantings, summary],
@@ -183,7 +192,7 @@ export function CalendarioPlantio({ summary }: CalendarioPlantioProps) {
     <AppShell
       title="Calendário de Plantio"
       subtitle="O que plantar, quando e como cuidar"
-      location={defaultFarm.locationLabel}
+      location={locationLabel}
     >
       <div className="flex flex-col gap-6">
         <RotationCalendar

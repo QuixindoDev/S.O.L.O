@@ -27,6 +27,10 @@
   --color-warm: #ffddb0;
   --color-warm-text: #281800;
 
+  /* Água (chuva, balde da safra) */
+  --color-water: #2f80c0;
+  --color-water-soft: #dcebf7;
+
   /* Estados */
   --color-danger: #b3261e;
   --color-warning: #8a5a00;

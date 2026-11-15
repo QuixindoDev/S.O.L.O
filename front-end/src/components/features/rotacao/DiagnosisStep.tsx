@@ -13,6 +13,19 @@ export interface DiagnosisStepProps {
   onSave: () => void;
   /** Volta ao Passo 2 para mudar de plano. */
   onBack: () => void;
+  /**
+   * Leguminosas regenerativas sugeridas pelo servidor
+   * (GET /api/v1/crops do back-end).
+   */
+  leguminosas?: LeguminosaServidor[];
+}
+
+/** Uma leguminosa regenerativa, como a devolvida pelo back-end. */
+export interface LeguminosaServidor {
+  nome: string;
+  nome_cientifico: string;
+  funcao: string;
+  taxa_sequestro_media: string;
 }
 
 /**
@@ -22,7 +35,12 @@ export interface DiagnosisStepProps {
  * números concretos e nada de fórmulas. O botão de áudio usa a
  * leitura por voz do próprio telemóvel (pt-PT).
  */
-export function DiagnosisStep({ result, onSave, onBack }: DiagnosisStepProps) {
+export function DiagnosisStep({
+  result,
+  onSave,
+  onBack,
+  leguminosas = [],
+}: DiagnosisStepProps) {
   const [speaking, setSpeaking] = useState(false);
   const [supported, setSupported] = useState(false);
 
@@ -181,6 +199,42 @@ export function DiagnosisStep({ result, onSave, onBack }: DiagnosisStepProps) {
           </div>
         </div>
       </Card>
+
+      {leguminosas.length > 0 && (
+        <Card padding="lg" className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-[22px] font-bold text-text-primary">
+              As leguminosas que o servidor recomenda
+            </h2>
+            <span className="text-base text-text-muted">
+              Fixam azoto no solo e guardam carbono — a base da rotação
+              regenerativa em Angola.
+            </span>
+          </div>
+
+          <ul className="flex flex-col gap-3">
+            {leguminosas.map((leguminosa) => (
+              <li
+                key={leguminosa.nome}
+                className="flex flex-col gap-1 rounded-input bg-surface-soft p-4"
+              >
+                <span className="text-lg font-bold text-text-primary">
+                  {leguminosa.nome}{" "}
+                  <span className="text-base font-normal text-text-muted">
+                    ({leguminosa.nome_cientifico})
+                  </span>
+                </span>
+                <span className="text-base text-text-secondary">
+                  {leguminosa.funcao}
+                </span>
+                <span className="text-sm font-bold text-primary">
+                  {leguminosa.taxa_sequestro_media}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      )}
 
       <div className="flex flex-col items-stretch gap-4 lg:flex-row lg:items-center">
         <div className="flex flex-1 items-center justify-between gap-4 rounded-card bg-primary p-5">
