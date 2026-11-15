@@ -95,10 +95,13 @@ def root():
         "documentacao_interativa": "/docs",
         "documentacao_redoc": "/redoc",
         "rotas_principais": {
+            "registar_agricultor": "POST /api/v1/farmers",
+            "listar_agricultores": "GET /api/v1/farmers",
+            "analises_do_agricultor": "GET /api/v1/farmers/{farmer_uuid}/analyses",
             "analisar_terra": "POST /api/v1/analyze",
             "listar_analises": "GET /api/v1/analyses",
-            "obter_analise": "GET /api/v1/analyses/{id}",
-            "saude_sistema": "GET /api/v1/health",
+            "obter_analise": "GET /api/v1/analyses/{uuid}",
+            "saude_sistema": "GET /health (e /api/v1/health)",
             "culturas_suportadas": "GET /api/v1/crops",
             "info_formula_carbono": "GET /api/v1/carbon-calculator-info"
         }

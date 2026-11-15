@@ -24,6 +24,48 @@ class Coordenadas:
 
 
 @dataclass
+class Agricultor:
+    """
+    Entidade pura que representa o agricultor familiar ou produtor rural.
+    Contém dados cadastrais essenciais para contacto e futuros pagamentos móveis em Angola.
+    """
+    nome_completo: str
+    telefone: str
+    cooperativa: Optional[str] = None
+    bilhete_identidade_ou_codigo: Optional[str] = None
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    criado_em: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+
+    def __post_init__(self):
+        if not self.nome_completo or not self.nome_completo.strip():
+            raise ValueError("O nome completo do agricultor não pode estar vazio.")
+        if not self.telefone or not self.telefone.strip():
+            raise ValueError("O telefone do agricultor é obrigatório para notificações e pagamentos móveis.")
+        self.nome_completo = self.nome_completo.strip()
+        self.telefone = self.telefone.strip()
+        if self.cooperativa:
+            self.cooperativa = self.cooperativa.strip()
+        if self.bilhete_identidade_ou_codigo:
+            self.bilhete_identidade_ou_codigo = self.bilhete_identidade_ou_codigo.strip()
+
+    @property
+    def uuid(self) -> str:
+        """UUID público do agricultor."""
+        return self.id
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "id": self.id,
+            "uuid": self.id,
+            "nome_completo": self.nome_completo,
+            "telefone": self.telefone,
+            "cooperativa": self.cooperativa,
+            "bilhete_identidade_ou_codigo": self.bilhete_identidade_ou_codigo,
+            "criado_em": self.criado_em.isoformat(),
+        }
+
+
+@dataclass
 class Fazenda:
     """Entidade que representa a propriedade agrícola em análise."""
     latitude: float
@@ -34,6 +76,7 @@ class Fazenda:
     nome: Optional[str] = None
     localizacao_descricao: Optional[str] = None
     poligono: Optional[List[Tuple[float, float]]] = None
+    farmer_uuid: Optional[str] = None
 
     def __post_init__(self):
         if self.area_hectares <= 0:
@@ -42,6 +85,11 @@ class Fazenda:
             raise ValueError("A cultura atual declarada não pode estar vazia.")
         # Normalizar strings
         self.cultura_atual = self.cultura_atual.strip().title()
+
+    @property
+    def uuid(self) -> str:
+        """UUID público da fazenda."""
+        return self.id
 
 
 @dataclass
@@ -116,20 +164,38 @@ class DiagnosticoCompleto:
     rotacao_principal: RecomendacaoRotacao
     alternativas_rotacao: List[RecomendacaoRotacao]
     estimativa_carbono: EstimativaCarbono
+    agricultor: Optional[Agricultor] = None
     gerado_em: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @property
+    def uuid(self) -> str:
+        """UUID público da análise."""
+        return self.id
+
+    @property
+    def farmer_uuid(self) -> Optional[str]:
+        """UUID público do agricultor vinculado."""
+        if self.agricultor:
+            return self.agricultor.uuid
+        return self.fazenda.farmer_uuid
 
     def to_dict(self) -> Dict[str, Any]:
         return {
             "id": self.id,
+            "uuid": self.id,
+            "farmer_uuid": self.farmer_uuid,
+            "agricultor": self.agricultor.to_dict() if self.agricultor else None,
             "gerado_em": self.gerado_em.isoformat(),
             "fazenda": {
                 "id": self.fazenda.id,
+                "uuid": self.fazenda.id,
                 "nome": self.fazenda.nome,
                 "latitude": self.fazenda.latitude,
                 "longitude": self.fazenda.longitude,
                 "area_hectares": self.fazenda.area_hectares,
                 "cultura_atual": self.fazenda.cultura_atual,
                 "localizacao_descricao": self.fazenda.localizacao_descricao,
+                "farmer_uuid": self.farmer_uuid,
             },
             "metricas_satelite": {
                 "ndvi": self.metricas_satelite.ndvi,

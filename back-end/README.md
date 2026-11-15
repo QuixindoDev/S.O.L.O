@@ -16,7 +16,7 @@
 A base de código isola rigidamente as regras de negócio puras (domínio) das integrações tecnológicas (FastAPI, Google Earth Engine, NASA POWER, PostgreSQL/PostGIS):
 
 ```text
-field_shift_backend/
+back-end/
 ├── src/
 │   ├── domain/                    # O Coração: Regras puras e fórmulas científicas
 │   │   ├── entities.py            # Modelos de Domínio (Fazenda, AnaliseSolo, EstimativaCarbono)
@@ -68,7 +68,7 @@ $$\text{Créditos líquidos} = (\text{Hectares} \times \text{Taxa de Sequestro} 
 ### 4.1. Instalação do Ambiente Virtual
 
 ```bash
-cd field_shift_backend
+cd back-end
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -92,14 +92,24 @@ pytest -v
 
 ---
 
+### 🔑 Regra Arquitetural de Identificadores (IDs vs UUIDs):
+* **Base de Dados:** Chave primária numérica sequencial auto-incrementada (`id: Integer`) para máxima performance de índices e integridade referencial.
+* **Comunicação Externa:** Toda a API, rotas, payloads JSON e sincronização offline-first utilizam exclusivamente `UUID` (gerados automaticamente ou fornecidos pelo cliente).
+
+---
+
 ## 📡 5. Principais Endpoints da API
 
 | Método | Endpoint | Descrição |
 |---|---|---|
-| `POST` | `/api/v1/analyze` | Recebe coordenadas, área e cultura; executa satélite e retorna diagnóstico completo |
-| `GET` | `/api/v1/analyses` | Lista diagnósticos históricos salvos |
-| `GET` | `/api/v1/analyses/{id}` | Recupera diagnóstico por ID |
-| `GET` | `/api/v1/health` | Estado dos adaptadores (NASA POWER, GEE e Banco de Dados) |
+| `POST` | `/api/v1/farmers` | Registar novo agricultor familiar (nome, telefone para pagamentos móveis, cooperativa) |
+| `GET` | `/api/v1/farmers` | Listar todos os agricultores cadastrados com paginação |
+| `GET` | `/api/v1/farmers/{farmer_uuid}` | Obter detalhes de um agricultor por UUID |
+| `GET` | `/api/v1/farmers/{farmer_uuid}/analyses` | Listar histórico de parcelas/análises associadas a um agricultor (1:N) |
+| `POST` | `/api/v1/analyze` | Recebe coordenadas, área, cultura e `farmer_uuid`; executa satélite e persiste diagnóstico |
+| `GET` | `/api/v1/analyses` | Lista diagnósticos históricos salvos (baseado em UUIDs) |
+| `GET` | `/api/v1/analyses/{uuid}` | Recupera diagnóstico específico por UUID |
+| `GET` | `/health` / `/api/v1/health` | Estado dos adaptadores (NASA POWER, GEE e Banco de Dados) |
 | `GET` | `/api/v1/crops` | Catálogo de culturas angolanas e leguminosas regenerativas |
 | `GET` | `/api/v1/carbon-calculator-info` | Detalhamento da metodologia e parâmetros de carbono |
 
