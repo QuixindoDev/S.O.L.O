@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -26,18 +27,27 @@ const ICON_SIZES: Record<ButtonSize, number> = {
   lg: 24,
 };
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+/**
+ * Atributos comuns a `<button>` e `<a>`. Usamos `HTMLElement` para que
+ * o mesmo conjunto de props sirva para os dois casos.
+ */
+export interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   icon?: LucideIcon;
   iconPosition?: "left" | "right";
   fullWidth?: boolean;
+  /** Se indicado, renderiza um link em vez de um `<button>`. */
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 /**
  * Botão do S.O.L.O.
  * Alturas: sm 40px · md 56px · lg 64px — sempre ≥ 48px para toque com luvas.
+ *
+ * Com `href` renderiza um `<Link>`; sem `href`, um `<button>`.
  */
 export function Button({
   variant = "primary",
@@ -45,6 +55,7 @@ export function Button({
   icon: Icon,
   iconPosition = "left",
   fullWidth = false,
+  href,
   className,
   children,
   type = "button",
@@ -52,22 +63,36 @@ export function Button({
 }: ButtonProps) {
   const iconSize = ICON_SIZES[size];
 
-  return (
-    <button
-      type={type}
-      className={cn(
-        "inline-flex shrink-0 items-center justify-center whitespace-nowrap font-bold transition-colors",
-        "disabled:pointer-events-none disabled:opacity-50",
-        VARIANTS[variant],
-        SIZES[size],
-        fullWidth && "w-full",
-        className,
-      )}
-      {...props}
-    >
+  const classes = cn(
+    "inline-flex shrink-0 items-center justify-center whitespace-nowrap font-bold transition-colors",
+    "disabled:pointer-events-none disabled:opacity-50",
+    VARIANTS[variant],
+    SIZES[size],
+    fullWidth && "w-full",
+    className,
+  );
+
+  const content = (
+    <>
       {Icon && iconPosition === "left" && <Icon size={iconSize} aria-hidden />}
       {children}
       {Icon && iconPosition === "right" && <Icon size={iconSize} aria-hidden />}
+    </>
+  );
+
+  if (href) {
+    // `type` e `children` já foram extraídos nos parâmetros.
+    const { disabled: _disabled, ...anchorProps } = props;
+    return (
+      <Link href={href} className={classes} {...anchorProps}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button type={type} className={classes} {...props}>
+      {content}
     </button>
   );
 }

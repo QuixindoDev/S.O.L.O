@@ -8,6 +8,8 @@ Plataforma de suporte à decisão para **agricultura familiar**, que traduz dado
 
 > 📍 Esta pasta é a **parte front-end** do projecto. O back-end vive em `../back-end/`.
 
+> 📡 **A integração com as APIs da NASA está documentada em [`../NASA-DADOS.md`](../NASA-DADOS.md)** — que dados usamos, o modelo agronómico do solo, os limites e o que falta implementar.
+
 ---
 
 ## 📌 Onde meter cada coisa
@@ -57,12 +59,36 @@ Plataforma de suporte à decisão para **agricultura familiar**, que traduz dado
 
 **`src/types/nasa.ts`** — inclui `DailyPoint` e `AgroSummary`, o formato normalizado que os ecrãs consomem.
 
+### 🌱 Modelo agronómico do solo
+
+`src/lib/agronomia.ts` implementa um **balanço hídrico** do solo a partir dos
+dados reais da NASA POWER:
+
+1. **ETo** — Penman-Monteith (FAO-56, eq. 6) com a radiação solar, o vento
+   e a humidade do ar medidos pela NASA. Inclui a radiação extraterrestrial
+   calculada para a latitude e o dia do ano (eq. 21).
+2. **Balde de 2 camadas** — superficial (5 cm) e zona radicular (30-40 cm),
+   com capacidade de campo e ponto de murcha por textura de solo.
+3. **Coeficiente de stress hídrico (Ks)** — sem ele a ET não cairia quando o
+   solo seca e o modelo colapsaria a 0%. Com ele, o solo estabiliza num
+   equilíbrio seco mas realisticamente acima do ponto de murcha.
+4. **Humidade final** → % da capacidade de campo → semáforo
+   `ideal` (≥60%) / `atencao` (≥35%) / `seco`.
+
+> ⚠️ **Transparência:** isto é uma *estimativa*, não uma medição. A NASA
+> **SMAP** dá a humidade do solo medida directamente por satélite — é o
+> endpoint `/api/nasa/smap`, ainda por implementar. O balanço **não
+> considera a rega** da Dona Maria, por isso pode dizer "seco" num terreno
+> que ela acabou de regar. O rodapé do ecrã avisa disto.
+
 ### 🖥️ Ecrãs já construídos
 
 | Ecrã | Rota | Ficheiros |
 |---|---|---|
 | **4. Meu Caderno da Terra (Início)** | `/inicio` | `features/dashboard/{WeatherCard,GardenCard,TipsGrid,QuickActions}.tsx` |
 | **6. Previsão do Tempo** | `/previsao-do-tempo` | `features/clima/{TodaySummary,WeekForecast,NasaAlerts}.tsx` |
+| **7. Minha Terra e Horta** | `/minha-terra-e-horta` | `features/terra/{SoilStatusCard,PlotsCard,SoilActionsCard}.tsx` |
+| **8. Minhas Plantas** | `/minhas-plantas` | `features/plantas/{PlantList,HarvestCard}.tsx` |
 
 Ambas são **Server Components** com `export const revalidate = 86400`:
 os dados do satélite são buscados no servidor e **chegam no HTML inicial** —
@@ -120,7 +146,8 @@ src/
 ├── app/
 │   ├── layout.tsx                    # Shell global: fonte Atkinson, metatags, <body>
 │   ├── globals.css                   # TOKENS DO DESIGN (fonte de verdade)
-│   ├── page.tsx                      # Landing / redirect → /entrar
+│   ├── page.tsx                      # Raiz → redirect para /inicio
+│   ├── not-found.tsx                 # Página 404 à marca (substitui a da Vercel)
 │   │
 │   ├── (auth)/                       # Telas SEM barra lateral (login/cadastro)
 │   │   ├── layout.tsx                # Wrapper simples centrado
@@ -216,7 +243,7 @@ src/
 │   ├── nasa/
 │   │   ├── client.ts                 # fetch + cache + normalização POWER
 │   │   └── normalize.ts              # Converte a resposta crua em AgroSummary
-│   ├── agronomia.ts                  # Fórmulas de balanço hídrico, ET0, GDD
+│   ├── agronomia.ts                  # Balanço hídrico do solo (FAO-56)
 │   ├── scores.ts                     # Pesos por prioridade do produtor
 │   └── format.ts                     # Datas, moeda, números em pt-BR
 │
@@ -241,8 +268,8 @@ src/
 | 4. Meu Caderno da Terra | `/inicio` | `features/dashboard/*` |
 | 5. Rotação de Culturas | `/rotacao-de-culturas` | `features/rotacao/*` |
 | 6. Previsão do Tempo | `/previsao-do-tempo` | `features/clima/*`, `charts/*` |
-| 7. Minha Terra e Horta | `/minha-terra-e-horta` | `features/terra/*` |
-| 8. Minhas Plantas | `/minhas-plantas` | `features/plantas/*` |
+| 7. Minha Terra e Horta | `/minha-terra-e-horta` | `features/terra/*` ✅ |
+| 8. Minhas Plantas | `/minhas-plantas` | `features/plantas/*` ✅ |
 | 9. Meu Caderninho | `/meu-caderninho` | `features/contas/*` |
 | 10. Calendário de Plantio | `/calendario-de-plantio` | `features/plantio/*` |
 | 11. Falar com a Agrônoma | `/falar-com-a-agronoma` | `features/agronoma/*` |
@@ -265,7 +292,7 @@ src/
 | 3 | Cliente NASA + normalização de tipos | `src/lib/nasa/` |
 | 4 | Cliente NASA + normalização | `src/lib/nasa/client.ts` + `normalize.ts` |
 | 5 | Motor de scores da rotação | `src/hooks/useSimulator.ts` + `src/lib/scores.ts` |
-| 6 | Fórmulas agronómicas (ET0, GDD, balanço hídrico) | `src/lib/agronomia.ts` |
+| 6 | Fórmulas agronómicas (ETo, balanço hídrico, Ks) | `src/lib/agronomia.ts` |
 | 7 | Leitura em voz alta (Text-to-Speech) | `src/hooks/useSpeech.ts` |
 | 8 | Cache offline (localStorage / IndexedDB) | `src/hooks/useOffline.ts` |
 | 9 | Tipos e dados agronómicos | `src/types/`, `src/data/` |
@@ -281,8 +308,8 @@ src/
 | 4 | Dashboard "Meu Caderno da Terra" (4) | `src/app/(app)/inicio/` |
 | 5 | Simulador de Rotação (5) | `src/app/(app)/rotacao-de-culturas/` |
 | 6 | Previsão do Tempo (6) | `src/app/(app)/previsao-do-tempo/` |
-| 7 | Terra e Horta (7) | `src/app/(app)/minha-terra-e-horta/` |
-| 8 | Plantas (8) | `src/app/(app)/minhas-plantas/` |
+| 7 | Terra e Horta (7) | `src/app/(app)/minha-terra-e-horta/` ✅ |
+| 8 | Plantas (8) | `src/app/(app)/minhas-plantas/` ✅ |
 | 9 | Caderninho (9) | `src/app/(app)/meu-caderninho/` |
 | 10 | Calendário de Plantio (10) | `src/app/(app)/calendario-de-plantio/` |
 | 11 | Chat com a Agrônoma (11) | `src/app/(app)/falar-com-a-agronoma/` |
@@ -396,8 +423,8 @@ async rewrites() {
 |---|---|---|
 | `/inicio` | 4. Meu Caderno da Terra | ✅ |
 | `/previsao-do-tempo` | 6. Previsão do Tempo (NASA POWER) | ✅ |
-| `/minha-terra-e-horta` | 7. Minha Terra e Horta (SMAP) | ⬜ |
-| `/minhas-plantas` | 8. Minhas Plantas | ⬜ |
+| `/minha-terra-e-horta` | 7. Minha Terra e Horta (SMAP) | ✅ |
+| `/minhas-plantas` | 8. Minhas Plantas | ✅ |
 | `/rotacao-de-culturas` | 5. Rotação de Culturas (Simulador) | ⬜ |
 | `/calendario-de-plantio` | 10. Calendário de Plantio | ⬜ |
 | `/meu-caderninho` | 9. Meu Caderninho de Contas | ⬜ |
@@ -443,6 +470,7 @@ npm run lint       # verificação de tipos (tsc --noEmit)
 | `index.html` | Protótipo funcional original com simulador e catálogo de APIs |
 | `AGENTS.md` | Regras geradas automaticamente pelo Next.js 16 para agentes de IA |
 | `README.md` | Este documento |
+| `../NASA-DADOS.md` | **Guia técnico da integração com as APIs da NASA** (partilhado com o back-end) |
 
 ---
 

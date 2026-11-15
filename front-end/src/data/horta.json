@@ -1,0 +1,105 @@
+{
+  "canteiros": [
+    {
+      "id": "canteiro_principal",
+      "name": "Canteiro Principal",
+      "crops": "Alface, Couve e Tomate Cereja",
+      "icon": "sprout",
+      "areaM2": 120
+    },
+    {
+      "id": "horta_cozinha",
+      "name": "Horta da Cozinha",
+      "crops": "Cebolinha, Manjericão e Salsinha",
+      "icon": "carrot",
+      "areaM2": 45
+    },
+    {
+      "id": "baixa_riacho",
+      "name": "Baixa do Riacho",
+      "crops": "Feijão e Milho",
+      "icon": "bean",
+      "areaM2": 800
+    }
+  ],
+  "plantas": [
+    {
+      "id": "tomate_cereja",
+      "name": "Tomate Cereja",
+      "plotId": "canteiro_principal",
+      "icon": "sprout",
+      "care": "Precisa de estaca agora",
+      "status": "Florindo",
+      "tone": "primary",
+      "sowingDate": "20260920",
+      "harvestInDays": 12
+    },
+    {
+      "id": "alface",
+      "name": "Alface",
+      "plotId": "canteiro_principal",
+      "icon": "leaf",
+      "care": "Pode colher em 3 dias",
+      "status": "Pronta",
+      "tone": "primary",
+      "sowingDate": "20261028",
+      "harvestInDays": 3
+    },
+    {
+      "id": "couve",
+      "name": "Couve",
+      "plotId": "canteiro_principal",
+      "icon": "leaf",
+      "care": "Rega de 2 em 2 dias",
+      "status": "Crescendo",
+      "tone": "neutral",
+      "sowingDate": "20261015",
+      "harvestInDays": 25
+    },
+    {
+      "id": "feijao",
+      "name": "Feijão",
+      "plotId": "baixa_riacho",
+      "icon": "bean",
+      "care": "Solo seco, precisa de água",
+      "status": "Com sede",
+      "tone": "neutral",
+      "sowingDate": "20260905",
+      "harvestInDays": 30
+    },
+    {
+      "id": "cebolinha",
+      "name": "Cebolinha",
+      "plotId": "horta_cozinha",
+      "icon": "carrot",
+      "care": "Corte as folhas de cima",
+      "status": "Cortando",
+      "tone": "primary",
+      "sowingDate": "20261005",
+      "harvestInDays": 5
+    }
+  ],
+  "colheitas": [
+    {
+      "id": "colheita_alface",
+      "crop": "Alface",
+      "quantity": "12 cabeças",
+      "soldAt": "feira",
+      "date": "20261114"
+    },
+    {
+      "id": "colheita_tomate",
+      "crop": "Tomate",
+      "quantity": "8 kg",
+      "soldAt": "feira",
+      "date": "20261112"
+    },
+    {
+      "id": "colheita_cebolinha",
+      "crop": "Cebolinha",
+      "quantity": "3 maços",
+      "soldAt": "casa",
+      "date": "20261110"
+    }
+  ]
+}

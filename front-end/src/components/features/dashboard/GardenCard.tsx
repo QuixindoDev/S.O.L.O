@@ -8,37 +8,36 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Divider } from "@/components/ui/Divider";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import type { SoilMoisture } from "@/lib/agronomia";
 
 export interface GardenCardProps {
-  /** Nome do canteiro principal */
+  /** Estado do solo — vem do mesmo modelo do ecrã "Minha Terra e Horta". */
+  moisture?: SoilMoisture;
   plotName?: string;
-  /** Plantas que estão lá */
   crops?: string;
-  /** Umidade do solo em % (dado SMAP) */
-  moisturePct?: number;
 }
 
 /**
  * Cartão "Minha Terra & Horta" — o canteiro activo e a humidade do solo.
  */
 export function GardenCard({
+  moisture,
   plotName = "Canteiro Principal",
   crops = "Alface, Couve e Tomate Cereja",
-  moisturePct = 72,
 }: GardenCardProps) {
   const router = useRouter();
 
+  const pct = moisture?.rootZonePct ?? 72;
   const state =
-    moisturePct >= 60
+    pct >= 60
       ? { label: "Ideal", tone: "primary" as const }
-      : moisturePct >= 40
+      : pct >= 35
         ? { label: "Precisa de água", tone: "warning" as const }
         : { label: "Seco, cuidado", tone: "danger" as const };
 
   const note =
-    moisturePct >= 60
-      ? "A terra está úmida na medida certa. Boa de plantar e afofar."
-      : "O solo está a secar. Convém regar cedo de manhã, antes do sol.";
+    moisture?.advice ??
+    "A terra está úmida na medida certa. Boa de plantar e afofar.";
 
   return (
     <Card padding="lg" className="flex flex-col gap-4">
@@ -58,7 +57,9 @@ export function GardenCard({
       <span className="text-lg font-bold text-text-primary">Umidade da Terra</span>
 
       <div>
-        <Badge tone={state.tone}>Ideal ({moisturePct}%)</Badge>
+        <Badge tone={state.tone}>
+          {state.label} ({pct}%)
+        </Badge>
       </div>
 
       <p className="text-base leading-relaxed text-text-secondary sm:text-[17px]">
