@@ -16,7 +16,7 @@
 A base de código isola rigidamente as regras de negócio puras (domínio) das integrações tecnológicas (FastAPI, Google Earth Engine, NASA POWER, PostgreSQL/PostGIS):
 
 ```text
-field_shift_backend/
+back-end/
 ├── src/
 │   ├── domain/                    # O Coração: Regras puras e fórmulas científicas
 │   │   ├── entities.py            # Modelos de Domínio (Fazenda, AnaliseSolo, EstimativaCarbono)
@@ -68,7 +68,7 @@ $$\text{Créditos líquidos} = (\text{Hectares} \times \text{Taxa de Sequestro} 
 ### 4.1. Instalação do Ambiente Virtual
 
 ```bash
-cd field_shift_backend
+cd back-end
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt

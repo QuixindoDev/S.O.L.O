@@ -10,7 +10,11 @@ from src.infrastructure.outbound.persistence.models import Base
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./field_shift.db")
 
-# Ajuste para SQLite se for o caso
+# Normalizar prefixos legados postgres:// -> postgresql:// para conformidade com SQLAlchemy 2.0+
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+# Ajuste específico para conexões multithreading em SQLite
 connect_args = {}
 if DATABASE_URL.startswith("sqlite"):
     connect_args = {"check_same_thread": False}
