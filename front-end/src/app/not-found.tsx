@@ -1,136 +1,77 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, Leaf } from "lucide-react";
 import {
-  CloudSun,
-  Home,
-  Leaf,
-  SearchX,
-  Sprout,
-} from "lucide-react";
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { IconBox } from "@/components/ui/IconBox";
+  OuvirAjuda,
+  OuvirExplicacao,
+  PaginaAnterior,
+} from "@/components/features/ajuda/NotFoundActions";
 
 /**
  * Página 404 do S.O.L.O.
  *
- * Em vez da página cinzenta da Vercel, a Dona Maria recebe uma
- * explicação simples em português e atalhos para onde quer ir.
- * Sem jargão, sem códigos de erro.
+ * Em vez da página cinzenta do servidor, a Dona Maria encontra a
+ *illustration do canteiro por plantar e um caminho de volta claro:
+ * o Caderno da Terra ou a página anterior. Tem também leitura por
+ * voz, para quem não distingue os botões.
  */
 export default function NotFound() {
-  // Só entram aqui páginas que já existem — um atalho que leva a outro
-  // 404 seria o pior dos mundos.
-  const atalhos = [
-    {
-      href: "/inicio",
-      label: "Meu Caderno da Terra",
-      description: "O resumo do seu dia",
-      icon: Home,
-    },
-    {
-      href: "/previsao-do-tempo",
-      label: "Previsão do Tempo",
-      description: "Sol, chuva e mais 7 dias",
-      icon: CloudSun,
-    },
-    {
-      href: "/minha-terra-e-horta",
-      label: "Minha Terra e Horta",
-      description: "Como está o solo e o que plantar",
-      icon: Sprout,
-    },
-    {
-      href: "/minhas-plantas",
-      label: "Minhas Plantas",
-      description: "O que está plantado",
-      icon: Leaf,
-    },
-  ];
-
   return (
     <main className="flex min-h-screen flex-col bg-bg">
-      {/* Barra simples, sem menu lateral */}
-      <header className="flex shrink-0 items-center gap-3.5 border-b border-border bg-surface px-6 py-4">
-        <div className="flex h-11 w-11 items-center justify-center rounded-input bg-primary">
-          <SearchX size={22} className="text-white" aria-hidden />
-        </div>
-        <div className="flex flex-col">
-          <span className="text-xl font-bold text-primary">S.O.L.O.</span>
-          <span className="text-sm text-text-muted">Campo Amigo</span>
+      {/* Cabeçalho simples, sem menu lateral */}
+      <header className="shrink-0 bg-bg">
+        <div className="mx-auto flex w-full max-w-[576px] items-center justify-between gap-4 py-4">
+          <div className="flex items-center gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[12px] bg-[#00873a]">
+              <Leaf size={20} className="text-[#f7fff2]" aria-hidden />
+            </span>
+            <span className="flex flex-col">
+              <span className="text-xl font-bold text-primary">S.O.L.O.</span>
+              <span className="text-[13px] text-text-secondary">
+                Campo Amigo
+              </span>
+            </span>
+          </div>
+
+          <OuvirAjuda />
         </div>
       </header>
 
-      <div className="flex flex-1 items-center justify-center px-4 py-10 sm:px-6">
-        <Card padding="lg" className="flex w-full max-w-2xl flex-col items-center gap-6 text-center">
-          {/* Número + ilustração */}
-          <div className="relative flex items-center justify-center">
-            <div className="flex h-28 w-28 items-center justify-center rounded-full bg-primary-soft">
-              <SearchX size={48} className="text-primary" aria-hidden />
-            </div>
-            <span className="absolute -right-2 -bottom-2 rounded-full bg-primary px-3 py-1 text-lg font-bold text-white">
-              404
-            </span>
+      <div className="flex flex-1 items-start justify-center px-4 pb-16 sm:px-6">
+        <section className="flex w-full max-w-[640px] flex-col items-center gap-6 rounded-card bg-surface p-6 shadow-[0_18px_40px_-24px_rgba(31,27,23,0.35)] sm:p-10">
+          {/* A ilustração: o canteiro que ainda não foi plantado */}
+          <div className="flex h-[208px] w-[208px] items-center justify-center rounded-full bg-[#fcf2eb]">
+            <Image
+              src="/404.png"
+              alt="Uma agrónoma com um vaso de planta e o número 404 desenhado com uma folha"
+              width={222}
+              height={285}
+              priority
+              className="h-[196px] w-auto"
+            />
           </div>
 
-          {/* Mensagem */}
-          <div className="flex flex-col gap-2">
-            <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-              Não encontrámos esta página
-            </h1>
-            <p className="max-w-md text-lg leading-relaxed text-text-secondary">
-              O endereço que abriu não existe, ou mudou de nome. Não se
-              preocupe — escolha abaixo onde quer ir.
-            </p>
-          </div>
+          <h1 className="max-w-[460px] text-center text-[30px] font-bold leading-tight text-text-primary sm:text-[38px]">
+            Eita! Parece que esse canteiro ainda não foi plantado.
+          </h1>
 
-          {/* Acções principais */}
-          <div className="flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <Button href="/inicio" icon={Home} size="lg">
-              Voltar ao início
-            </Button>
-            <Button
-              href="/previsao-do-tempo"
-              variant="soft"
-              icon={CloudSun}
-              size="lg"
+          <OuvirExplicacao />
+
+          <div className="h-px w-full max-w-[544px] bg-[#f0e6e0]" />
+
+          <div className="flex w-full max-w-[544px] flex-wrap items-center justify-between gap-4">
+            <Link
+              href="/inicio"
+              className="inline-flex h-12 items-center gap-2.5 rounded-[8px] bg-primary px-6 text-lg font-bold text-white transition-opacity hover:opacity-90"
             >
-              Ver o tempo de hoje
-            </Button>
-          </div>
+              Voltar para meu Caderno
+              <ArrowRight size={18} aria-hidden />
+            </Link>
 
-          {/* Atalhos para as secções */}
-          <div className="flex w-full flex-col gap-3 border-t border-border pt-6">
-            <span className="text-sm font-bold tracking-wider text-text-muted">
-              OU VÁ DIRECTAMENTE A
-            </span>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {atalhos.map((atalho) => {
-                const Icon = atalho.icon;
-                return (
-                  <Link
-                    key={atalho.href}
-                    href={atalho.href}
-                    className="flex items-center gap-3.5 rounded-input bg-surface-soft p-4 text-left transition-colors hover:bg-primary-soft"
-                  >
-                    <IconBox icon={Icon} tone="surface" size="sm" />
-                    <span className="flex min-w-0 flex-col">
-                      <span className="text-base font-bold text-text-primary">
-                        {atalho.label}
-                      </span>
-                      <span className="text-sm text-text-muted">
-                        {atalho.description}
-                      </span>
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
+            <PaginaAnterior />
           </div>
-
-          {/* Quando o ecrã 11 (Falar com a Agrônoma) existir, o atalho
-              para o WhatsApp entra aqui — em `atalhos` ou nesta nota. */}
-        </Card>
+        </section>
       </div>
     </main>
   );
