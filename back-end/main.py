@@ -16,6 +16,7 @@ from src.infrastructure.outbound.external.nasa_adapter import NasaPowerAdapter
 from src.infrastructure.outbound.external.gee_adapter import GEEAdapter, MockGEEAdapter
 from src.infrastructure.inbound.http.routers import router, set_dependencies
 from src.infrastructure.inbound.http.auth_router import auth_router
+from src.infrastructure.inbound.http.business_router import business_router
 
 # Configuração de logging
 logging.basicConfig(
@@ -85,6 +86,7 @@ app.add_middleware(
 
 # Registrar rotas da API
 app.include_router(auth_router)
+app.include_router(business_router)
 app.include_router(router)
 
 

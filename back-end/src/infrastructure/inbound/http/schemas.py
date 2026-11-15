@@ -410,3 +410,131 @@ class UserProfileResponse(BaseModel):
     phone: str
     isPhoneVerified: bool
     cooperativa: Optional[str] = None
+
+
+# ==============================================================================
+# SCHEMAS DE NEGÓCIO: HORTA, PLANTAS, COLHEITAS, FINANÇAS E MENSAGENS
+# ==============================================================================
+
+class PlotCreateRequest(BaseModel):
+    """Criação de um novo Canteiro na Horta."""
+    name: str = Field(..., min_length=2, max_length=150, description="Nome do canteiro (Ex: Canteiro Principal)")
+    crops: Optional[str] = Field(default=None, max_length=255, description="Culturas plantadas (Ex: Alface, Couve e Tomate Cereja)")
+    areaM2: float = Field(default=100.0, gt=0, description="Área em m² do canteiro")
+    icon: str = Field(default="sprout", description="Ícone: sprout | carrot | bean | leaf")
+    soilTexture: Optional[str] = Field(default="argiloso", description="Textura do solo do canteiro")
+
+
+class PlotResponse(BaseModel):
+    """Estrutura do canteiro idêntica a horta.json do front-end."""
+    id: str
+    uuid: Optional[str] = None
+    name: str
+    crops: Optional[str] = None
+    areaM2: float
+    icon: str
+    soilTexture: Optional[str] = "argiloso"
+
+
+class PlantCreateRequest(BaseModel):
+    """Cadastro de nova planta/cultura."""
+    name: str = Field(..., min_length=2, max_length=150, description="Nome da planta (Ex: Tomate Cereja)")
+    plotId: str = Field(..., description="ID ou UUID do canteiro onde está plantada")
+    icon: str = Field(default="sprout", description="Ícone: sprout | leaf | bean | carrot")
+    care: Optional[str] = Field(default=None, max_length=255, description="Cuidados atuais (Ex: Precisa de estaca agora)")
+    status: str = Field(default="Crescendo", description="Status: Florindo | Pronta | Crescendo | Com sede | Cortando")
+    tone: str = Field(default="neutral", description="Tom visual do badge: primary | neutral | danger")
+    sowingDate: Optional[str] = Field(default=None, description="Data da semeadura (YYYYMMDD ou AAAA-MM-DD)")
+    harvestInDays: int = Field(default=0, ge=0, description="Dias restantes estimados até a colheita")
+
+
+class PlantUpdateRequest(BaseModel):
+    """Atualização de status ou cuidados de uma planta."""
+    status: Optional[str] = None
+    care: Optional[str] = None
+    tone: Optional[str] = None
+    harvestInDays: Optional[int] = None
+
+
+class PlantResponse(BaseModel):
+    """Estrutura da planta idêntica a horta.json do front-end."""
+    id: str
+    uuid: Optional[str] = None
+    plotId: str
+    name: str
+    icon: str
+    care: Optional[str] = None
+    status: str
+    tone: str
+    sowingDate: Optional[str] = None
+    harvestInDays: int
+
+
+class HarvestCreateRequest(BaseModel):
+    """Registro de colheita efetuada."""
+    crop: str = Field(..., min_length=2, max_length=150, description="Cultura colhida (Ex: Alface)")
+    quantity: str = Field(..., min_length=1, max_length=100, description="Quantidade colhida (Ex: 12 cabeças, 8 kg)")
+    soldAt: str = Field(default="feira", description="Destino: feira | casa | cooperativa")
+    date: Optional[str] = Field(default=None, description="Data da colheita (YYYYMMDD)")
+
+
+class HarvestResponse(BaseModel):
+    """Estrutura da colheita idêntica a horta.json do front-end."""
+    id: str
+    uuid: Optional[str] = None
+    crop: str
+    quantity: str
+    soldAt: str
+    date: str
+
+
+class HortaOverviewResponse(BaseModel):
+    """Estrutura completa equivalente a horta.json para consumo direto do front-end."""
+    canteiros: List[PlotResponse]
+    plantas: List[PlantResponse]
+    colheitas: List[HarvestResponse]
+
+
+class FinancialTransactionCreateRequest(BaseModel):
+    """Lançamento no Caderninho de Contas (Ecrã 9)."""
+    tipo: str = Field(..., description="Tipo de movimentação: entrada (venda) ou saida (gasto)")
+    categoria: str = Field(..., description="Categoria: feira | adubo | sementes | agua | outros")
+    descricao: str = Field(..., min_length=2, max_length=255, description="Descrição da conta (Ex: Venda de alface na feira)")
+    valor: float = Field(..., gt=0, description="Valor monetário (R$ ou Kz)")
+    data: Optional[str] = Field(default=None, description="Data do lançamento (Ex: '12 de nov' ou '2026-11-12')")
+
+
+class FinancialTransactionResponse(BaseModel):
+    """Registro individual de movimentação financeira."""
+    id: str
+    uuid: Optional[str] = None
+    tipo: str
+    categoria: str
+    descricao: str
+    valor: float
+    data: str
+
+
+class FinancialSummaryResponse(BaseModel):
+    """Resumo do mês para os cards principais do Caderninho de Contas."""
+    mes: str
+    dinheiroQueEntrou: float
+    dinheiroQueSaiu: float
+    sobrou: float
+    transacoes: List[FinancialTransactionResponse]
+
+
+class AgronomistMessageCreateRequest(BaseModel):
+    """Envio de mensagem/pergunta para a agrônoma (Ecrã 11)."""
+    message: str = Field(..., min_length=1, description="Texto da dúvida (Ex: Quando semear o milho?)")
+
+
+class AgronomistMessageResponse(BaseModel):
+    """Mensagem no chat com a agrônoma."""
+    id: str
+    uuid: Optional[str] = None
+    sender: str
+    senderName: str
+    message: str
+    isRead: bool
+    time: str
