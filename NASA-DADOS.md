@@ -1,4 +1,4 @@
-# 🛰️ Dados da NASA no S.O.L.O. — Guia técnico da equipa
+# 🛰️ Dados da NASA no S.O.L.O. — Guia técnico
 
 > **NASA International Space Apps Challenge 2026** · Desafio *Field Shift: Adapting Farms with NASA Data*
 > Documento partilhado entre as equipas de **front-end** (`front-end/`) e **back-end** (`back-end/`).
