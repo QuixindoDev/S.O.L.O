@@ -12,15 +12,20 @@ const atkinson = Atkinson_Hyperlegible({
 export const metadata: Metadata = {
   title: "S.O.L.O. Campo Amigo | NASA Space Apps 2026",
   description:
-    "Suporte à decisão para agricultura familiar, com dados de satélite da NASA. Feito para ser simples de usar.",
+    "Suporte à decisão para a agricultura familiar em Angola, com dados de satélite da NASA. Feito para ser simples de usar.",
   keywords: [
     "NASA Space Apps",
     "Campo Amigo",
     "Agricultura",
+    "Angola",
     "NASA POWER",
     "SMAP",
     "Rotação de Culturas",
   ],
+  openGraph: {
+    locale: "pt_PT",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

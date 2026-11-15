@@ -12,7 +12,7 @@
     "heatToleranceScore": 70,
     "typicalCycleDays": 130,
     "recommendedSeason": "main_rainy",
-    "description": "Excelente potencial produtivo e retorno comercial, porém possui alta exigência hídrica e consome nitrogênio."
+    "description": "Excelente potencial produtivo e retorno comercial, mas possui alta exigência hídrica e consome nitrogénio."
   },
   {
     "id": "soja",
@@ -27,7 +27,7 @@
     "heatToleranceScore": 75,
     "typicalCycleDays": 115,
     "recommendedSeason": "main_rainy",
-    "description": "Leguminosa comercial de alto valor com simbiose que fixa nitrogênio biológico diretamente no solo."
+    "description": "Leguminosa comercial de alto valor com simbiose que fixa nitrogénio biológico directamente no solo."
   },
   {
     "id": "feijao_caupi",
@@ -42,7 +42,7 @@
     "heatToleranceScore": 95,
     "typicalCycleDays": 75,
     "recommendedSeason": "second_season",
-    "description": "Extremamente resistente à seca e altas temperaturas. Fixa nitrogênio e amadurece rapidamente."
+    "description": "Extremamente resistente à seca e às altas temperaturas. Fixa nitrogénio e amadurece rapidamente."
   },
   {
     "id": "sorgo",
@@ -72,7 +72,7 @@
     "heatToleranceScore": 90,
     "typicalCycleDays": 90,
     "recommendedSeason": "cover_fallow",
-    "description": "Raízes ultrapassam 2 metros, descompactam a terra, reciclam nutrientes profundos e criam espessa palhada protetora."
+    "description": "Raízes ultrapassam 2 metros, descompactam a terra, reciclam nutrientes profundos e criam uma espessa palhada protetora."
   },
   {
     "id": "crotalaria",
@@ -87,7 +87,7 @@
     "heatToleranceScore": 85,
     "typicalCycleDays": 90,
     "recommendedSeason": "cover_fallow",
-    "description": "Campeã em fixação biológica de Nitrogênio e controle natural de nematoides no solo."
+    "description": "Campeã em fixação biológica de nitrogénio e controlo natural de nematoides no solo."
   },
   {
     "id": "gergelim",
@@ -102,7 +102,7 @@
     "heatToleranceScore": 95,
     "typicalCycleDays": 90,
     "recommendedSeason": "second_season",
-    "description": "Planta rústica com altíssima tolerância a calor e estresse hídrico, com excelente valor de mercado."
+    "description": "Planta rústica com altíssima tolerância ao calor e ao stresse hídrico, com excelente valor de mercado."
   },
   {
     "id": "girassol",

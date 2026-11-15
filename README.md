@@ -1,10 +1,36 @@
 # 🛰️ S.O.L.O. — Smart Observation Land Optimization
 ### *Field Friend: Democratizing Climate Adaptation and Carbon Credits for Smallholder Farmers using NASA Earth Observation Data*
 
+<<<<<<< HEAD
 > **NASA International Space Apps Challenge 2026**  
 > **Challenge:** [*Field Shift: Adapting Farms with NASA Data*](https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/?tab=details)  
 > **Live Website:** [*S.O.L.O*](https://www.agrosolo.earth)  
 > **Repository:** `QuixindoDev/S.O.L.O` · **Team:** S.O.L.O. Team  
+=======
+> **NASA International Space Apps Challenge 2026**
+> Desafio: *Field Shift: Adapting Farms with NASA Data*
+> Repositório: `QuixindoDev/S.O.L.O` · Branch: `requisitos`
+
+Plataforma de suporte à decisão para a **agricultura familiar em Angola**, que traduz dados de satélite da NASA em conselhos simples e visuais para quem tem mais de 60 anos e cultiva a terra.
+
+---
+
+## 🇦🇴 Convenções de localização (pt-Angola)
+
+Todo o conteúdo (design `.pen` e código) segue o **português de Angola**, que segue o Acordo Ortográfico:
+
+| Tema | Termo usado | Não usar |
+|---|---|---|
+| Humidade do solo | **humidade** | umidade |
+| Nutriente | **nitrogénio** | nitrogênio |
+| Ecrã | **ecrã** | tela |
+| Mercado local | **mercado** | feira livre |
+| Moeda | **Kz** (kwanza) | R$ / USD no UI |
+| Telefone | **+244 9XX XXX XXX** | (XX) XXXXX-XXXX |
+| Stress | **stresse térmico / hídrico** | estresse |
+
+O design de referência é o ficheiro **`login copy.pen`** (pen.dev) — cidade de referência **Caxito - Bengo**, produtor **Dona Maria**, sítio **Sítio Recanto Verde**, agrónoma **Ana**.
+>>>>>>> ad8ae9c7 (feat(i18n): localizar design e conteudo para portugues de Angola)
 
 ---
 
@@ -19,7 +45,12 @@
 [![NASA POWER API](https://img.shields.io/badge/NASA%20Data-POWER%20%7C%20SMAP%20%7C%20ECOSTRESS-red)](NASA-DADOS.md)
 [![Carbon Standards](https://img.shields.io/badge/Carbon%20Methodology-IPCC%20%7C%20Verra%20VM0042-green)](#-6-carbon-credits--scientific-methodology)
 
+<<<<<<< HEAD
 ---
+=======
+> **Este é o guia principal para a divisão de tarefas.**
+> O design completo das 12 telas está no ficheiro **`login copy.pen`** (pen.dev). Cada ecrã do design corresponde a **uma pasta/rota** indicada na tabela abaixo.
+>>>>>>> ad8ae9c7 (feat(i18n): localizar design e conteudo para portugues de Angola)
 
 ## 📑 Table of Contents
 
@@ -71,7 +102,13 @@ S.O.L.O. fulfills two complementary, transformative missions:
 └────────────────────────────────────────────────────────┘
 ```
 
+<<<<<<< HEAD
 | Field Challenge | Traditional Approach | The S.O.L.O. Solution |
+=======
+### Mapa: ecrã do design → ficheiro
+
+| Ecrã (`login copy.pen`) | Rota | Componentes principais |
+>>>>>>> ad8ae9c7 (feat(i18n): localizar design e conteudo para portugues de Angola)
 |---|---|---|
 | **Climate Uncertainty** | Farmers rely on past seasonal memory that fails due to shifting climate patterns and erratic rainfalls. | **Daily NASA satellite observations** tracking surface temperature, accumulated precipitation, radiation, and a real 7-day retrospective series. |
 | **The Data Gap** | NetCDF, HDF5, and GeoTIFF scientific files are incomprehensible to non-technical rural producers. | **Direct agronomic translation**: Instead of showing `ALLSKY_SFC_SW_DWN = 20.78 MJ/m²`, S.O.L.O. advises: *"Intense solar radiation today; soil is drying fast, water early in the morning"*. |
@@ -379,6 +416,7 @@ pytest -v
 
 ### 9.2 Running the Frontend (Next.js)
 
+<<<<<<< HEAD
 ```bash
 # 1. Navigate to the frontend directory (in a new terminal)
 cd front-end
@@ -393,6 +431,15 @@ npm run dev
 The web application will be live at:
 * 🌐 **Web Application:** [`http://localhost:3000`](http://localhost:3000) (auto-redirects to `/inicio`)
 * 🎨 **Design System Showcase:** [`http://localhost:3000/design-system`](http://localhost:3000/design-system)
+=======
+| Ficheiro | Conteúdo |
+|---|---|
+| **`login copy.pen`** | **Design completo das 12 telas** (pen.dev) — abrir na extensão Pencil |
+| `escopo-projecto.md` | Escopo técnico, objectivos e critérios de avaliação da NASA |
+| `stitch-design-system-prompt.md` | Especificação original do design system (9 ecrãs) |
+| `index.html` | Protótipo funcional original com simulador e catálogo de APIs |
+| `README.md` | Este documento |
+>>>>>>> ad8ae9c7 (feat(i18n): localizar design e conteudo para portugues de Angola)
 
 ---
 
