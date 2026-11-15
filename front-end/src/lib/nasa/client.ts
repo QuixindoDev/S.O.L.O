@@ -1,5 +1,6 @@
 import { normalizePower } from "./normalize";
 import type { AgroSummary, NasaPowerResponse } from "@/types/nasa";
+import { api } from "@/lib/api/endpoints";
 
 function isoDaysAgo(days: number): string {
   const d = new Date();
@@ -7,11 +8,8 @@ function isoDaysAgo(days: number): string {
   return d.toISOString().slice(0, 10).replace(/-/g, "");
 }
 
-const PARAMETERS =
-  "T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,ALLSKY_SFC_SW_DWN,WS2M";
-
 /**
- * Resumo de reserva quando a NASA não responde.
+ * Resumo de reserva quando o back-end (ou a NASA) não responde.
  * A aplicação tem de funcionar mesmo sem rede — é um requisito
  * do público-alvo (pessoas no campo, com sinal fraco).
  */
@@ -38,12 +36,12 @@ export function fallbackSummary(
 }
 
 /**
- * Busca a série diária da NASA POWER no servidor e normaliza.
+ * Busca a série diária da NASA POWER **no back-end** e normaliza.
  *
  * Feito no servidor por três motivos:
  *  1. O HTML já chega com os dados — sem ecrã em branco no 3G rural.
- *  2. `revalidate: 86400` guarda a resposta na edge durante 24h,
- *     poupando o telemóvel da Dona Maria.
+ *  2. O back-end guarda a resposta em cache durante 24 h, poupando
+ *     o telemóvel da Dona Maria (e a NASA).
  *  3. Se a NASA estiver em baixo, a aplicação não quebra.
  */
 export async function getAgroSummary(
@@ -54,23 +52,15 @@ export async function getAgroSummary(
   const start = isoDaysAgo(windowDays);
   const end = isoDaysAgo(0);
 
-  const url =
-    `https://power.larc.nasa.gov/api/temporal/daily/point` +
-    `?parameters=${PARAMETERS}&community=AG` +
-    `&longitude=${longitude}&latitude=${latitude}` +
-    `&start=${start}&end=${end}&format=JSON`;
-
   try {
-    const res = await fetch(url, { next: { revalidate: 86400 } });
+    const json = await api.nasa.power(
+      { lat: latitude, lon: longitude, start, end },
+      { revalidate: 86400, timeoutMs: 25_000 },
+    );
 
-    if (!res.ok) {
-      throw new Error(`NASA POWER respondeu ${res.status}`);
-    }
-
-    const json = (await res.json()) as NasaPowerResponse;
-    return normalizePower(json);
+    return normalizePower(json as NasaPowerResponse);
   } catch (error) {
-    console.error("[nasa] falha ao buscar POWER:", error);
+    console.error("[nasa] falha ao buscar POWER no back-end:", error);
     return fallbackSummary(latitude, longitude);
   }
 }

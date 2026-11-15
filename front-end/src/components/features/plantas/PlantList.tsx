@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { IconBox } from "@/components/ui/IconBox";
-import horta from "@/data/horta.json";
+import { PlantCards } from "@/components/features/plantas/PlantCards";
+import type { PlantDto, PlotDto } from "@/lib/api/types";
 
 const PLANT_ICONS = {
   sprout: Sprout,
@@ -15,18 +16,21 @@ const PLANT_ICONS = {
   carrot: Carrot,
 } as const;
 
-const PLOT_NAMES: Record<string, string> = Object.fromEntries(
-  horta.canteiros.map((c) => [c.id, c.name]),
-);
-
 export interface PlantListProps {
+  /** Plantas da horta (vêm do back-end: GET /api/v1/plants). */
+  plants: PlantDto[];
+  /** Canteiros, para mostrar onde está cada planta. */
+  plots: PlotDto[];
   onAdd?: () => void;
 }
 
 /**
  * "Minhas plantas" — o que está plantado e o que precisa de atenção.
  */
-export function PlantList({ onAdd }: PlantListProps) {
+export function PlantList({ plants, plots, onAdd }: PlantListProps) {
+  const PLOT_NAMES: Record<string, string> = Object.fromEntries(
+    plots.map((c) => [c.id, c.name]),
+  );
   return (
     <Card padding="lg" className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -43,8 +47,11 @@ export function PlantList({ onAdd }: PlantListProps) {
         </Button>
       </div>
 
+      {/* Cards com foto — por cima da lista com os cuidados */}
+      <PlantCards plants={plants} plots={plots} />
+
       <div className="flex flex-col gap-3">
-        {horta.plantas.map((plant) => {
+        {plants.map((plant) => {
           const Icon = PLANT_ICONS[plant.icon as keyof typeof PLANT_ICONS] ?? Sprout;
 
           return (
@@ -63,7 +70,7 @@ export function PlantList({ onAdd }: PlantListProps) {
                   {PLOT_NAMES[plant.plotId] ?? plant.plotId}
                 </span>
                 <span className="text-base text-text-secondary">
-                  {plant.care}
+                  {plant.care ?? "Sem cuidados registados"}
                 </span>
               </div>
 

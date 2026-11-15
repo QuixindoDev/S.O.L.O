@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 import { AdvancedStep } from "@/components/features/rotacao/AdvancedStep";
-import { DiagnosisStep } from "@/components/features/rotacao/DiagnosisStep";
+import { DiagnosisStep, type LeguminosaServidor } from "@/components/features/rotacao/DiagnosisStep";
 import { PresetStep } from "@/components/features/rotacao/PresetStep";
 import { PriorityStep } from "@/components/features/rotacao/PriorityStep";
 import { WizardStepper } from "@/components/features/rotacao/WizardStepper";
 import { useSimulator } from "@/hooks/useSimulator";
-import { defaultFarm } from "@/lib/farm";
+import { api } from "@/lib/api/endpoints";
+import { readSessionToken } from "@/lib/api/session";
 import { planForGoal, ROTATION_PLANS } from "@/lib/rotacao";
 import { loadSavedRotation, plantingsForSelection, saveRotation } from "@/lib/plantio";
 import cropsDatabase from "@/data/crops.json";
@@ -47,6 +48,19 @@ const COPY: Record<WizardStep, { title: string; subtitle: string }> = {
 export interface RotationWizardProps {
   /** Resumo de um ano de dados da NASA POWER. */
   summary: AgroSummary | null;
+  /** Textura do solo — vem do perfil no back-end. */
+  soil?: SoilTextureType;
+  /** Coordenadas da propriedade — vêm do perfil no back-end. */
+  latitude?: number;
+  longitude?: number;
+  /** "Huambo - Huíla" — para a barra lateral. */
+  locationLabel?: string;
+  /** Área da terra em hectares — base do carbono. */
+  areaHectares?: number;
+  /** Nome do sítio. */
+  farmName?: string;
+  /** Leguminosas regenerativas do catálogo do servidor. */
+  leguminosas?: LeguminosaServidor[];
 }
 
 function selectionFromPlan(planId: string): RotationSequenceSelection {
@@ -67,7 +81,16 @@ function selectionFromPlan(planId: string): RotationSequenceSelection {
  *     quem quer escolher cultura a cultura);
  *  3. o diagnóstico da agrônoma em português simples.
  */
-export function RotationWizard({ summary }: RotationWizardProps) {
+export function RotationWizard({
+  summary,
+  soil: soilProp,
+  latitude,
+  longitude,
+  locationLabel,
+  areaHectares,
+  farmName,
+  leguminosas = [],
+}: RotationWizardProps) {
   const [step, setStep] = useState<WizardStep>(1);
   const [priority, setPriority] = useState<FarmerPriority>("agua");
   const [activePlanId, setActivePlanId] = useState<string>(
@@ -77,6 +100,7 @@ export function RotationWizard({ summary }: RotationWizardProps) {
     selectionFromPlan(ROTATION_PLANS[0].id),
   );
   const [saved, setSaved] = useState(false);
+  const [analiseSalva, setAnaliseSalva] = useState(false);
 
   // Se a Dona Maria já guardou uma rotação (ou mexeu no calendário),
   // o ecrã começa nessa — nada se perde entre ecrãs.
@@ -110,9 +134,9 @@ export function RotationWizard({ summary }: RotationWizardProps) {
     }
   }, []);
 
-  // O solo e a região vêm do perfil da fazenda — o ecrã 7 (Minha Terra)
-  // é onde a pessoa os muda.
-  const soil: SoilTextureType = defaultFarm.soil;
+  // O solo e a região vêm do perfil da propriedade (back-end) — o
+  // ecrã 7 (Minha Terra) é onde a pessoa os muda.
+  const soil: SoilTextureType = soilProp ?? "franco";
   const biome: BiomeType = "savana";
 
   const result = useSimulator(biome, soil, priority, selection, summary);
@@ -160,7 +184,35 @@ export function RotationWizard({ summary }: RotationWizardProps) {
       plantings,
     });
     setSaved(true);
+
+    // Envia também o diagnóstico para o back-end, que o cruza com os
+    // dados do satélite e calcula os créditos de carbono
+    // (POST /api/v1/analyze).
+    void salvarAnaliseNoBackend();
   };
+
+  /** Regista a análise da terra no back-end (créditos de carbono). */
+  async function salvarAnaliseNoBackend() {
+    const cultura = crops.find((c) => c.id === selection.cycle1CropId);
+
+    try {
+      await api.analyses.analyze(
+        {
+          latitude: latitude ?? -12.776,
+          longitude: longitude ?? 15.739,
+          area_hectares: areaHectares ?? 2.5,
+          cultura_atual: cultura?.name ?? "Milho",
+          nome: farmName,
+          localizacao_descricao: locationLabel,
+        },
+        { token: readSessionToken() },
+      );
+      setAnaliseSalva(true);
+    } catch (error) {
+      console.error("[rotacao] não foi possível guardar a análise:", error);
+      setAnaliseSalva(false);
+    }
+  }
 
   const showStepper = step === 1 || step === 2 || step === 3;
 
@@ -206,6 +258,7 @@ export function RotationWizard({ summary }: RotationWizardProps) {
         result={result}
         onSave={handleSave}
         onBack={() => setStep(2)}
+        leguminosas={leguminosas}
       />
     );
   }
@@ -214,7 +267,7 @@ export function RotationWizard({ summary }: RotationWizardProps) {
     <AppShell
       title={copy.title}
       subtitle={copy.subtitle}
-      location={defaultFarm.locationLabel}
+      location={locationLabel}
     >
       <div className="flex flex-col gap-6">
         {showStepper && <WizardStepper current={step as number} />}
@@ -225,6 +278,16 @@ export function RotationWizard({ summary }: RotationWizardProps) {
             className="rounded-card border border-primary bg-primary-soft px-5 py-4 text-base font-bold text-primary"
           >
             Rotação guardada no teu caderno da terra.
+          </p>
+        )}
+
+        {saved && analiseSalva && (
+          <p
+            role="status"
+            className="rounded-card border border-border bg-surface px-5 py-4 text-base text-text-secondary"
+          >
+            Diagnóstico da terra guardado no servidor — os créditos de
+            carbono já estão calculados.
           </p>
         )}
 

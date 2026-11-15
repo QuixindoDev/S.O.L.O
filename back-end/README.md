@@ -112,6 +112,33 @@ pytest -v
 | `GET` | `/health` / `/api/v1/health` | Estado dos adaptadores (NASA POWER, GEE e Banco de Dados) |
 | `GET` | `/api/v1/crops` | Catálogo de culturas angolanas e leguminosas regenerativas |
 | `GET` | `/api/v1/carbon-calculator-info` | Detalhamento da metodologia e parâmetros de carbono |
+| `GET` | `/api/v1/profile` | Perfil da propriedade (dono, sítio, coordenadas, solo, área) — usado por todos os ecrãs |
+| `GET` | `/api/v1/horta` | Visão geral da horta: canteiros + plantas + colheitas |
+| `GET` / `POST` | `/api/v1/plots` | Listar / criar canteiros |
+| `DELETE` | `/api/v1/plots/{plot_ref}` | Remover canteiro (e as plantas dele) |
+| `GET` / `POST` | `/api/v1/plants` | Listar / criar plantas |
+| `PATCH` | `/api/v1/plants/{plant_ref}` | Actualizar estado, cuidados ou dias até à colheita |
+| `DELETE` | `/api/v1/plants/{plant_ref}` | Remover planta |
+| `GET` / `POST` | `/api/v1/harvests` | Listar / registar colheitas |
+| `GET` | `/api/v1/finance/summary` | Resumo financeiro do mês (entrou, saiu, sobrou) |
+| `GET` / `POST` | `/api/v1/finance/transactions` | Lançamentos do caderninho de contas |
+| `GET` / `POST` | `/api/v1/agronomist/messages` | Conversa com a agrônoma |
+| `POST` / `GET` | `/api/v1/auth/*` | Cadastro, verificação 2FA, login, perfil e logout |
+
+### Datasets NASA (consumidos pelo front-end)
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| `GET` | `/api/nasa/power` | Série diária NASA POWER (temperatura, chuva, humidade, radiação, vento) — cache 24 h |
+| `GET` | `/api/nasa/smap` | Humidade do solo (GWETTOP / GWETROOT) — cache 24 h |
+| `GET` | `/api/nasa/ecostress` | Estresse térmico (requer credenciais NASA Earthdata — ainda não configurado) |
+| `GET` | `/api/nasa/gpm` | Precipitação IMERG (requer credenciais NASA Earthdata — ainda não configurado) |
+
+```bash
+curl "http://localhost:8000/api/nasa/power?lat=-12.776&lon=15.739&start=20260101&end=20261231"
+```
+
+Variáveis de ambiente: `NASA_TIMEOUT_SECONDS` (timeout da NASA) e `CACHE_TTL_SECONDS` (TTL do cache, 86400 por omissão).
 
 ### Exemplo de Requisição (`POST /api/v1/analyze`):
 

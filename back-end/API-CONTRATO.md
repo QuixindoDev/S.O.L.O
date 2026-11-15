@@ -19,9 +19,9 @@ O objectivo **não** é inventar dados. É:
 
 ## 🔌 Contrato da API (o que o front-end espera)
 
-> ⚠️ O proxy `../front-end/src/app/api/nasa/power/route.ts` já existe e funciona,
-> chamando a NASA POWER directamente, **com a mesma forma de resposta**.
-> Se mantiverem a forma, a integração é plug-and-play.
+> ✅ **Implementado.** O proxy `../front-end/src/app/api/nasa/power/route.ts`
+> já aponta para este back-end, e a forma de resposta é a mesma — a
+> integração é plug-and-play.
 
 ### `GET /api/nasa/power`
 
@@ -68,14 +68,14 @@ Os **tipos TypeScript exactos** estão em [`../front-end/src/types/nasa.ts`](../
 
 ---
 
-## 🛰️ Endpoints a implementar
+## 🛰️ Endpoints NASA
 
-| Endpoint | Missão NASA | Prioridade |
+| Endpoint | Missão NASA | Estado |
 |---|---|---|
-| `GET /api/nasa/power` | NASA POWER (Agroclimatology) | 🔴 Já funciona no front-end — replicar/melhorar |
-| `GET /api/nasa/smap` | Umidade do solo (superficial + zona radicular) | 🟡 |
-| `GET /api/nasa/ecostress` | ETa, ESI, WUE (estresse térmico) | 🟡 |
-| `GET /api/nasa/gpm` | Precipitação IMERG quase em tempo real | 🟢 |
+| `GET /api/nasa/power` | NASA POWER (Agroclimatology) | ✅ Implementado (cache 24 h) |
+| `GET /api/nasa/smap` | Umidade do solo (superficial + zona radicular) | ✅ Implementado (GWETTOP / GWETROOT) |
+| `GET /api/nasa/ecostress` | ETa, ESI, WUE (estresse térmico) | ⏳ Falta credencial NASA Earthdata (`ECOSTRESS_TOKEN`) — devolve 501 |
+| `GET /api/nasa/gpm` | Precipitação IMERG quase em tempo real | ⏳ Falta credencial NASA Earthdata (`EARTHDATA_TOKEN`) — devolve 501 |
 
 ---
 
@@ -116,20 +116,29 @@ back-end/
 
 ## 🔗 Ligar ao front-end
 
-No front-end, o proxy actual chama a NASA directamente. Para apontar para o back-end, alterar
-[`../front-end/src/app/api/nasa/power/route.ts`](../front-end/src/app/api/nasa/power/route.ts):
+O front-end já aponta para este back-end. A configuração está em
+`../front-end/.env.local`:
 
-```ts
-const BACKEND = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
-const res = await fetch(
-  `${BACKEND}/api/nasa/power?lat=${lat}&lon=${lon}&start=${start}&end=${end}`,
-);
-```
-
-E criar `../front-end/.env.local`:
 ```bash
-NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
+
+E a camada de acesso do front-end é `../front-end/src/lib/api/`
+(`config.ts` com o mapa de endpoints, `http.ts` com o `apiFetch()`,
+`endpoints.ts` com uma função por endpoint).
+
+---
+
+## 🔌 Endpoints de negócio (consumidos pelos ecrãs)
+
+| Ecrã | Endpoint |
+|---|---|
+| Perfil (todos os ecrãs) | `GET /api/v1/profile` |
+| Minha Terra e Horta | `GET /api/v1/plots` |
+| Minhas Plantas | `GET /api/v1/plants`, `GET /api/v1/harvests`, `POST /api/v1/plants`, `POST /api/v1/harvests` |
+| Rotação de Culturas | `POST /api/v1/analyze` (ao guardar a rotação) |
+| Renda da Terra | `GET /api/v1/analyses`, `GET /api/v1/farmers/{uuid}/analyses` |
+| Administração | `GET /api/v1/farmers`, `GET /api/v1/analyses`, `GET /health` |
 
 ---
 
@@ -146,8 +155,8 @@ NEXT_PUBLIC_API_URL=http://localhost:3001
 
 ## ✅ Critérios de aceitação
 
-- [ ] `GET /api/nasa/power` devolve dados reais e normalizados
-- [ ] Cache de 24h verificável (2º pedido não volta a bater na NASA)
-- [ ] Timeouts e mensagens de erro claras
-- [ ] Tipos alinhados com `../front-end/src/types/nasa.ts`
-- [ ] README com exemplos de `curl` para cada endpoint
+- [x] `GET /api/nasa/power` devolve dados reais e normalizados
+- [x] Cache de 24h verificável (2º pedido não volta a bater na NASA)
+- [x] Timeouts e mensagens de erro claras
+- [x] Tipos alinhados com `../front-end/src/types/nasa.ts`
+- [x] README com exemplos de `curl` para cada endpoint

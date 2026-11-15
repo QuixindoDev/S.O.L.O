@@ -45,15 +45,21 @@ business_router = APIRouter(prefix="/api/v1", tags=["Módulos do Campo (Horta, P
 
 def _get_or_create_target_farmer(
     current_farmer: Optional[FarmerRecord],
-    db: Session
+    db: Session,
+    seed: bool = True
 ) -> FarmerRecord:
-    """Garante a identificação do agricultor atual ou o agricultor de demonstração padrão (Dona Maria)."""
+    """Garante a identificação do agricultor atual ou o agricultor de demonstração padrão (Dona Maria).
+
+    `seed=False` evita repovoar os dados de demonstração — usado nos
+    endpoints de remoção, senão o canteiro apagado voltava no pedido seguinte.
+    """
     if current_farmer:
-        seed_default_farmer_data(current_farmer, db)
+        if seed:
+            seed_default_farmer_data(current_farmer, db)
         return current_farmer
 
     # Busca agricultor padrão ou cria Dona Maria
-    default_f = db.query(FarmerRecord).filter(FarmerRecord.telefone == "+55 71 99123-4567").first()
+    default_f = db.query(FarmerRecord).filter(FarmerRecord.telefone == "+244 923 456 789").first()
     if not default_f:
         default_f = db.query(FarmerRecord).first()
 
@@ -61,13 +67,14 @@ def _get_or_create_target_farmer(
         default_f = FarmerRecord(
             nome_completo="Dona Maria da Silva",
             apelido="Dona Maria",
-            telefone="+55 71 99123-4567",
-            cidade="Feira de Santana",
-            estado="BA",
+            telefone="+244 923 456 789",
+            cidade="Huambo",
+            estado="Huíla",
             nome_sitio="Sítio Recanto Verde",
-            tipo_solo="argiloso",
-            latitude_padrao=-12.97,
-            longitude_padrao=-39.51,
+            tipo_solo="franco",
+            latitude_padrao=-12.776,
+            longitude_padrao=15.739,
+            area_hectares=2.5,
             is_phone_verified=True,
             is_active=True,
         )
@@ -75,7 +82,8 @@ def _get_or_create_target_farmer(
         db.commit()
         db.refresh(default_f)
 
-    seed_default_farmer_data(default_f, db)
+    if seed:
+        seed_default_farmer_data(default_f, db)
     return default_f
 
 
@@ -95,7 +103,10 @@ def get_horta_overview(
 ):
     target_farmer = _get_or_create_target_farmer(farmer, db)
 
-    plots = db.query(PlotRecord).filter(PlotRecord.farmer_id == target_farmer.id).all()
+    plots = db.query(PlotRecord).filter(
+        PlotRecord.farmer_id == target_farmer.id,
+        PlotRecord.is_active.is_(True)
+    ).all()
     plot_ids = [p.id for p in plots]
     plants = db.query(PlantRecord).filter(PlantRecord.plot_id.in_(plot_ids)).all() if plot_ids else []
     harvests = db.query(HarvestRecord).filter(HarvestRecord.farmer_id == target_farmer.id).all()
@@ -153,7 +164,10 @@ def list_plots(
     db: Session = Depends(get_db)
 ):
     target_farmer = _get_or_create_target_farmer(farmer, db)
-    plots = db.query(PlotRecord).filter(PlotRecord.farmer_id == target_farmer.id).all()
+    plots = db.query(PlotRecord).filter(
+        PlotRecord.farmer_id == target_farmer.id,
+        PlotRecord.is_active.is_(True)
+    ).all()
     return [
         PlotResponse(
             id=p.slug or p.uuid,
@@ -226,7 +240,10 @@ def list_plants(
     db: Session = Depends(get_db)
 ):
     target_farmer = _get_or_create_target_farmer(farmer, db)
-    plots = db.query(PlotRecord).filter(PlotRecord.farmer_id == target_farmer.id).all()
+    plots = db.query(PlotRecord).filter(
+        PlotRecord.farmer_id == target_farmer.id,
+        PlotRecord.is_active.is_(True)
+    ).all()
     plot_ids = [p.id for p in plots]
     if not plot_ids:
         return []
@@ -275,7 +292,10 @@ def create_plant(
 
     if not plot:
         # Fallback para o primeiro canteiro do agricultor
-        plot = db.query(PlotRecord).filter(PlotRecord.farmer_id == target_farmer.id).first()
+        plot = db.query(PlotRecord).filter(
+            PlotRecord.farmer_id == target_farmer.id,
+            PlotRecord.is_active.is_(True)
+        ).first()
         if not plot:
             raise HTTPException(status_code=404, detail="Canteiro não encontrado.")
 
@@ -552,3 +572,152 @@ def send_agronomist_message(
         isRead=msg.is_read,
         time=msg.created_at.strftime("%H:%M"),
     )
+
+
+# ==============================================================================
+# PERFIL DA PROPRIEDADE (dados que alimentam toda a app)
+# ==============================================================================
+
+@business_router.get(
+    "/profile",
+    summary="Perfil da Propriedade (dono, terra e localização)",
+    description=(
+        "Devolve os dados que o front-end usa em todos os ecrãs: nome, sítio, cidade/estado, "
+        "coordenadas, textura do solo e área em hectares. "
+        "Com token Bearer devolve o perfil de quem está autenticado; sem token devolve o "
+        "agricultor de demonstração."
+    ),
+)
+def get_profile(
+    farmer: Optional[FarmerRecord] = Depends(get_optional_current_farmer),
+    db: Session = Depends(get_db)
+):
+    target_farmer = _get_or_create_target_farmer(farmer, db)
+
+    city = target_farmer.cidade or "Huambo"
+    state = target_farmer.estado or "Huíla"
+    user_name = target_farmer.apelido or target_farmer.nome_completo
+
+    return {
+        "id": target_farmer.uuid,
+        "uuid": target_farmer.uuid,
+        "userName": user_name,
+        "farmName": target_farmer.nome_sitio or "Sítio Recanto Verde",
+        "city": city,
+        "state": state,
+        "locationLabel": f"{city} - {state}",
+        "latitude": target_farmer.latitude_padrao if target_farmer.latitude_padrao is not None else -12.776,
+        "longitude": target_farmer.longitude_padrao if target_farmer.longitude_padrao is not None else 15.739,
+        "soil": target_farmer.tipo_solo or "argiloso",
+        "areaHectares": target_farmer.area_hectares if target_farmer.area_hectares is not None else 2.5,
+        "phone": target_farmer.telefone,
+        "cooperativa": target_farmer.cooperativa,
+    }
+
+
+# ==============================================================================
+# ATUALIZAÇÃO E REMOÇÃO (canteiros e plantas)
+# ==============================================================================
+
+def _find_plot(db: Session, target_farmer: FarmerRecord, plot_ref: str) -> Optional[PlotRecord]:
+    return db.query(PlotRecord).filter(
+        (PlotRecord.uuid == plot_ref) | (PlotRecord.slug == plot_ref),
+        PlotRecord.farmer_id == target_farmer.id,
+        PlotRecord.is_active.is_(True)
+    ).first()
+
+
+def _find_plant(db: Session, target_farmer: FarmerRecord, plant_ref: str) -> Optional[PlantRecord]:
+    return db.query(PlantRecord).join(PlotRecord).filter(
+        (PlantRecord.uuid == plant_ref) | (PlantRecord.slug == plant_ref),
+        PlotRecord.farmer_id == target_farmer.id,
+        PlotRecord.is_active.is_(True)
+    ).first()
+
+
+@business_router.patch(
+    "/plants/{plant_ref}",
+    response_model=PlantResponse,
+    summary="Actualizar Estado e Cuidados de uma Planta",
+    description="Actualiza o status, os cuidados, o tom visual ou os dias até à colheita.",
+)
+def update_plant(
+    plant_ref: str,
+    request: PlantUpdateRequest,
+    farmer: Optional[FarmerRecord] = Depends(get_optional_current_farmer),
+    db: Session = Depends(get_db)
+):
+    target_farmer = _get_or_create_target_farmer(farmer, db)
+    plant = _find_plant(db, target_farmer, plant_ref)
+    if not plant:
+        raise HTTPException(status_code=404, detail="Planta não encontrada.")
+
+    if request.status is not None:
+        plant.status = request.status
+    if request.care is not None:
+        plant.care = request.care
+    if request.tone is not None:
+        plant.tone = request.tone
+    if request.harvestInDays is not None:
+        plant.harvest_in_days = request.harvestInDays
+
+    db.commit()
+    db.refresh(plant)
+
+    return PlantResponse(
+        id=plant.slug or plant.uuid,
+        uuid=plant.uuid,
+        plotId=plant.plot_uuid,
+        name=plant.name,
+        icon=plant.icon,
+        care=plant.care,
+        status=plant.status,
+        tone=plant.tone,
+        sowingDate=plant.sowing_date,
+        harvestInDays=plant.harvest_in_days or 0,
+    )
+
+
+@business_router.delete(
+    "/plants/{plant_ref}",
+    status_code=status.HTTP_200_OK,
+    summary="Remover Planta da Horta",
+    description="Elimina a planta (e os registos de colheita dela não são afectados).",
+)
+def delete_plant(
+    plant_ref: str,
+    farmer: Optional[FarmerRecord] = Depends(get_optional_current_farmer),
+    db: Session = Depends(get_db)
+):
+    target_farmer = _get_or_create_target_farmer(farmer, db, seed=False)
+    plant = _find_plant(db, target_farmer, plant_ref)
+    if not plant:
+        raise HTTPException(status_code=404, detail="Planta não encontrada.")
+
+    db.delete(plant)
+    db.commit()
+    return {"mensagem": "Planta removida com sucesso.", "uuid": plant_ref}
+
+
+@business_router.delete(
+    "/plots/{plot_ref}",
+    status_code=status.HTTP_200_OK,
+    summary="Remover Canteiro (Horta)",
+    description=(
+        "Elimina o canteiro de forma lógica (soft delete): deixa de aparecer, "
+        "e as plantas que estavam nele deixam de ser listadas."
+    ),
+)
+def delete_plot(
+    plot_ref: str,
+    farmer: Optional[FarmerRecord] = Depends(get_optional_current_farmer),
+    db: Session = Depends(get_db)
+):
+    target_farmer = _get_or_create_target_farmer(farmer, db, seed=False)
+    plot = _find_plot(db, target_farmer, plot_ref)
+    if not plot:
+        raise HTTPException(status_code=404, detail="Canteiro não encontrado.")
+
+    plot.is_active = False
+    db.commit()
+    return {"mensagem": "Canteiro removido com sucesso.", "uuid": plot.uuid}

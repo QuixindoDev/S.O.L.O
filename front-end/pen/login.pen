@@ -7163,7 +7163,7 @@
       "name": "8. Minhas Plantas",
       "clip": true,
       "width": 1280,
-      "height": 1207,
+      "height": 1101,
       "fill": "$bg",
       "children": [
         {
@@ -7400,10 +7400,510 @@
                     },
                     {
                       "type": "frame",
+                      "id": "D6VEE",
+                      "name": "Plantas em Cards",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "O4x2vF",
+                          "name": "Card Tomate Cereja",
+                          "clip": true,
+                          "width": "fill_container",
+                          "fill": "$surface-soft",
+                          "cornerRadius": 18,
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "strokeAlignment": "inner",
+                          "layout": "vertical",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "Zjrh4",
+                              "name": "Foto Tomate Cereja",
+                              "width": "fill_container",
+                              "height": 110,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "2304.jpg",
+                                "mode": "cover"
+                              },
+                              "cornerRadius": [
+                                18,
+                                18,
+                                0,
+                                0
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "qhmUO",
+                              "name": "Info Tomate Cereja",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 8,
+                              "padding": [
+                                14,
+                                16,
+                                16,
+                                16
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "LC5mb",
+                                  "name": "Nome Tomate Cereja",
+                                  "fill": "$text-primary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Tomate Cereja",
+                                  "fontFamily": "$font",
+                                  "fontSize": 17,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "SGkdo",
+                                  "name": "Local Tomate Cereja",
+                                  "fill": "$text-muted",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Canteiro Principal",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "DVI3C",
+                                  "name": "Status Tomate Cereja",
+                                  "fill": "$primary-soft",
+                                  "cornerRadius": 9999,
+                                  "padding": [
+                                    6,
+                                    10
+                                  ],
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "og3me",
+                                      "name": "Status Texto Tomate Cereja",
+                                      "fill": "$primary",
+                                      "content": "Florindo",
+                                      "fontFamily": "$font",
+                                      "fontSize": 13,
+                                      "fontWeight": "700"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iyOvB",
+                          "name": "Card Alface",
+                          "clip": true,
+                          "width": "fill_container",
+                          "fill": "$surface-soft",
+                          "cornerRadius": 18,
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "strokeAlignment": "inner",
+                          "layout": "vertical",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "EzXuN",
+                              "name": "Foto Alface",
+                              "width": "fill_container",
+                              "height": 110,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "organicos-miller-alface-americana-organicos-miller-12un-embaladas-individualmente-1660944695.jpg",
+                                "mode": "cover"
+                              },
+                              "cornerRadius": [
+                                18,
+                                18,
+                                0,
+                                0
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "JuRDK",
+                              "name": "Info Alface",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 8,
+                              "padding": [
+                                14,
+                                16,
+                                16,
+                                16
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "sdPj1",
+                                  "name": "Nome Alface",
+                                  "fill": "$text-primary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Alface",
+                                  "fontFamily": "$font",
+                                  "fontSize": 17,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "K9ksc",
+                                  "name": "Local Alface",
+                                  "fill": "$text-muted",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Canteiro Principal",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "pZ93n",
+                                  "name": "Status Alface",
+                                  "fill": "$primary-soft",
+                                  "cornerRadius": 9999,
+                                  "padding": [
+                                    6,
+                                    10
+                                  ],
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "pbTJq",
+                                      "name": "Status Texto Alface",
+                                      "fill": "$primary",
+                                      "content": "Pronta para colher",
+                                      "fontFamily": "$font",
+                                      "fontSize": 13,
+                                      "fontWeight": "700"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "y3l83",
+                          "name": "Card Couve",
+                          "clip": true,
+                          "width": "fill_container",
+                          "fill": "$surface-soft",
+                          "cornerRadius": 18,
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "strokeAlignment": "inner",
+                          "layout": "vertical",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "N1vhK",
+                              "name": "Foto Couve",
+                              "width": "fill_container",
+                              "height": 110,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "Vente-directe-de-legumes-1024x684.webp",
+                                "mode": "cover"
+                              },
+                              "cornerRadius": [
+                                18,
+                                18,
+                                0,
+                                0
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "sYtul",
+                              "name": "Info Couve",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 8,
+                              "padding": [
+                                14,
+                                16,
+                                16,
+                                16
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "Pe3lx",
+                                  "name": "Nome Couve",
+                                  "fill": "$text-primary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Couve",
+                                  "fontFamily": "$font",
+                                  "fontSize": 17,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "zh5zH",
+                                  "name": "Local Couve",
+                                  "fill": "$text-muted",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Canteiro Principal",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "V9fXxk",
+                                  "name": "Status Couve",
+                                  "fill": "$surface",
+                                  "cornerRadius": 9999,
+                                  "padding": [
+                                    6,
+                                    10
+                                  ],
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "ZllFu",
+                                      "name": "Status Texto Couve",
+                                      "fill": "$text-secondary",
+                                      "content": "Crescendo",
+                                      "fontFamily": "$font",
+                                      "fontSize": 13,
+                                      "fontWeight": "700"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "gy3lF",
+                          "name": "Card Feijão",
+                          "clip": true,
+                          "width": "fill_container",
+                          "fill": "$surface-soft",
+                          "cornerRadius": 18,
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "strokeAlignment": "inner",
+                          "layout": "vertical",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "DLx0K",
+                              "name": "Foto Feijão",
+                              "width": "fill_container",
+                              "height": 110,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "images.jpg",
+                                "mode": "cover"
+                              },
+                              "cornerRadius": [
+                                18,
+                                18,
+                                0,
+                                0
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "LZOpO",
+                              "name": "Info Feijão",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 8,
+                              "padding": [
+                                14,
+                                16,
+                                16,
+                                16
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "tPKm5",
+                                  "name": "Nome Feijão",
+                                  "fill": "$text-primary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Feijão",
+                                  "fontFamily": "$font",
+                                  "fontSize": 17,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "ynBdc",
+                                  "name": "Local Feijão",
+                                  "fill": "$text-muted",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Baixa do Riacho",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "bXnh1",
+                                  "name": "Status Feijão",
+                                  "fill": "$warm",
+                                  "cornerRadius": 9999,
+                                  "padding": [
+                                    6,
+                                    10
+                                  ],
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "ftuJd",
+                                      "name": "Status Texto Feijão",
+                                      "fill": "$warm-text",
+                                      "content": "Precisa de água",
+                                      "fontFamily": "$font",
+                                      "fontSize": 13,
+                                      "fontWeight": "700"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "IykNQ",
+                          "name": "Card Cebolinha",
+                          "clip": true,
+                          "width": "fill_container",
+                          "fill": "$surface-soft",
+                          "cornerRadius": 18,
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "strokeAlignment": "inner",
+                          "layout": "vertical",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "AMRNK",
+                              "name": "Foto Cebolinha",
+                              "width": "fill_container",
+                              "height": 110,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "images3.jpg",
+                                "mode": "cover"
+                              },
+                              "cornerRadius": [
+                                18,
+                                18,
+                                0,
+                                0
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "aN1Rd",
+                              "name": "Info Cebolinha",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 8,
+                              "padding": [
+                                14,
+                                16,
+                                16,
+                                16
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "cJKl4",
+                                  "name": "Nome Cebolinha",
+                                  "fill": "$text-primary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Cebolinha",
+                                  "fontFamily": "$font",
+                                  "fontSize": 17,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "T6UcxG",
+                                  "name": "Local Cebolinha",
+                                  "fill": "$text-muted",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "Horta da Cozinha",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "RjcH4",
+                                  "name": "Status Cebolinha",
+                                  "fill": "$primary-soft",
+                                  "cornerRadius": 9999,
+                                  "padding": [
+                                    6,
+                                    10
+                                  ],
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "N2uHT2",
+                                      "name": "Status Texto Cebolinha",
+                                      "fill": "$primary",
+                                      "content": "Cortando",
+                                      "fontFamily": "$font",
+                                      "fontSize": 13,
+                                      "fontWeight": "700"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
                       "id": "d1QNVV",
                       "name": "Lista",
                       "width": "fill_container",
                       "layout": "vertical",
+                      "gap": 19,
                       "children": [
                         {
                           "type": "frame",
@@ -7928,261 +8428,19 @@
                       ]
                     }
                   ]
-                },
-                {
-                  "type": "frame",
-                  "id": "v1OUI",
-                  "name": "Colheitas",
-                  "width": "fill_container",
-                  "fill": "$surface",
-                  "cornerRadius": "$radius-card",
-                  "stroke": "$border",
-                  "strokeWidth": 1,
-                  "strokeAlignment": "inner",
-                  "layout": "vertical",
-                  "gap": 18,
-                  "padding": 28,
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "enCOV",
-                      "name": "Title",
-                      "fill": "$text-primary",
-                      "content": "Colheitas recentes",
-                      "fontFamily": "$font",
-                      "fontSize": 24,
-                      "fontWeight": "700"
-                    },
-                    {
-                      "type": "frame",
-                      "id": "Odyji",
-                      "name": "Colheitas Row",
-                      "width": "fill_container",
-                      "gap": 14,
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "tEdWb",
-                          "name": "Colheita Alface",
-                          "width": "fill_container",
-                          "fill": "$surface-soft",
-                          "cornerRadius": 16,
-                          "layout": "vertical",
-                          "gap": 8,
-                          "padding": 20,
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "fK8Gb",
-                              "name": "Top",
-                              "gap": 10,
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "aNnMx",
-                                  "name": "Icon",
-                                  "width": 20,
-                                  "height": 20,
-                                  "icon": "shopping-basket",
-                                  "library": "lucide",
-                                  "fill": "$primary"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "fXNoe",
-                                  "name": "Local",
-                                  "fill": "$text-muted",
-                                  "content": "feira",
-                                  "fontFamily": "$font",
-                                  "fontSize": 15,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "text",
-                              "id": "bfJIp",
-                              "name": "Name",
-                              "fill": "$text-primary",
-                              "content": "Alface",
-                              "fontFamily": "$font",
-                              "fontSize": 19,
-                              "fontWeight": "700"
-                            },
-                            {
-                              "type": "text",
-                              "id": "dEyzX",
-                              "name": "Qtd",
-                              "fill": "$primary",
-                              "content": "12 cabeças",
-                              "fontFamily": "$font",
-                              "fontSize": 22,
-                              "fontWeight": "700"
-                            },
-                            {
-                              "type": "text",
-                              "id": "Fx1ni",
-                              "name": "Data",
-                              "fill": "$text-muted",
-                              "content": "Ontem",
-                              "fontFamily": "$font",
-                              "fontSize": 14,
-                              "fontWeight": "normal"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "hdh0k",
-                          "name": "Colheita Tomate",
-                          "width": "fill_container",
-                          "fill": "$surface-soft",
-                          "cornerRadius": 16,
-                          "layout": "vertical",
-                          "gap": 8,
-                          "padding": 20,
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "URrwC",
-                              "name": "Top",
-                              "gap": 10,
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "Ptj01",
-                                  "name": "Icon",
-                                  "width": 20,
-                                  "height": 20,
-                                  "icon": "shopping-basket",
-                                  "library": "lucide",
-                                  "fill": "$primary"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "EYi9W",
-                                  "name": "Local",
-                                  "fill": "$text-muted",
-                                  "content": "feira",
-                                  "fontFamily": "$font",
-                                  "fontSize": 15,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "text",
-                              "id": "zoNO4",
-                              "name": "Name",
-                              "fill": "$text-primary",
-                              "content": "Tomate",
-                              "fontFamily": "$font",
-                              "fontSize": 19,
-                              "fontWeight": "700"
-                            },
-                            {
-                              "type": "text",
-                              "id": "YPvne",
-                              "name": "Qtd",
-                              "fill": "$primary",
-                              "content": "8 kg",
-                              "fontFamily": "$font",
-                              "fontSize": 22,
-                              "fontWeight": "700"
-                            },
-                            {
-                              "type": "text",
-                              "id": "CHzLG",
-                              "name": "Data",
-                              "fill": "$text-muted",
-                              "content": "12 de nov",
-                              "fontFamily": "$font",
-                              "fontSize": 14,
-                              "fontWeight": "normal"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "podH9",
-                          "name": "Colheita Cebolinha",
-                          "width": "fill_container",
-                          "fill": "$surface-soft",
-                          "cornerRadius": 16,
-                          "layout": "vertical",
-                          "gap": 8,
-                          "padding": 20,
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "trWRG",
-                              "name": "Top",
-                              "gap": 10,
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "BPe0B",
-                                  "name": "Icon",
-                                  "width": 20,
-                                  "height": 20,
-                                  "icon": "shopping-basket",
-                                  "library": "lucide",
-                                  "fill": "$primary"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "ytKh2",
-                                  "name": "Local",
-                                  "fill": "$text-muted",
-                                  "content": "casa",
-                                  "fontFamily": "$font",
-                                  "fontSize": 15,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "text",
-                              "id": "LSLVs",
-                              "name": "Name",
-                              "fill": "$text-primary",
-                              "content": "Cebolinha",
-                              "fontFamily": "$font",
-                              "fontSize": 19,
-                              "fontWeight": "700"
-                            },
-                            {
-                              "type": "text",
-                              "id": "N9nxVs",
-                              "name": "Qtd",
-                              "fill": "$primary",
-                              "content": "3 maços",
-                              "fontFamily": "$font",
-                              "fontSize": 22,
-                              "fontWeight": "700"
-                            },
-                            {
-                              "type": "text",
-                              "id": "nQa0I",
-                              "name": "Data",
-                              "fill": "$text-muted",
-                              "content": "10 de nov",
-                              "fontFamily": "$font",
-                              "fontSize": 14,
-                              "fontWeight": "normal"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
                 }
               ]
             }
           ]
+        },
+        {
+          "type": "text",
+          "id": "TRbEc",
+          "fill": "#000000",
+          "content": "minha-terra-e-horta",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
         }
       ]
     },

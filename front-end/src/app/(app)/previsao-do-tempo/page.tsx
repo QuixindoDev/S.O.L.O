@@ -1,26 +1,26 @@
 import React from "react";
 import { Satellite } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
+import { MetricasClima } from "@/components/features/clima/MetricasClima";
 import { NasaAlerts } from "@/components/features/clima/NasaAlerts";
-import { TodaySummary } from "@/components/features/clima/TodaySummary";
-import { WeekForecast } from "@/components/features/clima/WeekForecast";
-import { defaultFarm } from "@/lib/farm";
+import { PrevisaoSemana } from "@/components/features/clima/PrevisaoSemana";
+import { getFarmProfile } from "@/lib/api/server";
 import { getAgroSummary } from "@/lib/nasa/client";
 
 /**
  * Ecrã 6 — "Previsão do Tempo" (NASA POWER).
  *
- * Server Component: a série do satélite é buscada no servidor com
- * cache de 24h na edge e chega completa no HTML inicial.
+ * Server Component: a série do satélite é buscada no servidor (no
+ * back-end Field Shift, com cache de 24h) e chega completa no HTML
+ * inicial.
  *
  * ISR: revalidado uma vez por dia, em sincronia com a NASA POWER.
  */
 export const revalidate = 86400;
 export default async function ClimaPage() {
-  const summary = await getAgroSummary(
-    defaultFarm.latitude,
-    defaultFarm.longitude,
-  );
+  const profile = await getFarmProfile();
+
+  const summary = await getAgroSummary(profile.latitude, profile.longitude);
 
   const pass = summary.lastSatellitePass;
   const passLabel = pass
@@ -31,12 +31,14 @@ export default async function ClimaPage() {
     <AppShell
       title="Previsão do Tempo"
       subtitle="Dados do satélite NASA POWER"
-      location={defaultFarm.locationLabel}
+      location={profile.locationLabel}
     >
       <div className="flex flex-col gap-5">
-        <TodaySummary summary={summary} city={defaultFarm.city} />
+        {/* Os 4 números do dia, cada um com a sua fotografia */}
+        <MetricasClima summary={summary} />
 
-        <WeekForecast summary={summary} />
+        {/* A semana */}
+        <PrevisaoSemana days={summary.last7} />
 
         <NasaAlerts summary={summary} />
 

@@ -3,9 +3,11 @@ import { Satellite } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { PlotsCard } from "@/components/features/terra/PlotsCard";
 import { SoilActionsCard } from "@/components/features/terra/SoilActionsCard";
-import { SoilStatusCard } from "@/components/features/terra/SoilStatusCard";
+import { StatusSolo } from "@/components/features/terra/StatusSolo";
 import { estimateSoilMoisture } from "@/lib/agronomia";
-import { defaultFarm } from "@/lib/farm";
+import { api } from "@/lib/api/endpoints";
+import { getFarmProfile, getServerToken } from "@/lib/api/server";
+import type { PlotDto } from "@/lib/api/types";
 import { getAgroSummary } from "@/lib/nasa/client";
 
 /**
@@ -15,37 +17,48 @@ import { getAgroSummary } from "@/lib/nasa/client";
  * reais da NASA POWER, com um balanço hídrico de duas camadas
  * (ver `src/lib/agronomia.ts`).
  *
+ * Os canteiros vêm do back-end: GET /api/v1/plots
+ *
  * ISR: revalidado uma vez por dia, em sincronia com a NASA POWER.
  */
 export const revalidate = 86400;
 
 export default async function MinhaTerraPage() {
-  const summary = await getAgroSummary(
-    defaultFarm.latitude,
-    defaultFarm.longitude,
-  );
+  const [profile, token] = await Promise.all([getFarmProfile(), getServerToken()]);
 
-  const moisture = estimateSoilMoisture(summary, defaultFarm.soil);
+  const [summary, plots] = await Promise.all([
+    getAgroSummary(profile.latitude, profile.longitude),
+    api.plots
+      .list({ token, revalidate: 86400 })
+      .catch(() => [] as PlotDto[]),
+  ]);
+
+  const moisture = estimateSoilMoisture(summary, profile.soil);
 
   // A mesma leitura aplica-se a todos os canteiros, com um desvio
   // para a Baixa do Riacho — que fica mais perto do riacho e enxuga
   // mais depressa.
-  const moistureByPlot = {
-    canteiro_principal: moisture.rootZonePct,
-    horta_cozinha: Math.max(0, moisture.rootZonePct - 14),
-    baixa_riacho: Math.max(0, moisture.rootZonePct - 37),
-  };
+  const moistureByPlot: Record<string, number> = {};
+  for (const plot of plots) {
+    if (plot.id === "horta_cozinha") {
+      moistureByPlot[plot.id] = Math.max(0, moisture.rootZonePct - 14);
+    } else if (plot.id === "baixa_riacho") {
+      moistureByPlot[plot.id] = Math.max(0, moisture.rootZonePct - 37);
+    } else {
+      moistureByPlot[plot.id] = moisture.rootZonePct;
+    }
+  }
 
   return (
     <AppShell
       title="Minha Terra e Horta"
       subtitle="O que o satélite vê no seu solo"
-      location={defaultFarm.locationLabel}
+      location={profile.locationLabel}
     >
       <div className="flex flex-col gap-5">
-        <SoilStatusCard moisture={moisture} />
+        <StatusSolo moisture={moisture} />
 
-        <PlotsCard moistureByPlot={moistureByPlot} />
+        <PlotsCard plots={plots} moistureByPlot={moistureByPlot} />
 
         <SoilActionsCard moisture={moisture} />
 

@@ -57,9 +57,9 @@ def _format_user_profile(farmer: FarmerRecord) -> UserProfileResponse:
     farm_name = farmer.nome_sitio or "Sítio Recanto Verde"
     initials = _extract_initials(user_name)
 
-    city = farmer.cidade or "Feira de Santana"
-    state = farmer.estado or "BA"
-    location_label = f"{city} - {state}" if city and state else "Feira de Santana - BA"
+    city = farmer.cidade or "Huambo"
+    state = farmer.estado or "Huíla"
+    location_label = f"{city} - {state}" if city and state else "Huambo - Huíla"
 
     return UserProfileResponse(
         id=farmer.uuid,
@@ -70,8 +70,8 @@ def _format_user_profile(farmer: FarmerRecord) -> UserProfileResponse:
         city=city,
         state=state,
         locationLabel=location_label,
-        latitude=farmer.latitude_padrao or -12.97,
-        longitude=farmer.longitude_padrao or -39.51,
+        latitude=farmer.latitude_padrao or -12.776,
+        longitude=farmer.longitude_padrao or 15.739,
         soil=farmer.tipo_solo or "argiloso",
         phone=farmer.telefone,
         isPhoneVerified=bool(farmer.is_phone_verified),
