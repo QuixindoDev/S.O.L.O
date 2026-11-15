@@ -46,6 +46,8 @@ class FarmerRecord(Base):
     latitude_padrao = Column(Float, nullable=True, default=-12.97)
     longitude_padrao = Column(Float, nullable=True, default=-39.51)
     tipo_solo = Column(String(50), nullable=True, default="argiloso")  # arenoso | argiloso | franco
+    # Área da terra em hectares — base do cálculo da renda de carbono.
+    area_hectares = Column(Float, nullable=True, default=2.5)
 
     # Autenticação e Segurança (Fases 1 e 2)
     password_hash = Column(String(255), nullable=True)
@@ -92,6 +94,9 @@ class PlotRecord(Base):
     area_m2 = Column(Float, nullable=False, default=100.0)
     icon = Column(String(50), nullable=False, default="sprout")  # sprout, carrot, bean, leaf
     soil_texture = Column(String(50), nullable=True, default="argiloso")
+    # Eliminação lógica: o canteiro removido fica no banco, mas deixa
+    # de aparecer (e não volta a ser semeado).
+    is_active = Column(Boolean, default=True, nullable=False)
 
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
 

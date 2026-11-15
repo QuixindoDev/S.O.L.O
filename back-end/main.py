@@ -17,6 +17,7 @@ from src.infrastructure.outbound.external.gee_adapter import GEEAdapter, MockGEE
 from src.infrastructure.inbound.http.routers import router, set_dependencies
 from src.infrastructure.inbound.http.auth_router import auth_router
 from src.infrastructure.inbound.http.business_router import business_router
+from src.infrastructure.inbound.http.nasa_router import nasa_router
 
 # Configuração de logging
 logging.basicConfig(
@@ -87,6 +88,7 @@ app.add_middleware(
 # Registrar rotas da API
 app.include_router(auth_router)
 app.include_router(business_router)
+app.include_router(nasa_router)
 app.include_router(router)
 
 
@@ -112,7 +114,10 @@ def root():
             "obter_analise": "GET /api/v1/analyses/{uuid}",
             "saude_sistema": "GET /health (e /api/v1/health)",
             "culturas_suportadas": "GET /api/v1/crops",
-            "info_formula_carbono": "GET /api/v1/carbon-calculator-info"
+            "info_formula_carbono": "GET /api/v1/carbon-calculator-info",
+            "perfil_atual": "GET /api/v1/profile",
+            "serie_nasa_power": "GET /api/nasa/power",
+            "humidade_solo_nasa": "GET /api/nasa/smap"
         }
     }
 

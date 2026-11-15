@@ -20,6 +20,8 @@ from src.infrastructure.outbound.persistence.models import (
 def seed_default_farmer_data(farmer: FarmerRecord, db: Session) -> None:
     """Preenche a propriedade com os canteiros, plantas e contas padrão se estiverem ausentes."""
     # 1. Canteiros canônicos de horta.json
+    #    Inclui os canteiros removidos (is_active = False) para que não
+    #    voltem a ser semeados a cada pedido.
     existing_plots = {
         p.slug: p for p in db.query(PlotRecord).filter(PlotRecord.farmer_id == farmer.id).all() if p.slug
     }

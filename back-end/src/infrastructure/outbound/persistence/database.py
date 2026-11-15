@@ -43,6 +43,7 @@ def init_db():
                 "latitude_padrao": "FLOAT DEFAULT -12.97",
                 "longitude_padrao": "FLOAT DEFAULT -39.51",
                 "tipo_solo": "VARCHAR(50) DEFAULT 'argiloso'",
+                "area_hectares": "FLOAT DEFAULT 2.5",
                 "password_hash": "VARCHAR(255)",
                 "is_phone_verified": "BOOLEAN NOT NULL DEFAULT 0",
                 "otp_code_hash": "VARCHAR(255)",
@@ -54,6 +55,19 @@ def init_db():
                     if col_name not in columns:
                         conn.execute(text(f"ALTER TABLE farmers ADD COLUMN {col_name} {col_def}"))
                 conn.commit()
+    except Exception:
+        pass
+
+    # Migração leve e idempotente para a coluna de eliminação lógica dos canteiros
+    try:
+        from sqlalchemy import inspect, text
+        inspector = inspect(engine)
+        if "plots" in inspector.get_table_names():
+            columns = [c["name"] for c in inspector.get_columns("plots")]
+            if "is_active" not in columns:
+                with engine.connect() as conn:
+                    conn.execute(text("ALTER TABLE plots ADD COLUMN is_active BOOLEAN NOT NULL DEFAULT 1"))
+                    conn.commit()
     except Exception:
         pass
 
