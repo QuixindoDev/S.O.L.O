@@ -73,7 +73,7 @@ export function TopBar({
 
         {!hideHelp && (
           <Link
-            href="/ajuda"
+            href="/ouvir-ajuda"
             aria-label="Ouvir Ajuda"
             className="flex h-12 items-center gap-2 rounded-full bg-warm px-3.5 transition-opacity hover:opacity-90 sm:px-5"
           >

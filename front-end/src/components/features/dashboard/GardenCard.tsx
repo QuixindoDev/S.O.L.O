@@ -70,7 +70,7 @@ export function GardenCard({
           fullWidth
           variant="soft"
           icon={Plus}
-          onClick={() => router.push("/plantas")}
+          onClick={() => router.push("/minhas-plantas")}
         >
           Anotar planta ou colheita
         </Button>
