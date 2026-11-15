@@ -27,6 +27,7 @@ export function fallbackSummary(
     last7: [],
     series: [],
     monthlyRainMm: {},
+    rainByMonthOfYear: {},
     annualRainMm: 0,
     avgTMax: 28,
     avgTMin: 19,

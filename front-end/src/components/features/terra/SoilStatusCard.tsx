@@ -54,7 +54,7 @@ export function SoilStatusCard({ moisture }: SoilStatusCardProps) {
   ];
 
   return (
-    <Card padding="lg" className="flex flex-col gap-5">
+    <Card padding="lg" className="flex flex-col gap-5 ">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-col gap-1">
           <h2 className="text-2xl font-bold text-text-primary sm:text-[26px]">

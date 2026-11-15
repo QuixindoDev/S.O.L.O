@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   CalendarDays,
   MessageCircle,
-  Wallet,
+  Repeat,
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { IconBox } from "@/components/ui/IconBox";
@@ -13,7 +13,7 @@ import { IconBox } from "@/components/ui/IconBox";
 export interface QuickAction {
   title: string;
   description: string;
-  icon: typeof Wallet;
+  icon: typeof CalendarDays;
   href: string;
 }
 
@@ -29,10 +29,10 @@ const DEFAULT_ACTIONS: QuickAction[] = [
     href: "/previsao-do-tempo",
   },
   {
-    title: "Meu Caderninho de Contas",
-    description: "Vendas na feira e gastos com adubo",
-    icon: Wallet,
-    href: "/meu-caderninho",
+    title: "Simulador de Rotação",
+    description: "Planeie a safra e a conservação de água",
+    icon: Repeat,
+    href: "/rotacao-de-culturas",
   },
   {
     title: "Falar com a Agrônoma",

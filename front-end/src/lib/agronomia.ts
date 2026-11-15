@@ -28,6 +28,12 @@ const ALTITUDE_M = 245;
 /** Fluxo de calor do solo (MJ/m²/dia) — desprezível em Daily. */
 const SOIL_HEAT_FLUX = 0;
 
+/** Albedo do solo (FAO-56, eq. 39) — 23% da radiação volta para o céu. */
+const ALBEDO = 0.23;
+
+/** Constante de Stefan-Boltzmann (MJ K⁻⁴ m⁻² dia⁻¹). */
+const STEFAN_BOLTZMANN = 4.903e-9;
+
 /** Capacidade de campo, ponto de murcha e profundidade das raízes. */
 const SOIL_PROPERTIES: Record<
   SoilTextureType,
@@ -98,10 +104,45 @@ export function extraterrestrialRadiation(
 }
 
 /**
+ * Radiação líquida do dia (FAO-56, eq. 38-40).
+ *
+ * A NASA POWER dá a radiação **global** (Rs). A Penman-Monteith
+ * precisa da radiação **líquida** (Rn) — a que a planta pode usar.
+ * Sem esta correcção a ETo sai ~40% alta e a app pede rega a
+ * quem não precisa dela.
+ */
+export function netRadiation(
+  rs: number,
+  tMaxC: number,
+  tMinC: number,
+  eaKpa: number,
+  ra: number,
+  altitudeM: number,
+): number {
+  // Radiação de céu limpo (FAO-56, eq. 37)
+  const clearSkyFactor = 0.75 + 2e-5 * altitudeM;
+  const rso = Math.max(clearSkyFactor * clearSkyFactor * ra, 0.1);
+
+  // Radiação solar absorvida pela superfície
+  const rns = (1 - ALBEDO) * rs;
+
+  // Radiação de onda longa perdida (FAO-56, eq. 39)
+  const tMaxK = tMaxC + 273.16;
+  const tMinK = tMinC + 273.16;
+  const ratio = Math.max(0.1, Math.min(1, rs / rso));
+  const rnl =
+    STEFAN_BOLTZMANN *
+    ((Math.pow(tMaxK, 4) + Math.pow(tMinK, 4)) / 2) *
+    (0.34 - 0.14 * Math.sqrt(Math.max(0.1, eaKpa))) *
+    (1.35 * ratio - 0.35);
+
+  return Math.max(0, rns - Math.max(0, rnl));
+}
+
+/**
  * Evapotranspiração de referência — Penman-Monteith (FAO-56, eq. 6).
  * Devolve mm/dia. Usa a radiação, o vento e a humidade reais da NASA.
- */
-export function referenceEvapotranspiration(
+ */export function referenceEvapotranspiration(
   point: DailyPoint,
   latitude: number,
   altitudeM: number = ALTITUDE_M,
@@ -118,13 +159,17 @@ export function referenceEvapotranspiration(
   const ea = es * (Math.max(0, Math.min(100, point.humidity)) / 100);
 
   // Radiação solar: a NASA dá MJ/m²/dia; a equação usa MJ/m²/dia também.
-  const rs = point.radiation > 0 ? point.radiation : extraterrestrialRadiation(latitude, dayOfYearOf(point.date));
+  const ra = extraterrestrialRadiation(latitude, dayOfYearOf(point.date));
+  const rs = point.radiation > 0 ? point.radiation : ra;
+
+  // A Penman-Monteith pede a radiação *líquida* (Rn), não a global (Rs).
+  const rn = netRadiation(rs, point.tMax, point.tMin, ea, ra, altitudeM);
 
   // Vento a 2 m (m/s); mínimo de 0.5 m/s segundo o FAO-56
   const u2 = Math.max(0.5, point.windSpeed);
 
   const numerator =
-    0.408 * delta * (rs - SOIL_HEAT_FLUX) +
+    0.408 * delta * (rn - SOIL_HEAT_FLUX) +
     gamma * ((900 / (point.tMean + 273)) * u2 * (es - ea));
   const denominator = delta + gamma * (1 + 0.34 * u2);
 

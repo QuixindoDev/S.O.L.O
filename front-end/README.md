@@ -425,9 +425,7 @@ async rewrites() {
 | `/previsao-do-tempo` | 6. Previsão do Tempo (NASA POWER) | ✅ |
 | `/minha-terra-e-horta` | 7. Minha Terra e Horta (SMAP) | ✅ |
 | `/minhas-plantas` | 8. Minhas Plantas | ✅ |
-| `/rotacao-de-culturas` | 5. Rotação de Culturas (Simulador) | ⬜ |
-| `/calendario-de-plantio` | 10. Calendário de Plantio | ⬜ |
-| `/meu-caderninho` | 9. Meu Caderninho de Contas | ⬜ |
+| `/rotacao-de-culturas` | 5. Rotação de Culturas (Simulador) | ✅ |
 | `/falar-com-a-agronoma` | 11. Falar com a Agrônoma | ⬜ |
 | `/ouvir-ajuda` | 12. Ouvir Ajuda | ⬜ |
 
