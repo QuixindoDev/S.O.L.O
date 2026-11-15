@@ -47,13 +47,36 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
                 record.cooperativa = agricultor.cooperativa
                 record.bilhete_identidade_ou_codigo = agricultor.bilhete_identidade_ou_codigo
                 record.is_active = agricultor.is_active
+                if agricultor.apelido is not None:
+                    record.apelido = agricultor.apelido
+                if agricultor.cidade is not None:
+                    record.cidade = agricultor.cidade
+                if agricultor.estado is not None:
+                    record.estado = agricultor.estado
+                if agricultor.nome_sitio is not None:
+                    record.nome_sitio = agricultor.nome_sitio
+                if agricultor.latitude_padrao is not None:
+                    record.latitude_padrao = agricultor.latitude_padrao
+                if agricultor.longitude_padrao is not None:
+                    record.longitude_padrao = agricultor.longitude_padrao
+                if agricultor.tipo_solo is not None:
+                    record.tipo_solo = agricultor.tipo_solo
+                record.is_phone_verified = agricultor.is_phone_verified
             else:
                 record = FarmerRecord(
                     uuid=str(agricultor.uuid),
                     nome_completo=agricultor.nome_completo,
+                    apelido=agricultor.apelido,
                     telefone=agricultor.telefone,
                     cooperativa=agricultor.cooperativa,
                     bilhete_identidade_ou_codigo=agricultor.bilhete_identidade_ou_codigo,
+                    cidade=agricultor.cidade,
+                    estado=agricultor.estado,
+                    nome_sitio=agricultor.nome_sitio,
+                    latitude_padrao=agricultor.latitude_padrao,
+                    longitude_padrao=agricultor.longitude_padrao,
+                    tipo_solo=agricultor.tipo_solo,
+                    is_phone_verified=agricultor.is_phone_verified,
                     is_active=agricultor.is_active,
                     created_at=agricultor.criado_em or datetime.now(timezone.utc),
                 )
@@ -340,6 +363,14 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
             bilhete_identidade_ou_codigo=record.bilhete_identidade_ou_codigo,
             is_active=bool(record.is_active) if getattr(record, "is_active", None) is not None else True,
             criado_em=record.created_at,
+            apelido=getattr(record, "apelido", None),
+            cidade=getattr(record, "cidade", None),
+            estado=getattr(record, "estado", None),
+            nome_sitio=getattr(record, "nome_sitio", None),
+            latitude_padrao=getattr(record, "latitude_padrao", -12.97),
+            longitude_padrao=getattr(record, "longitude_padrao", -39.51),
+            tipo_solo=getattr(record, "tipo_solo", "argiloso"),
+            is_phone_verified=bool(getattr(record, "is_phone_verified", False)),
         )
 
     def _record_to_entity(self, record: LandAnalysisRecord) -> DiagnosticoCompleto:

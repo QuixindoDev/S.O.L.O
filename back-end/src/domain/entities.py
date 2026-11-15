@@ -37,6 +37,14 @@ class Agricultor:
     is_active: bool = True
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     criado_em: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    apelido: Optional[str] = None
+    cidade: Optional[str] = None
+    estado: Optional[str] = None
+    nome_sitio: Optional[str] = None
+    latitude_padrao: Optional[float] = -12.97
+    longitude_padrao: Optional[float] = -39.51
+    tipo_solo: Optional[str] = "argiloso"
+    is_phone_verified: bool = False
 
     def __post_init__(self):
         if not self.nome_completo or not self.nome_completo.strip():
@@ -49,6 +57,14 @@ class Agricultor:
             self.cooperativa = self.cooperativa.strip()
         if self.bilhete_identidade_ou_codigo:
             self.bilhete_identidade_ou_codigo = self.bilhete_identidade_ou_codigo.strip()
+        if self.apelido:
+            self.apelido = self.apelido.strip()
+        if self.cidade:
+            self.cidade = self.cidade.strip()
+        if self.estado:
+            self.estado = self.estado.strip()
+        if self.nome_sitio:
+            self.nome_sitio = self.nome_sitio.strip()
 
     @property
     def uuid(self) -> str:
@@ -68,9 +84,17 @@ class Agricultor:
             "id": self.id,
             "uuid": self.id,
             "nome_completo": self.nome_completo,
+            "apelido": self.apelido,
             "telefone": self.telefone,
             "cooperativa": self.cooperativa,
             "bilhete_identidade_ou_codigo": self.bilhete_identidade_ou_codigo,
+            "cidade": self.cidade,
+            "estado": self.estado,
+            "nome_sitio": self.nome_sitio,
+            "latitude_padrao": self.latitude_padrao,
+            "longitude_padrao": self.longitude_padrao,
+            "tipo_solo": self.tipo_solo,
+            "is_phone_verified": self.is_phone_verified,
             "is_active": self.is_active,
             "criado_em": self.criado_em.isoformat() if isinstance(self.criado_em, datetime) else str(self.criado_em),
         }
@@ -255,4 +279,158 @@ class DiagnosticoCompleto:
                 "preco_por_credito_usd": self.estimativa_carbono.preco_por_credito_usd,
                 "valor_estimado_usd": self.estimativa_carbono.valor_estimado_usd,
             },
+        }
+
+
+@dataclass
+class Canteiro:
+    """Representa um canteiro ou talhão da horta/propriedade."""
+    nome: str
+    farmer_uuid: str
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    slug: Optional[str] = None
+    descricao_culturas: Optional[str] = None
+    area_m2: float = 100.0
+    icone: str = "sprout"
+    textura_solo: str = "argiloso"
+    criado_em: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @property
+    def uuid(self) -> str:
+        return self.id
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "id": self.id,
+            "uuid": self.id,
+            "farmer_uuid": self.farmer_uuid,
+            "name": self.nome,
+            "slug": self.slug,
+            "crops": self.descricao_culturas,
+            "areaM2": self.area_m2,
+            "icon": self.icone,
+            "soilTexture": self.textura_solo,
+            "createdAt": self.criado_em.isoformat() if isinstance(self.criado_em, datetime) else str(self.criado_em),
+        }
+
+
+@dataclass
+class Planta:
+    """Representa uma planta/cultura cultivada em um canteiro."""
+    nome: str
+    plot_uuid: str
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    slug: Optional[str] = None
+    icone: str = "sprout"
+    status: str = "Crescendo"
+    cuidados: Optional[str] = None
+    tone: str = "neutral"
+    data_plantio: Optional[str] = None
+    colheita_em_dias: int = 0
+    criado_em: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @property
+    def uuid(self) -> str:
+        return self.id
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "id": self.id,
+            "uuid": self.id,
+            "plotId": self.plot_uuid,
+            "name": self.nome,
+            "slug": self.slug,
+            "icon": self.icone,
+            "status": self.status,
+            "care": self.cuidados,
+            "tone": self.tone,
+            "sowingDate": self.data_plantio,
+            "harvestInDays": self.colheita_em_dias,
+            "createdAt": self.criado_em.isoformat() if isinstance(self.criado_em, datetime) else str(self.criado_em),
+        }
+
+
+@dataclass
+class Colheita:
+    """Representa o registo de uma colheita efetuada."""
+    cultura: str
+    quantidade: str
+    farmer_uuid: str
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    local_venda: str = "feira"
+    data: str = field(default_factory=lambda: datetime.now(timezone.utc).strftime("%Y%m%d"))
+    criado_em: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @property
+    def uuid(self) -> str:
+        return self.id
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "id": self.id,
+            "uuid": self.id,
+            "farmer_uuid": self.farmer_uuid,
+            "crop": self.cultura,
+            "quantity": self.quantidade,
+            "soldAt": self.local_venda,
+            "date": self.data,
+            "createdAt": self.criado_em.isoformat() if isinstance(self.criado_em, datetime) else str(self.criado_em),
+        }
+
+
+@dataclass
+class RegistroFinanceiro:
+    """Representa um lançamento no Caderninho de Contas."""
+    tipo: str  # "entrada" ou "saida"
+    categoria: str
+    descricao: str
+    valor: float
+    data: str
+    farmer_uuid: str
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    criado_em: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @property
+    def uuid(self) -> str:
+        return self.id
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "id": self.id,
+            "uuid": self.id,
+            "farmer_uuid": self.farmer_uuid,
+            "tipo": self.tipo,
+            "categoria": self.categoria,
+            "descricao": self.descricao,
+            "valor": self.valor,
+            "data": self.data,
+            "createdAt": self.criado_em.isoformat() if isinstance(self.criado_em, datetime) else str(self.criado_em),
+        }
+
+
+@dataclass
+class MensagemAgronoma:
+    """Representa uma mensagem no canal de dúvidas com a agrônoma."""
+    farmer_uuid: str
+    remetente: str  # "farmer" ou "agronomist"
+    nome_remetente: str
+    mensagem: str
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    lida: bool = False
+    criado_em: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @property
+    def uuid(self) -> str:
+        return self.id
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "id": self.id,
+            "uuid": self.id,
+            "farmer_uuid": self.farmer_uuid,
+            "sender": self.remetente,
+            "senderName": self.nome_remetente,
+            "message": self.mensagem,
+            "isRead": self.lida,
+            "createdAt": self.criado_em.isoformat() if isinstance(self.criado_em, datetime) else str(self.criado_em),
         }

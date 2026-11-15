@@ -11,7 +11,16 @@ import pytest
 from sqlalchemy.orm import Session
 
 from src.infrastructure.outbound.persistence.database import init_db, SessionLocal, engine
-from src.infrastructure.outbound.persistence.models import LandAnalysisRecord
+from src.infrastructure.outbound.persistence.models import (
+    LandAnalysisRecord,
+    FarmerRecord,
+    PlotRecord,
+    PlantRecord,
+    HarvestRecord,
+    FinancialRecord,
+    AgronomistMessageRecord,
+    NasaCacheRecord,
+)
 from src.infrastructure.outbound.persistence.postgres_repository import SQLAlchemyLandAnalysisRepository
 from src.domain.entities import (
     DiagnosticoCompleto,
@@ -156,3 +165,212 @@ def test_repository_list_recent():
         assert isinstance(r.id, str)
         # O id exposto deve ser um UUID válido
         assert len(r.id) == 36
+
+
+def test_phase1_models_schema_integrity():
+    """Valida a conformidade de todos os novos modelos ORM da Fase 1 com PK Integer e UUID String."""
+    from sqlalchemy import Integer, String
+
+    models = [
+        FarmerRecord,
+        PlotRecord,
+        PlantRecord,
+        HarvestRecord,
+        FinancialRecord,
+        AgronomistMessageRecord,
+    ]
+
+    for model in models:
+        col_id = model.__table__.columns["id"]
+        col_uuid = model.__table__.columns["uuid"]
+        assert col_id.primary_key is True
+        assert isinstance(col_id.type, Integer)
+        assert isinstance(col_uuid.type, String)
+        assert col_uuid.unique is True
+
+    # NasaCacheRecord usa cache_key como chave única além de id PK
+    assert NasaCacheRecord.__table__.columns["id"].primary_key is True
+    assert isinstance(NasaCacheRecord.__table__.columns["id"].type, Integer)
+    assert NasaCacheRecord.__table__.columns["cache_key"].unique is True
+
+
+def test_plots_and_plants_relational_persistence():
+    """Valida o relacionamento 1:N entre Agricultor, Canteiros (Plots) e Plantas."""
+    session: Session = SessionLocal()
+    try:
+        farmer = FarmerRecord(
+            nome_completo="Maria da Silva",
+            apelido="Dona Maria",
+            telefone="+55 71 99123-4567",
+            cidade="Feira de Santana",
+            estado="BA",
+            nome_sitio="Sítio Recanto Verde",
+            tipo_solo="argiloso",
+            latitude_padrao=-12.97,
+            longitude_padrao=-39.51,
+        )
+        session.add(farmer)
+        session.flush()
+
+        plot = PlotRecord(
+            farmer_id=farmer.id,
+            farmer_uuid=farmer.uuid,
+            name="Canteiro Principal",
+            slug="canteiro_principal",
+            crops_description="Alface, Couve e Tomate Cereja",
+            area_m2=120.0,
+            icon="sprout",
+            soil_texture="argiloso",
+        )
+        session.add(plot)
+        session.flush()
+
+        plant1 = PlantRecord(
+            plot_id=plot.id,
+            plot_uuid=plot.uuid,
+            name="Tomate Cereja",
+            slug="tomate_cereja",
+            status="Florindo",
+            care="Precisa de estaca agora",
+            tone="primary",
+            sowing_date="20260920",
+            harvest_in_days=12,
+        )
+        plant2 = PlantRecord(
+            plot_id=plot.id,
+            plot_uuid=plot.uuid,
+            name="Alface",
+            slug="alface",
+            status="Pronta",
+            care="Pode colher em 3 dias",
+            tone="primary",
+            sowing_date="20261028",
+            harvest_in_days=3,
+        )
+        session.add_all([plant1, plant2])
+        session.commit()
+
+        # Consulta reversa a partir do canteiro
+        queried_plot = session.query(PlotRecord).filter(PlotRecord.uuid == plot.uuid).first()
+        assert queried_plot is not None
+        assert len(queried_plot.plants) == 2
+        plant_names = [p.name for p in queried_plot.plants]
+        assert "Tomate Cereja" in plant_names
+        assert "Alface" in plant_names
+        assert queried_plot.farmer.apelido == "Dona Maria"
+    finally:
+        session.close()
+
+
+def test_financial_records_and_harvests_persistence():
+    """Valida o armazenamento de movimentações do Caderninho de Contas e histórico de Colheitas."""
+    session: Session = SessionLocal()
+    try:
+        farmer = FarmerRecord(
+            nome_completo="Dona Maria",
+            telefone="+5571991234567",
+        )
+        session.add(farmer)
+        session.flush()
+
+        # Adicionar lançamentos financeiros
+        entrada = FinancialRecord(
+            farmer_id=farmer.id,
+            farmer_uuid=farmer.uuid,
+            tipo="entrada",
+            categoria="feira",
+            descricao="Venda de alface na feira",
+            valor=240.0,
+            data="12 de nov",
+        )
+        saida = FinancialRecord(
+            farmer_id=farmer.id,
+            farmer_uuid=farmer.uuid,
+            tipo="saida",
+            categoria="adubo",
+            descricao="Compra de adubo",
+            valor=185.0,
+            data="10 de nov",
+        )
+        session.add_all([entrada, saida])
+
+        # Adicionar colheita
+        colheita = HarvestRecord(
+            farmer_id=farmer.id,
+            farmer_uuid=farmer.uuid,
+            crop_name="Alface",
+            quantity="12 cabeças",
+            sold_at="feira",
+            harvest_date="20261114",
+        )
+        session.add(colheita)
+        session.commit()
+
+        # Consultar finanças do agricultor
+        records = session.query(FinancialRecord).filter(FinancialRecord.farmer_uuid == farmer.uuid).all()
+        assert len(records) == 2
+        entradas = sum(r.valor for r in records if r.tipo == "entrada")
+        saidas = sum(r.valor for r in records if r.tipo == "saida")
+        saldo = entradas - saidas
+        assert saldo == pytest.approx(55.0)
+
+        # Consultar colheitas
+        harvests = session.query(HarvestRecord).filter(HarvestRecord.farmer_uuid == farmer.uuid).all()
+        assert len(harvests) == 1
+        assert harvests[0].quantity == "12 cabeças"
+    finally:
+        session.close()
+
+
+def test_agronomist_messages_and_nasa_cache_persistence():
+    """Valida o canal com a agrônoma e a camada de cache para a API da NASA."""
+    session: Session = SessionLocal()
+    try:
+        farmer = FarmerRecord(
+            nome_completo="Dona Maria",
+            telefone="+5571990001122",
+        )
+        session.add(farmer)
+        session.flush()
+
+        msg = AgronomistMessageRecord(
+            farmer_id=farmer.id,
+            farmer_uuid=farmer.uuid,
+            sender="agronomist",
+            sender_name="Ana - Agrônoma",
+            message_text="Bom dia, Dona Maria! O solo da Baixa do Riacho está com 35% de umidade.",
+            is_read=False,
+        )
+        session.add(msg)
+
+        # Adicionar item ao cache da NASA
+        cache_item = NasaCacheRecord(
+            cache_key="power_-12.97_-39.51_20260101_20261231",
+            service="power",
+            latitude=-12.97,
+            longitude=-39.51,
+            start_date="20260101",
+            end_date="20261231",
+            response_json={"type": "Feature", "properties": {"parameter": {"T2M": {"20260101": 28.07}}}},
+            expires_at=datetime.now(timezone.utc),
+        )
+        session.add(cache_item)
+        session.commit()
+
+        # Consultar mensagem
+        queried_msg = session.query(AgronomistMessageRecord).filter(
+            AgronomistMessageRecord.farmer_uuid == farmer.uuid
+        ).first()
+        assert queried_msg is not None
+        assert "Baixa do Riacho" in queried_msg.message_text
+        assert queried_msg.sender == "agronomist"
+
+        # Consultar cache
+        queried_cache = session.query(NasaCacheRecord).filter(
+            NasaCacheRecord.cache_key == "power_-12.97_-39.51_20260101_20261231"
+        ).first()
+        assert queried_cache is not None
+        assert queried_cache.service == "power"
+        assert queried_cache.response_json["properties"]["parameter"]["T2M"]["20260101"] == 28.07
+    finally:
+        session.close()
