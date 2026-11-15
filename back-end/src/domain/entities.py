@@ -28,11 +28,13 @@ class Agricultor:
     """
     Entidade pura que representa o agricultor familiar ou produtor rural.
     Contém dados cadastrais essenciais para contacto e futuros pagamentos móveis em Angola.
+    Suporta Soft Delete (Eliminação Lógica) através do campo is_active.
     """
     nome_completo: str
     telefone: str
     cooperativa: Optional[str] = None
     bilhete_identidade_ou_codigo: Optional[str] = None
+    is_active: bool = True
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     criado_em: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -53,6 +55,14 @@ class Agricultor:
         """UUID público do agricultor."""
         return self.id
 
+    def deactivate(self) -> None:
+        """Desativa logicamente o agricultor, preservando o histórico de análises e carbono."""
+        self.is_active = False
+
+    def activate(self) -> None:
+        """Reativa o agricultor."""
+        self.is_active = True
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "id": self.id,
@@ -61,7 +71,8 @@ class Agricultor:
             "telefone": self.telefone,
             "cooperativa": self.cooperativa,
             "bilhete_identidade_ou_codigo": self.bilhete_identidade_ou_codigo,
-            "criado_em": self.criado_em.isoformat(),
+            "is_active": self.is_active,
+            "criado_em": self.criado_em.isoformat() if isinstance(self.criado_em, datetime) else str(self.criado_em),
         }
 
 

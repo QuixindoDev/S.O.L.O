@@ -11,8 +11,8 @@ Regra Arquitetural Crítica (IDs):
 
 import uuid
 from datetime import datetime, timezone
-from sqlalchemy import Column, Integer, String, Float, DateTime, Text, JSON, ForeignKey
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy import Column, Integer, String, Float, DateTime, Text, JSON, ForeignKey, Boolean
+from sqlalchemy.orm import declarative_base, relationship, Mapped, mapped_column
 
 Base = declarative_base()
 
@@ -37,6 +37,9 @@ class FarmerRecord(Base):
     cooperativa = Column(String(150), nullable=True)
     bilhete_identidade_ou_codigo = Column(String(100), nullable=True, index=True)
 
+    # Estado ativo (Soft Delete / Eliminação Lógica)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+
     # Data de registo
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
 
@@ -44,7 +47,7 @@ class FarmerRecord(Base):
     analyses = relationship("LandAnalysisRecord", back_populates="farmer", cascade="all, delete-orphan")
 
     def __repr__(self):
-        return f"<FarmerRecord(id={self.id}, uuid='{self.uuid}', nome='{self.nome_completo}')>"
+        return f"<FarmerRecord(id={self.id}, uuid='{self.uuid}', nome='{self.nome_completo}', is_active={self.is_active})>"
 
 
 class LandAnalysisRecord(Base):

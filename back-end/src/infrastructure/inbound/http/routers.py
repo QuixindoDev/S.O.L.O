@@ -16,8 +16,10 @@ from src.infrastructure.inbound.http.schemas import (
     HealthResponse,
     FarmerCreateRequest,
     FarmerResponse,
+    FarmerDeactivationResponse,
 )
 from src.application.use_cases.analyze_land import AnalyzeLandUseCase
+from src.application.use_cases.deactivate_farmer import DeactivateFarmerUseCase
 from src.application.ports.satellite_port import SatellitePort
 from src.application.ports.repository_port import LandAnalysisRepositoryPort
 
@@ -43,6 +45,13 @@ def get_use_case() -> AnalyzeLandUseCase:
         satellite_port=_satellite_port,
         repository=_repository
     )
+
+
+def get_deactivate_farmer_use_case() -> DeactivateFarmerUseCase:
+    """Provedor do caso de uso de desativação lógica (soft delete)."""
+    if _repository is None:
+        raise HTTPException(status_code=503, detail="Repositório não configurado.")
+    return DeactivateFarmerUseCase(repository=_repository)
 
 
 # ==============================================================================
@@ -80,16 +89,17 @@ def create_farmer(request: FarmerCreateRequest):
     "/api/v1/farmers",
     response_model=List[FarmerResponse],
     summary="Listar Agricultores Registados",
-    description="Lista todos os agricultores familiares cadastrados na plataforma com paginação."
+    description="Lista todos os agricultores familiares cadastrados na plataforma com paginação. Por defeito, filtra apenas os agricultores ativos (is_active == True)."
 )
 def list_farmers(
     limit: int = Query(default=50, ge=1, le=100),
-    offset: int = Query(default=0, ge=0)
+    offset: int = Query(default=0, ge=0),
+    include_inactive: bool = Query(default=False, description="Se True, inclui agricultores inativos/desativados no resultado")
 ):
     if not _repository:
         raise HTTPException(status_code=503, detail="Repositório não configurado.")
     try:
-        farmers = _repository.list_farmers(limit=limit, offset=offset)
+        farmers = _repository.list_farmers(limit=limit, offset=offset, only_active=not include_inactive)
         return [f.to_dict() for f in farmers]
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Erro ao listar agricultores: {str(exc)}")
@@ -108,6 +118,68 @@ def get_farmer_by_uuid(farmer_uuid: str):
     if not farmer:
         raise HTTPException(status_code=404, detail=f"Agricultor com UUID '{farmer_uuid}' não encontrado.")
     return farmer.to_dict()
+
+
+@router.patch(
+    "/api/v1/farmers/{farmer_uuid}/deactivate",
+    response_model=FarmerDeactivationResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Desativar Agricultor (Soft Delete / Eliminação Lógica)",
+    description=(
+        "Executa a eliminação lógica do agricultor alterando o estado is_active para False. "
+        "Nunca remove fisicamente o registo nem as análises de terra associadas, garantindo "
+        "a rastreabilidade completa e integridade para auditoria internacional de créditos de carbono."
+    )
+)
+def deactivate_farmer(
+    farmer_uuid: str,
+    use_case: DeactivateFarmerUseCase = Depends(get_deactivate_farmer_use_case)
+):
+    if not _repository:
+        raise HTTPException(status_code=503, detail="Repositório não configurado.")
+    try:
+        agricultor = use_case.execute(farmer_uuid)
+        return FarmerDeactivationResponse(
+            mensagem="Agricultor desativado com sucesso. Todo o histórico de terras e créditos de carbono foi preservado para fins de auditoria.",
+            uuid=agricultor.uuid,
+            is_active=agricultor.is_active,
+            agricultor=FarmerResponse(**agricultor.to_dict())
+        )
+    except ValueError as ve:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(ve))
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Erro ao desativar agricultor: {str(exc)}")
+
+
+@router.delete(
+    "/api/v1/farmers/{farmer_uuid}",
+    response_model=FarmerDeactivationResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Eliminar Logicamente Agricultor (Soft Delete)",
+    description=(
+        "Substitui a exclusão física tradicional por Soft Delete (Eliminação Lógica). "
+        "Altera is_active para False sem remover dados do banco de dados, protegendo o "
+        "histórico de auditoria ambiental e de créditos de carbono."
+    )
+)
+def delete_farmer(
+    farmer_uuid: str,
+    use_case: DeactivateFarmerUseCase = Depends(get_deactivate_farmer_use_case)
+):
+    if not _repository:
+        raise HTTPException(status_code=503, detail="Repositório não configurado.")
+    try:
+        agricultor = use_case.execute(farmer_uuid)
+        return FarmerDeactivationResponse(
+            mensagem="Agricultor desativado com sucesso. Todo o histórico de terras e créditos de carbono foi preservado para fins de auditoria.",
+            uuid=agricultor.uuid,
+            is_active=agricultor.is_active,
+            agricultor=FarmerResponse(**agricultor.to_dict())
+        )
+    except ValueError as ve:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(ve))
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Erro ao desativar agricultor: {str(exc)}")
 
 
 @router.get(

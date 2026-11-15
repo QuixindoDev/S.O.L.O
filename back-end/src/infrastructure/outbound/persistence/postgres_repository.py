@@ -46,6 +46,7 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
                 record.telefone = agricultor.telefone
                 record.cooperativa = agricultor.cooperativa
                 record.bilhete_identidade_ou_codigo = agricultor.bilhete_identidade_ou_codigo
+                record.is_active = agricultor.is_active
             else:
                 record = FarmerRecord(
                     uuid=str(agricultor.uuid),
@@ -53,6 +54,7 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
                     telefone=agricultor.telefone,
                     cooperativa=agricultor.cooperativa,
                     bilhete_identidade_ou_codigo=agricultor.bilhete_identidade_ou_codigo,
+                    is_active=agricultor.is_active,
                     created_at=agricultor.criado_em or datetime.now(timezone.utc),
                 )
                 session.add(record)
@@ -79,18 +81,49 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
         finally:
             session.close()
 
-    def list_farmers(self, limit: int = 50, offset: int = 0) -> List[Agricultor]:
-        """Lista os agricultores cadastrados com suporte a paginação."""
+    def list_farmers(self, limit: int = 50, offset: int = 0, only_active: bool = True) -> List[Agricultor]:
+        """
+        Lista os agricultores cadastrados com suporte a paginação.
+        Por defeito, filtra apenas os agricultores ativos (is_active == True).
+        """
         session: Session = self.session_factory()
         try:
+            query = session.query(FarmerRecord)
+            if only_active:
+                query = query.filter(FarmerRecord.is_active == True)
             records = (
-                session.query(FarmerRecord)
-                .order_by(FarmerRecord.created_at.desc())
+                query.order_by(FarmerRecord.created_at.desc())
                 .limit(limit)
                 .offset(offset)
                 .all()
             )
             return [self._farmer_record_to_entity(rec) for rec in records]
+        finally:
+            session.close()
+
+    def get_all_farmers(self, limit: int = 50, offset: int = 0, only_active: bool = True) -> List[Agricultor]:
+        """Consulta de listagem de agricultores filtrando por defeito apenas os ativos (is_active == True)."""
+        return self.list_farmers(limit=limit, offset=offset, only_active=only_active)
+
+    def deactivate_farmer(self, farmer_uuid: str) -> Optional[Agricultor]:
+        """
+        Desativa logicamente o agricultor pelo UUID (Soft Delete), preservando todo o histórico
+        de análises de satélite, dados de solo e créditos de carbono.
+        """
+        session: Session = self.session_factory()
+        try:
+            record = session.query(FarmerRecord).filter(
+                FarmerRecord.uuid == str(farmer_uuid)
+            ).first()
+            if not record:
+                return None
+            record.is_active = False
+            session.commit()
+            session.refresh(record)
+            return self._farmer_record_to_entity(record)
+        except Exception:
+            session.rollback()
+            raise
         finally:
             session.close()
 
@@ -109,6 +142,7 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
                 telefone="+244-923000000",
                 cooperativa="Cooperativa Agroecológica do Planalto Central",
                 bilhete_identidade_ou_codigo="BI-001-DEFAULT",
+                is_active=True,
                 created_at=datetime.now(timezone.utc)
             )
             session.add(new_record)
@@ -148,6 +182,7 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
                     telefone=diagnostico.agricultor.telefone,
                     cooperativa=diagnostico.agricultor.cooperativa,
                     bilhete_identidade_ou_codigo=diagnostico.agricultor.bilhete_identidade_ou_codigo,
+                    is_active=diagnostico.agricultor.is_active,
                     created_at=diagnostico.agricultor.criado_em or datetime.now(timezone.utc),
                 )
                 session.add(farmer_rec)
@@ -158,6 +193,7 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
                     nome_completo="Agricultor Familiar Local",
                     telefone="+244-900000000",
                     cooperativa="Cooperativa de Produtores",
+                    is_active=True,
                     created_at=datetime.now(timezone.utc),
                 )
                 session.add(farmer_rec)
@@ -171,6 +207,7 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
                         nome_completo="Agricultor Familiar de Angola",
                         telefone="+244-923000000",
                         cooperativa="Cooperativa Agroecológica de Angola",
+                        is_active=True,
                         created_at=datetime.now(timezone.utc),
                     )
                     session.add(farmer_rec)
@@ -301,6 +338,7 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
             telefone=record.telefone,
             cooperativa=record.cooperativa,
             bilhete_identidade_ou_codigo=record.bilhete_identidade_ou_codigo,
+            is_active=bool(record.is_active) if getattr(record, "is_active", None) is not None else True,
             criado_em=record.created_at,
         )
 

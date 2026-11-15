@@ -85,7 +85,19 @@ class FarmerResponse(BaseModel):
     telefone: str
     cooperativa: Optional[str] = None
     bilhete_identidade_ou_codigo: Optional[str] = None
+    is_active: bool = Field(default=True, description="Estado ativo do agricultor (Soft Delete)")
     criado_em: Optional[datetime] = None
+
+
+class FarmerDeactivationResponse(BaseModel):
+    """Resposta informativa para operações de desativação lógica (Soft Delete)."""
+    mensagem: str = Field(
+        default="Agricultor desativado com sucesso. Todo o histórico de terras e créditos de carbono foi preservado para fins de auditoria.",
+        description="Mensagem informativa de confirmação e auditoria"
+    )
+    uuid: str = Field(description="UUID público do agricultor")
+    is_active: bool = Field(default=False, description="Novo estado ativo do agricultor")
+    agricultor: Optional[FarmerResponse] = Field(default=None, description="Dados cadastrais atualizados do agricultor")
 
 
 # ==============================================================================

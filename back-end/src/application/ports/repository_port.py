@@ -22,8 +22,18 @@ class FarmerRepositoryPort(ABC):
         pass
 
     @abstractmethod
-    def list_farmers(self, limit: int = 50, offset: int = 0) -> List[Agricultor]:
-        """Lista os agricultores cadastrados com suporte a paginação."""
+    def list_farmers(self, limit: int = 50, offset: int = 0, only_active: bool = True) -> List[Agricultor]:
+        """Lista os agricultores cadastrados com suporte a paginação e filtro por defeito de ativos."""
+        pass
+
+    @abstractmethod
+    def get_all_farmers(self, limit: int = 50, offset: int = 0, only_active: bool = True) -> List[Agricultor]:
+        """Consulta de listagem de agricultores filtrando por defeito apenas os agricultores com is_active == True."""
+        pass
+
+    @abstractmethod
+    def deactivate_farmer(self, farmer_uuid: str) -> Optional[Agricultor]:
+        """Desativa logicamente um agricultor pelo seu UUID público (Soft Delete)."""
         pass
 
     @abstractmethod
