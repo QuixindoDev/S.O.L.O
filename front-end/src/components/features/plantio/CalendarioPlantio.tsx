@@ -197,14 +197,6 @@ export function CalendarioPlantio({ summary }: CalendarioPlantioProps) {
         />
 
         <CalendarioTarefas plantings={plantings} />
-
-        <CalendarioMes
-          month={selectedMonth}
-          plantings={plantings}
-          balances={balances}
-          rainMm={rainMm}
-          isCurrentMonth={selectedMonth === currentMonth}
-        />
       </div>
 
       <DialogoPlantao

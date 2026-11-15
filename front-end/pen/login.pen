@@ -4201,7 +4201,7 @@
                   "id": "N9KiA",
                   "name": "Text",
                   "fill": "$text-muted",
-                  "content": "DINHEIRO",
+                  "content": "DINHEIRO E CARBONO",
                   "fontFamily": "$font",
                   "fontSize": 14,
                   "fontWeight": "700",
@@ -4237,7 +4237,7 @@
                   "id": "NSTiH",
                   "name": "Text Meu Caderninho",
                   "fill": "$text-secondary",
-                  "content": "Meu Caderninho",
+                  "content": "Renda da Terra",
                   "fontFamily": "$font",
                   "fontSize": 18,
                   "fontWeight": "normal"
@@ -6815,6 +6815,7 @@
                           "id": "n9jJN",
                           "name": "Canteiro Baixa do Riacho",
                           "width": "fill_container",
+                          "height": 142,
                           "fill": "$surface-soft",
                           "cornerRadius": 16,
                           "layout": "vertical",
@@ -7162,7 +7163,7 @@
       "name": "8. Minhas Plantas",
       "clip": true,
       "width": 1280,
-      "height": 1400,
+      "height": 1207,
       "fill": "$bg",
       "children": [
         {
@@ -8190,10 +8191,10 @@
       "id": "EZo8k",
       "x": 4140,
       "y": 1762,
-      "name": "9. Meu Caderninho de Contas",
+      "name": "9. A Renda da Minha Terra (Carbono)",
       "clip": true,
       "width": 1280,
-      "height": 1400,
+      "height": 1207,
       "fill": "$bg",
       "children": [
         {
@@ -8252,7 +8253,7 @@
                       "id": "LojLq",
                       "name": "Title",
                       "fill": "$text-primary",
-                      "content": "Meu Caderninho de Contas",
+                      "content": "A Renda da Minha Terra",
                       "fontFamily": "$font",
                       "fontSize": 26,
                       "fontWeight": "700"
@@ -8262,7 +8263,7 @@
                       "id": "FUtft",
                       "name": "Subtitle",
                       "fill": "$text-muted",
-                      "content": "Vendas na feira e gastos com o adubo",
+                      "content": "O carbono que a tua terra produz",
                       "fontFamily": "$font",
                       "fontSize": 16,
                       "fontWeight": "normal"
@@ -8329,6 +8330,7 @@
               "id": "E5gFxe",
               "name": "Body",
               "width": "fill_container",
+              "height": 1184,
               "layout": "vertical",
               "gap": 22,
               "padding": [
@@ -8340,8 +8342,8 @@
               "children": [
                 {
                   "type": "frame",
-                  "id": "Fqci5",
-                  "name": "Resumo",
+                  "id": "W9rpy",
+                  "name": "Renda do Ano",
                   "width": "fill_container",
                   "fill": "$surface",
                   "cornerRadius": "$radius-card",
@@ -8349,30 +8351,96 @@
                   "strokeWidth": 1,
                   "strokeAlignment": "inner",
                   "layout": "vertical",
-                  "gap": 18,
+                  "gap": 20,
                   "padding": 28,
                   "children": [
                     {
-                      "type": "text",
-                      "id": "SzrNY",
-                      "name": "Title",
-                      "fill": "$text-primary",
-                      "content": "Resumo de novembro",
-                      "fontFamily": "$font",
-                      "fontSize": 24,
-                      "fontWeight": "700"
-                    },
-                    {
                       "type": "frame",
-                      "id": "N8JEq",
-                      "name": "Resumo Row",
+                      "id": "EiJF6",
+                      "name": "Head",
                       "width": "fill_container",
                       "gap": 16,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
                       "children": [
                         {
                           "type": "frame",
-                          "id": "ajL8X",
-                          "name": "Resumo Dinheiro que entrou",
+                          "id": "zgJIr",
+                          "name": "Head Text",
+                          "layout": "vertical",
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "v4Mim7",
+                              "name": "Title",
+                              "fill": "$text-primary",
+                              "content": "Quanto a tua terra ganhou este ano",
+                              "fontFamily": "$font",
+                              "fontSize": 22,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "Mt8bB",
+                              "name": "Sub",
+                              "fill": "$text-muted",
+                              "content": "Calculado com os dados da NASA e com a rotação que estás a fazer.",
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "bGsmE",
+                          "name": "Badge",
+                          "height": 34,
+                          "fill": "$primary-soft",
+                          "cornerRadius": 9999,
+                          "gap": 8,
+                          "padding": [
+                            0,
+                            14
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "P1NVZ",
+                              "name": "Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "plus",
+                              "library": "lucide",
+                              "fill": "$primary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "EKd5I",
+                              "name": "Label",
+                              "fill": "$primary",
+                              "content": "Registar saque",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "e6lj9D",
+                      "name": "Resumo Row",
+                      "width": "fill_container",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "wkIvJ",
+                          "name": "Renda Gerada",
                           "width": "fill_container",
                           "fill": "$surface-soft",
                           "cornerRadius": 16,
@@ -8382,27 +8450,28 @@
                           "children": [
                             {
                               "type": "frame",
-                              "id": "F2Nx7P",
+                              "id": "f2yJCf",
                               "name": "Top",
-                              "gap": 10,
+                              "width": "fill_container",
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
                                 {
                                   "type": "icon",
-                                  "id": "iIeDH",
+                                  "id": "ahlYD",
                                   "name": "Icon",
                                   "width": 20,
                                   "height": 20,
-                                  "icon": "circle-check",
+                                  "icon": "coins",
                                   "library": "lucide",
-                                  "fill": "#0E5C36"
+                                  "fill": "$primary"
                                 },
                                 {
                                   "type": "text",
-                                  "id": "bdV25",
+                                  "id": "QZUFA",
                                   "name": "Label",
-                                  "fill": "$text-muted",
-                                  "content": "Dinheiro que entrou",
+                                  "fill": "$text-secondary",
+                                  "content": "Renda gerada",
                                   "fontFamily": "$font",
                                   "fontSize": 15,
                                   "fontWeight": "normal"
@@ -8411,20 +8480,20 @@
                             },
                             {
                               "type": "text",
-                              "id": "VfuDb",
+                              "id": "ahlLy",
                               "name": "Value",
-                              "fill": "#0E5C36",
-                              "content": "R$ 1.480,00",
+                              "fill": "$text-primary",
+                              "content": "kz 2.480,00",
                               "fontFamily": "$font",
-                              "fontSize": 28,
+                              "fontSize": 30,
                               "fontWeight": "700"
                             },
                             {
                               "type": "text",
-                              "id": "iwP4m",
+                              "id": "plf7p",
                               "name": "Note",
                               "fill": "$text-muted",
-                              "content": "Ganhos na feira",
+                              "content": "neste ano",
                               "fontFamily": "$font",
                               "fontSize": 14,
                               "fontWeight": "normal"
@@ -8433,8 +8502,8 @@
                         },
                         {
                           "type": "frame",
-                          "id": "OX2VP",
-                          "name": "Resumo Dinheiro que saiu",
+                          "id": "QYynY",
+                          "name": "Carbono Captado",
                           "width": "fill_container",
                           "fill": "$surface-soft",
                           "cornerRadius": 16,
@@ -8444,27 +8513,28 @@
                           "children": [
                             {
                               "type": "frame",
-                              "id": "Uw2mf",
+                              "id": "Y2xo6a",
                               "name": "Top",
-                              "gap": 10,
+                              "width": "fill_container",
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
                                 {
                                   "type": "icon",
-                                  "id": "ItZAh",
+                                  "id": "ErSjx",
                                   "name": "Icon",
                                   "width": 20,
                                   "height": 20,
-                                  "icon": "arrow-down",
+                                  "icon": "leaf",
                                   "library": "lucide",
-                                  "fill": "#8A5A00"
+                                  "fill": "$primary"
                                 },
                                 {
                                   "type": "text",
-                                  "id": "y8qVD",
+                                  "id": "eoY35",
                                   "name": "Label",
-                                  "fill": "$text-muted",
-                                  "content": "Dinheiro que saiu",
+                                  "fill": "$text-secondary",
+                                  "content": "Carbono captado",
                                   "fontFamily": "$font",
                                   "fontSize": 15,
                                   "fontWeight": "normal"
@@ -8473,20 +8543,20 @@
                             },
                             {
                               "type": "text",
-                              "id": "L6ZFa",
+                              "id": "a90Kay",
                               "name": "Value",
-                              "fill": "#8A5A00",
-                              "content": "R$ 620,50",
+                              "fill": "$text-primary",
+                              "content": "12,4 tCO₂e",
                               "fontFamily": "$font",
-                              "fontSize": 28,
+                              "fontSize": 30,
                               "fontWeight": "700"
                             },
                             {
                               "type": "text",
-                              "id": "huD0m",
+                              "id": "IGUv1",
                               "name": "Note",
                               "fill": "$text-muted",
-                              "content": "Adubo, sementes e água",
+                              "content": "em 2,5 hectares",
                               "fontFamily": "$font",
                               "fontSize": 14,
                               "fontWeight": "normal"
@@ -8495,8 +8565,8 @@
                         },
                         {
                           "type": "frame",
-                          "id": "p0IkF",
-                          "name": "Resumo Sobrou",
+                          "id": "y36tp3",
+                          "name": "Preco por Tonelada",
                           "width": "fill_container",
                           "fill": "$surface-soft",
                           "cornerRadius": 16,
@@ -8506,27 +8576,28 @@
                           "children": [
                             {
                               "type": "frame",
-                              "id": "DLlVC",
+                              "id": "EYMWj",
                               "name": "Top",
-                              "gap": 10,
+                              "width": "fill_container",
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
                                 {
                                   "type": "icon",
-                                  "id": "Rx6D2",
+                                  "id": "MJurM",
                                   "name": "Icon",
                                   "width": 20,
                                   "height": 20,
-                                  "icon": "piggy-bank",
+                                  "icon": "trending-up",
                                   "library": "lucide",
-                                  "fill": "#0E5C36"
+                                  "fill": "$primary"
                                 },
                                 {
                                   "type": "text",
-                                  "id": "zasIu",
+                                  "id": "C7dA6p",
                                   "name": "Label",
-                                  "fill": "$text-muted",
-                                  "content": "Sobrou",
+                                  "fill": "$text-secondary",
+                                  "content": "Preço por tonelada",
                                   "fontFamily": "$font",
                                   "fontSize": 15,
                                   "fontWeight": "normal"
@@ -8535,20 +8606,20 @@
                             },
                             {
                               "type": "text",
-                              "id": "TnSX9",
+                              "id": "W6ERJ",
                               "name": "Value",
-                              "fill": "#0E5C36",
-                              "content": "R$ 859,50",
+                              "fill": "$text-primary",
+                              "content": "kz 1.250,00",
                               "fontFamily": "$font",
-                              "fontSize": 28,
+                              "fontSize": 30,
                               "fontWeight": "700"
                             },
                             {
                               "type": "text",
-                              "id": "K5srs",
+                              "id": "Y9BOJ",
                               "name": "Note",
                               "fill": "$text-muted",
-                              "content": "Para o próximo mês",
+                              "content": "mercado de carbono",
                               "fontFamily": "$font",
                               "fontSize": 14,
                               "fontWeight": "normal"
@@ -8561,8 +8632,133 @@
                 },
                 {
                   "type": "frame",
-                  "id": "LmS4L",
-                  "name": "Movimentos",
+                  "id": "H2mhn6",
+                  "name": "Cartao Saque",
+                  "width": "fill_container",
+                  "fill": [
+                    {
+                      "type": "image",
+                      "enabled": true,
+                      "url": "2649_Cuidados_Plantacao_Chuva.png",
+                      "mode": "cover",
+                      "transform": [
+                        1,
+                        0,
+                        0,
+                        3.266449,
+                        0,
+                        -2.266449
+                      ]
+                    },
+                    "#006b2db3"
+                  ],
+                  "cornerRadius": "$radius-card",
+                  "layout": "vertical",
+                  "gap": 18,
+                  "padding": 28,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "V3NUr",
+                      "name": "Row",
+                      "width": "fill_container",
+                      "gap": 20,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "BRrKt",
+                          "name": "Textos",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "KyRKg",
+                              "name": "Label",
+                              "fill": "$primary-soft",
+                              "content": "Quanto podes sacar agora",
+                              "fontFamily": "$font",
+                              "fontSize": 16,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "psiMF",
+                              "name": "Value",
+                              "fill": "$surface",
+                              "content": "kz 1.860,00",
+                              "fontFamily": "$font",
+                              "fontSize": 40,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "UMknT",
+                              "name": "Note",
+                              "fill": "$primary-soft",
+                              "content": "Já sacaste kz 62.000,00 este ano. Podes sacar a partir de kz 1.000,00.",
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Mh8pK",
+                          "name": "Botao Sacar",
+                          "height": 56,
+                          "fill": "$surface",
+                          "cornerRadius": 9999,
+                          "gap": 10,
+                          "padding": [
+                            0,
+                            28
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "DVM7d",
+                              "name": "Icon",
+                              "width": 20,
+                              "height": 20,
+                              "icon": "wallet",
+                              "library": "lucide",
+                              "fill": "$primary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "gRWQq",
+                              "name": "Label",
+                              "fill": "$primary",
+                              "content": "Sacar o meu dinheiro",
+                              "fontFamily": "$font",
+                              "fontSize": 17,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "XVkEv",
+                  "name": "Historico Titulo",
+                  "fill": "$text-primary",
+                  "content": "O carbono da tua terra, mês a mês",
+                  "fontFamily": "$font",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "J0Zqz",
+                  "name": "Historico",
                   "width": "fill_container",
                   "fill": "$surface",
                   "cornerRadius": "$radius-card",
@@ -8570,504 +8766,579 @@
                   "strokeWidth": 1,
                   "strokeAlignment": "inner",
                   "layout": "vertical",
-                  "gap": 18,
+                  "gap": 14,
                   "padding": 28,
                   "children": [
                     {
-                      "type": "text",
-                      "id": "n1MeVO",
-                      "name": "Title",
-                      "fill": "$text-primary",
-                      "content": "Todas as contas",
-                      "fontFamily": "$font",
-                      "fontSize": 24,
-                      "fontWeight": "700"
-                    },
-                    {
                       "type": "frame",
-                      "id": "exbaU",
-                      "name": "Lista",
+                      "id": "vYrMp",
+                      "name": "Mes Agosto",
                       "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 15,
-                      "padding": [
-                        20,
-                        0
-                      ],
+                      "gap": 14,
+                      "alignItems": "center",
                       "children": [
                         {
                           "type": "frame",
-                          "id": "TyYE6",
-                          "name": "Movimento Venda de alface na feira",
-                          "width": "fill_container",
-                          "fill": "$surface-soft",
+                          "id": "kUJSP",
+                          "name": "Icon Box",
+                          "width": 44,
+                          "height": 44,
+                          "fill": "$primary-soft",
                           "cornerRadius": 14,
-                          "gap": 16,
-                          "padding": [
-                            16,
-                            18
-                          ],
+                          "justifyContent": "center",
                           "alignItems": "center",
                           "children": [
                             {
-                              "type": "frame",
-                              "id": "Q3sPqZ",
-                              "name": "Icon Box",
-                              "width": 44,
-                              "height": 44,
-                              "fill": "$surface",
-                              "cornerRadius": 14,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "hAauM",
-                                  "name": "Icon",
-                                  "width": 22,
-                                  "height": 22,
-                                  "icon": "arrow-up-right",
-                                  "library": "lucide",
-                                  "fill": "#0E5C36"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "U5H7l",
-                              "name": "Texts",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 2,
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "w8UnD",
-                                  "name": "Name",
-                                  "fill": "$text-primary",
-                                  "content": "Venda de alface na feira",
-                                  "fontFamily": "$font",
-                                  "fontSize": 18,
-                                  "fontWeight": "700"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "x7rnqO",
-                                  "name": "Date",
-                                  "fill": "$text-muted",
-                                  "content": "12 de nov",
-                                  "fontFamily": "$font",
-                                  "fontSize": 14,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "text",
-                              "id": "A7m10",
-                              "name": "Value",
-                              "fill": "#0E5C36",
-                              "content": "+ R$ 240,00",
-                              "fontFamily": "$font",
-                              "fontSize": 19,
-                              "fontWeight": "700"
+                              "type": "icon",
+                              "id": "NDWeL",
+                              "name": "Icon",
+                              "width": 22,
+                              "height": 22,
+                              "icon": "leaf",
+                              "library": "lucide",
+                              "fill": "$primary"
                             }
                           ]
                         },
                         {
                           "type": "frame",
-                          "id": "vBtjI",
-                          "name": "Movimento Compra de adubo",
+                          "id": "xm2EN",
+                          "name": "Textos",
                           "width": "fill_container",
-                          "fill": "$surface-soft",
-                          "cornerRadius": 14,
-                          "gap": 16,
-                          "padding": [
-                            16,
-                            18
-                          ],
-                          "alignItems": "center",
+                          "layout": "vertical",
+                          "gap": 2,
                           "children": [
                             {
-                              "type": "frame",
-                              "id": "Su6Fc",
-                              "name": "Icon Box",
-                              "width": 44,
-                              "height": 44,
-                              "fill": "$surface",
-                              "cornerRadius": 14,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "pc0oo",
-                                  "name": "Icon",
-                                  "width": 22,
-                                  "height": 22,
-                                  "icon": "arrow-down-right",
-                                  "library": "lucide",
-                                  "fill": "#8A5A00"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "bbtfU",
-                              "name": "Texts",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 2,
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "w11Hm",
-                                  "name": "Name",
-                                  "fill": "$text-primary",
-                                  "content": "Compra de adubo",
-                                  "fontFamily": "$font",
-                                  "fontSize": 18,
-                                  "fontWeight": "700"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "bhr5s",
-                                  "name": "Date",
-                                  "fill": "$text-muted",
-                                  "content": "10 de nov",
-                                  "fontFamily": "$font",
-                                  "fontSize": 14,
-                                  "fontWeight": "normal"
-                                }
-                              ]
+                              "type": "text",
+                              "id": "BLAKp",
+                              "name": "Name",
+                              "fill": "$text-primary",
+                              "content": "Agosto",
+                              "fontFamily": "$font",
+                              "fontSize": 17,
+                              "fontWeight": "700"
                             },
                             {
                               "type": "text",
-                              "id": "TE4ZD",
-                              "name": "Value",
-                              "fill": "#8A5A00",
-                              "content": "- R$ 185,00",
+                              "id": "GAEvy",
+                              "name": "Desc",
+                              "fill": "$text-muted",
+                              "content": "Milho colhido, Braquiária a cobrir",
                               "fontFamily": "$font",
-                              "fontSize": 19,
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "AagvN",
+                              "name": "Toneladas",
+                              "fill": "$text-secondary",
+                              "content": "2,1 tCO₂e",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
                               "fontWeight": "700"
                             }
                           ]
                         },
                         {
+                          "type": "text",
+                          "id": "rcAD3",
+                          "name": "Value",
+                          "fill": "$primary",
+                          "content": "kz 4.200,00",
+                          "fontFamily": "$font",
+                          "fontSize": 20,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Mcv3l",
+                      "name": "Mes Setembro",
+                      "width": "fill_container",
+                      "gap": 14,
+                      "alignItems": "center",
+                      "children": [
+                        {
                           "type": "frame",
-                          "id": "b5KjbZ",
-                          "name": "Movimento Venda de tomate",
-                          "width": "fill_container",
-                          "fill": "$surface-soft",
+                          "id": "aN9yh",
+                          "name": "Icon Box",
+                          "width": 44,
+                          "height": 44,
+                          "fill": "$primary-soft",
                           "cornerRadius": 14,
-                          "gap": 16,
-                          "padding": [
-                            16,
-                            18
-                          ],
+                          "justifyContent": "center",
                           "alignItems": "center",
                           "children": [
                             {
-                              "type": "frame",
-                              "id": "cCDL7",
-                              "name": "Icon Box",
-                              "width": 44,
-                              "height": 44,
-                              "fill": "$surface",
-                              "cornerRadius": 14,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "A4XRVI",
-                                  "name": "Icon",
-                                  "width": 22,
-                                  "height": 22,
-                                  "icon": "arrow-up-right",
-                                  "library": "lucide",
-                                  "fill": "#0E5C36"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "xMJyy",
-                              "name": "Texts",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 2,
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "rcRIG",
-                                  "name": "Name",
-                                  "fill": "$text-primary",
-                                  "content": "Venda de tomate",
-                                  "fontFamily": "$font",
-                                  "fontSize": 18,
-                                  "fontWeight": "700"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "T52rf",
-                                  "name": "Date",
-                                  "fill": "$text-muted",
-                                  "content": "9 de nov",
-                                  "fontFamily": "$font",
-                                  "fontSize": 14,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "text",
-                              "id": "tq7BA",
-                              "name": "Value",
-                              "fill": "#0E5C36",
-                              "content": "+ R$ 320,00",
-                              "fontFamily": "$font",
-                              "fontSize": 19,
-                              "fontWeight": "700"
+                              "type": "icon",
+                              "id": "to9nh",
+                              "name": "Icon",
+                              "width": 22,
+                              "height": 22,
+                              "icon": "leaf",
+                              "library": "lucide",
+                              "fill": "$primary"
                             }
                           ]
                         },
                         {
                           "type": "frame",
-                          "id": "uGjmG",
-                          "name": "Movimento Água da provenientes",
+                          "id": "W5Vij8",
+                          "name": "Textos",
                           "width": "fill_container",
-                          "fill": "$surface-soft",
-                          "cornerRadius": 14,
-                          "gap": 16,
-                          "padding": [
-                            16,
-                            18
-                          ],
-                          "alignItems": "center",
+                          "layout": "vertical",
+                          "gap": 2,
                           "children": [
                             {
-                              "type": "frame",
-                              "id": "w8LAbD",
-                              "name": "Icon Box",
-                              "width": 44,
-                              "height": 44,
-                              "fill": "$surface",
-                              "cornerRadius": 14,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "v1eW8",
-                                  "name": "Icon",
-                                  "width": 22,
-                                  "height": 22,
-                                  "icon": "arrow-down-right",
-                                  "library": "lucide",
-                                  "fill": "#8A5A00"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "If8fu",
-                              "name": "Texts",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 2,
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "DS5yw",
-                                  "name": "Name",
-                                  "fill": "$text-primary",
-                                  "content": "Conta de água",
-                                  "fontFamily": "$font",
-                                  "fontSize": 18,
-                                  "fontWeight": "700"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "Rs2qe",
-                                  "name": "Date",
-                                  "fill": "$text-muted",
-                                  "content": "8 de nov",
-                                  "fontFamily": "$font",
-                                  "fontSize": 14,
-                                  "fontWeight": "normal"
-                                }
-                              ]
+                              "type": "text",
+                              "id": "uHcgP",
+                              "name": "Name",
+                              "fill": "$text-primary",
+                              "content": "Setembro",
+                              "fontFamily": "$font",
+                              "fontSize": 17,
+                              "fontWeight": "700"
                             },
                             {
                               "type": "text",
-                              "id": "cR4ZA",
-                              "name": "Value",
-                              "fill": "#8A5A00",
-                              "content": "- R$ 95,50",
+                              "id": "QBDna",
+                              "name": "Desc",
+                              "fill": "$text-muted",
+                              "content": "Chuva a regressar, solo coberto",
                               "fontFamily": "$font",
-                              "fontSize": 19,
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "MwfcM",
+                              "name": "Toneladas",
+                              "fill": "$text-secondary",
+                              "content": "3,4 tCO₂e",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
                               "fontWeight": "700"
                             }
                           ]
                         },
                         {
+                          "type": "text",
+                          "id": "jDD3a",
+                          "name": "Value",
+                          "fill": "$primary",
+                          "content": "kz 6.800,00",
+                          "fontFamily": "$font",
+                          "fontSize": 20,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TNZZj",
+                      "name": "Mes Outubro",
+                      "width": "fill_container",
+                      "gap": 14,
+                      "alignItems": "center",
+                      "children": [
+                        {
                           "type": "frame",
-                          "id": "V3d7fq",
-                          "name": "Movimento Venda de cebola",
-                          "width": "fill_container",
-                          "fill": "$surface-soft",
+                          "id": "gL7W6",
+                          "name": "Icon Box",
+                          "width": 44,
+                          "height": 44,
+                          "fill": "$primary-soft",
                           "cornerRadius": 14,
-                          "gap": 16,
-                          "padding": [
-                            16,
-                            18
-                          ],
+                          "justifyContent": "center",
                           "alignItems": "center",
                           "children": [
                             {
-                              "type": "frame",
-                              "id": "J4UPdu",
-                              "name": "Icon Box",
-                              "width": 44,
-                              "height": 44,
-                              "fill": "$surface",
-                              "cornerRadius": 14,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "Q8JuK",
-                                  "name": "Icon",
-                                  "width": 22,
-                                  "height": 22,
-                                  "icon": "arrow-up-right",
-                                  "library": "lucide",
-                                  "fill": "#0E5C36"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "a1v8tx",
-                              "name": "Texts",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 2,
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "jylIP",
-                                  "name": "Name",
-                                  "fill": "$text-primary",
-                                  "content": "Venda de cebola",
-                                  "fontFamily": "$font",
-                                  "fontSize": 18,
-                                  "fontWeight": "700"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "iLpFL",
-                                  "name": "Date",
-                                  "fill": "$text-muted",
-                                  "content": "7 de nov",
-                                  "fontFamily": "$font",
-                                  "fontSize": 14,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "text",
-                              "id": "ASmaK",
-                              "name": "Value",
-                              "fill": "#0E5C36",
-                              "content": "+ R$ 180,00",
-                              "fontFamily": "$font",
-                              "fontSize": 19,
-                              "fontWeight": "700"
+                              "type": "icon",
+                              "id": "l6FIvB",
+                              "name": "Icon",
+                              "width": 22,
+                              "height": 22,
+                              "icon": "leaf",
+                              "library": "lucide",
+                              "fill": "$primary"
                             }
                           ]
                         },
                         {
                           "type": "frame",
-                          "id": "f2Mj4",
-                          "name": "Movimento Sementes e mudas",
+                          "id": "CltWF",
+                          "name": "Textos",
                           "width": "fill_container",
-                          "fill": "$surface-soft",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Ea6uA",
+                              "name": "Name",
+                              "fill": "$text-primary",
+                              "content": "Outubro",
+                              "fontFamily": "$font",
+                              "fontSize": 17,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "aOdru",
+                              "name": "Desc",
+                              "fill": "$text-muted",
+                              "content": "Ciclo 3 a proteger o solo — maior captura",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "cWJbH",
+                              "name": "Toneladas",
+                              "fill": "$text-secondary",
+                              "content": "4,8 tCO₂e",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "g30OO",
+                          "name": "Value",
+                          "fill": "$primary",
+                          "content": "kz 9.600,00",
+                          "fontFamily": "$font",
+                          "fontSize": 20,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ekNpO",
+                      "name": "Mes Novembro",
+                      "width": "fill_container",
+                      "gap": 14,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "nQ5M9",
+                          "name": "Icon Box",
+                          "width": 44,
+                          "height": 44,
+                          "fill": "$primary-soft",
                           "cornerRadius": 14,
-                          "gap": 16,
-                          "padding": [
-                            16,
-                            18
-                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "I78JF",
+                              "name": "Icon",
+                              "width": 22,
+                              "height": 22,
+                              "icon": "leaf",
+                              "library": "lucide",
+                              "fill": "$primary"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Thufs",
+                          "name": "Textos",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "gRtWM",
+                              "name": "Name",
+                              "fill": "$text-primary",
+                              "content": "Novembro",
+                              "fontFamily": "$font",
+                              "fontSize": 17,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "GJoR7",
+                              "name": "Desc",
+                              "fill": "$text-muted",
+                              "content": "Palhada guarda a humidade",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "T4JVpo",
+                              "name": "Toneladas",
+                              "fill": "$text-secondary",
+                              "content": "2,1 tCO₂e",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "hrHD4",
+                          "name": "Value",
+                          "fill": "$primary",
+                          "content": "kz 4.200,00",
+                          "fontFamily": "$font",
+                          "fontSize": 20,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "WFWG0",
+                  "name": "Como Titulo",
+                  "fill": "$text-primary",
+                  "content": "Como isto funciona",
+                  "fontFamily": "$font",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "e2UHoT",
+                  "name": "Como Funciona",
+                  "width": "fill_container",
+                  "gap": 14,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "GMkEW",
+                      "name": "Passo 1 A Terra Cobre",
+                      "width": "fill_container",
+                      "height": 165,
+                      "fill": "$surface",
+                      "cornerRadius": "$radius-card",
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "layout": "vertical",
+                      "gap": 12,
+                      "padding": 22,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "kof7A",
+                          "name": "Top",
+                          "width": "fill_container",
+                          "gap": 12,
                           "alignItems": "center",
                           "children": [
                             {
                               "type": "frame",
-                              "id": "ictvu",
+                              "id": "dzsNx",
                               "name": "Icon Box",
-                              "width": 44,
-                              "height": 44,
-                              "fill": "$surface",
+                              "width": 46,
+                              "height": 46,
+                              "fill": "$primary-soft",
                               "cornerRadius": 14,
                               "justifyContent": "center",
                               "alignItems": "center",
                               "children": [
                                 {
                                   "type": "icon",
-                                  "id": "bzUQI",
+                                  "id": "mC8hh",
                                   "name": "Icon",
-                                  "width": 22,
-                                  "height": 22,
-                                  "icon": "arrow-down-right",
+                                  "width": 24,
+                                  "height": 24,
+                                  "icon": "sprout",
                                   "library": "lucide",
-                                  "fill": "#8A5A00"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "Tstk8",
-                              "name": "Texts",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 2,
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "mheoh",
-                                  "name": "Name",
-                                  "fill": "$text-primary",
-                                  "content": "Sementes e mudas",
-                                  "fontFamily": "$font",
-                                  "fontSize": 18,
-                                  "fontWeight": "700"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "EyiLs",
-                                  "name": "Date",
-                                  "fill": "$text-muted",
-                                  "content": "5 de nov",
-                                  "fontFamily": "$font",
-                                  "fontSize": 14,
-                                  "fontWeight": "normal"
+                                  "fill": "$primary"
                                 }
                               ]
                             },
                             {
                               "type": "text",
-                              "id": "m7ZCPp",
-                              "name": "Value",
-                              "fill": "#8A5A00",
-                              "content": "- R$ 140,00",
+                              "id": "i3cODN",
+                              "name": "Title",
+                              "fill": "$text-primary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A terra cobre-se",
                               "fontFamily": "$font",
-                              "fontSize": 19,
+                              "fontSize": 18,
                               "fontWeight": "700"
                             }
                           ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "METc9",
+                          "name": "Desc",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Com Braquiária e Crotalária, o solo fica coberto o ano inteiro e o carbono do ar fica preso na terra.",
+                          "fontFamily": "$font",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UATUh",
+                      "name": "Passo 2 A NASA Mede",
+                      "width": "fill_container",
+                      "height": 165,
+                      "fill": "$surface",
+                      "cornerRadius": "$radius-card",
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "layout": "vertical",
+                      "gap": 12,
+                      "padding": 22,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "k941C",
+                          "name": "Top",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "Db24E",
+                              "name": "Icon Box",
+                              "width": 46,
+                              "height": 46,
+                              "fill": "$primary-soft",
+                              "cornerRadius": 14,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "ViwBK",
+                                  "name": "Icon",
+                                  "width": 24,
+                                  "height": 24,
+                                  "icon": "satellite",
+                                  "library": "lucide",
+                                  "fill": "$primary"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "daRR7",
+                              "name": "Title",
+                              "fill": "$text-primary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A NASA mede",
+                              "fontFamily": "$font",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "N8bLX",
+                          "name": "Desc",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "O satélite SMAP vê, de cima, a cobertura e a humidade da tua terra — sem guesses, com medições.",
+                          "fontFamily": "$font",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "f4jcy",
+                      "name": "Passo 3 Tu Recebes",
+                      "width": "fill_container",
+                      "height": 165,
+                      "fill": "$surface",
+                      "cornerRadius": "$radius-card",
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "layout": "vertical",
+                      "gap": 12,
+                      "padding": 22,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Vx1JU",
+                          "name": "Top",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "njELV",
+                              "name": "Icon Box",
+                              "width": 46,
+                              "height": 46,
+                              "fill": "$primary-soft",
+                              "cornerRadius": 14,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "S0E7O",
+                                  "name": "Icon",
+                                  "width": 24,
+                                  "height": 24,
+                                  "icon": "coins",
+                                  "library": "lucide",
+                                  "fill": "$primary"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "O0CR9",
+                              "name": "Title",
+                              "fill": "$text-primary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Tu recebes",
+                              "fontFamily": "$font",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "iLdAS",
+                          "name": "Desc",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Cada tonelada de carbono vale kz 1250. Fica guardada e podes sacá-la quando quiseres.",
+                          "fontFamily": "$font",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -12987,7 +13258,7 @@
       "name": "Re-design",
       "clip": true,
       "width": 981,
-      "height": 1868,
+      "height": 2792,
       "fill": "#FFFFFF",
       "layout": "none",
       "children": [
@@ -13536,7 +13807,7 @@
                       "fill": "$text-primary",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
-                      "content": "Meu Caderninho de Contas",
+                      "content": "A Renda da Minha Terra",
                       "fontFamily": "$font",
                       "fontSize": 19,
                       "fontWeight": "700"
@@ -13548,7 +13819,7 @@
                       "fill": "$text-secondary",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
-                      "content": "Vendas na feira e gastos com adubo",
+                      "content": "O carbono que a tua terra produz",
                       "fontFamily": "$font",
                       "fontSize": 16,
                       "fontWeight": "normal"
@@ -14867,6 +15138,2700 @@
                           "name": "Text",
                           "fill": "$primary",
                           "content": "0 mm",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "BB3eE",
+          "x": 21,
+          "y": 1470,
+          "name": "Cartao Saque",
+          "width": "fill_container(940)",
+          "fill": [
+            {
+              "type": "image",
+              "enabled": true,
+              "url": "2649_Cuidados_Plantacao_Chuva.png",
+              "mode": "cover",
+              "transform": [
+                1,
+                0,
+                0,
+                3.266449,
+                0,
+                -2.266449
+              ]
+            },
+            "#006b2db3"
+          ],
+          "cornerRadius": "$radius-card",
+          "layout": "vertical",
+          "gap": 18,
+          "padding": 28,
+          "children": [
+            {
+              "type": "frame",
+              "id": "gDuo2",
+              "name": "Row",
+              "width": "fill_container",
+              "gap": 20,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "lMRvK",
+                  "name": "Textos",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "C3DP5R",
+                      "name": "Label",
+                      "fill": "$primary-soft",
+                      "content": "Quanto podes sacar agora",
+                      "fontFamily": "$font",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "u8Ss6h",
+                      "name": "Value",
+                      "fill": "$surface",
+                      "content": "kz 1.860,00",
+                      "fontFamily": "$font",
+                      "fontSize": 40,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "FnkBJ",
+                      "name": "Note",
+                      "fill": "$primary-soft",
+                      "content": "Já sacaste kz 62.000,00 este ano. Podes sacar a partir de kz 1.000,00.",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "sjOFq",
+                  "name": "Botao Sacar",
+                  "height": 56,
+                  "fill": "$surface",
+                  "cornerRadius": 9999,
+                  "gap": 10,
+                  "padding": [
+                    0,
+                    28
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "n9AmSq",
+                      "name": "Icon",
+                      "width": 20,
+                      "height": 20,
+                      "icon": "wallet",
+                      "library": "lucide",
+                      "fill": "$primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "I8c0Ut",
+                      "name": "Label",
+                      "fill": "$primary",
+                      "content": "Sacar o meu dinheiro",
+                      "fontFamily": "$font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "kjxkt",
+          "x": 49,
+          "y": 1758,
+          "name": "Opcoes",
+          "width": "fill_container(884)",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "pc1ma",
+              "name": "Opcao Economizar Agua",
+              "width": "fill_container",
+              "height": 180,
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "HIPO-TANKS-FOR-VERTICAL-WATER.webp",
+                  "mode": "cover",
+                  "transform": [
+                    1,
+                    0,
+                    0,
+                    1.577778,
+                    0,
+                    -0.232147
+                  ]
+                },
+                "#006b2db2"
+              ],
+              "cornerRadius": 18,
+              "stroke": "$primary",
+              "strokeWidth": 2,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 22,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "bI4HT",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "JCSVs",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "vTTRX",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "droplets",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "a7oaG",
+                      "name": "Title",
+                      "fill": "$surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Economizar Água",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "XiCca",
+                  "name": "Desc",
+                  "fill": "$surface-soft",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Guardar cada gota de chuva que cai",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "a2l9r9",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "bz2Qe",
+                      "name": "Selo Selecionado",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "Rsxra",
+                          "name": "Check",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "check",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "P3GPI",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "Escolhido",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "S6N5Wi",
+              "name": "Opcao Recuperar a Terra",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ZDFGK",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "iNIlc",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "y05nt",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "sprout",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "xUjNV",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Recuperar a Terra",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "jHkUh",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Deixar a terra descansada e mais forte",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "z5c4F",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "a1RAxk",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "J90xDB",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "PDl5k",
+              "name": "Opcao Mais Alimento e Vendas",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "v28aF",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "sz5lN",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "KNLOU",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "coins",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "o9prA",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Mais Comida e Vendas",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "lGjdb",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Diversificar a comida e o dinheiro",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "wd60n",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "vIqQr",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "uo9Pd",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Z7yOf",
+          "x": 49,
+          "y": 2003,
+          "name": "Opcoes",
+          "width": "fill_container(884)",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "S20c3R",
+              "name": "Opcao Economizar Agua",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 2,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 22,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "gCH9y",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "DNz63",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "FUrRp",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "droplets",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "r8h9xr",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Economizar Água",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "A0KkA",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Guardar cada gota de chuva que cai",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "s2tROc",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "PkM5Z",
+                      "name": "Selo Selecionado",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "WyQhi",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "X6z77",
+              "name": "Opcao Recuperar a Terra",
+              "width": "fill_container",
+              "height": 180,
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "images2.jpg",
+                  "mode": "cover"
+                },
+                "#006b2db3"
+              ],
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "f5DYH",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "WA9iq",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "AfUIQ",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "sprout",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "b7Ugpq",
+                      "name": "Title",
+                      "fill": "$surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Recuperar a Terra",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "AcFnG",
+                  "name": "Desc",
+                  "fill": "$surface-soft",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Deixar a terra descansada e mais forte",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "Q9JBB",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "j7YWeo",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "MTv1T",
+                          "name": "Check",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "check",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Q0KQRg",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolhido",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Jd8Sm",
+              "name": "Opcao Mais Alimento e Vendas",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "aZ4OS",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "xthLy",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "mcGGn",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "coins",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "h9mc8",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Mais Comida e Vendas",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "PtL6E",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Diversificar a comida e o dinheiro",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "tkDo2",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "pu7g0",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "oQYHf",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "bhjmr",
+          "x": 49,
+          "y": 2003,
+          "name": "Opcoes",
+          "width": "fill_container(884)",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "i23zu",
+              "name": "Opcao Economizar Agua",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 2,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 22,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Gzp67",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "qdaOQ",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "rgJuu",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "droplets",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "OZ2Uy",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Economizar Água",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "znHsM",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Guardar cada gota de chuva que cai",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "feaU5",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "w1VnZ5",
+                      "name": "Selo Selecionado",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "MwBvQ",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "sFxDZ",
+              "name": "Opcao Recuperar a Terra",
+              "width": "fill_container",
+              "height": 180,
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "images2.jpg",
+                  "mode": "cover"
+                },
+                "#006b2db3"
+              ],
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "U8lCId",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "hP3Ze",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "B7srQj",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "sprout",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "mQBl6",
+                      "name": "Title",
+                      "fill": "$surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Recuperar a Terra",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "Kw2Yo",
+                  "name": "Desc",
+                  "fill": "$surface-soft",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Deixar a terra descansada e mais forte",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "d3x4Ey",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ZtaPP",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "vkTyg",
+                          "name": "Check",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "check",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "tJH9Y",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolhido",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "k2fMUW",
+              "name": "Opcao Mais Alimento e Vendas",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "oe6G7",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "M6ktU",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "aXZdE",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "coins",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "OVqfN",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Mais Comida e Vendas",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "C4xeFF",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Diversificar a comida e o dinheiro",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "JFDp3",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "efYQ5",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "U2w4x",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Q8x82",
+          "x": 49,
+          "y": 2003,
+          "name": "Opcoes",
+          "width": "fill_container(884)",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "raz4r",
+              "name": "Opcao Economizar Agua",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 2,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 22,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "te9mB",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "M8Tse",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "VwAYo",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "droplets",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "JhIGp",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Economizar Água",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "X32yAW",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Guardar cada gota de chuva que cai",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "KWAxo",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "LVP1s",
+                      "name": "Selo Selecionado",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "YrNeI",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "yue2x",
+              "name": "Opcao Recuperar a Terra",
+              "width": "fill_container",
+              "height": 180,
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "images2.jpg",
+                  "mode": "cover"
+                },
+                "#006b2db3"
+              ],
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "vL5Bo",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "tgoB2",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "q21zq",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "sprout",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "IyhUn",
+                      "name": "Title",
+                      "fill": "$surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Recuperar a Terra",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "CYqd5",
+                  "name": "Desc",
+                  "fill": "$surface-soft",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Deixar a terra descansada e mais forte",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "bmuze",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "n11O86",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "wSDc2",
+                          "name": "Check",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "check",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "GK6EZ",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolhido",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "M8TtYj",
+              "name": "Opcao Mais Alimento e Vendas",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "s14eF",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Tq4iU",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "nKdEI",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "coins",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "twysf",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Mais Comida e Vendas",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "KCuvJ",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Diversificar a comida e o dinheiro",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "s0I6Cz",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ZxbZV",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "VDAsx",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "LdM04",
+          "x": 49,
+          "y": 2250,
+          "name": "Opcoes",
+          "width": "fill_container(884)",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "D5nft",
+              "name": "Opcao Economizar Agua",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 2,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 22,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "G5IESE",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "kMxBp",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "r3paAR",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "droplets",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "LPIbI",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Economizar Água",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "ntfbd",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Guardar cada gota de chuva que cai",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "yJT68",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "s9vqi",
+                      "name": "Selo Selecionado",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "isaMi",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "MHu2v",
+              "name": "Opcao Recuperar a Terra",
+              "width": "fill_container",
+              "height": 180,
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "images2.jpg",
+                  "mode": "cover"
+                },
+                "#006b2db3"
+              ],
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "TS67a",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "W0OfYT",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "RiwKj",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "sprout",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "iBGHq",
+                      "name": "Title",
+                      "fill": "$surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Recuperar a Terra",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "wtGdX",
+                  "name": "Desc",
+                  "fill": "$surface-soft",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Deixar a terra descansada e mais forte",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "U3nWQb",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "zEXRN",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "ongyC",
+                          "name": "Check",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "check",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "tNIFZ",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolhido",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "T0jur3",
+              "name": "Opcao Mais Alimento e Vendas",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "M1uG6",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "M1vJg",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "NiSbm",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "coins",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "fK0iB",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Mais Comida e Vendas",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "T2jSs",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Diversificar a comida e o dinheiro",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "TmOmW",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "wUd7J",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "l5TmfW",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Z9fjh",
+          "x": 49,
+          "y": 2250,
+          "name": "Opcoes",
+          "width": "fill_container(884)",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "zJ42P",
+              "name": "Opcao Economizar Agua",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 2,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 22,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "JnawN",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "uGqYJ",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "oMk2I",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "droplets",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "R0oHOZ",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Economizar Água",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "oKC4U",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Guardar cada gota de chuva que cai",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "Mh1PT",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "QdqJN",
+                      "name": "Selo Selecionado",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "pT2Kn",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "DraY4",
+              "name": "Opcao Recuperar a Terra",
+              "width": "fill_container",
+              "height": 180,
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "images2.jpg",
+                  "mode": "cover"
+                },
+                "#006b2db3"
+              ],
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "AFkgg",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Q0GNrQ",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "w5Ismo",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "sprout",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "ZVv7G",
+                      "name": "Title",
+                      "fill": "$surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Recuperar a Terra",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "O3ms1",
+                  "name": "Desc",
+                  "fill": "$surface-soft",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Deixar a terra descansada e mais forte",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "U5wNAm",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "zXR9w",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "bO9az",
+                          "name": "Check",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "check",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "akm2I",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolhido",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "jBirE",
+              "name": "Opcao Mais Alimento e Vendas",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "M4Egdx",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "jXqcj",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "Q5t6kQ",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "coins",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "Isheh",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Mais Comida e Vendas",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "W7xZLq",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Diversificar a comida e o dinheiro",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "Wgend",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "SswGi",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "h9WQy",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "IOeF6",
+          "x": 49,
+          "y": 2250,
+          "name": "Opcoes",
+          "width": "fill_container(884)",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "BdzJI",
+              "name": "Opcao Economizar Agua",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 2,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 22,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Fsp6h",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "k0JpSs",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "LwlJQ",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "droplets",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "ISvic",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Economizar Água",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "aUmya",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Guardar cada gota de chuva que cai",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "pP0uM",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "VG9sn",
+                      "name": "Selo Selecionado",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "E2FYIb",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "D42VwT",
+              "name": "Opcao Recuperar a Terra",
+              "width": "fill_container",
+              "height": 180,
+              "fill": "$surface-soft",
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Zq5zS",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "vBWYk",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "e7QB3I",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "sprout",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "PumPi",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Recuperar a Terra",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "El82L",
+                  "name": "Desc",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Deixar a terra descansada e mais forte",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "Lg6ng",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "VioZ9",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "a0Kjim",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolher",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "e1pis",
+              "name": "Opcao Mais Alimento e Vendas",
+              "width": "fill_container",
+              "height": 180,
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "Vente-directe-de-legumes-1024x684.webp",
+                  "mode": "cover"
+                },
+                "#006b2db1"
+              ],
+              "cornerRadius": 18,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 22,
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "VmiLB",
+                  "name": "Top",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "F6nB5",
+                      "name": "Icon Box",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "$surface",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "q1In8",
+                          "name": "Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "coins",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "RZbHB",
+                      "name": "Title",
+                      "fill": "$surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Mais Comida e Vendas",
+                      "fontFamily": "$font",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "vY2QO",
+                  "name": "Desc",
+                  "fill": "$surface-soft",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Diversificar a comida e o dinheiro",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "XPjp0",
+                  "name": "Badge Row",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "PEwPk",
+                      "name": "Selo",
+                      "height": 30,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 6,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "TP8FM",
+                          "name": "Check",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "check",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "yQIe0",
+                          "name": "Text",
+                          "fill": "$text-secondary",
+                          "content": "Escolhido",
                           "fontFamily": "$font",
                           "fontSize": 14,
                           "fontWeight": "700"
@@ -16204,7 +19169,15 @@
                           "name": "Opcao Economizar Agua",
                           "width": "fill_container",
                           "height": 180,
-                          "fill": "$primary-soft",
+                          "fill": [
+                            {
+                              "type": "image",
+                              "enabled": true,
+                              "url": "images2.jpg",
+                              "mode": "cover"
+                            },
+                            "#006b2db2"
+                          ],
                           "cornerRadius": 18,
                           "stroke": "$primary",
                           "strokeWidth": 2,
@@ -16248,7 +19221,7 @@
                                   "type": "text",
                                   "id": "auRka",
                                   "name": "Title",
-                                  "fill": "$text-primary",
+                                  "fill": "$surface",
                                   "textGrowth": "fixed-width",
                                   "width": "fill_container",
                                   "content": "Economizar Água",
@@ -16262,7 +19235,7 @@
                               "type": "text",
                               "id": "ejKnS",
                               "name": "Desc",
-                              "fill": "$text-secondary",
+                              "fill": "$surface-soft",
                               "textGrowth": "fixed-width",
                               "width": "fill_container",
                               "content": "Guardar cada gota de chuva que cai",
@@ -16283,7 +19256,7 @@
                                   "id": "r42iGK",
                                   "name": "Selo Selecionado",
                                   "height": 30,
-                                  "fill": "$primary",
+                                  "fill": "$surface",
                                   "cornerRadius": 9999,
                                   "gap": 6,
                                   "padding": [
@@ -16300,13 +19273,13 @@
                                       "height": 16,
                                       "icon": "check",
                                       "library": "lucide",
-                                      "fill": "$surface"
+                                      "fill": "$primary"
                                     },
                                     {
                                       "type": "text",
                                       "id": "ukELz",
                                       "name": "Text",
-                                      "fill": "$surface",
+                                      "fill": "$primary",
                                       "content": "Escolhido",
                                       "fontFamily": "$font",
                                       "fontSize": 14,
