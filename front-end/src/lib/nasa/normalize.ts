@@ -1,142 +1,92 @@
-import type {
-  AgroSummary,
-  DailyPoint,
-  NasaPowerResponse,
-} from "@/types/nasa";
-
-/** A NASA POWER usa -999 (ou -9999) como sentinela de "sem medição". */
-const MISSING = -900;
-
-function isValid(value: number | undefined): value is number {
-  return typeof value === "number" && Number.isFinite(value) && value > MISSING;
-}
-
-const WEEKDAYS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-const MONTHS = [
-  "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
-  "Jul", "Ago", "Set", "Out", "Nov", "Dez",
-];
-
-/** "20260115" → { label: "15 de jan", dayOfWeek: "Qui", dayNumber: "15" } */
-function formatDate(iso: string) {
-  const year = Number(iso.slice(0, 4));
-  const month = Number(iso.slice(4, 6)) - 1;
-  const day = Number(iso.slice(6, 8));
-  const date = new Date(Date.UTC(year, month, day));
-
-  return {
-    label: `${day} de ${MONTHS[month].toLowerCase()}`,
-    dayOfWeek: WEEKDAYS[date.getUTCDay()],
-    dayNumber: String(day),
-    monthIndex: month,
-    monthKey: iso.slice(0, 6),
-  };
-}
-
-function conditionFor(rainMm: number, humidity: number): DailyPoint["condition"] {
-  if (rainMm >= 2) return "rain";
-  if (rainMm > 0 || humidity >= 80) return "cloud";
-  return "sun";
-}
-
 /**
- * Converte a resposta crua da NASA POWER num resumo agroclimático
- * pronto a mostrar. Descarta dias sem medição válida.
+ * Converte a resposta crua da NASA POWER em dados prontos a mostrar.
+ *
+ * A NASA devolve séries diárias indexadas por `YYYYMMDD` e usa `-999.0`
+ * para "sem dados". Tudo o que sai daqui já está em unidades humans.
  */
-export function normalizePower(response: NasaPowerResponse): AgroSummary {
-  const params = response?.properties?.parameter ?? ({} as never);
-  const coordinates = response?.geometry?.coordinates ?? [0, 0, 0];
 
-  const dates = Object.keys(params.T2M ?? {}).sort();
+import type { AgroclimaticSummary, NasaPowerResponse } from "@/types/nasa";
 
-  const points: DailyPoint[] = [];
-  for (const date of dates) {
-    const tMean = params.T2M?.[date];
-    const tMax = params.T2M_MAX?.[date];
-    const tMin = params.T2M_MIN?.[date];
-    const rain = params.PRECTOTCORR?.[date];
-    const humidity = params.RH2M?.[date];
-    const radiation = params.ALLSKY_SFC_SW_DWN?.[date];
-    const wind = params.WS2M?.[date];
+export const SEM_DADOS = -999;
 
-    if (!isValid(tMean) || !isValid(tMax) || !isValid(tMin)) continue;
+/** Extrai a série diária de um parâmetro, ignorando valores sem dados. */
+export function serieDiaria(
+  resposta: NasaPowerResponse,
+  parametro: keyof NasaPowerResponse["properties"]["parameter"]
+): { data: string; valor: number }[] {
+  const serie = resposta.properties.parameter[parametro] ?? {};
+  return Object.entries(serie)
+    .filter(([, valor]) => valor !== SEM_DADOS)
+    .map(([data, valor]) => ({ data, valor }));
+}
 
-    const rainMm = isValid(rain) ? Math.max(0, rain) : 0;
-    const rh = isValid(humidity) ? humidity : 0;
-    const rad = isValid(radiation) ? radiation : 0;
-    const windSpeed = isValid(wind) ? wind : 0;
+/** Converte `20261112` em `2026-11-12`. */
+export function dataIso(compacta: string): string {
+  return `${compacta.slice(0, 4)}-${compacta.slice(4, 6)}-${compacta.slice(6, 8)}`;
+}
 
-    const { label, dayOfWeek, dayNumber, monthKey } = formatDate(date);
+/** Temperatura média do período (°C). */
+export function temperaturaMedia(resposta: NasaPowerResponse): number {
+  const valores = serieDiaria(resposta, "T2M").map((d) => d.valor);
+  if (!valores.length) return 0;
+  return valores.reduce((soma, v) => soma + v, 0) / valores.length;
+}
 
-    points.push({
-      date,
-      label,
-      dayOfWeek,
-      dayNumber,
-      tMax,
-      tMin,
-      tMean,
-      rainMm,
-      humidity: rh,
-      radiation: rad,
-      windSpeed,
-      condition: conditionFor(rainMm, rh),
-    });
+/** Temperatura máxima absoluta do período (°C). */
+export function temperaturaMaxima(resposta: NasaPowerResponse): number {
+  const valores = serieDiaria(resposta, "T2M_MAX").map((d) => d.valor);
+  return valores.length ? Math.max(...valores) : 0;
+}
+
+/** Temperatura mínima absoluta do período (°C). */
+export function temperaturaMinima(resposta: NasaPowerResponse): number {
+  const valores = serieDiaria(resposta, "T2M_MIN").map((d) => d.valor);
+  return valores.length ? Math.min(...valores) : 0;
+}
+
+/** Precipitação acumulada do período (mm). */
+export function precipitacaoAcumulada(resposta: NasaPowerResponse): number {
+  return serieDiaria(resposta, "PRECTOTCORR").reduce((soma, d) => soma + d.valor, 0);
+}
+
+/** Humidade relativa média do ar (%). */
+export function humidadeRelativa(resposta: NasaPowerResponse): number {
+  const valores = serieDiaria(resposta, "RH2M").map((d) => d.valor);
+  if (!valores.length) return 0;
+  return valores.reduce((soma, v) => soma + v, 0) / valores.length;
+}
+
+/** Radiação solar diária média (MJ/m²/dia). */
+export function radiacaoSolar(resposta: NasaPowerResponse): number {
+  const valores = serieDiaria(resposta, "ALLSKY_SFC_SW_DWN").map((d) => d.valor);
+  if (!valores.length) return 0;
+  return valores.reduce((soma, v) => soma + v, 0) / valores.length;
+}
+
+/** Converte a resposta da NASA num resumo agroclimático pronto a mostrar. */
+export function normalizarPoder(
+  resposta: NasaPowerResponse,
+  opcoes: {
+    humidadeRaiz: number;
+    latitude?: number;
+    longitude?: number;
   }
+): AgroclimaticSummary {
+  const [lon, lat] = resposta.geometry.coordinates;
 
-  const monthlyRainMm: Record<string, number> = {};
-  const rainSumByMonth: Record<string, number> = {};
-  const rainYearsByMonth: Record<string, Set<string>> = {};
-  let annualRainMm = 0;
-  for (const p of points) {
-    const key = p.date.slice(0, 6);
-    monthlyRainMm[key] = (monthlyRainMm[key] ?? 0) + p.rainMm;
-    annualRainMm += p.rainMm;
-
-    // Chuva por mês-do-ano: o TOTAL do mês, averaged over the years
-    // in which that month appears. Num período de 365 dias cada mês
-    // aparece num só ano — dividi-lo pelos dias do mês dava 30x
-    // menos chuva (ex.: 707 mm/ano passavam a 23 mm).
-    const monthOfYear = p.date.slice(4, 6);
-    rainSumByMonth[monthOfYear] =
-      (rainSumByMonth[monthOfYear] ?? 0) + p.rainMm;
-    const year = p.date.slice(0, 4);
-    if (!rainYearsByMonth[monthOfYear]) {
-      rainYearsByMonth[monthOfYear] = new Set<string>();
-    }
-    rainYearsByMonth[monthOfYear].add(year);
-  }
-
-  const rainByMonthOfYear: Record<string, number> = {};
-  for (const [month, sum] of Object.entries(rainSumByMonth)) {
-    const years = rainYearsByMonth[month]?.size || 1;
-    rainByMonthOfYear[month] = Math.round((sum / years) * 10) / 10;
-  }
-
-  const avg = (list: number[]) =>
-    list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0;
-
-  // Dias seguidos sem chuva relevante (contando de trás para a frente).
-  let daysSinceRain = 0;
-  for (let i = points.length - 1; i >= 0; i--) {
-    if (points[i].rainMm >= 2) break;
-    daysSinceRain++;
-  }
+  const precip = precipitacaoAcumulada(resposta);
+  const max = temperaturaMaxima(resposta);
+  const min = temperaturaMinima(resposta);
 
   return {
-    latitude: coordinates[1] ?? 0,
-    longitude: coordinates[0] ?? 0,
-    elevationM: coordinates[2] ?? 0,
-    current: points.length ? points[points.length - 1] : null,
-    last7: points.slice(-7).reverse(),
-    series: points,
-    monthlyRainMm,
-    rainByMonthOfYear,
-    annualRainMm: Math.round(annualRainMm),
-    avgTMax: Math.round(avg(points.map((p) => p.tMax))),
-    avgTMin: Math.round(avg(points.map((p) => p.tMin))),
-    avgHumidity: Math.round(avg(points.map((p) => p.humidity))),
-    lastSatellitePass: points.length ? points[points.length - 1].date : null,
-    daysSinceRain,
+    latitude: opcoes.latitude ?? lat,
+    longitude: opcoes.longitude ?? lon,
+    averageAnnualRainfallMm: Math.round(precip),
+    maxTemperaturePeakC: Math.round(max),
+    minTemperaturePeakC: Math.round(min),
+    currentRootZoneMoisturePct: Math.round(opcoes.humidadeRaiz * 100),
+    droughtRiskLevel:
+      precip < 250 ? "extreme" : precip < 500 ? "high" : precip < 900 ? "moderate" : "low",
+    lastSatelliteSyncDate: new Date().toISOString().slice(0, 10),
   };
 }

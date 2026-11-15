@@ -50,49 +50,33 @@ export interface AgroclimaticSummary {
   lastSatelliteSyncDate: string;
 }
 
-/** Um dia de observação normalizado, pronto a ser mostrado. */
+export type WeatherCondition = "sun" | "cloud" | "rain";
+
 export interface DailyPoint {
-  /** AAAAMMDD tal como vem da NASA POWER */
-  date: string;
-  /** Data já formatada em pt-BR para mostrar à pessoa */
-  label: string;
+  date: string; // YYYYMMDD
+  label: string; // "15/11"
   dayOfWeek: string;
-  dayNumber: string;
+  dayNumber: number;
+  tMean: number;
   tMax: number;
   tMin: number;
-  tMean: number;
   rainMm: number;
   humidity: number;
-  /** Radiação solar MJ/m²/dia */
-  radiation: number;
-  /** Velocidade do vento a 2 m (m/s) */
-  windSpeed: number;
-  /** Condição simplificada para escolher o ícone */
-  condition: "sun" | "cloud" | "rain";
+  radiation: number; // MJ/m²/dia
+  et0Mm: number;
+  condition: WeatherCondition;
 }
 
-/** Resumo agroclimático pronto a consumir pelos ecrãs. */
 export interface AgroSummary {
-  latitude: number;
-  longitude: number;
-  elevationM: number;
-  /** Último dia com dados válidos */
-  current: DailyPoint | null;
-  /** Últimos 7 dias com dados válidos (do mais recente para o mais antigo) */
+  series: DailyPoint[]; // do mais antigo para o mais recente
   last7: DailyPoint[];
-  /** Série completa com dados válidos (do mais antigo para o mais recente) */
-  series: DailyPoint[];
-  /** Chuva acumulada por mês (mm) — chave "AAAAMM" */
-  monthlyRainMm: Record<string, number>;
-  /** Chuva média por mês do ano (mm) — chave "01".."12". Média quando o
-   *  período cobre o mesmo mês em vários anos. Usado pelo simulador. */
+  current: DailyPoint | null;
+  lastSatellitePass: string | null; // YYYYMMDD
+  rainTotalMm: number;
+  et0TotalMm: number;
+  daysSinceRain: number; // dias seguidos sem chuva (>= 1 mm) até hoje
+  annualRainMm: number; // chuva somada na série (≈ ano se a série tiver 365 dias)
+  avgTMax: number; // média das temperaturas máximas da série (°C)
+  /** mm de chuva por mês do ano ("01".."12"), somados na série. */
   rainByMonthOfYear: Record<string, number>;
-  annualRainMm: number;
-  avgTMax: number;
-  avgTMin: number;
-  avgHumidity: number;
-  /** Data da última passagem do satélite com dados */
-  lastSatellitePass: string | null;
-  /** Número de dias seguidos sem chuva relevante */
-  daysSinceRain: number;
 }

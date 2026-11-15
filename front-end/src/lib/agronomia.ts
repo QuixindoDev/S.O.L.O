@@ -1,304 +1,256 @@
-import type { AgroSummary, DailyPoint } from "@/types/nasa";
+/**
+ * Fórmulas agronómicas usadas pelo S.O.L.O.
+ *
+ * Fontes: FAO-56 (Hargreaves/Sazaba), Cury et al. (balanço hídrico),
+ * Villamil et al. (GDD para estádios).
+ *
+ * Objectivo: traduzir números de satélite em conselhos que uma pessoa
+ * com mais de 60 anos consiga aplicar no campo sem equipamento adicional.
+ */
+import type { AgroSummary } from "@/types/nasa";
 import type { SoilTextureType } from "@/types/agronomy";
 
+/** Temperatura base (°C) por tipo de cultura. */
+export const TEMPERATURA_BASE = {
+  cereal: 10,
+  legume: 10,
+  oilseed: 6,
+  cover_crop: 8,
+  tuber: 13,
+} as const;
+
+/** Coeficiente de cultura (Kc) médio por fase, segundo a FAO-56. */
+export const Kc_CULTURA = {
+  milho: { inicial: 0.3, desenvolvimento: 0.7, medio: 1.2, final: 0.6 },
+  soja: { inicial: 0.4, desenvolvimento: 0.8, medio: 1.15, final: 0.5 },
+  feijao_caupi: { inicial: 0.4, desenvolvimento: 0.7, medio: 1.1, final: 0.5 },
+  sorgo: { inicial: 0.3, desenvolvimento: 0.65, medio: 1.0, final: 0.55 },
+  gergelim: { inicial: 0.35, desenvolvimento: 0.7, medio: 1.0, final: 0.5 },
+  girassol: { inicial: 0.35, desenvolvimento: 0.7, medio: 1.05, final: 0.5 },
+  braquiaria: { inicial: 0.4, desenvolvimento: 0.8, medio: 1.15, final: 0.6 },
+  crotalaria: { inicial: 0.4, desenvolvimento: 0.75, medio: 1.1, final: 0.6 },
+  pousio_desnudo: { inicial: 0.1, desenvolvimento: 0.1, medio: 0.1, final: 0.1 },
+} as const;
+
+export type CropId = keyof typeof Kc_CULTURA;
+export type CropPhase = keyof (typeof Kc_CULTURA)["milho"];
+
 /**
- * Modelo agronómico — balanço hídrico do solo.
- *
- * Não substitui o SMAP (que dá a humidade do solo medida por satélite),
- * mas dá uma **estimativa fundamentada** a partir de chuva, radiação,
- * vento e humidade do ar reais da NASA POWER. Serve para:
- *   - dizer à Dona Maria se a terra está seca ou húmida;
- *   - decidir se vale a pena regar.
- *
- * Método:
- *   1. ETo (evapotranspiração de referência) — Penman-Monteith
- *      (FAO-56, eq. 6) com a radiação solar, o vento e a humidade
- *      do ar medidos pela NASA.
- *   2. Balanço de um balde (bucket) com 2 camadas:
- *      superficial (5 cm) e zona radicular (30-40 cm).
- *   3. Humidade final → % da capacidade de campo, por textura de solo.
- *
- * Referência: FAO Irrigation & Drainage Paper 56 (Allen et al., 1998).
+ * ETP0 de Hargreaves-Sazaba (mm/dia).
+ * @param tMedia Temperatura média do ar (°C)
+ * @param tMax Temperatura máxima (°C)
+ * @param tMin Temperatura mínima (°C)
+ * @param latitude Latitude em graus decimais
  */
-
-/** Constante solar (MJ m⁻² min⁻¹). */
-const SOLAR_CONSTANT = 0.082;
-/** Altitude média da região (m) — usada na pressão atmosférica. */
-const ALTITUDE_M = 245;
-/** Fluxo de calor do solo (MJ/m²/dia) — desprezível em Daily. */
-const SOIL_HEAT_FLUX = 0;
-
-/** Albedo do solo (FAO-56, eq. 39) — 23% da radiação volta para o céu. */
-const ALBEDO = 0.23;
-
-/** Constante de Stefan-Boltzmann (MJ K⁻⁴ m⁻² dia⁻¹). */
-const STEFAN_BOLTZMANN = 4.903e-9;
-
-/** Capacidade de campo, ponto de murcha e profundidade das raízes. */
-const SOIL_PROPERTIES: Record<
-  SoilTextureType,
-  { fieldCapacity: number; wiltingPoint: number; rootDepthMm: number }
-> = {
-  arenoso: { fieldCapacity: 0.13, wiltingPoint: 0.05, rootDepthMm: 300 },
-  franco: { fieldCapacity: 0.22, wiltingPoint: 0.1, rootDepthMm: 400 },
-  argiloso: { fieldCapacity: 0.3, wiltingPoint: 0.15, rootDepthMm: 400 },
-};
-
-/** Profundidade da camada superficial (mm). */
-const SURFACE_DEPTH_MM = 50;
-/** Coeficiente de cultura — uma horta bem regada. */
-const CROP_COEFFICIENT = 0.8;
-/** Fração da ETo que evapora da superfície do solo sem cobertura. */
-const SOIL_EVAPORATION_FACTOR = 0.6;
-/** Humidade inicial do solo no início do balanço (% da capacidade de campo). */
-const INITIAL_FILL = 0.55;
-
-function toRadians(degrees: number): number {
-  return (degrees * Math.PI) / 180;
-}
-
-/** Pressão atmosférica (kPa) a partir da altitude. */
-export function atmosphericPressure(altitudeM: number): number {
-  return 101.3 * Math.pow((293 - 0.0065 * altitudeM) / 293, 5.26);
-}
-
-/** Constante psicrométrica (kPa/°C). */
-export function psychrometricConstant(pressureKpa: number): number {
-  return 0.000665 * pressureKpa;
-}
-
-/** Pressão de vapor de saturação (kPa) — equação de Tetens. */
-export function saturationVapourPressure(tempC: number): number {
-  return 0.6108 * Math.exp((17.27 * tempC) / (tempC + 237.3));
-}
-
-/** Inclinação da curva de pressão de vapor (kPa/°C) — FAO-56 eq. 13. */
-export function vapourPressureSlope(tempC: number): number {
+// src/lib/agronomia.ts — substitui et0Hargreaves
+function radiacaoExtraterrestre(latitudeGraus: number, diaDoAno: number): number {
+  const phi = latitudeGraus * (Math.PI / 180);
+  const dr = 1 + 0.033 * Math.cos((2 * Math.PI * diaDoAno) / 365);
+  const delta = 0.409 * Math.sin((2 * Math.PI * diaDoAno) / 365 - 1.39);
+  const ws = Math.acos(Math.min(1, Math.max(-1, -Math.tan(phi) * Math.tan(delta))));
+  const gsc = 0.082; // MJ m⁻² min⁻¹
   return (
-    (4098 * saturationVapourPressure(tempC)) /
-    Math.pow(tempC + 237.3, 2)
-  );
+    ((24 * 60) / Math.PI) * gsc * dr *
+    (ws * Math.sin(phi) * Math.sin(delta) + Math.cos(phi) * Math.cos(delta) * Math.sin(ws))
+  ); // MJ m⁻² dia⁻¹
 }
 
-/**
- * Radiação extraterrestrial diária (MJ/m²/dia) — FAO-56, equação 21.
- */
-export function extraterrestrialRadiation(
+export function et0Hargreaves(
+  tMedia: number,
+  tMax: number,
+  tMin: number,
   latitude: number,
-  dayOfYear: number,
+  diaDoAno = 180
 ): number {
-  const phi = toRadians(latitude);
-  const dr = 1 + 0.033 * Math.cos((2 * Math.PI * dayOfYear) / 365);
-  const delta = 0.409 * Math.sin((2 * Math.PI * dayOfYear) / 365 - 1.39);
-  const omegaS = Math.acos(
-    Math.max(-1, Math.min(1, -Math.tan(phi) * Math.tan(delta))),
-  );
-
-  return (
-    ((24 * 60) / Math.PI) *
-    SOLAR_CONSTANT *
-    dr *
-    (omegaS * Math.sin(phi) * Math.sin(delta) +
-      Math.cos(phi) * Math.cos(delta) * Math.sin(omegaS))
-  );
+  const amplitude = Math.max(0, tMax - tMin);
+  const ra = radiacaoExtraterrestre(latitude, diaDoAno) * 0.408; // mm/dia equivalente
+  const et0 = 0.0023 * ra * Math.sqrt(amplitude) * (tMedia + 17.8);
+  return Math.max(0, Number(et0.toFixed(2)));
 }
 
 /**
- * Radiação líquida do dia (FAO-56, eq. 38-40).
- *
- * A NASA POWER dá a radiação **global** (Rs). A Penman-Monteith
- * precisa da radiação **líquida** (Rn) — a que a planta pode usar.
- * Sem esta correcção a ETo sai ~40% alta e a app pede rega a
- * quem não precisa dela.
+ * Graus-dia de crescimento (GDD) — soma térmica desde a germinação.
  */
-export function netRadiation(
-  rs: number,
-  tMaxC: number,
-  tMinC: number,
-  eaKpa: number,
-  ra: number,
-  altitudeM: number,
-): number {
-  // Radiação de céu limpo (FAO-56, eq. 37)
-  const clearSkyFactor = 0.75 + 2e-5 * altitudeM;
-  const rso = Math.max(clearSkyFactor * clearSkyFactor * ra, 0.1);
-
-  // Radiação solar absorvida pela superfície
-  const rns = (1 - ALBEDO) * rs;
-
-  // Radiação de onda longa perdida (FAO-56, eq. 39)
-  const tMaxK = tMaxC + 273.16;
-  const tMinK = tMinC + 273.16;
-  const ratio = Math.max(0.1, Math.min(1, rs / rso));
-  const rnl =
-    STEFAN_BOLTZMANN *
-    ((Math.pow(tMaxK, 4) + Math.pow(tMinK, 4)) / 2) *
-    (0.34 - 0.14 * Math.sqrt(Math.max(0.1, eaKpa))) *
-    (1.35 * ratio - 0.35);
-
-  return Math.max(0, rns - Math.max(0, rnl));
+export function gdd(tMax: number, tMin: number, temperaturaBase = 10): number {
+  const media = (tMax + tMin) / 2;
+  return Math.max(0, Number((media - temperaturaBase).toFixed(2)));
 }
 
 /**
- * Evapotranspiração de referência — Penman-Monteith (FAO-56, eq. 6).
- * Devolve mm/dia. Usa a radiação, o vento e a humidade reais da NASA.
- */export function referenceEvapotranspiration(
-  point: DailyPoint,
-  latitude: number,
-  altitudeM: number = ALTITUDE_M,
-): number {
-  const pressure = atmosphericPressure(altitudeM);
-  const gamma = psychrometricConstant(pressure);
-  const delta = vapourPressureSlope(point.tMean);
-
-  // Pressão de vapor de saturação média e actual
-  const es =
-    (saturationVapourPressure(point.tMax) +
-      saturationVapourPressure(point.tMin)) /
-    2;
-  const ea = es * (Math.max(0, Math.min(100, point.humidity)) / 100);
-
-  // Radiação solar: a NASA dá MJ/m²/dia; a equação usa MJ/m²/dia também.
-  const ra = extraterrestrialRadiation(latitude, dayOfYearOf(point.date));
-  const rs = point.radiation > 0 ? point.radiation : ra;
-
-  // A Penman-Monteith pede a radiação *líquida* (Rn), não a global (Rs).
-  const rn = netRadiation(rs, point.tMax, point.tMin, ea, ra, altitudeM);
-
-  // Vento a 2 m (m/s); mínimo de 0.5 m/s segundo o FAO-56
-  const u2 = Math.max(0.5, point.windSpeed);
-
-  const numerator =
-    0.408 * delta * (rn - SOIL_HEAT_FLUX) +
-    gamma * ((900 / (point.tMean + 273)) * u2 * (es - ea));
-  const denominator = delta + gamma * (1 + 0.34 * u2);
-
-  const eto = numerator / denominator;
-
-  return Math.max(0, Math.min(20, eto));
+ * Balanço hídrico simples: chuva útil menos evapotranspiração.
+ * Positivo = sobra de água no solo; negativo = défice.
+ */
+export function balancoHidrico(precipitacaoMm: number, et0Mm: number): number {
+  return Number((precipitacaoMm - et0Mm).toFixed(1));
 }
 
-function dayOfYearOf(date: string): number {
-  const year = Number(date.slice(0, 4));
-  const month = Number(date.slice(4, 6));
-  const day = Number(date.slice(6, 8));
-  const d = new Date(Date.UTC(year, month - 1, day));
-  const start = Date.UTC(year, 0, 0);
-  return Math.round((d.getTime() - start) / 86400000);
+/**
+ * Balanço hídrico accumulated ao longo de um ciclo (mm).
+ */
+export function balancoHidricoAcumulado(
+  precipitacaoTotalMm: number,
+  et0TotalMm: number
+): number {
+  return Number((precipitacaoTotalMm - et0TotalMm).toFixed(1));
+}
+
+/**
+ * Necessidade hídrica da cultura: ETc = ETP0 x Kc.
+ */
+export function etc(et0Mm: number, kc: number): number {
+  return Number((et0Mm * kc).toFixed(2));
+}
+
+/**
+ * CoefBOL (coeficiente de cobertura do solo) por textura.
+ * Areia retém menos água; argila mais, mas com recorência a encharcamento.
+ */
+export function coeficienteBolo(soil: SoilTextureType): number {
+  switch (soil) {
+    case "arenoso":
+      return 0.55;
+    case "argiloso":
+      return 0.9;
+    case "franco":
+      return 0.75;
+  }
+}
+
+/**
+ * Necessidade de rega (mm) para cobrir o défice hídrico do período,
+ * assumindo rega manual com eficiência de aplicação de 70 % (regador improvisado).
+ */
+export function necessidadeDeRega(
+  balancoHidricoMm: number,
+  soil: SoilTextureType,
+  eficienciaAplicacao = 0.7
+): number {
+  if (balancoHidricoMm >= 0) return 0;
+  const bruto = Math.abs(balancoHidricoMm) / coeficienteBolo(soil);
+  return Math.round(bruto / eficienciaAplicacao);
+}
+
+/**
+ * Converte a necessidade de rega em litros por metro quadrado
+ * (1 mm de água = 1 L/m²) e depois em baldes de 20 L.
+ */
+export function litrosPorBalde(
+  milimetros: number,
+  metrosQuadrados: number,
+  litrosPorBalde = 20
+): number {
+  const litros = milimetros * metrosQuadrados;
+  return Math.max(1, Math.ceil(litros / litrosPorBalde));
+}
+
+/**
+ * Classificação do risco hídrico a partir do balanço do solo.
+ */
+export type RiscoHidrico = "baixo" | "moderado" | "alto" | "extremo";
+
+export function classificarRiscoHidrico(balancoHidricoMm: number): RiscoHidrico {
+  if (balancoHidricoMm >= 0) return "baixo";
+  if (balancoHidricoMm >= -20) return "moderado";
+  if (balancoHidricoMm >= -50) return "alto";
+  return "extremo";
+}
+
+/**
+ * Estado da humidade da zona radicular (SMAP, 0-1).
+ * 0.25-0.55 é a faixa ótima para a maioria das culturas de sequeiro.
+ */
+export type EstadoHumidade = "seco" | "precisa_agua" | "ideal" | "encharcado";
+
+export function classificarHumidade(humidadeRaiz: number): EstadoHumidade {
+  if (humidadeRaiz < 0.2) return "seco";
+  if (humidadeRaiz < 0.28) return "precisa_agua";
+  if (humidadeRaiz <= 0.55) return "ideal";
+  return "encharcado";
+}
+
+/**
+ * Días médios de crescimento para um conjunto de temperaturas
+ * (simplificação de Villamil et al. — regime térmico de Angola).
+ */
+export function diasParaMaturacao(
+  gddAcumulado: number,
+  gddTotalNecessario: number,
+  gddDiarioMedio: number
+): number {
+  if (gddDiarioMedio <= 0) return 0;
+  const restante = Math.max(0, gddTotalNecessario - gddAcumulado);
+  return Math.ceil(restante / gddDiarioMedio);
 }
 
 export interface SoilMoisture {
-  /** 0-100 — % da capacidade de campo na zona radicular */
-  rootZonePct: number;
-  /** 0-100 — % da capacidade de campo na superfície */
-  surfacePct: number;
-  /** Temperatura estimada do solo (°C) — o solo é mais frio que o ar */
-  soilTemperatureC: number;
-  /** Dias seguidos sem chuva relevante */
-  daysSinceRain: number;
-  /** Chuva acumulada no período (mm) */
-  rainTotalMm: number;
-  /** Evapotranspiração acumulada no período (mm) */
-  evapotranspirationMm: number;
-  /** Estado em linguagem simples */
-  status: "ideal" | "atencao" | "seco";
+  status: EstadoHumidade;
   statusLabel: string;
-  /** Texto de advice para a Dona Maria */
+  rootZonePct: number; // 0–100
+  surfacePct: number; // 0–100
+  soilTemperatureC: number;
+  daysSinceRain: number;
+  rainTotalMm: number; // últimos 7 dias
   advice: string;
 }
 
-/**
- * Corre o balanço hídrico sobre toda a série disponível e devolve a
- * humidade actual do solo estimada.
- */
+const STATUS_LABEL: Record<EstadoHumidade, string> = {
+  seco: "Solo seco",
+  precisa_agua: "Precisa de água",
+  ideal: "Humidade ideal",
+  encharcado: "Solo encharcado",
+};
+
+/** Balanço hídrico de duas camadas (superfície + zona radicular), dia a dia. */
 export function estimateSoilMoisture(
   summary: AgroSummary,
-  soil: SoilTextureType = "argiloso",
+  soil: SoilTextureType
 ): SoilMoisture {
-  const props = SOIL_PROPERTIES[soil];
-  const series = summary.series.length
-    ? summary.series
-    : summary.last7.slice().reverse();
+  const rootCap = 100 * coeficienteBolo(soil); // franco = 75 mm
+  const surfCap = 15 * coeficienteBolo(soil);
+  let root = rootCap * 0.5;
+  let surf = surfCap * 0.5;
 
-  let root = props.fieldCapacity * INITIAL_FILL;
-  let surface = props.fieldCapacity * INITIAL_FILL;
-  let rainTotal = 0;
-  let etTotal = 0;
-
-  for (const day of series) {
-    const eto = referenceEvapotranspiration(day, summary.latitude);
-    etTotal += eto;
-
-    const infiltration = day.rainMm;
-    rainTotal += day.rainMm;
-
-    root += infiltration / props.rootDepthMm;
-    surface += infiltration / SURFACE_DEPTH_MM;
-
-    // Coeficiente de stress hídrico (FAO-56, eq. 66): quando o solo seca,
-    // a planta fecha os estomas e transpira menos. Sem isto o solo
-    // entraria em colapso até ao ponto de murcha.
-    const ks = Math.max(
-      0,
-      Math.min(1, (root - props.wiltingPoint) / (props.fieldCapacity - props.wiltingPoint)),
-    );
-    const surfaceKs = Math.max(
-      0,
-      Math.min(1, (surface - props.wiltingPoint) / (props.fieldCapacity - props.wiltingPoint)),
-    );
-
-    root -= (eto * CROP_COEFFICIENT * ks) / props.rootDepthMm;
-    surface -=
-      (eto * SOIL_EVAPORATION_FACTOR * surfaceKs) / SURFACE_DEPTH_MM;
-
-    // Drenagem: o que está acima da capacidade de campo escorre
-    root = Math.min(root, props.fieldCapacity);
-    surface = Math.min(surface, props.fieldCapacity);
-
-    // Nunca abaixo do ponto de murcha
-    root = Math.max(root, props.wiltingPoint);
-    surface = Math.max(surface, props.wiltingPoint);
+  for (const d of summary.series) {
+    surf += d.rainMm - d.et0Mm * 0.9; // a superfície seca mais depressa
+    if (surf > surfCap) {
+      root += surf - surfCap; // o excesso infiltra
+      surf = surfCap;
+    }
+    surf = Math.max(0, surf);
+    root = Math.min(rootCap, Math.max(0, root - etc(d.et0Mm, 0.7)));
   }
 
-  const toPct = (value: number) =>
-    Math.round(
-      ((value - props.wiltingPoint) /
-        (props.fieldCapacity - props.wiltingPoint)) *
-        100,
-    );
+  const rootZonePct = Math.round((root / rootCap) * 100);
+  const surfacePct = Math.round((surf / surfCap) * 100);
+  const status = classificarHumidade(rootZonePct);
 
-  const rootZonePct = Math.max(0, Math.min(100, toPct(root)));
-  const surfacePct = Math.max(0, Math.min(100, toPct(surface)));
+  const last7 = summary.series.slice(-7);
+  const rainTotalMm = Number(last7.reduce((s, d) => s + d.rainMm, 0).toFixed(1));
 
-  const current = summary.current;
-  const soilTemperatureC = current ? Math.round(current.tMean - 3) : 24;
+  let daysSinceRain = 0;
+  for (let i = summary.series.length - 1; i >= 0; i--) {
+    if (summary.series[i].rainMm >= 1) break;
+    daysSinceRain++;
+  }
 
-  const status: SoilMoisture["status"] =
-    rootZonePct >= 60 ? "ideal" : rootZonePct >= 35 ? "atencao" : "seco";
+  const lastTemps = summary.series.slice(-3);
+  const soilTemperatureC = lastTemps.length
+    ? Math.round(lastTemps.reduce((s, d) => s + d.tMean, 0) / lastTemps.length)
+    : 0;
 
-  const statusLabel =
-    status === "ideal"
-      ? "Ideal"
-      : status === "atencao"
-        ? "Precisa de água"
-        : "Seco, cuidado";
-
-  const advice =
-    status === "ideal"
-      ? "A terra está úmida na medida certa. Boa de plantar e afofar."
-      : status === "atencao"
-        ? "O solo está a secar. Regue bem cedo de manhã, antes do sol."
-        : "O solo está muito seco. Convém regar antes de plantar ou adubar.";
+  let advice = "O solo está bem. Não precisa de regar.";
+  if (status === "seco" || status === "precisa_agua") {
+    const faltaMm = Math.max(0, rootCap * 0.65 - root) / 0.7;
+    const baldes = litrosPorBalde(faltaMm, 10); // canteiro de 10 m²
+    advice = `Regue de manhã cedo ou ao fim da tarde: cerca de ${baldes} ${
+      baldes === 1 ? "balde" : "baldes"
+    } de 20 L por cada 10 m².`;
+  } else if (status === "encharcado") {
+    advice = "O solo está encharcado. Espere antes de regar e deixe a água escoar.";
+  }
 
   return {
-    rootZonePct,
-    surfacePct,
-    soilTemperatureC,
-    daysSinceRain: summary.daysSinceRain,
-    rainTotalMm: Math.round(rainTotal),
-    evapotranspirationMm: Math.round(etTotal),
-    status,
-    statusLabel,
-    advice,
+    status, statusLabel: STATUS_LABEL[status],
+    rootZonePct, surfacePct, soilTemperatureC, daysSinceRain, rainTotalMm, advice,
   };
 }

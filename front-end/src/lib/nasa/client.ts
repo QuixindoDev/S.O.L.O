@@ -1,76 +1,152 @@
-import { normalizePower } from "./normalize";
-import type { AgroSummary, NasaPowerResponse } from "@/types/nasa";
+import { et0Hargreaves } from "@/lib/agronomia";
+import type { AgroSummary, DailyPoint, WeatherCondition } from "@/types/nasa";
 
-function isoDaysAgo(days: number): string {
-  const d = new Date();
-  d.setUTCDate(d.getUTCDate() - days);
-  return d.toISOString().slice(0, 10).replace(/-/g, "");
+/** Parâmetros de referência da NASA POWER (comunidade AG — agroclimatologia). */
+export const NASA_POWER_PARAMETERS = [
+  "T2M",
+  "T2M_MAX",
+  "T2M_MIN",
+  "PRECTOTCORR",
+  "RH2M",
+  "ALLSKY_SFC_SW_DWN",
+] as const;
+
+export const NASA_POWER_BASE_URL =
+  "https://power.larc.nasa.gov/api/temporal/daily/point";
+
+export const NASA_POWER_CACHE_SECONDS = 86_400; // 24 h
+
+export interface NasaPowerQuery {
+  lat: number;
+  lon: number;
+  start: string; // YYYYMMDD
+  end: string; // YYYYMMDD
 }
 
-const PARAMETERS =
-  "T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,ALLSKY_SFC_SW_DWN,WS2M";
-
-/**
- * Resumo de reserva quando a NASA não responde.
- * A aplicação tem de funcionar mesmo sem rede — é um requisito
- * do público-alvo (pessoas no campo, com sinal fraco).
- */
-export function fallbackSummary(
-  latitude: number,
-  longitude: number,
-): AgroSummary {
-  return {
-    latitude,
-    longitude,
-    elevationM: 0,
-    current: null,
-    last7: [],
-    series: [],
-    monthlyRainMm: {},
-    rainByMonthOfYear: {},
-    annualRainMm: 0,
-    avgTMax: 28,
-    avgTMin: 19,
-    avgHumidity: 62,
-    lastSatellitePass: null,
-    daysSinceRain: 0,
-  };
+export function buildNasaPowerUrl({ lat, lon, start, end }: NasaPowerQuery) {
+  const params = new URLSearchParams({
+    parameters: NASA_POWER_PARAMETERS.join(","),
+    community: "AG",
+    longitude: String(lon),
+    latitude: String(lat),
+    start,
+    end,
+    format: "JSON",
+  });
+  return `${NASA_POWER_BASE_URL}?${params.toString()}`;
 }
 
 /**
- * Busca a série diária da NASA POWER no servidor e normaliza.
- *
- * Feito no servidor por três motivos:
- *  1. O HTML já chega com os dados — sem ecrã em branco no 3G rural.
- *  2. `revalidate: 86400` guarda a resposta na edge durante 24h,
- *     poupando o telemóvel da Dona Maria.
- *  3. Se a NASA estiver em baixo, a aplicação não quebra.
+ * Consulta a NASA POWER com cache de 24 h na edge.
+ * Poupa os dados móveis do utilizador — requisito do desafio.
  */
+export async function fetchNasaPower(
+  query: NasaPowerQuery,
+  revalidate: number = NASA_POWER_CACHE_SECONDS
+) {
+  const res = await fetch(buildNasaPowerUrl(query), { next: { revalidate } });
+
+  if (!res.ok) {
+    throw new Error(`NASA POWER respondeu ${res.status}`);
+  }
+
+  return (await res.json()) as unknown;
+}
+
+const MISSING = -999;
+const WEEKDAYS = [
+  "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira",
+  "Quinta-feira", "Sexta-feira", "Sábado",
+];
+
+type PowerJson = {
+  properties?: { parameter?: Record<string, Record<string, number>> };
+};
+
+const emptySummary = (): AgroSummary => ({
+  series: [], last7: [], current: null, lastSatellitePass: null,
+  rainTotalMm: 0, et0TotalMm: 0, rainByMonthOfYear: {},
+  daysSinceRain: 0, annualRainMm: 0, avgTMax: 28,
+});
+
+const toYmd = (d: Date) => d.toISOString().slice(0, 10).replace(/-/g, "");
+const num = (v?: number) => (v === undefined || v === MISSING ? null : v);
+const parseYmd = (s: string) =>
+  new Date(Date.UTC(+s.slice(0, 4), +s.slice(4, 6) - 1, +s.slice(6, 8)));
+const dayOfYear = (d: Date) =>
+  Math.floor((d.getTime() - Date.UTC(d.getUTCFullYear(), 0, 0)) / 86_400_000);
+
+function conditionOf(rainMm: number, radiation: number): WeatherCondition {
+  if (rainMm >= 2) return "rain";
+  if (radiation > 0 && radiation < 14) return "cloud"; // limiar empírico
+  return "sun";
+}
+
 export async function getAgroSummary(
-  latitude: number,
-  longitude: number,
-  windowDays = 90,
+  lat: number,
+  lon: number,
+  days = 30
 ): Promise<AgroSummary> {
-  const start = isoDaysAgo(windowDays);
-  const end = isoDaysAgo(0);
-
-  const url =
-    `https://power.larc.nasa.gov/api/temporal/daily/point` +
-    `?parameters=${PARAMETERS}&community=AG` +
-    `&longitude=${longitude}&latitude=${latitude}` +
-    `&start=${start}&end=${end}&format=JSON`;
+  const end = new Date();
+  const start = new Date(end.getTime() - (days - 1) * 86_400_000);
 
   try {
-    const res = await fetch(url, { next: { revalidate: 86400 } });
+    const raw = (await fetchNasaPower({
+      lat, lon, start: toYmd(start), end: toYmd(end),
+    })) as PowerJson;
 
-    if (!res.ok) {
-      throw new Error(`NASA POWER respondeu ${res.status}`);
+    const p = raw.properties?.parameter;
+    if (!p) return emptySummary();
+
+    const series: DailyPoint[] = [];
+    const rainByMonthOfYear: Record<string, number> = {};
+
+    for (const date of Object.keys(p.T2M_MAX ?? {}).sort()) {
+      const tMax = num(p.T2M_MAX?.[date]);
+      const tMin = num(p.T2M_MIN?.[date]);
+      const tMean = num(p.T2M?.[date]);
+      const rain = num(p.PRECTOTCORR?.[date]);
+      if (tMax === null || tMin === null || tMean === null || rain === null) continue;
+
+      const d = parseYmd(date);
+      const radiation = num(p.ALLSKY_SFC_SW_DWN?.[date]) ?? 0;
+      series.push({
+        date,
+        label: `${date.slice(6, 8)}/${date.slice(4, 6)}`,
+        dayOfWeek: WEEKDAYS[d.getUTCDay()],
+        dayNumber: d.getUTCDate(),
+        tMean, tMax, tMin,
+        rainMm: rain,
+        humidity: num(p.RH2M?.[date]) ?? 0,
+        radiation,
+        et0Mm: et0Hargreaves(tMean, tMax, tMin, lat, dayOfYear(d)),
+        condition: conditionOf(rain, radiation),
+      });
+
+      const month = date.slice(4, 6); // "01".."12"
+      rainByMonthOfYear[month] = Number(((rainByMonthOfYear[month] ?? 0) + rain).toFixed(1));
     }
 
-    const json = (await res.json()) as NasaPowerResponse;
-    return normalizePower(json);
-  } catch (error) {
-    console.error("[nasa] falha ao buscar POWER:", error);
-    return fallbackSummary(latitude, longitude);
+    const current = series.at(-1) ?? null;
+    let daysSinceRain = 0;
+    for (let i = series.length - 1; i >= 0 && series[i].rainMm < 1; i--) daysSinceRain++;
+    const rainTotal = Number(series.reduce((s, x) => s + x.rainMm, 0).toFixed(1));
+    const avgTMax = series.length
+      ? Number((series.reduce((s, x) => s + x.tMax, 0) / series.length).toFixed(1))
+      : 28;
+    return {
+      series,
+      last7: series.slice(-7),
+      current,
+      lastSatellitePass: current?.date ?? null,
+      rainTotalMm: Number(series.reduce((s, x) => s + x.rainMm, 0).toFixed(1)),
+      et0TotalMm: Number(series.reduce((s, x) => s + x.et0Mm, 0).toFixed(1)),
+      rainByMonthOfYear,
+      daysSinceRain,
+      annualRainMm: rainTotal,
+      avgTMax,
+    };
+  } catch {
+    return emptySummary();
   }
 }

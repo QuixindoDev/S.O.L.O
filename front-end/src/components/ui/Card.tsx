@@ -1,45 +1,33 @@
-import React from "react";
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/utils";
+import type { ReactNode } from "react";
 
-export type CardVariant = "default" | "soft" | "outline";
-
-const VARIANTS: Record<CardVariant, string> = {
-  default: "bg-surface border border-border",
-  soft: "bg-surface-soft border border-transparent",
-  outline: "bg-transparent border border-border",
-};
-
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: CardVariant;
-  padding?: "none" | "sm" | "md" | "lg";
+interface CardProps {
+  /** `default` = cartão branco com borda (ecrãs 1, 1B, 2 e 3). */
+  variant?: "default" | "soft";
+  /** Espaçamento interno. `md` = 40px (ecrã 2 e 3), `lg` = 48px (ecrãs 1 e 1B). */
+  padding?: "md" | "lg";
+  className?: string;
+  children: ReactNode;
 }
 
 const PADDINGS = {
-  none: "p-0",
-  sm: "p-4",
-  md: "p-5",
-  lg: "p-7",
-};
+  md: "p-[40px_40px_36px_40px]",
+  lg: "p-[48px_48px_40px_48px]",
+} as const;
 
-/** Contentor base de ecrã. Nunca aninhar um Card dentro de outro sem razão funcional. */
-export function Card({
-  variant = "default",
-  padding = "md",
-  className,
-  children,
-  ...props
-}: CardProps) {
+export function Card({ variant = "default", padding = "md", className, children }: CardProps) {
   return (
-    <div
+    <section
       className={cn(
-        "rounded-card",
-        VARIANTS[variant],
+        "flex w-full shrink-0 flex-col items-start rounded-card",
+        variant === "default"
+          ? "border border-border bg-surface"
+          : "bg-surface-soft rounded-[16px]",
         PADDINGS[padding],
-        className,
+        className
       )}
-      {...props}
     >
       {children}
-    </div>
+    </section>
   );
 }

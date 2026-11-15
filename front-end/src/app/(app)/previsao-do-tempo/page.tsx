@@ -20,6 +20,7 @@ export default async function ClimaPage() {
   const summary = await getAgroSummary(
     defaultFarm.latitude,
     defaultFarm.longitude,
+    365,
   );
 
   const pass = summary.lastSatellitePass;

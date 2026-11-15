@@ -1,0 +1,38 @@
+[
+  {
+    "id": "semiarido",
+    "name": "Semiárido",
+    "provinces": ["Cunene", "Namibe", "Luanda"],
+    "referenceRainfallMm": 350,
+    "averageTemperatureC": 26.5,
+    "wetSeasonMonths": [12, 1, 2, 3],
+    "description": "Chuva escassa e irregular. A água é o factor limitante — escolha culturas de raiz funda e cobertura do solo."
+  },
+  {
+    "id": "savana",
+    "name": "Savana",
+    "provinces": ["Huambo", "Bié", "Huíla", "Cuanza Sul"],
+    "referenceRainfallMm": 1000,
+    "averageTemperatureC": 21.5,
+    "wetSeasonMonths": [11, 12, 1, 2, 3, 4],
+    "description": "Planalto central, chuva boa entre novembro e abril e noites frias. Janela ideal para a rotação de três ciclos."
+  },
+  {
+    "id": "subtropical",
+    "name": "Subtropical",
+    "provinces": ["Malanje", "Huambo (altas)", "Bié (altas)"],
+    "referenceRainfallMm": 1200,
+    "averageTemperatureC": 20.0,
+    "wetSeasonMonths": [10, 11, 12, 1, 2, 3, 4],
+    "description": "Temperatura amena e chuva generosa. aproveite para culturas de ciclo mais longo."
+  },
+  {
+    "id": "tropical",
+    "name": "Tropical",
+    "provinces": ["Uíge", "Cuanza Norte", "Lunda Norte", "Moxico"],
+    "referenceRainfallMm": 1400,
+    "averageTemperatureC": 24.5,
+    "wetSeasonMonths": [10, 11, 12, 1, 2, 3, 4, 5],
+    "description": "Quente e muito chuvoso. Vigie o encharcamento e a erosão nas encostas."
+  }
+]
