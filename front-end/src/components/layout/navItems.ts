@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import {
+  CalendarDays,
   CloudSun,
   House,
   Leaf,
@@ -39,6 +40,7 @@ export const navGroups: NavGroup[] = [
     label: "PLANTIO E ROTAÇÃO",
     items: [
       { label: "Rotação de Culturas", href: "/rotacao-de-culturas", icon: Repeat },
+      { label: "Calendário de Plantio", href: "/calendario-de-plantio", icon: CalendarDays },
     ],
   },
   {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 import { AdvancedStep } from "@/components/features/rotacao/AdvancedStep";
 import { DiagnosisStep } from "@/components/features/rotacao/DiagnosisStep";
@@ -10,6 +10,7 @@ import { WizardStepper } from "@/components/features/rotacao/WizardStepper";
 import { useSimulator } from "@/hooks/useSimulator";
 import { defaultFarm } from "@/lib/farm";
 import { planForGoal, ROTATION_PLANS } from "@/lib/rotacao";
+import { loadSavedRotation, plantingsForSelection, saveRotation } from "@/lib/plantio";
 import cropsDatabase from "@/data/crops.json";
 import type {
   BiomeType,
@@ -21,9 +22,6 @@ import type {
 import type { AgroSummary } from "@/types/nasa";
 
 const crops = cropsDatabase as CropProfile[];
-
-/** Onde a rotação fica guardada no dispositivo. */
-const STORAGE_KEY = "solo.rotacao.guarda";
 
 type WizardStep = 1 | 2 | 3 | "advanced";
 
@@ -80,6 +78,38 @@ export function RotationWizard({ summary }: RotationWizardProps) {
   );
   const [saved, setSaved] = useState(false);
 
+  // Se a Dona Maria já guardou uma rotação (ou mexeu no calendário),
+  // o ecrã começa nessa — nada se perde entre ecrãs.
+  useEffect(() => {
+    const guardado = loadSavedRotation();
+    if (!guardado) return;
+
+    if (guardado.plantings && guardado.plantings.length > 0) {
+      const porCiclo = [0, 1, 2].map((ciclo) =>
+        guardado.plantings?.find((p) => p.ciclo === ciclo)?.cropId,
+      );
+      if (porCiclo.every(Boolean)) {
+        setSelection({
+          cycle1CropId: porCiclo[0] as string,
+          cycle2CropId: porCiclo[1] as string,
+          cycle3CropId: porCiclo[2] as string,
+        });
+        return;
+      }
+    }
+
+    if (guardado.selection) {
+      setSelection(guardado.selection);
+      const plan = ROTATION_PLANS.find(
+        (p) =>
+          p.crops[0] === guardado.selection?.cycle1CropId &&
+          p.crops[1] === guardado.selection?.cycle2CropId &&
+          p.crops[2] === guardado.selection?.cycle3CropId,
+      );
+      if (plan) setActivePlanId(plan.id);
+    }
+  }, []);
+
   // O solo e a região vêm do perfil da fazenda — o ecrã 7 (Minha Terra)
   // é onde a pessoa os muda.
   const soil: SoilTextureType = defaultFarm.soil;
@@ -118,20 +148,17 @@ export function RotationWizard({ summary }: RotationWizardProps) {
   };
 
   const handleSave = () => {
-    try {
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({
-          savedAt: new Date().toISOString(),
-          planId: activePlanId,
-          selection,
-          score: result.overallScore,
-        }),
-      );
-    } catch {
-      // Sem espaço no dispositivo — a pessoa pode sempre guardar
-      // a rotação no caderno da terra.
-    }
+    const plantings = plantingsForSelection(
+      selection,
+      loadSavedRotation()?.plantings,
+    );
+
+    saveRotation({
+      planId: activePlanId,
+      selection,
+      score: result.overallScore,
+      plantings,
+    });
     setSaved(true);
   };
 
