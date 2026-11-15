@@ -23,6 +23,8 @@ export interface CropProfile {
   typicalCycleDays: number;     // Days from emergence to physiological maturity
   recommendedSeason: "main_rainy" | "second_season" | "cover_fallow" | "any";
   description: string;
+  /** Carbono que a cultura guarda no solo (tCO₂e por hectare e por ano). */
+  carbonoTco2eHa: number;
 }
 
 export interface RotationSequenceSelection {

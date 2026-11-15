@@ -12,7 +12,8 @@
     "heatToleranceScore": 70,
     "typicalCycleDays": 130,
     "recommendedSeason": "main_rainy",
-    "description": "Excelente potencial produtivo e retorno comercial, porém possui alta exigência hídrica e consome nitrogênio."
+    "description": "Excelente potencial produtivo e retorno comercial, porém possui alta exigência hídrica e consome nitrogênio.",
+    "carbonoTco2eHa": 3.5
   },
   {
     "id": "soja",
@@ -27,7 +28,8 @@
     "heatToleranceScore": 75,
     "typicalCycleDays": 115,
     "recommendedSeason": "main_rainy",
-    "description": "Leguminosa comercial de alto valor com simbiose que fixa nitrogênio biológico diretamente no solo."
+    "description": "Leguminosa comercial de alto valor com simbiose que fixa nitrogênio biológico diretamente no solo.",
+    "carbonoTco2eHa": 2.8
   },
   {
     "id": "feijao_caupi",
@@ -42,7 +44,8 @@
     "heatToleranceScore": 95,
     "typicalCycleDays": 75,
     "recommendedSeason": "second_season",
-    "description": "Extremamente resistente à seca e altas temperaturas. Fixa nitrogênio e amadurece rapidamente."
+    "description": "Extremamente resistente à seca e altas temperaturas. Fixa nitrogênio e amadurece rapidamente.",
+    "carbonoTco2eHa": 2.2
   },
   {
     "id": "sorgo",
@@ -57,7 +60,8 @@
     "heatToleranceScore": 90,
     "typicalCycleDays": 110,
     "recommendedSeason": "second_season",
-    "description": "Sistema radicular profundo e capacidade de entrar em dormência hídrica temporária para sobreviver a veranicos."
+    "description": "Sistema radicular profundo e capacidade de entrar em dormência hídrica temporária para sobreviver a veranicos.",
+    "carbonoTco2eHa": 3.2
   },
   {
     "id": "braquiaria",
@@ -72,7 +76,8 @@
     "heatToleranceScore": 90,
     "typicalCycleDays": 90,
     "recommendedSeason": "cover_fallow",
-    "description": "Raízes ultrapassam 2 metros, descompactam a terra, reciclam nutrientes profundos e criam espessa palhada protetora."
+    "description": "Raízes ultrapassam 2 metros, descompactam a terra, reciclam nutrientes profundos e criam espessa palhada protetora.",
+    "carbonoTco2eHa": 4.6
   },
   {
     "id": "crotalaria",
@@ -87,7 +92,8 @@
     "heatToleranceScore": 85,
     "typicalCycleDays": 90,
     "recommendedSeason": "cover_fallow",
-    "description": "Campeã em fixação biológica de Nitrogênio e controle natural de nematoides no solo."
+    "description": "Campeã em fixação biológica de Nitrogênio e controle natural de nematoides no solo.",
+    "carbonoTco2eHa": 4.2
   },
   {
     "id": "gergelim",
@@ -102,7 +108,8 @@
     "heatToleranceScore": 95,
     "typicalCycleDays": 90,
     "recommendedSeason": "second_season",
-    "description": "Planta rústica com altíssima tolerância a calor e estresse hídrico, com excelente valor de mercado."
+    "description": "Planta rústica com altíssima tolerância a calor e estresse hídrico, com excelente valor de mercado.",
+    "carbonoTco2eHa": 2.0
   },
   {
     "id": "girassol",
@@ -117,7 +124,8 @@
     "heatToleranceScore": 80,
     "typicalCycleDays": 105,
     "recommendedSeason": "second_season",
-    "description": "Raiz pivotante profunda que busca água em camadas subsuperficiais onde outras culturas não alcançam."
+    "description": "Raiz pivotante profunda que busca água em camadas subsuperficiais onde outras culturas não alcançam.",
+    "carbonoTco2eHa": 2.2
   },
   {
     "id": "pousio_desnudo",
@@ -132,7 +140,8 @@
     "heatToleranceScore": 30,
     "typicalCycleDays": 90,
     "recommendedSeason": "cover_fallow",
-    "description": "Prática prejudicial: deixa a terra exposta à radiação solar direta, acelerando evaporação e provocando erosão hídrica e eólica."
+    "description": "Prática prejudicial: deixa a terra exposta à radiação solar direta, acelerando evaporação e provocando erosão hídrica e eólica.",
+    "carbonoTco2eHa": 0.3
   },
   {
     "id": "feijao_guandu",
@@ -147,6 +156,7 @@
     "heatToleranceScore": 92,
     "typicalCycleDays": 120,
     "recommendedSeason": "cover_fallow",
-    "description": "Leguminosa de raiz muito profunda (2 m). Vive na seca, fixa azoto do ar e serve de forragem para o gado no período mais difícil do ano."
+    "description": "Leguminosa de raiz muito profunda (2 m). Vive na seca, fixa azoto do ar e serve de forragem para o gado no período mais difícil do ano.",
+    "carbonoTco2eHa": 3.2
   }
 ]

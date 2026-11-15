@@ -44,6 +44,12 @@ export const navGroups: NavGroup[] = [
     ],
   },
   {
+    label: "DINHEIRO E CARBONO",
+    items: [
+      { label: "Renda da Terra", href: "/renda-da-terra", icon: Leaf },
+    ],
+  },
+  {
     label: "AJUDA",
     items: [
       { label: "Falar com a Agrônoma", href: "/falar-com-a-agronoma", icon: MessageCircle },

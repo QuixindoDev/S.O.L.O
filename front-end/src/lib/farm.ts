@@ -17,6 +17,8 @@ export interface FarmProfile {
   longitude: number;
   /** Textura do solo — usada pelos scores de retenção de água. */
   soil: "arenoso" | "argiloso" | "franco";
+  /** Área da terra em hectares — base do carbono que a terra guarda. */
+  areaHectares: number;
 }
 
 export const defaultFarm: FarmProfile = {
@@ -29,4 +31,5 @@ export const defaultFarm: FarmProfile = {
   latitude: -12.776,
   longitude: 15.739,
   soil: "franco",
+  areaHectares: 2.5,
 };
