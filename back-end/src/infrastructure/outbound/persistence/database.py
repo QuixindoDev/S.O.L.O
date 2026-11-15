@@ -24,8 +24,21 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 def init_db():
-    """Cria as tabelas no banco de dados se não existirem."""
+    """Cria as tabelas no banco de dados se não existirem e assegura compatibilidade de esquema."""
     Base.metadata.create_all(bind=engine)
+
+    # Migração leve e idempotente para garantir a coluna is_active em esquemas existentes
+    try:
+        from sqlalchemy import inspect, text
+        inspector = inspect(engine)
+        if "farmers" in inspector.get_table_names():
+            columns = [c["name"] for c in inspector.get_columns("farmers")]
+            if "is_active" not in columns:
+                with engine.connect() as conn:
+                    conn.execute(text("ALTER TABLE farmers ADD COLUMN is_active BOOLEAN NOT NULL DEFAULT 1"))
+                    conn.commit()
+    except Exception:
+        pass
 
 
 def get_db():

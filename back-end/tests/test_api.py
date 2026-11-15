@@ -266,3 +266,127 @@ def test_analyze_land_bound_to_farmer_and_list_farmer_analyses(client):
     not_found_res = client.get(f"/api/v1/farmers/{fake_uuid}/analyses")
     assert not_found_res.status_code == 404
 
+
+def test_deactivate_farmer_endpoint_patch(client):
+    """Testa o endpoint PATCH /api/v1/farmers/{farmer_uuid}/deactivate."""
+    # 1. Cria agricultor
+    farmer_payload = {
+        "nome_completo": "Mateus Chitumba",
+        "telefone": "+244 923 001 002",
+        "cooperativa": "Cooperativa Caála"
+    }
+    create_res = client.post("/api/v1/farmers", json=farmer_payload)
+    assert create_res.status_code == 201
+    farmer_uuid = create_res.json()["uuid"]
+    assert create_res.json()["is_active"] is True
+
+    # 2. Desativa via PATCH
+    deact_res = client.patch(f"/api/v1/farmers/{farmer_uuid}/deactivate")
+    assert deact_res.status_code == 200
+    deact_data = deact_res.json()
+    assert deact_data["uuid"] == farmer_uuid
+    assert deact_data["is_active"] is False
+    assert "preservado" in deact_data["mensagem"]
+    assert deact_data["agricultor"]["is_active"] is False
+
+    # 3. Consulta direta: agricultor ainda existe, mas com is_active=False
+    get_res = client.get(f"/api/v1/farmers/{farmer_uuid}")
+    assert get_res.status_code == 200
+    assert get_res.json()["is_active"] is False
+
+    # 4. Listagem padrão NÃO deve conter o agricultor desativado
+    list_res = client.get("/api/v1/farmers?limit=100")
+    assert list_res.status_code == 200
+    active_uuids = [f["uuid"] for f in list_res.json()]
+    assert farmer_uuid not in active_uuids
+
+    # 5. Listagem com include_inactive=true DEVE conter o agricultor desativado
+    list_all_res = client.get("/api/v1/farmers?limit=100&include_inactive=true")
+    assert list_all_res.status_code == 200
+    all_uuids = [f["uuid"] for f in list_all_res.json()]
+    assert farmer_uuid in all_uuids
+
+
+def test_delete_farmer_soft_delete_endpoint(client):
+    """Testa o endpoint DELETE /api/v1/farmers/{farmer_uuid} executando soft delete."""
+    # 1. Cria agricultor
+    farmer_payload = {
+        "nome_completo": "Laurinda Tchissola",
+        "telefone": "+244 944 777 888",
+        "cooperativa": "Associação de Mulheres Rurais"
+    }
+    create_res = client.post("/api/v1/farmers", json=farmer_payload)
+    assert create_res.status_code == 201
+    farmer_uuid = create_res.json()["uuid"]
+
+    # 2. Executa DELETE físico aparente (que internamente é Soft Delete)
+    del_res = client.delete(f"/api/v1/farmers/{farmer_uuid}")
+    assert del_res.status_code == 200
+    del_data = del_res.json()
+    assert del_data["uuid"] == farmer_uuid
+    assert del_data["is_active"] is False
+    assert "preservado" in del_data["mensagem"]
+
+    # 3. Valida que o agricultor NÃO foi removido fisicamente da base
+    get_res = client.get(f"/api/v1/farmers/{farmer_uuid}")
+    assert get_res.status_code == 200
+    assert get_res.json()["uuid"] == farmer_uuid
+    assert get_res.json()["is_active"] is False
+
+
+def test_deactivate_farmer_preserves_carbon_and_land_analyses_api(client):
+    """
+    Testa a garantia de auditoria via API:
+    O histórico de análises de terras e créditos de carbono continua acessível
+    mesmo após o agricultor ser desativado logicamente.
+    """
+    # 1. Cria agricultor
+    f_res = client.post("/api/v1/farmers", json={
+        "nome_completo": "Sebastião Candimba",
+        "telefone": "+244 912 999 000"
+    })
+    assert f_res.status_code == 201
+    farmer_uuid = f_res.json()["uuid"]
+
+    # 2. Executa análise de terra associada a este agricultor
+    analysis_payload = {
+        "latitude": -12.77,
+        "longitude": 15.73,
+        "area_hectares": 12.0,
+        "cultura_atual": "Milho",
+        "farmer_uuid": farmer_uuid,
+        "nome": "Fazenda Auditada Candimba"
+    }
+    an_res = client.post("/api/v1/analyze", json=analysis_payload)
+    assert an_res.status_code == 201
+    analysis_id = an_res.json()["id"]
+
+    # 3. Desativa o agricultor
+    deact_res = client.patch(f"/api/v1/farmers/{farmer_uuid}/deactivate")
+    assert deact_res.status_code == 200
+
+    # 4. Consulta o histórico de análises do agricultor desativado
+    analyses_res = client.get(f"/api/v1/farmers/{farmer_uuid}/analyses")
+    assert analyses_res.status_code == 200
+    analyses = analyses_res.json()
+    assert len(analyses) >= 1
+    assert any(a["id"] == analysis_id for a in analyses)
+
+    # 5. Consulta individual da análise pelo UUID da análise
+    get_an_res = client.get(f"/api/v1/analyses/{analysis_id}")
+    assert get_an_res.status_code == 200
+    assert get_an_res.json()["id"] == analysis_id
+    assert get_an_res.json()["farmer_uuid"] == farmer_uuid
+    assert get_an_res.json()["estimativa_carbono"]["creditos_liquidos_tco2e"] > 0
+
+
+def test_deactivate_non_existent_farmer_returns_404(client):
+    """Testa se desativar um agricultor com UUID inexistente retorna 404."""
+    fake_uuid = str(uuid.uuid4())
+    res_patch = client.patch(f"/api/v1/farmers/{fake_uuid}/deactivate")
+    assert res_patch.status_code == 404
+
+    res_del = client.delete(f"/api/v1/farmers/{fake_uuid}")
+    assert res_del.status_code == 404
+
+

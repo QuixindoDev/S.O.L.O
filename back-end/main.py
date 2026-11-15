@@ -97,6 +97,7 @@ def root():
         "rotas_principais": {
             "registar_agricultor": "POST /api/v1/farmers",
             "listar_agricultores": "GET /api/v1/farmers",
+            "desativar_agricultor": "PATCH /api/v1/farmers/{farmer_uuid}/deactivate (ou DELETE /api/v1/farmers/{farmer_uuid})",
             "analises_do_agricultor": "GET /api/v1/farmers/{farmer_uuid}/analyses",
             "analisar_terra": "POST /api/v1/analyze",
             "listar_analises": "GET /api/v1/analyses",
