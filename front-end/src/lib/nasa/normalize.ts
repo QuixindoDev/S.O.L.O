@@ -57,12 +57,14 @@ export function normalizePower(response: NasaPowerResponse): AgroSummary {
     const rain = params.PRECTOTCORR?.[date];
     const humidity = params.RH2M?.[date];
     const radiation = params.ALLSKY_SFC_SW_DWN?.[date];
+    const wind = params.WS2M?.[date];
 
     if (!isValid(tMean) || !isValid(tMax) || !isValid(tMin)) continue;
 
     const rainMm = isValid(rain) ? Math.max(0, rain) : 0;
     const rh = isValid(humidity) ? humidity : 0;
     const rad = isValid(radiation) ? radiation : 0;
+    const windSpeed = isValid(wind) ? wind : 0;
 
     const { label, dayOfWeek, dayNumber, monthKey } = formatDate(date);
 
@@ -77,6 +79,7 @@ export function normalizePower(response: NasaPowerResponse): AgroSummary {
       rainMm,
       humidity: rh,
       radiation: rad,
+      windSpeed,
       condition: conditionFor(rainMm, rh),
     });
   }
@@ -105,6 +108,7 @@ export function normalizePower(response: NasaPowerResponse): AgroSummary {
     elevationM: coordinates[2] ?? 0,
     current: points.length ? points[points.length - 1] : null,
     last7: points.slice(-7).reverse(),
+    series: points,
     monthlyRainMm,
     annualRainMm: Math.round(annualRainMm),
     avgTMax: Math.round(avg(points.map((p) => p.tMax))),
