@@ -5,6 +5,8 @@ export interface ScoreRingProps {
   /** 0-100 */
   value: number;
   label?: string;
+  /** Sufixo do número — "%" por omissão quando o valor é uma percentagem. */
+  suffix?: string;
   size?: number;
   tone?: "primary" | "warning" | "danger";
   className?: string;
@@ -23,6 +25,7 @@ const TONES = {
 export function ScoreRing({
   value,
   label,
+  suffix = "%",
   size = 170,
   tone = "primary",
   className,
@@ -84,6 +87,7 @@ export function ScoreRing({
           style={{ fontSize: "var(--ring-value-size)" }}
         >
           {clamped}
+          {suffix}
         </span>
         {label && (
           <span

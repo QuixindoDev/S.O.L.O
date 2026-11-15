@@ -65,6 +65,8 @@ export interface DailyPoint {
   humidity: number;
   /** Radiação solar MJ/m²/dia */
   radiation: number;
+  /** Velocidade do vento a 2 m (m/s) */
+  windSpeed: number;
   /** Condição simplificada para escolher o ícone */
   condition: "sun" | "cloud" | "rain";
 }
@@ -78,6 +80,8 @@ export interface AgroSummary {
   current: DailyPoint | null;
   /** Últimos 7 dias com dados válidos (do mais recente para o mais antigo) */
   last7: DailyPoint[];
+  /** Série completa com dados válidos (do mais antigo para o mais recente) */
+  series: DailyPoint[];
   /** Chuva acumulada por mês (mm) */
   monthlyRainMm: Record<string, number>;
   annualRainMm: number;

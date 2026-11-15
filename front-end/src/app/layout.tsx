@@ -27,8 +27,21 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${atkinson.variable} scroll-smooth`}>
-      <body className="bg-bg text-text-primary antialiased">{children}</body>
+    <html
+      lang="pt-BR"
+      className={`${atkinson.variable} scroll-smooth`}
+      suppressHydrationWarning
+    >
+      {/* `suppressHydrationWarning`: algumas extensões de browser
+          (ex.: ChatGPT/Codex) injectam atributos no <body> antes do
+          React arrancar, o que provoca um aviso de hydration mismatch
+          que não tem nada a ver com o nosso código. */}
+      <body
+        className="bg-bg text-text-primary antialiased"
+        suppressHydrationWarning
+      >
+        {children}
+      </body>
     </html>
   );
 }
