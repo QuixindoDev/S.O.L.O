@@ -334,30 +334,42 @@ Num projecto Next.js, a Vercel lê os rewrites da função `rewrites()` em
 
 | URL | Rota interna | Ecrã |
 |---|---|---|
-| `https://www.agrosolo.earth/` | `/` | App principal do agricultor |
-| `https://www.profile.agrosolo.earth/` | `/inicio` | Dashboard do agricultor |
-| `https://www.profile.agrosolo.earth/minhas-plantas` | `/minhas-plantas` | Minhas Plantas |
-| `https://www.profile.agrosolo.earth/previsao-do-tempo` | `/previsao-do-tempo` | Previsão do Tempo |
-| `https://www.admin.agrosolo.earth/*` | `/admin/*` | Área de administração |
+| `https://www.agrosolo.earth/` | `/` → `/inicio` | App principal do agricultor |
+| `https://profile.agrosolo.earth/` | `/` → `/inicio` | Dashboard do agricultor |
+| `https://profile.agrosolo.earth/minhas-plantas` | `/minhas-plantas` | Minhas Plantas |
+| `https://profile.agrosolo.earth/previsao-do-tempo` | `/previsao-do-tempo` | Previsão do Tempo |
+| `https://admin.agrosolo.earth/*` | `/admin/*` | Área de administração |
+
+> ⚠️ **Cada subdomínio é aceite com E SEM `www.`** — ambos estão
+> configurados. Na Vercel, os **dois** domínios têm de estar ligados
+> ao mesmo deployment (Settings → Domains → Add Domain), senão um deles
+> fica a servir a homepage em vez da app.
 
 ```js
 // next.config.mjs
 async rewrites() {
+  const AGRO = "agrosolo.earth";
+
+  /** Aceita o subdomínio com e sem o prefixo `www.`. */
+  const hostsOf = (sub) => [`${sub}.${AGRO}`, `www.${sub}.${AGRO}`];
+
+  const profileRules = hostsOf("profile").map((host) => ({
+    // A raiz do subdomínio profile abre directamente o dashboard.
+    source: "/",
+    has: [{ type: "host", value: host }],
+    destination: "/inicio",
+  }));
+
+  const adminRules = hostsOf("admin").map((host) => ({
+    source: "/:path*",
+    has: [{ type: "host", value: host }],
+    destination: "/admin/:path*",
+  }));
+
   return {
-    beforeFiles: [
-      {
-        // A raiz do subdomínio profile abre directamente o dashboard.
-        source: "/",
-        has: [{ type: "host", value: "www.profile.agrosolo.earth" }],
-        destination: "/inicio",
-      },
-      {
-        // Área de administração (para quando o subdomínio ficar pronto).
-        source: "/:path*",
-        has: [{ type: "host", value: "www.admin.agrosolo.earth" }],
-        destination: "/admin/:path*",
-      },
-    ],
+    beforeFiles: [...profileRules, ...adminRules],
+    afterFiles: [],
+    fallback: [],
   };
 }
 ```
@@ -367,15 +379,15 @@ async rewrites() {
 - O subdomínio `profile` serve **a mesma aplicação** do domínio principal.
   Só a **raiz** precisa de rewrite (para cair em `/inicio`); todas as
   outras rotas já existem como páginas e são servidas tal e qual.
+- A raiz do domínio principal (`/`) **redirecciona** para `/inicio`
+  (ver `src/app/page.tsx`) — a Dona Maria nunca vê um ecrã de escolha.
 - **As rotas da app são slugs em português** — é o que a Dona Maria lê
   no ecrã do telemóvel e o que aparece no URL.
 - `beforeFiles` → o rewrite é aplicado *antes* da procura de ficheiros,
   por isso o subdomínio tem sempre prioridade.
-- Os subdomínios têm de estar **ligados ao mesmo deployment** na Vercel
-  (Settings → Domains → Add Domain).
 - **Testar localmente** com o header `Host`:
   ```bash
-  curl -H "Host: www.profile.agrosolo.earth" http://localhost:3000/
+  curl -H "Host: profile.agrosolo.earth" http://localhost:3000/
   ```
 
 ### Rotas da aplicação
