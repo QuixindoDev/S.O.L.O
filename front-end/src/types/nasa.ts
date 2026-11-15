@@ -49,3 +49,34 @@ export interface AgroclimaticSummary {
   droughtRiskLevel: "low" | "moderate" | "high" | "extreme";
   lastSatelliteSyncDate: string;
 }
+
+export type WeatherCondition = "sun" | "cloud" | "rain";
+
+export interface DailyPoint {
+  date: string; // YYYYMMDD
+  label: string; // "15/11"
+  dayOfWeek: string;
+  dayNumber: number;
+  tMean: number;
+  tMax: number;
+  tMin: number;
+  rainMm: number;
+  humidity: number;
+  radiation: number; // MJ/m²/dia
+  et0Mm: number;
+  condition: WeatherCondition;
+}
+
+export interface AgroSummary {
+  series: DailyPoint[]; // do mais antigo para o mais recente
+  last7: DailyPoint[];
+  current: DailyPoint | null;
+  lastSatellitePass: string | null; // YYYYMMDD
+  rainTotalMm: number;
+  et0TotalMm: number;
+  daysSinceRain: number; // dias seguidos sem chuva (>= 1 mm) até hoje
+  annualRainMm: number; // chuva somada na série (≈ ano se a série tiver 365 dias)
+  avgTMax: number; // média das temperaturas máximas da série (°C)
+  /** mm de chuva por mês do ano ("01".."12"), somados na série. */
+  rainByMonthOfYear: Record<string, number>;
+}

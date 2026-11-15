@@ -38,7 +38,7 @@ export default async function InicioPage() {
   const moisture = estimateSoilMoisture(summary, defaultFarm.soil);
   const raining = (current?.rainMm ?? 0) >= 2;
 
-  const dry = moisture.status !== "ideal";
+  const dry = moisture.status === "seco" || moisture.status === "precisa_agua";
 
   // Quatro combinações: chuva × solo. A mensagem tem de fazer sentido
   // em todas — e nunca se pode dizer "não regue" e "regue" ao mesmo tempo.

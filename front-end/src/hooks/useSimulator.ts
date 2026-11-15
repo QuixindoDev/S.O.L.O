@@ -10,17 +10,33 @@ import {
   SimulationResult,
   SoilTextureType,
 } from "@/types/agronomy";
+import type { AgroSummary } from "@/types/nasa";
 
 const cropsMap = new Map<string, CropProfile>(
   cropsDatabase.map((c) => [c.id, c])
 );
 
+import { rotationWaterBalance } from "@/lib/rotacao";
+import type { RotationBalance } from "@/lib/rotacao";
+
+export type RotationSimulation = SimulationResult & {
+  balance: RotationBalance;
+  cycleNames: string[];
+};
+
+// Sem dados da NASA, o balanço sai a zeros em vez de rebentar.
+const EMPTY_SUMMARY = {
+  series: [],
+  rainByMonthOfYear: {},
+} as unknown as AgroSummary;
+
 export function useSimulator(
   biome: BiomeType,
   soil: SoilTextureType,
   priority: FarmerPriority,
-  selection: RotationSequenceSelection
-): SimulationResult {
+  selection: RotationSequenceSelection,
+  summary?: AgroSummary | null
+): RotationSimulation {
   return useMemo(() => {
     const c1 = cropsMap.get(selection.cycle1CropId) || (cropsDatabase[0] as CropProfile);
     const c2 = cropsMap.get(selection.cycle2CropId) || (cropsDatabase[2] as CropProfile);
@@ -101,7 +117,16 @@ export function useSimulator(
       Math.round(c1.waterDemandScore * 1.0),
     ];
 
+    const balance = rotationWaterBalance(
+      [c1, c2, c3],
+      summary ?? EMPTY_SUMMARY,
+      soil,
+      (point) => point.et0Mm,
+    );
+
     return {
+      balance,
+      cycleNames: [c1.name, c2.name, c3.name],
       overallScore: overall,
       waterEfficiencyScore: normWater,
       soilRegenerationScore: normSoil,
@@ -112,5 +137,5 @@ export function useSimulator(
       naturalLanguageAdvice: advice,
       monthlyCropEvapotranspirationMm: monthlyET,
     };
-  }, [biome, soil, priority, selection]);
+  }, [biome, soil, priority, selection, summary]);
 }

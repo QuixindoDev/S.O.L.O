@@ -7,7 +7,7 @@
  * Objectivo: traduzir números de satélite em conselhos que uma pessoa
  * com mais de 60 anos consiga aplicar no campo sem equipamento adicional.
  */
-
+import type { AgroSummary } from "@/types/nasa";
 import type { SoilTextureType } from "@/types/agronomy";
 
 /** Temperatura base (°C) por tipo de cultura. */
@@ -42,15 +42,29 @@ export type CropPhase = keyof (typeof Kc_CULTURA)["milho"];
  * @param tMin Temperatura mínima (°C)
  * @param latitude Latitude em graus decimais
  */
+// src/lib/agronomia.ts — substitui et0Hargreaves
+function radiacaoExtraterrestre(latitudeGraus: number, diaDoAno: number): number {
+  const phi = latitudeGraus * (Math.PI / 180);
+  const dr = 1 + 0.033 * Math.cos((2 * Math.PI * diaDoAno) / 365);
+  const delta = 0.409 * Math.sin((2 * Math.PI * diaDoAno) / 365 - 1.39);
+  const ws = Math.acos(Math.min(1, Math.max(-1, -Math.tan(phi) * Math.tan(delta))));
+  const gsc = 0.082; // MJ m⁻² min⁻¹
+  return (
+    ((24 * 60) / Math.PI) * gsc * dr *
+    (ws * Math.sin(phi) * Math.sin(delta) + Math.cos(phi) * Math.cos(delta) * Math.sin(ws))
+  ); // MJ m⁻² dia⁻¹
+}
+
 export function et0Hargreaves(
   tMedia: number,
   tMax: number,
   tMin: number,
-  latitude: number
+  latitude: number,
+  diaDoAno = 180
 ): number {
   const amplitude = Math.max(0, tMax - tMin);
-  const factor = 0.0023 * (latitude * (Math.PI / 180)) * 0.408;
-  const et0 = factor * Math.sqrt(amplitude) * (tMedia + 17.8);
+  const ra = radiacaoExtraterrestre(latitude, diaDoAno) * 0.408; // mm/dia equivalente
+  const et0 = 0.0023 * ra * Math.sqrt(amplitude) * (tMedia + 17.8);
   return Math.max(0, Number(et0.toFixed(2)));
 }
 
@@ -166,4 +180,77 @@ export function diasParaMaturacao(
   if (gddDiarioMedio <= 0) return 0;
   const restante = Math.max(0, gddTotalNecessario - gddAcumulado);
   return Math.ceil(restante / gddDiarioMedio);
+}
+
+export interface SoilMoisture {
+  status: EstadoHumidade;
+  statusLabel: string;
+  rootZonePct: number; // 0–100
+  surfacePct: number; // 0–100
+  soilTemperatureC: number;
+  daysSinceRain: number;
+  rainTotalMm: number; // últimos 7 dias
+  advice: string;
+}
+
+const STATUS_LABEL: Record<EstadoHumidade, string> = {
+  seco: "Solo seco",
+  precisa_agua: "Precisa de água",
+  ideal: "Humidade ideal",
+  encharcado: "Solo encharcado",
+};
+
+/** Balanço hídrico de duas camadas (superfície + zona radicular), dia a dia. */
+export function estimateSoilMoisture(
+  summary: AgroSummary,
+  soil: SoilTextureType
+): SoilMoisture {
+  const rootCap = 100 * coeficienteBolo(soil); // franco = 75 mm
+  const surfCap = 15 * coeficienteBolo(soil);
+  let root = rootCap * 0.5;
+  let surf = surfCap * 0.5;
+
+  for (const d of summary.series) {
+    surf += d.rainMm - d.et0Mm * 0.9; // a superfície seca mais depressa
+    if (surf > surfCap) {
+      root += surf - surfCap; // o excesso infiltra
+      surf = surfCap;
+    }
+    surf = Math.max(0, surf);
+    root = Math.min(rootCap, Math.max(0, root - etc(d.et0Mm, 0.7)));
+  }
+
+  const rootZonePct = Math.round((root / rootCap) * 100);
+  const surfacePct = Math.round((surf / surfCap) * 100);
+  const status = classificarHumidade(rootZonePct);
+
+  const last7 = summary.series.slice(-7);
+  const rainTotalMm = Number(last7.reduce((s, d) => s + d.rainMm, 0).toFixed(1));
+
+  let daysSinceRain = 0;
+  for (let i = summary.series.length - 1; i >= 0; i--) {
+    if (summary.series[i].rainMm >= 1) break;
+    daysSinceRain++;
+  }
+
+  const lastTemps = summary.series.slice(-3);
+  const soilTemperatureC = lastTemps.length
+    ? Math.round(lastTemps.reduce((s, d) => s + d.tMean, 0) / lastTemps.length)
+    : 0;
+
+  let advice = "O solo está bem. Não precisa de regar.";
+  if (status === "seco" || status === "precisa_agua") {
+    const faltaMm = Math.max(0, rootCap * 0.65 - root) / 0.7;
+    const baldes = litrosPorBalde(faltaMm, 10); // canteiro de 10 m²
+    advice = `Regue de manhã cedo ou ao fim da tarde: cerca de ${baldes} ${
+      baldes === 1 ? "balde" : "baldes"
+    } de 20 L por cada 10 m².`;
+  } else if (status === "encharcado") {
+    advice = "O solo está encharcado. Espere antes de regar e deixe a água escoar.";
+  }
+
+  return {
+    status, statusLabel: STATUS_LABEL[status],
+    rootZonePct, surfacePct, soilTemperatureC, daysSinceRain, rainTotalMm, advice,
+  };
 }
