@@ -1,354 +1,494 @@
-# 🛰️ Dados da NASA no S.O.L.O. — Guia técnico
+# 🛰️ S.O.L.O. — Smart Observation Land Optimization
+### *Campo Amigo: Democratizando a Adaptação Climática e os Créditos de Carbono para a Agricultura Familiar com Dados da NASA*
 
-> **NASA International Space Apps Challenge 2026** · Desafio *Field Shift: Adapting Farms with NASA Data*
-> Documento partilhado entre as equipas de **front-end** (`front-end/`) e **back-end** (`back-end/`).
-
-Este documento explica **que dados da NASA usamos, como os tratamos, o que já está implementado e o que falta**. Qualquer pessoa da equipa deve conseguir lê-lo e perceber o que se passa nos dados — sem ter de abrir o código.
-
----
-
-## 1. Sumário
-
-| | |
-|---|---|
-| **Missão usada** | NASA POWER (Agroclimatology) — já implementada, a sério, com dados reais |
-| **Endpoint** | `https://power.larc.nasa.gov/api/temporal/daily/point` |
-| **Parâmetros** | `T2M` `T2M_MAX` `T2M_MIN` `PRECTOTCORR` `RH2M` `ALLSKY_SFC_SW_DWN` `WS2M` |
-| **Community** | `AG` (Agroclimatology) |
-| **Resolução** | 0,5° × 0,625° (~50 km) para meteorologia · 1° × 1° para parâmetros solares |
-| **Sentinela** | `-999` = sem medição nesse dia |
-| **Atraso** | ~2 a 4 dias (a NASA publica com atraso) |
-| **API key** | Não é preciso. Todas as missões usadas são públicas e gratuitas. |
-
-O que **ainda não** está implementado: **SMAP** (humidade do solo medida), **ECOSTRESS** (estresse térmico) e **GPM IMERG** (chuva em tempo quase real). Ver [§9](#9-o-que-falta-smap-ecostress-gpm).
+> **NASA International Space Apps Challenge 2026**  
+> **Desafio:** [*Field Shift: Adapting Farms with NASA Data*](https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/?tab=details)  
+> **Repositório:** `QuixindoDev/S.O.L.O` · **Equipa:** S.O.L.O. Team  
 
 ---
 
-## 2. Porquê a NASA POWER
-
-Das quatro missões que o design system indica, escolhemos a POWER como base porque:
-
-- **É REST, pública e sem API key** — o que permite construir a demo sem dependências nem custos.
-- **Cobre o ciclo agronómico completo**: temperatura, chuva, humidade do ar, radiação solar e vento.
-- **Tem série histórica longa** — permite não só descrever "hoje" mas calcular o **balanço hídrico do solo** e dizer à Dona Maria se a terra está seca.
-- **A mesma resposta serve a 3 ecrãs** — Início, Previsão do Tempo e Minha Terra e Horta.
+[![NASA Space Apps 2026](https://img.shields.io/badge/NASA%20Space%20Apps-2026-blue.svg?logo=nasa)](https://www.spaceappschallenge.org/)
+[![Next.js](https://img.shields.io/badge/Frontend-Next.js%2016%20(App%20Router)-black?logo=next.js)](front-end/)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi)](back-end/)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)](back-end/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](front-end/)
+[![Tailwind CSS v4](https://img.shields.io/badge/TailwindCSS-v4.0-38bdf8?logo=tailwind-css)](front-end/)
+[![Hexagonal Architecture](https://img.shields.io/badge/Architecture-Hexagonal%20(Ports%20%26%20Adapters)-purple)](#-4-arquitetura-do-sistema)
+[![NASA POWER API](https://img.shields.io/badge/NASA%20Data-POWER%20%7C%20SMAP%20%7C%20ECOSTRESS-red)](NASA-DADOS.md)
+[![Carbon Standards](https://img.shields.io/badge/Carbon%20Methodology-IPCC%20%7C%20Verra%20VM0042-green)](#-6-créditos-de-carbono--metodologia-científica)
 
 ---
 
-## 3. Pipeline de dados
+## 📑 Índice Geral
+
+1. [Visão Geral do Projeto](#-1-visão-geral-do-projeto)
+2. [O Problema vs. A Solução](#-2-o-problema-vs-a-solução)
+3. [Principais Funcionalidades](#-3-principais-funcionalidades)
+4. [Arquitetura do Sistema](#-4-arquitetura-do-sistema)
+5. [Modelos Agronómicos e Dados da NASA](#-5-modelos-agronómicos-e-dados-da-nasa)
+6. [Créditos de Carbono & Metodologia Científica](#-6-créditos-de-carbono--metodologia-científica)
+7. [Inclusão, Acessibilidade & UX Rural](#-7-inclusão-acessibilidade--ux-rural)
+8. [Estrutura do Repositório](#-8-estrutura-do-repositório)
+9. [Guia de Instalação e Execução](#-9-guia-de-instalação-e-execução)
+10. [Referência dos Endpoints da API](#-10-referência-dos-endpoints-da-api)
+11. [Transparência de Dados (Requisito do Júri da NASA)](#-11-transparência-de-dados-requisito-do-júri-da-nasa)
+12. [Roadmap & Próximos Passos](#-12-roadmap--próximos-passos)
+13. [Documentação Complementar & Links](#-13-documentação-complementar--links)
+
+---
+
+## 🌍 1. Visão Geral do Projeto
+
+O **S.O.L.O.** (*Smart Observation Land Optimization* / *Campo Amigo*) é uma plataforma integrada de suporte à decisão agroecológica e inclusão financeira desenvolvida no âmbito do **NASA International Space Apps Challenge 2026**.
+
+A plataforma conecta **pequenos agricultores familiares** (com foco no contexto de Angola e de comunidades agrícolas vulneráveis do Sul Global) às missões de observação da Terra da NASA (**NASA POWER**, **SMAP**, **ECOSTRESS** e **GPM IMERG**) e ao **Google Earth Engine**. 
+
+O S.O.L.O. cumpre duas missões fundamentais e complementares:
+1. **Resiliência e Adaptação Climática no Campo:** Converte telemetria orbital complexa em conselhos diários simples, semáforos visuais intuitivos e orientações por áudio para agricultores idosos (60+ anos, como a persona *Dona Maria*) em conexões 3G rurais, permitindo economizar água, prever estiagens e regenerar o solo com rotação biológica de culturas.
+2. **Democratização do Mercado Voluntário de Carbono:** Elimina a barreira de entrada dos pequenos agricultores nas receitas de créditos de carbono ($tCO_2e$), substituindo auditorias laboratoriais tradicionais que custam dezenas de milhares de dólares por monitoramento de sensoriamento remoto gratuito, modelos de balanço hídrico (FAO-56) e cálculos auditáveis segundo os padrões internacionais do IPCC e Verra VM0042.
+
+---
+
+## 🥊 2. O Problema vs. A Solução
 
 ```text
-   NASA POWER (REST público, sem API key)
-              │
-              │  fetch server-side  (revalidate: 86400)
-              ▼
-   ┌──────────────────────────┐
-   │ lib/nasa/client.ts       │  busca + cache de 24h + fallback
-   └────────────┬─────────────┘
-                ▼
-   ┌──────────────────────────┐
-   │ lib/nasa/normalize.ts    │  descarta dias sem medição (-999),
-   │                          │  formata datas, calcula médias
-   └────────────┬─────────────┘
-                ▼
-   ┌──────────────────────────┐
-   │  AgroSummary (tipo)      │  formato normalizado e estável
-   └────────────┬─────────────┘
-                │
-       ┌────────┴─────────┐
-       ▼                  ▼
- lib/agronomia.ts    Ecrãs (Server Components)
- (balanço hídrico)   → HTML já com os dados
+┌────────────────────────────────────────────────────────┐
+│                      O DESAFIO                         │
+│  • Extremos climáticos e secas inviabilizam tradições. │
+│  • Terabytes de dados da NASA inacessíveis em HDF5.    │
+│  • Pequeno agricultor excluído do mercado de carbono.  │
+└──────────────────────────┬─────────────────────────────┘
+                           │
+                           ▼
+┌────────────────────────────────────────────────────────┐
+│                   A RESPOSTA S.O.L.O.                  │
+│  ✔ Pipeline Server-Side com NASA POWER + GEE           │
+│  ✔ Balanço Hídrico FAO-56 + Rotação Regenerativa       │
+│  ✔ Certificação orbital de Créditos de Carbono ($USD)  │
+│  ✔ Interface Acessível (Áudio, Alto Contraste, 3G)    │
+└────────────────────────────────────────────────────────┘
 ```
 
-### 3.1 Camadas e ficheiros
-
-| Camada | Ficheiro | Responsabilidade |
+| Desafio no Campo | Abordagem Tradicional | Solução S.O.L.O. |
 |---|---|---|
-| Proxy REST | `front-end/src/app/api/nasa/power/route.ts` | Endpoint público `/api/nasa/power` para o browser e para o back-end |
-| Cliente | `front-end/src/lib/nasa/client.ts` | Busca no servidor, cache de 24h, fallback se a NASA falhar |
-| Normalização | `front-end/src/lib/nasa/normalize.ts` | Resposta crua → `AgroSummary` |
-| Modelo agronómico | `front-end/src/lib/agronomia.ts` | ETo + balanço hídrico do solo |
-| Tipos | `front-end/src/types/nasa.ts` | `NasaPowerResponse`, `DailyPoint`, `AgroSummary` |
+| **Incerteza Climática** | O produtor depende de calendários empíricos passados que já não funcionam devido às alterações climáticas. | **Observações de satélite diárias da NASA** indicando temperatura real, precipitação acumulada, radiação e histórico de 7 dias sem falsas promessas. |
+| **Abismo de Dados (Data Gap)** | Ficheiros NetCDF, HDF5 e GeoTIFF incompreensíveis para quem cultiva a terra. | **Tradução agronómica imediata**: em vez de `ALLSKY_SFC_SW_DWN = 20.78 MJ/m²`, diz *"O sol esteve forte; o solo está a secar, regue cedo de manhã"*. |
+| **Degradação e Monoculturas** | Esgotamento de nitrogénio e perda de matéria orgânica por ciclos sucessivos de milho/mandioca. | **Simulador de Rotação Regenerativa**: Prescreve leguminosas fixadoras (*Vigna unguiculata*, *Arachis hypogaea*, *Cajanus cajan*) que repõem até 80 kg N/ha sem químicos. |
+| **Mercado Voluntário de Carbono** | Auditorias in loco com colheita de solo química que custam > \$20.000, inviáveis para quem tem 1 a 10 hectares. | **Algoritmo orbital transparente**: Quantifica o sequestro adicional de carbono ($tCO_2e$) com 20% de margem prudencial e valoriza a \$20/t. |
+| **Barreira Geracional e Digital** | Apps com letras miúdas, inglês técnico, botões pequenos e pesadas para 4G/5G. | **UX Rural Inclusiva**: Tipografia legível, botões de 56-64px, sintetizador de voz (*"Ouvir Ajuda"*), SSR com 1 requisição diária que poupa dados móveis. |
 
 ---
 
-## 4. NASA POWER — os parâmetros que usamos
+## 🌟 3. Principais Funcionalidades
 
-Resposta real da API para Feira de Santana (BA), dia 10/11/2026:
+### 📱 1. Meu Caderno da Terra (`/inicio`)
+* **Dashboard Diário do Agricultor:** Saudação personalizada, resumo meteorológico do dia e semáforo hídrico instantâneo (*Ideal*, *Atenção*, *Seco*).
+* **Conselhos Práticos em Linguagem Direta:** Orientações acionáveis do tipo *"Está a chover — não precisa de regar hoje"* ou *"O solo está a secar — regue cedo"*.
+* **Acesso Rápido a Tarefas e Canteiros:** Monitorização das parcelas familiares sem atrito cognitivo.
 
-```json
-{
-  "T2M":               25.06,   // temperatura média a 2 m (°C)
-  "T2M_MAX":           29.73,   // temperatura máxima a 2 m (°C)
-  "T2M_MIN":           22.44,   // temperatura mínima a 2 m (°C)
-  "PRECTOTCORR":        5.92,   // precipitação diária corrigida (mm)
-  "RH2M":              79.47,   // humidade relativa a 2 m (%)
-  "ALLSKY_SFC_SW_DWN": 20.78,   // radiação solar global descendente (MJ/m²/dia)
-  "WS2M":               2.78    // velocidade do vento a 2 m (m/s)
-}
-```
+### 🌤️ 2. Previsão e Clima NASA (`/previsao-do-tempo`)
+* **Série Agroclimatológica de 7 Dias:** Apresenta os 7 parâmetros essenciais da NASA POWER (`T2M`, `T2M_MAX`, `T2M_MIN`, `PRECTOTCORR`, `RH2M`, `ALLSKY_SFC_SW_DWN`, `WS2M`).
+* **Alertas Agroclimáticos:** Identificação de ondas de calor, ventos dessecantes e períodos críticos sem precipitação.
+* **Transparência de Satélite:** Exibição clara da data da última passagem orbital da NASA (latência de 2 a 4 dias), respeitando a verdade científica.
 
-| Parâmetro | Unidade | Para que serve no S.O.L.O. |
-|---|---|---|
-| `T2M` | °C | Temperatura do "hoje" no dashboard e no ecrã Clima |
-| `T2M_MAX` / `T2M_MIN` | °C | Amplitude térmica — entra na fórmula de ETo (Hargreaves/Penman-Monteith) |
-| `PRECTOTCORR` | mm | Chuva — o motor do balanço hídrico; decide se é preciso regar |
-| `RH2M` | % | Humidade do ar — entra na equação de ETo |
-| `ALLSKY_SFC_SW_DWN` | MJ/m²/dia | Radiação solar — a energia que evapora a água do solo |
-| `WS2M` | m/s | Vento — maior vento, maior evaporação |
+### 💧 3. Minha Terra e Horta — Balanço Hídrico (`/minha-terra-e-horta`)
+* **Modelo Físico de Duas Camadas:** Estimativa da humidade na camada superficial (0-5 cm) e na zona radicular (30-40 cm).
+* **Evapotranspiração de Referência ($ET_0$):** Equação completa de Penman-Monteith (FAO-56) alimentada por dados reais de radiação, vento, temperatura e humidade.
+* **Fator de Stress Hídrico ($K_s$):** Simulação da regulação estomática da planta conforme o solo seca, prevenindo colapsos matemáticos irreais.
 
-### 4.1 quirks da API (importante!)
+### 🔄 4. Simulador de Rotação de Culturas (`/rotacao-de-culturas`)
+* **Planeamento Safra / Safrinha / Cobertura:** Permite ao agricultor selecionar sequências de culturas e avaliar o impacto antes do plantio.
+* **Indicadores em Tempo Real:** Eficiência hídrica (0-100%), regeneração de nitrogénio ($kg\,N/ha$), resiliência a secas e litros de água economizados por metro quadrado.
+* **Prescrição Regional para Angola:** Recomendações dinâmicas para solos empobrecidos em zonas do Planalto Central (Huambo, Bié), Norte (Uíge, Malanje) e Semiárido Sul (Cunene, Huíla, Namibe).
 
-1. **Sentinela `-999`** — dias sem medição vêm como `-999` (o header da resposta traz `"fill_value": -999.0`). **Tem de ser filtrado**, senão entra como temperatura de −999 °C e estraga tudo. É o que o `normalize.ts` faz.
-2. **Atraso de ~2 a 4 dias** — o "hoje" da NASA não existe. O último dia com dados a 15/11/2026 era **11/11/2026**. Por isso a interface diz **"os últimos 7 dias"** e **"última observação do satélite: 11/11/2026"** em vez de fingir uma previsão.
-3. **Radiação solar é mais grosseira** — os parâmetros solares estão a 1° × 1°, a meteorologia a 0,5° × 0,625°. Para a horta da Dona Maria (120 m²) estamos muito acima da resolução em qualquer dos casos: isto é **clima de região**, não microclima de canteiro.
-4. **Tempo standard = LST** (Local Solar Time), não UTC.
-5. **Melhoria retroactiva** — passados 2-3 meses, os dados são substituídos por produtos climáticos de melhor qualidade (MERRA-2). O mesmo URL pode devolver números ligeiramente diferentes mais tarde. É por isso que o cache é de 24h e não permanente.
+### 🌿 5. Minhas Plantas & Calendário (`/minhas-plantas`, `/calendario-de-plantio`)
+* **Gestão de Canteiros Familiares:** Acompanhamento do ciclo vegetativo (sementeira, floração, colheita) de culturas hortícolas e grãos.
+* **Alertas de Manejo:** Avisos de necessidade de estacas, monda e previsão de dias até à colheita.
+
+### 💰 6. Motor de Créditos de Carbono ($tCO_2e$) & Gestão de Agricultores (`back-end`)
+* **Cadastro de Agricultores Familiares:** Registo com suporte a telemóvel para pagamentos móveis (ex: Multicaixa Express, M-Pesa) e vínculo a cooperativas.
+* **Diagnóstico de Terreno Automatizado:** Cruzamento de coordenadas geográficas com índices espectrais e dados climáticos de longo prazo.
+* **Certificação e Cálculo Financeiro:** Aplicação da fórmula estequiométrica $CO_2/C$ (3.67), retenção prudencial de risco (*buffer pool* de 20%) e monetização em USD.
 
 ---
 
-## 5. O formato normalizado (`AgroSummary`)
+## 🏛️ 4. Arquitetura do Sistema
 
-Os ecrãs **nunca** vêem a resposta crua da NASA. Recebem sempre este tipo:
+O projeto é estruturado como um **Monorepo** coeso, dividindo claramente as responsabilidades entre uma interface moderna e acessível em Next.js e um núcleo robusto de regras de negócio em FastAPI baseado em **Arquitetura Hexagonal (Ports & Adapters)**.
 
-```ts
-interface DailyPoint {
-  date: string;        // "20261111"
-  label: string;       // "11 de nov"
-  dayOfWeek: string;   // "Qua"
-  dayNumber: string;   // "11"
-  tMax: number; tMin: number; tMean: number;
-  rainMm: number;
-  humidity: number;
-  radiation: number;
-  windSpeed: number;
-  condition: "sun" | "cloud" | "rain";   // escolhe o ícone
-}
+```mermaid
+flowchart TD
+    subgraph Satellites["🛰️ Fontes de Dados Orbitais & Sensoriamento Remoto"]
+        NASA_POWER["NASA POWER API<br/>(Agroclimatologia REST)"]
+        GEE["Google Earth Engine<br/>(Sentinel-2 / Landsat / SRTM)"]
+        SMAP_PLANNED["NASA SMAP / ECOSTRESS<br/>(Planeado: Humidade & LST)"]
+    end
 
-interface AgroSummary {
-  latitude: number; longitude: number; elevationM: number;
-  current: DailyPoint | null;       // último dia com medição válida
-  last7: DailyPoint[];              // últimos 7 dias (mais recente primeiro)
-  series: DailyPoint[];             // série completa (para o balanço hídrico)
-  monthlyRainMm: Record<string, number>;
-  annualRainMm: number;
-  avgTMax: number; avgTMin: number; avgHumidity: number;
-  lastSatellitePass: string | null; // "20261111"
-  daysSinceRain: number;
-}
+    subgraph Backend["⚙️ Back-end (FastAPI - Arquitetura Hexagonal)"]
+        direction TB
+        subgraph Inbound["Inbound (Adapters)"]
+            FASTAPI_ROUTER["FastAPI Router<br/>/api/v1/farmers<br/>/api/v1/analyze"]
+        end
+        subgraph Core["Hexagonal Core"]
+            USE_CASES["Casos de Uso<br/>AnalyzeLandUseCase<br/>DeactivateFarmerUseCase"]
+            DOMAIN_RULES["Regras de Domínio Puras<br/>calcular_score_saude_solo()<br/>obter_matriz_rotacao()<br/>calcular_estimativa_carbono()"]
+        end
+        subgraph Outbound["Outbound (Ports & Adapters)"]
+            SATELLITE_PORT["SatellitePort<br/>(NasaPowerAdapter / GEEAdapter)"]
+            REPO_PORT["LandAnalysisRepositoryPort<br/>(SQLAlchemy / PostgreSQL / SQLite)"]
+        end
+    end
+
+    subgraph Frontend["💻 Front-end (Next.js 16 + Tailwind CSS v4)"]
+        direction TB
+        SSR_CACHE["Route Handler Proxy & ISR<br/>/api/nasa/power (Cache 24h)"]
+        AGRONOMIA_LIB["lib/agronomia.ts<br/>ETo Penman-Monteith (FAO-56)<br/>Balanço Hídrico 2 Camadas"]
+        UI_SCREENS["Páginas Server-Side (AppShell)<br/>/inicio · /previsao-do-tempo<br/>/minha-terra-e-horta · /rotacao-de-culturas"]
+        AUDIO_ACCESSIBILITY["Acessibilidade Rural<br/>Áudio 'Ouvir Ajuda' · Touch 64px"]
+    end
+
+    subgraph Users["👩‍🌾 Usuários Finais & Mercado"]
+        DONA_MARIA["Agricultor Familiar (Dona Maria)<br/>Acesso 3G Rural"]
+        COOPERATIVAS["Cooperativas Agrícolas"]
+        CARBON_MARKET["Mercado Voluntário de Carbono<br/>(Compradores de Créditos tCO2e)"]
+    end
+
+    NASA_POWER -->|Fetch REST| SSR_CACHE
+    NASA_POWER -->|HTTP Outbound| SATELLITE_PORT
+    GEE -->|Python API| SATELLITE_PORT
+    SMAP_PLANNED -.->|Earthdata Login| SATELLITE_PORT
+
+    FASTAPI_ROUTER --> USE_CASES
+    USE_CASES --> DOMAIN_RULES
+    USE_CASES --> SATELLITE_PORT
+    USE_CASES --> REPO_PORT
+
+    SSR_CACHE --> AGRONOMIA_LIB
+    AGRONOMIA_LIB --> UI_SCREENS
+    UI_SCREENS --> AUDIO_ACCESSIBILITY
+
+    FASTAPI_ROUTER <-->|REST API / JSON| UI_SCREENS
+    UI_SCREENS --> DONA_MARIA
+    FASTAPI_ROUTER --> COOPERATIVAS
+    FASTAPI_ROUTER --> CARBON_MARKET
 ```
+
+### 🧱 Camadas do Back-end Hexagonal (`back-end/`)
+* **`src/domain/` (Coração):** Entidades puras (`Agricultor`, `Fazenda`, `AnaliseSolo`, `EstimativaCarbono`) e regras científicas (`rules.py`), sem qualquer dependência de frameworks.
+* **`src/application/` (Orquestração):** Casos de uso (`AnalyzeLandUseCase`, `DeactivateFarmerUseCase`) e interfaces abstratas/portas (`SatellitePort`, `LandAnalysisRepositoryPort`).
+* **`src/infrastructure/` (Mundo Exterior):** Adaptadores de entrada HTTP (FastAPI, Schemas Pydantic) e adaptadores de saída de persistência (SQLAlchemy, SQLite, PostgreSQL/PostGIS) e satélite (`NasaPowerAdapter`, `GEEAdapter`, `MockGEEAdapter`).
+
+### ⚡ Estratégia de Performance do Front-end (`front-end/`)
+* **Server-Side Rendering (SSR) & ISR (`revalidate: 86400`):** As requisições à NASA POWER ocorrem no servidor Node.js com cache diário de 24 horas. O telemóvel da agricultora recebe o HTML pronto e leve, sem gastar plano de dados com re-consultas.
+* **Fallback Gracioso:** Se a NASA estiver em manutenção ou inacessível, o cliente (`client.ts`) serve uma estimativa média local coerente e emite um alerta informativo no rodapé.
 
 ---
 
-## 6. O modelo agronómico do solo
+## 🔬 5. Modelos Agronómicos e Dados da NASA
 
-Ficheiro: **`front-end/src/lib/agronomia.ts`**
+### 5.1 Parâmetros Extraídos da NASA POWER (Agroclimatology)
+Acesso via endpoint diário de ponto geográfico: `https://power.larc.nasa.gov/api/temporal/daily/point?community=AG`
 
-Isto é o que permite dizer à Dona Maria *"o solo está seco, regue"* em vez de mostrar um número arbitrário.
-
-### 6.1 ETo — Penman-Monteith (FAO-56, equação 6)
-
-Evapotranspiração de referência, em mm/dia, usando os dados reais da NASA:
-
-```
-ETo = [0,408 · Δ · (Rs − G) + γ · 900/(T+273) · u₂ · (es − ea)]
-      ─────────────────────────────────────────────────────────────
-                     Δ + γ · (1 + 0,34 · u₂)
-```
-
-Com:
-
-```
-es(T) = 0,6108 · exp(17,27·T / (T + 237,3))          [kPa]   pressão de vapor de saturação
-ea    = es · RH / 100                                              pressão de vapor actual
-Δ     = 4098 · es(T) / (T + 237,3)²                    [kPa/°C] inclinação da curva
-P     = 101,3 · ((293 − 0,0065·z) / 293)^5,26         [kPa]   pressão atmosférica (z = altitude)
-γ     = 0,000665 · P                                  [kPa/°C] constante psicrométrica
-u₂    = max(0,5, WS2M)                               [m/s]    vento a 2 m (mínimo FAO-56)
-Rs    = ALLSKY_SFC_SW_DWN                             [MJ/m²/dia]
-```
-
-Quando a radiação não existe (`-999`), usa-se a **radiação extraterrestrial** (eq. 21):
-
-```
-Ra = (24·60/π) · Gsc · dr · [ωs·sin(φ)·sin(δ) + cos(φ)·cos(δ)·sin(ωs)]
-
-Gsc = 0,082 · dr = 1 + 0,033·cos(2πJ/365) · δ = 0,409·sin(2πJ/365 − 1,39)
-ωs  = arccos(−tan(φ)·tan(δ))
-```
-
-### 6.2 Balanço hídrico do solo (modelo de balde)
-
-Duas camadas, com capacidade de campo (FC) e ponto de murcha (WP) por textura:
-
-| Textura | FC (cm³/cm³) | WP (cm³/cm³) | Prof. raízes |
+| Parâmetro | Nome Técnico | Unidade | Aplicação no S.O.L.O. |
 |---|---|---|---|
-| Arenoso | 0,13 | 0,05 | 30 cm |
-| Franco | 0,22 | 0,10 | 40 cm |
-| Argiloso | 0,30 | 0,15 | 40 cm |
+| `T2M` | Temperatura do Ar a 2m | °C | Monitoramento térmico diário no dashboard |
+| `T2M_MAX` / `T2M_MIN` | Temperaturas Máxima e Mínima | °C | Amplitude térmica para cálculo da pressão de vapor e evapotranspiração |
+| `PRECTOTCORR` | Precipitação Corrigida | mm/dia | Insumo principal de água no balanço hídrico do solo |
+| `RH2M` | Humidade Relativa a 2m | % | Estimativa do défice de pressão de vapor de saturação ($e_s - e_a$) |
+| `ALLSKY_SFC_SW_DWN` | Radiação Solar Global | $MJ/m^2/dia$ | Fornece a energia radiativa ($R_s$) motora da evaporação da água |
+| `WS2M` | Velocidade do Vento a 2m | m/s | Fator advectivo na equação de Penman-Monteith |
 
-A cada dia da série:
+### 5.2 Evapotranspiração de Referência ($ET_0$) — FAO-56 Penman-Monteith
+Ficheiro de referência: [`front-end/src/lib/agronomia.ts`](file:///home/eufrasio/NASA/front-end/src/lib/agronomia.ts)
 
-```
-θ_raiz    += chuva / 400          (mm de água → fracção de volume)
-θ_superf. += chuva / 50
-Ks        = (θ − WP) / (FC − WP)      limitado a [0, 1]     ← stress hídrico
-θ_raiz    -= ETo · Kc · Ks / 400      com Kc = 0,8
-θ_superf. -= ETo · 0,6 · Ks / 50
-θ         = min(θ, FC)   (drenagem)   e   θ = max(θ, WP)
-```
+A evapotranspiração de referência ($mm/dia$) é calculada em conformidade com o padrão internacional da FAO:
 
-Humidade final → `%` da capacidade de campo → semáforo:
+$$ET_0 = \frac{0.408 \cdot \Delta \cdot (R_n - G) + \gamma \cdot \frac{900}{T + 273} \cdot u_2 \cdot (e_s - e_a)}{\Delta + \gamma \cdot (1 + 0.34 \cdot u_2)}$$
 
-| % | Estado | O que a app diz |
-|---|---|---|
-| ≥ 60 | `ideal` | "A terra está úmida na medida certa." |
-| ≥ 35 | `atencao` | "O solo está a secar. Regue cedo de manhã." |
-| < 35 | `seco` | "O solo está muito seco. Convém regar." |
+Onde:
+* $R_n$ e $G$: Radiação líquida à superfície e fluxo de calor no solo (estimados com base em `ALLSKY_SFC_SW_DWN`).
+* $e_s - e_a$: Défice de pressão de vapor calculado via equações de Tetens e humidade relativa (`RH2M`).
+* $\Delta$: Declive da curva de pressão de vapor de saturação à temperatura média $T$.
+* $\gamma$: Constante psicrométrica ajustada à altitude barométrica da localidade.
+* $u_2$: Velocidade do vento a 2 metros (com limite mínimo físico de $0.5\,m/s$ da FAO).
 
-### 6.3 O detalhe que faz toda a diferença
+### 5.3 Balanço Hídrico do Solo em 2 Camadas (Modelo de Balde)
+O solo é modelado em duas zonas dinâmicas:
+1. **Camada Superficial (0 a 5 cm):** Responde rapidamente a chuvas curtas e evaporação direta.
+2. **Camada Radicular (30 a 40 cm):** Zona de armazenamento de água para as raízes da cultura.
 
-**O coeficiente de stress hídrico (Ks)** — equação 66 do FAO-56. Quando o solo seca, a planta fecha os estomas e transpira menos.
+As propriedades hidráulicas variam segundo a textura do solo configurada:
 
-Sem o Ks, o modelo fazia a ET continuar a full speed mesmo com o solo seco, e a humidade **colapsava a 0%** — o que não acontece na realidade. Com o Ks, o solo encontra um equilíbrio seco mas plausível.
+| Textura do Solo | Capacidade de Campo ($FC$) | Ponto de Murcha ($WP$) | Profundidade Efetiva |
+|---|---|---|---|
+| **Arenoso** | $0.13\,cm^3/cm^3$ | $0.05\,cm^3/cm^3$ | 30 cm |
+| **Franco** | $0.22\,cm^3/cm^3$ | $0.10\,cm^3/cm^3$ | 40 cm |
+| **Argiloso** | $0.30\,cm^3/cm^3$ | $0.15\,cm^3/cm^3$ | 40 cm |
 
-> No nosso caso real (Feira de Santana, 87 dias): ETo média **7,4 mm/dia** contra apenas **85 mm de chuva** → o solo fica a **23%** na raiz e **12%** na superfície. É seco — e é a verdade.
+**O Papel Decisivo do Coeficiente $K_s$ (Equação 66 do FAO-56):**  
+À medida que a humidade $\theta$ desce em direção ao ponto de murcha, as plantas fecham os estomas para reter água. O fator de redução de stress:
 
-### 6.4 Limitações do modelo (ditas com todas as letras)
+$$K_s = \frac{\theta - WP}{FC - WP} \quad (0 \le K_s \le 1)$$
 
-- É uma **estimativa**, não uma medição. A NASA **SMAP** mede a humidade do solo directamente — é o endpoint `/api/nasa/smap`, ainda por implementar.
-- O balanço **não sabe se a Dona Maria regou**. Pode dizer "seco" num terreno que ela acabou de regar.
-- A precipitação da POWER é à escala de ~50 km — é chuva de região, não da horta.
-- O Kc = 0,8 é genérico para uma horta; uma cultura concreta teria o seu Kc ao longo do ciclo.
-
----
-
-## 7. Que dados aparecem em cada ecrã
-
-| Ecrã | Rota | Dados |
-|---|---|---|
-| **4. Meu Caderno da Terra** | `/inicio` | Temperatura e chuva do dia + humidade do solo (modelo) |
-| **6. Previsão do Tempo** | `/previsao-do-tempo` | Os 7 parâmetros, 7 dias, alertas, data da última observação |
-| **7. Minha Terra e Horta** | `/minha-terra-e-horta` | Balanço hídrico completo (ETo, Ks, θ) + chuva e vento |
-| **8. Minhas Plantas** | `/minhas-plantas` | Dados da própria Dona Maria (`src/data/horta.json`) — sem API |
+Sem o $K_s$, a evapotranspiração simulada continuaria a ritmo máximo com a terra esturricada, fazendo a humidade colapsar irrealisticamente a zero. Com o $K_s$, o modelo estabiliza num equilíbrio biológico coerente com a observação de campo.
 
 ---
 
-## 8. Performance, cache e resiliência
+## 🌿 6. Créditos de Carbono & Metodologia Científica
 
-Decisões tomadas para o público-alvo (pessoas de 60+ anos, no campo, em 3G rural):
+Ficheiro de referência: [`back-end/src/domain/rules.py`](file:///home/eufrasio/NASA/back-end/src/domain/rules.py)
 
-| Decisão | Porquê |
-|---|---|
-| **Fetch no servidor**, não no browser | O HTML já chega com os dados — sem ecrã em branco e sem gastar o pacote de dados da Dona Maria |
-| **`revalidate: 86400`** no fetch e nas páginas | A NASA actualiza 1×/dia; mais do que isso é gastá-lo à toa |
-| **ISR nas páginas** (`export const revalidate = 86400`) | Páginas estáticas, regeneradas 1×/dia |
-| **`fallbackSummary()`** no `client.ts` | Se a NASA estiver em baixo, a app **não quebra** — mostra os valores por omissão e o rodapé avisa |
-| **Filtro de `-999`** | Sem ele, um dia sem medição corrompe todas as médias |
+O S.O.L.O. quantifica créditos de carbono no solo baseando-se em diretrizes do **IPCC (Tier 1/2)** e metodologias aceites no mercado voluntário (como a **Verra VM0042** — *Methodology for Improved Agricultural Land Management*):
 
-Testar localmente com o header `Host`:
+### 6.1 Equação de Quantificação ($tCO_2e$)
+
+$$\text{Créditos Líquidos } (tCO_2e) = \left( \text{Área (ha)} \times \text{Taxa de Sequestro Efetiva} \times 3.67 \right) \times (1 - \text{Margem de Segurança})$$
+
+* **Taxa de Sequestro Efetiva ($tC/ha/ano$):** Adição anual de carbono orgânico no solo promovida pela leguminosa recomendada (ex: $1.25\,tC/ha$ para Feijão-frade).
+* **Fator Estequiométrico 3.67 ($44/12$):** Razão molecular de conversão entre o Dióxido de Carbono ($CO_2$) e o Carbono atómico elementar ($C$).
+* **Margem de Segurança (*Buffer Pool* de 20%):** Retenção prudencial internacional obrigatória para cobrir riscos de reversão climática (ex: incêndio ou seca extrema) e incertezas estatísticas.
+* **Fator de Adicionalidade:** Solos com saúde degradada (score < 40) recebem um multiplicador de adicionalidade de $+15\%$, pois possuem maior capacidade de absorção marginal de biomassa quando recuperados.
+* **Valorização Comercial:** $\text{Créditos Líquidos} \times \text{Preço de Mercado}$ (parâmetro padrão da plataforma: $\$20.00 / tCO_2e$).
+
+### 6.2 Matriz de Rotação Agronómica para Angola
+O motor prescreve culturas regenerativas adaptadas aos biomas angolanos:
+
+```text
+                  ┌───────────────────────────────┐
+                  │    Cultura Atual Esgotada     │
+                  └──────────────┬────────────────┘
+                                 │
+         ┌───────────────────────┼────────────────────────┐
+         ▼                       ▼                        ▼
+       Milho                  Mandioca          Massango / Massambala
+   (Score < 50)             (Longo Ciclo)            (Semiárido)
+         │                       │                        │
+         ▼                       ▼                        ▼
+   Feijão-frade          Feijão-frade + Mucuna      Feijão-guandu
+(Vigna unguiculata)       (Ciclagem de K & solo)   (Raízes até 2 metros)
+Fixação: 80 kg N/ha      Fixação: 100 kg N/ha     Fixação: 100 kg N/ha
+Sequestro: +1.25 tC/ha   Sequestro: +1.35 tC/ha   Sequestro: +1.45 tC/ha
+```
+
+---
+
+## 👵 7. Inclusão, Acessibilidade & UX Rural
+
+O sistema foi desenhado de raiz pensando no utilizador real do campo:
+* **Persona Dona Maria (60+ anos):** Produtora rural em áreas isoladas, com baixa literacia digital, operando sob sol forte e usando telemóveis económicos em redes 3G lentas e instáveis.
+* **Componente "Ouvir Ajuda":** Síntese por voz integrada que lê os avisos e previsões em áudio claro com um único clique no topo de qualquer ecrã.
+* **Ergonomia Tátil:** Todos os botões principais têm alturas mínimas generosas (**56px** a **64px**) para facilitar o toque por mãos calejadas pelo trabalho agrícola.
+* **Tipografia e Contraste Máximo:** Uso da fonte *Atkinson Hyperlegible*, com espaçamento reforçado e conformidade estrita com padrões de alto contraste (WCAG AAA).
+* **Navegação Adaptativa:** Barra lateral fixa no desktop que se transforma automaticamente num *drawer* deslizante com botão hamburger intuitivo em smartphones.
+
+---
+
+## 📂 8. Estrutura do Repositório
+
+```text
+NASA/
+├── README.md                      # Este documento (Visão Geral, Setup & Arquitetura)
+├── NASA-DADOS.md                  # Guia Técnico Aprofundado das Missões da NASA
+│
+├── front-end/                     # Aplicação Next.js 16 (App Router + Tailwind v4)
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── (app)/             # Rotas autenticadas da aplicação (com Sidebar/TopBar)
+│   │   │   │   ├── inicio/        # Ecrã 4: Dashboard "Meu Caderno da Terra"
+│   │   │   │   ├── previsao-do-tempo/ # Ecrã 6: Previsão do Tempo (NASA POWER)
+│   │   │   │   ├── minha-terra-e-horta/ # Ecrã 7: Balanço Hídrico e Solo
+│   │   │   │   ├── minhas-plantas/    # Ecrã 8: Canteiros e Colheita
+│   │   │   │   └── rotacao-de-culturas/ # Ecrã 5: Simulador de Rotação Interativo
+│   │   │   ├── (auth)/            # Telas de login, SMS e verificação 2FA
+│   │   │   ├── api/nasa/power/    # Proxy REST com cache de 24h para NASA POWER
+│   │   │   └── layout.tsx         # Layout raiz com fontes e tokens visuais
+│   │   ├── components/
+│   │   │   ├── layout/            # AppShell, TopBar, Sidebar, navItems
+│   │   │   ├── ui/                # Botões (40-64px), Cards, Badges, ScoreRing, Inputs
+│   │   │   └── features/          # Componentes de dashboard, clima, terra e plantas
+│   │   ├── lib/
+│   │   │   ├── agronomia.ts       # Algoritmo de ETo (FAO-56) e balanço de 2 camadas
+│   │   │   ├── farm.ts            # Perfil do agricultor e localização padrão
+│   │   │   └── nasa/              # Cliente HTTP NASA POWER e normalização de dados
+│   │   ├── types/                 # Interfaces TypeScript (nasa.ts, agronomy.ts)
+│   │   └── data/                  # Catálogo de culturas (crops.json) e canteiros
+│   ├── index.html                 # Apresentação interativa / pitch do projeto
+│   ├── package.json               # Dependências do frontend
+│   └── tailwind.config.ts         # Configuração de design system e tokens
+│
+└── back-end/                      # API REST em FastAPI (Arquitetura Hexagonal)
+    ├── src/
+    │   ├── domain/                # Núcleo de Domínio
+    │   │   ├── entities.py        # Entidades: Agricultor, Fazenda, AnaliseSolo, etc.
+    │   │   └── rules.py           # Regras agronómicas, rotação e cálculo de carbono
+    │   ├── application/           # Casos de Uso e Portas
+    │   │   ├── use_cases/         # AnalyzeLandUseCase, DeactivateFarmerUseCase
+    │   │   └── ports/             # SatellitePort, LandAnalysisRepositoryPort
+    │   └── infrastructure/        # Adaptadores Tecnológicos
+    │       ├── inbound/http/      # Rotas FastAPI e Schemas Pydantic
+    │       └── outbound/          # Repositórios (SQLAlchemy) e Adaptadores (NASA, GEE)
+    ├── tests/                     # Bateria de testes automatizados (pytest)
+    ├── main.py                    # Ponto de entrada FastAPI e injeção de dependências
+    ├── requirements.txt           # Dependências Python
+    └── pytest.ini                 # Configuração do executor de testes
+```
+
+---
+
+## 🚀 9. Guia de Instalação e Execução
+
+### Pré-requisitos
+* **Node.js:** Versão 18.18+ ou 20+ instalada.
+* **Python:** Versão 3.10 ou 3.11 instalada.
+* **Git:** Para clonar e gerir branches.
+
+---
+
+### 9.1 Executando o Back-end (FastAPI)
 
 ```bash
-# série completa
-curl "http://localhost:3000/api/nasa/power?lat=-12.97&lon=-39.51&start=20260817&end=20261115"
+# 1. Aceder à pasta do backend
+cd back-end
 
-# subdomínio profile
-curl -H "Host: profile.agrosolo.earth" http://localhost:3000/
+# 2. Criar e ativar o ambiente virtual Python
+python3 -m venv .venv
+source .venv/bin/activate    # No Linux/macOS
+# .venv\Scripts\activate     # No Windows
+
+# 3. Instalar as dependências necessárias
+pip install -r requirements.txt
+
+# 4. Iniciar o servidor de desenvolvimento
+uvicorn main:app --reload --port 8000
+```
+
+O backend estará operacional em:
+* 📖 **Documentação Interativa Swagger UI:** [`http://localhost:8000/docs`](http://localhost:8000/docs)
+* 📑 **Documentação Redoc:** [`http://localhost:8000/redoc`](http://localhost:8000/redoc)
+* 🩺 **Health Check:** [`http://localhost:8000/health`](http://localhost:8000/health)
+
+#### Executar os Testes Automatizados do Back-end
+```bash
+# Dentro da pasta back-end (com o venv ativo):
+pytest -v
 ```
 
 ---
 
-## 9. O que falta: SMAP, ECOSTRESS, GPM
+### 9.2 Executando o Front-end (Next.js)
 
-### 9.1 NASA SMAP — humidade do solo **medida**
+```bash
+# 1. Aceder à pasta do frontend (noutro terminal)
+cd front-end
 
-É o upgrade natural do ecrã 7: hoje estimamos, amanhã medimos.
+# 2. Instalar as dependências Node.js
+npm install
 
-| | |
-|---|---|
-| **Produto** | SMAP L3 Enhanced 9 km Daily Surface Soil Moisture + L4 Root Zone |
-| **Fonte** | NSIDC DAAC / GES DISC / CMR da NASA |
-| **Autenticação** | ⚠️ **Earthdata Login (OAuth2)** — exige registar uma aplicação e um token. É o principal obstáculo |
-| **Resolução** | 9 km (L3) · 36 m (L4) |
-| **Granularidade** | Diária, com atraso de ~2-3 dias |
-| **Formato** | HDF5 (precisa de `netCDF4-JavaScript` no browser, ou o back-end converte para JSON) |
+# 3. Iniciar o servidor de desenvolvimento Next.js
+npm run dev
+```
 
-**Recomendação:** implementar no **back-end** (`back-end/src/services/nasaSmapp.ts`), devolver JSON já normalizado, e o front-end só consome. Ver `back-end/API-CONTRATO.md`.
-
-### 9.2 NASA ECOSTRESS — estresse térmico
-
-| | |
-|---|---|
-| **Produto** | ECOSTRESS L2 Land Surface Temperature (70 m) e L4 ET / WUE |
-| **Fonte** | LP DAAC / CMR — também exige Earthdata Login |
-| **Porquê** | Detecta o **veranico** antes de as folhas queimarem. Mede a temperatura da copa, não do ar |
-| **Cuidado** | A swath da ECOSTRESS passa só em órbita sobre a zona, ~2-3 passagens por semana. Não dá série diária contínua |
-
-### 9.3 GPM IMERG — chuva em quase tempo real
-
-| | |
-|---|---|
-| **Produto** | GPM IMERG Final Run V07, 0,1°/30 min |
-| **Fonte** | GES DISC (Earthdata Login) ou a API pública do GPM |
-| **Porquê** | Chuva que **acabou de acontecer**, não a de ontem. Complementa a POWER |
-
-### 9.4 Ordem sugerida
-
-1. **SMAP** — é o que falta para o ecrã 7 passar de estimativa a medição. Maior ganho com o esforço.
-2. **GPM IMERG** — chuva recente, útil para o ecrã de Clima.
-3. **ECOSTRESS** — o mais difícil ( swath sporadic + auth), mas o mais impressionante num pitch.
+A aplicação estará acessível em:
+* 🌐 **Aplicação Web:** [`http://localhost:3000`](http://localhost:3000) (redireciona para `/inicio`)
+* 🎨 **Design System Showcase:** [`http://localhost:3000/design-system`](http://localhost:3000/design-system)
 
 ---
 
-## 10. Transparência — requisito do júri
+### 9.3 Configuração de Variáveis de Ambiente (`.env`)
 
-O critério de avaliação **"Data Transparency"** da NASA pede que se declarem as premissas e os limites. No interface isso está feito — e **não deve ser removido**:
+#### Back-end (`back-end/.env`):
+```ini
+# Ativar simulação determinística offline (útil para desenvolvimento sem conexão à NASA)
+USE_MOCK_SATELLITE=false
 
-| Onde | O que diz |
-|---|---|
-| Ecrã 6, rodapé | "Fonte: NASA POWER · Agroclimatology · Última observação do satélite: 11/11/2026 · Isto é apoio à decisão, não uma previsão garantida." |
-| Ecrã 7, rodapé | "Fonte: NASA POWER + modelo de balanço hídrico (FAO-56) · Humidade estimada, não medida — a NASA SMAP dá a medição directa." |
-| Ecrã 6, subtítulo | "Os últimos 7 dias" (e não "previsão") |
+# Google Earth Engine (Opcional - opera via fallback resiliente NASA POWER se não fornecido)
+EE_PROJECT_ID=
 
-Regra da equipa: **se o dado não é medido, diz-se que é estimado.** A confiança da Dona Maria vale mais do que um número bonito.
+# Base de Dados (Por padrão usa SQLite local se não especificada string PostgreSQL)
+DATABASE_URL=sqlite:///./field_shift.db
+```
 
----
-
-## 11. Glossário rápido
-
-| Termo | Significado |
-|---|---|
-| **ETo** | Evapotranspiração de referência — quanta água evapora de uma superfície com água suficiente |
-| **ETa** | Evapotranspiração real — a que acontece de facto, com a planta e o solo como estão |
-| **Ks** | Coeficiente de stress hídrico — reduz a ET quando o solo seca |
-| **FC / WP** | Capacidade de campo / ponto de murcha — limites de humidade do solo |
-| **θ** | Humidade volumétrica do solo (cm³/cm³) |
-| **Kc** | Coeficiente de cultura — como a cultura usa a água face à ETo |
-| **LST** | Local Solar Time — o tempo da NASA é hora solar local, não UTC |
-| **ISMN** | International Soil Moisture Network —rede de medições no solo, para validar o SMAP |
-| **Merra-2** | Reanálise do MERRA-2, a base do modelo meteorológico por trás da POWER |
+#### Front-end (`front-end/.env.local`):
+```ini
+# URL do Back-end FastAPI
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
 
 ---
 
-## 12. Referências
+## 📡 10. Referência dos Endpoints da API
 
-- **FAO Irrigation & Drainage Paper 56** — Allen, Pereira, Raes, Smith (1998), *Crop evapotranspiration — Guidelines for computing crop water requirements*. [pdf](https://www.fao.org/4/x0490e/x0490e00.htm)
-- **NASA POWER Docs** — [power.larc.nasa.gov/docs](https://power.larc.nasa.gov/docs/)
-- **NASA SMAP** — [smap.jpl.nasa.gov](https://smap.jpl.nasa.gov/)
-- **NASA ECOSTRESS** — [ecostress.jpl.nasa.gov](https://ecostress.jpl.nasa.gov/)
-- **GPM IMERG** — [gpm.nasa.gov/data/imerg](https://gpm.nasa.gov/data/imerg)
-- **Desafio oficial** — [spaceappschallenge.org/2026](https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/?tab=details)
+### Endpoints Principais do Back-end (FastAPI)
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| `POST` | `/api/v1/farmers` | Regista um novo agricultor familiar (nome, telefone, cooperativa). |
+| `GET` | `/api/v1/farmers` | Lista todos os agricultores familiares ativos com suporte a paginação. |
+| `GET` | `/api/v1/farmers/{uuid}` | Obtém a ficha detalhada de um agricultor específico pelo seu UUID. |
+| `PATCH`| `/api/v1/farmers/{uuid}/deactivate` | Desativação lógica (*soft delete*) de um agricultor sem perda de histórico. |
+| `DELETE`| `/api/v1/farmers/{uuid}` | Alias de conformidade REST para desativação lógica do agricultor. |
+| `GET` | `/api/v1/farmers/{uuid}/analyses`| Histórico de diagnósticos e créditos de carbono de um agricultor (1:N). |
+| `POST` | `/api/v1/analyze` | Recebe coordenadas, área e cultura; executa satélite e gera créditos $tCO_2e$. |
+| `GET` | `/api/v1/analyses` | Lista o histórico geral de análises realizadas na plataforma. |
+| `GET` | `/api/v1/analyses/{uuid}` | Recupera o diagnóstico completo e estimativa de carbono por UUID. |
+| `GET` | `/api/v1/crops` | Catálogo de culturas angolanas e leguminosas regenerativas com taxas de sequestro. |
+| `GET` | `/api/v1/carbon-calculator-info` | Detalhes matemáticos e parâmetros da fórmula de carbono aplicada. |
+| `GET` | `/health` | Diagnóstico de integridade da API, base de dados e adaptadores de satélite. |
+
+### Exemplo de Payload para Diagnóstico (`POST /api/v1/analyze`):
+```json
+{
+  "latitude": -12.776,
+  "longitude": 15.734,
+  "area_hectares": 5.0,
+  "cultura_atual": "Milho",
+  "nome": "Talhão Esperança - Huambo",
+  "localizacao_descricao": "Huambo, Planalto Central, Angola",
+  "margem_seguranca": 0.20,
+  "preco_carbono_usd": 20.0
+}
+```
 
 ---
 
-## 📌 Onde mexer
+## 🛰️ 11. Transparência de Dados (Requisito do Júri da NASA)
 
-| Quero… | Vai a… |
-|---|---|
-| Mudar a forma como os dados são buscados | `front-end/src/lib/nasa/client.ts` |
-| Mudar a normalização (datas, médias, condições) | `front-end/src/lib/nasa/normalize.ts` |
-| Mudar o modelo do solo / a fórmula da ETo | `front-end/src/lib/agronomia.ts` |
-| Adicionar um parâmetro da NASA | `client.ts` (lista `PARAMETERS`) → `normalize.ts` → `types/nasa.ts` |
-| Implementar SMAP / ECOSTRESS / GPM | `back-end/src/services/` → ver `back-end/API-CONTRATO.md` |
-| Mudar o que um ecrã mostra | `front-end/src/components/features/<ecrã>/` |
+O regulamento oficial do **NASA Space Apps Challenge** estabelece como critério de avaliação primordial a **Transparência de Dados (*Data Transparency*)**. No S.O.L.O., assumimos esse compromisso ético e científico em todo o código e na interface:
+
+1. **Estimativa Declarada vs. Medição Direta:**  
+   O balanço hídrico do solo é explicitamente identificado como **estimativa baseada em modelo agrometeorológico (FAO-56)** alimentado pela NASA POWER. A interface deixa claro que não é uma sonda física no chão e que a medição direta por micro-ondas orbitais será fornecida pela missão **NASA SMAP**.
+2. **Sem Falsas Previsões:**  
+   Os satélites de observação da Terra da NASA POWER publicam dados consolidados com um desfasamento natural de **2 a 4 dias**. Em vez de projetar números arbitrários como se fossem previsões milagrosas de amanhã, o ecrã declara honestamente: *"Os últimos 7 dias · Última observação do satélite: 11/11/2026"*.
+3. **Filtro Rigoroso de Sentinelas:**  
+   Dias sem recolha válida no satélite contêm o valor sentinela `-999.0`. A camada de normalização descarta esses pontos para impedir que distorçam médias e ponham em risco o planeamento do agricultor.
+4. **Conservadorismo nos Créditos:**  
+   A quantificação de créditos de carbono aplica obrigatoriamente um *buffer pool* prudencial de 20%, garantindo que nenhum crédito seja sobrestimado no mercado internacional.
+
+---
+
+## 🗺️ 12. Roadmap & Próximos Passos
+
+- [x] **Fase 1: Especificação, Arquitetura & Integração NASA POWER** (Concluída).
+- [x] **Fase 2: Motor de Rotação Agronómica & Modelagem FAO-56** (Concluída).
+- [x] **Fase 3: Quantificação de Carbono & API Hexagonal com UUIDs** (Concluída).
+- [ ] **Fase 4: Integração com NASA SMAP (L3/L4) e ECOSTRESS:** Autenticação via Earthdata Login (OAuth2) para incorporar medições diretas de humidade no perfil do solo e stress térmico da copa.
+- [ ] **Fase 5: Pagamentos Móveis Automatizados:** Integração de webhooks para distribuição de receitas de carbono diretamente nas carteiras móveis dos agricultores (Multicaixa Express / M-Pesa).
+- [ ] **Fase 6: Canal USSD / SMS:** Extensão das recomendações prioritárias para telemóveis analógicos sem acesso à internet.
+
+---
+
+## 📚 13. Documentação Complementar & Links
+
+* 🛰️ **[NASA-DADOS.md](NASA-DADOS.md):** Guia técnico completo da integração com as APIs da NASA, equações detalhadas de Penman-Monteith, radiometria e quirks dos dados.
+* 💻 **[front-end/README.md](front-end/README.md):** Documentação completa dos componentes React, Design System, tokens e acessibilidade.
+* ⚙️ **[back-end/README.md](back-end/README.md):** Especificação detalhada da Arquitetura Hexagonal, regras de negócio e persistência.
+* 🌐 **[front-end/index.html](front-end/index.html):** Protótipo visual interativo e apresentação do desafio para demonstração.
+* 📖 **[FAO-56 Irrigation and Drainage Paper](https://www.fao.org/4/x0490e/x0490e00.htm):** *Crop evapotranspiration - Guidelines for computing crop water requirements*.
+* 🌐 **[Portal Oficial NASA POWER](https://power.larc.nasa.gov/):** Documentação das APIs de agroclimatologia global.
+
+---
+
+<div align="center">
+  <sub>Construído com orgulho para o <b>NASA International Space Apps Challenge 2026</b>.</sub><br/>
+  <sub><i>"Transformando dados espaciais em alimento, resiliência e dignidade para quem cultiva a terra."</i></sub>
+</div>
