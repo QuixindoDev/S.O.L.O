@@ -337,7 +337,7 @@ export default function DesignSystemPage() {
                 </span>
               </div>
               <div className="flex h-[640px] justify-center bg-bg">
-                <Sidebar activeHref="/rotacao" />
+                <Sidebar activeHref="/rotacao-de-culturas" />
               </div>
             </Card>
 
@@ -360,7 +360,7 @@ export default function DesignSystemPage() {
                 </span>
               </div>
               <div className="flex h-[640px] justify-start bg-bg">
-                <Sidebar isDrawer activeHref="/clima" />
+                <Sidebar isDrawer activeHref="/previsao-do-tempo" />
               </div>
             </Card>
           </div>
