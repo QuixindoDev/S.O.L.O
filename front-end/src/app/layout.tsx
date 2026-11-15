@@ -32,6 +32,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
+<<<<<<< HEAD:front-end/src/app/layout.tsx
     <html
       lang="pt-BR"
       className={`${atkinson.variable} scroll-smooth`}
@@ -47,6 +48,10 @@ export default function RootLayout({
       >
         {children}
       </body>
+=======
+    <html lang="pt-PT" className={`${atkinson.variable} scroll-smooth`}>
+      <body className="bg-bg text-text-primary antialiased">{children}</body>
+>>>>>>> c7ff2d66 (feat(auth): implementa os 4 ecranas de autenticacao do design):src/app/layout.tsx
     </html>
   );
 }

@@ -38,7 +38,7 @@ export interface SimulationResult {
   climateResilienceScore: number; // 0 - 100%
   estimatedWaterSavedLitersM2: number;
   estimatedNitrogenBalanceKgHa: number;
-  resilienceRating: "Excelente" | "Atenção ao Estresse Hídrico" | "Alto Risco de Quebra";
+  resilienceRating: "Excelente" | "Atenção ao Stresse Hídrico" | "Alto Risco de Quebra";
   naturalLanguageAdvice: string;
   monthlyCropEvapotranspirationMm: number[];
 }

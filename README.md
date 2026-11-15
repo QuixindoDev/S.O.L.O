@@ -49,8 +49,12 @@ O design de referência é o ficheiro **`login copy.pen`** (pen.dev) — cidade 
 ---
 =======
 > **Este é o guia principal para a divisão de tarefas.**
+<<<<<<< HEAD
 > O design completo das 12 telas está no ficheiro **`login copy.pen`** (pen.dev). Cada ecrã do design corresponde a **uma pasta/rota** indicada na tabela abaixo.
 >>>>>>> ad8ae9c7 (feat(i18n): localizar design e conteudo para portugues de Angola)
+=======
+> O design completo dos 12 ecrãs está no ficheiro **`login copy.pen`** (pen.dev). Cada ecrã do design corresponde a **uma pasta/rota** indicada na tabela abaixo.
+>>>>>>> c7ff2d66 (feat(auth): implementa os 4 ecranas de autenticacao do design)
 
 ## 📑 Table of Contents
 
@@ -85,6 +89,7 @@ S.O.L.O. fulfills two complementary, transformative missions:
 ## 🥊 2. The Problem vs. The Solution
 
 ```text
+<<<<<<< HEAD
 ┌────────────────────────────────────────────────────────┐
 │                      THE CHALLENGE                     │
 │  • Climate extremes and droughts break traditions.     │
@@ -100,6 +105,128 @@ S.O.L.O. fulfills two complementary, transformative missions:
 │  ✔ Satellite certification of Carbon Credits ($USD)    │
 │  ✔ Accessible UX (Audio Guidance, High Contrast, 3G)   │
 └────────────────────────────────────────────────────────┘
+=======
+src/
+├── app/
+│   ├── layout.tsx                    # Shell global: fonte Atkinson, metatags, <body>
+│   ├── globals.css                   # TOKENS DO DESIGN (fonte de verdade)
+│   ├── page.tsx                      # Landing / redirect → /entrar
+│   │
+│   ├── design-system/page.tsx        # Preview de todos os blocos de ui/
+│   │
+│   ├── (auth)/                       # Telas SEM barra lateral (login/cadastro)
+│   │   ├── layout.tsx                # Top Bar + conteúdo centrado
+│   │   ├── criar-conta/page.tsx      # Ecrã 1  — Criar Conta
+│   │   ├── entrar/page.tsx           # Ecrã 1B — Entrar
+│   │   ├── sms-enviado/page.tsx      # Ecrã 2  — SMS Enviado
+│   │   └── verificar/page.tsx        # Ecrã 3  — Código de Segurança (2FA)
+│   │
+│   ├── (app)/                        # Telas COM barra lateral (a app em si)
+│   │   ├── layout.tsx                # AppShell = <Sidebar/> + <TopBar/> + <main/>
+│   │   ├── inicio/page.tsx           # Ecrã 4  — Meu Caderno da Terra
+│   │   ├── clima/page.tsx            # Ecrã 6  — Previsão do Tempo   (NASA POWER)
+│   │   ├── terra/page.tsx            # Ecrã 7  — Minha Terra e Horta (NASA SMAP)
+│   │   ├── plantas/page.tsx          # Ecrã 8  — Minhas Plantas
+│   │   ├── rotacao/page.tsx          # Ecrã 5  — Rotação de Culturas (SIMULADOR)
+│   │   ├── plantio/page.tsx          # Ecrã 10 — Calendário de Plantio
+│   │   ├── contas/page.tsx           # Ecrã 9  — Meu Caderninho de Contas
+│   │   ├── agronoma/page.tsx         # Ecrã 11 — Falar com a Agrónoma (WhatsApp)
+│   │   └── ajuda/page.tsx            # Ecrã 12 — Ouvir Ajuda (áudio)
+│   │
+│   └── api/
+│       └── nasa/
+│           ├── power/route.ts        # Proxy + cache 24h para NASA POWER  ← TECH LEAD
+│           ├── smap/route.ts         # Humidade do solo (SMAP)            ← TECH LEAD
+│           └── ecoStress/route.ts    # Stresse térmico (ECOSTRESS)       ← TECH LEAD
+│
+├── components/
+│   ├── layout/                       # Estrutura da aplicação
+│   │   ├── Brand.tsx                 # Logo + "S.O.L.O. / Campo Amigo"
+│   │   ├── AuthTopBar.tsx            # Top Bar dos ecrãs de auth (sem sidebar)
+│   │   ├── Sidebar.tsx               # Barra lateral (component do design)
+│   │   ├── TopBar.tsx                # Cabeçalho com título + "Ouvir Ajuda"
+│   │   └── AppShell.tsx              # Junta Sidebar + TopBar + conteúdo
+│   │
+│   ├── ui/                           # Blocos reutilizáveis (SEM lógica de negócio)
+│   │   ├── Button.tsx                # Alturas: sm 40px | md 56px | lg 64px
+│   │   ├── Card.tsx                  # Variantes: default | soft
+│   │   ├── Field.tsx                 # Label + Input + Texto de ajuda
+│   │   ├── Input.tsx                 # Campo de texto 64px
+│   │   ├── CodeInputs.tsx            # Os 6 quadradinhos do código SMS
+│   │   ├── Callout.tsx               # Aviso | boa notícia | ajuda humana
+│   │   └── PhoneNotice.tsx           # "Mensagem enviada para +244 ..."
+│   │
+│   ├── charts/                       # Gráficos (Recharts)
+│   │   ├── WaterBalanceChart.tsx     # Chuva vs. Evapotranspiração
+│   │   ├── TemperatureChart.tsx      # Máx/mín + radiação
+│   │   └── ChartTooltip.tsx
+│   │
+│   └── features/                     # Componentes por domínio
+│       ├── auth/                     # Ecrãs 1, 1B, 2 e 3
+│       │   ├── AuthHero.tsx          # Ícone + título + frase de ajuda
+│       │   └── StepRow.tsx           # Passo numerado do guia "passo a passo"
+│       ├── dashboard/                # Ecrã 4
+│       │   ├── WeatherCard.tsx
+│       │   ├── GardenCard.tsx
+│       │   ├── TipsGrid.tsx
+│       │   └── QuickActions.tsx
+│       ├── clima/                    # Ecrã 6
+│       │   ├── TodaySummary.tsx
+│       │   ├── WeekForecast.tsx
+│       │   └── NasaAlerts.tsx
+│       ├── terra/                    # Ecrã 7
+│       │   ├── SoilGauge.tsx
+│       │   ├── PlotCard.tsx
+│       │   └── SoilActions.tsx
+│       ├── plantas/                  # Ecrã 8
+│       │   ├── PlantRow.tsx
+│       │   └── HarvestCard.tsx
+│       ├── rotacao/                  # Ecrã 5 (core)
+│       │   ├── PriorityPicker.tsx    # 4 cartões grandes
+│       │   ├── CycleCard.tsx         # 3 cartões de ciclo
+│       │   ├── RotationScoreboard.tsx
+│       │   └── RotationAdvice.tsx
+│       ├── plantio/                  # Ecrã 10
+│       │   ├── MonthCard.tsx
+│       │   └── TaskList.tsx
+│       ├── contas/                   # Ecrã 9
+│       │   ├── MoneySummary.tsx
+│       │   └── TransactionRow.tsx
+│       ├── agronoma/                 # Ecrã 11
+│       │   ├── ChatBubble.tsx
+│       │   └── QuickQuestions.tsx
+│       └── ajuda/                    # Ecrã 12
+│           ├── AudioPlayer.tsx
+│           ├── ListenSection.tsx
+│           └── SpeechPreferences.tsx
+│
+├── hooks/
+│   ├── useNasaAgro.ts                # Consome /api/nasa/power  ← TECH LEAD
+│   ├── useSimulator.ts               # Motor de scores da rotação ← TECH LEAD
+│   ├── useFarmProfile.ts             # Estado do perfil (localStorage)
+│   ├── useSpeech.ts                  # Text-to-Speech (áudio) ← TECH LEAD
+│   └── useOffline.ts                 # Cache local para uso sem rede
+│
+├── lib/
+│   ├── nasa/
+│   │   ├── client.ts                 # fetch + cache 24h + URL da NASA POWER
+│   │   └── normalize.ts              # Converte a resposta crua em AgroSummary
+│   ├── agronomia.ts                  # Fórmulas de balanço hídrico, ET0, GDD
+│   ├── scores.ts                     # Pesos por prioridade do produtor
+│   ├── format.ts                     # Datas, moeda (Kz), números em pt-Angola
+│   └── utils.ts                      # cn() — merge de classes Tailwind
+│
+├── types/
+│   ├── agronomy.ts                   # Culturas, solos, biomas, prioridades
+│   ├── nasa.ts                       # Contratos das respostas NASA
+│   └── ui.ts                         # Props dos componentes de ui/
+│
+└── data/
+    ├── crops.json                    # Matriz agronómica das culturas
+    ├── crops.ts                      # crops.json tipado + getCrop()
+    ├── biomes.json                   # Chuva de referência por bioma angolano
+    └── mock.ts                       # Dados de demonstração (do design .pen)
+>>>>>>> c7ff2d66 (feat(auth): implementa os 4 ecranas de autenticacao do design)
 ```
 
 <<<<<<< HEAD
@@ -110,11 +237,27 @@ S.O.L.O. fulfills two complementary, transformative missions:
 | Ecrã (`login copy.pen`) | Rota | Componentes principais |
 >>>>>>> ad8ae9c7 (feat(i18n): localizar design e conteudo para portugues de Angola)
 |---|---|---|
+<<<<<<< HEAD
 | **Climate Uncertainty** | Farmers rely on past seasonal memory that fails due to shifting climate patterns and erratic rainfalls. | **Daily NASA satellite observations** tracking surface temperature, accumulated precipitation, radiation, and a real 7-day retrospective series. |
 | **The Data Gap** | NetCDF, HDF5, and GeoTIFF scientific files are incomprehensible to non-technical rural producers. | **Direct agronomic translation**: Instead of showing `ALLSKY_SFC_SW_DWN = 20.78 MJ/m²`, S.O.L.O. advises: *"Intense solar radiation today; soil is drying fast, water early in the morning"*. |
 | **Soil Degradation & Monocropping** | Continuous maize or cassava monoculture depletes nitrogen, exhausts nutrients, and collapses water retention. | **Regenerative Rotation Simulator**: Recommends nitrogen-fixing legumes (*Vigna unguiculata*, *Arachis hypogaea*, *Cajanus cajan*) that replenish up to 80 kg N/ha without synthetic fertilizers. |
 | **Voluntary Carbon Market Access** | On-site soil sampling by international certifiers costs > \$20,000, completely out of reach for 1–10 ha family farms. | **Transparent remote sensing algorithm**: Computes net additional sequestered carbon ($tCO_2e$) with an international 20% risk buffer and values it at \$20/t. |
 | **Generational & Digital Divide** | Modern agritech apps use small fonts, dense jargon, tiny touch targets, and require high-speed 4G/5G connections. | **Rural-first Accessible Design**: Atkinson Hyperlegible typography, large 56–64px buttons, one-click voice reader (*"Listen to Help"*), and lightweight SSR pages that save mobile data. |
+=======
+| 1. Criar Conta | `/criar-conta` | `ui/Field`, `ui/Input`, `ui/Button`, `ui/Callout` |
+| 1-B. Entrar | `/entrar` | `ui/Field`, `ui/Input`, `ui/Button`, `ui/Callout` |
+| 2. SMS Enviado | `/sms-enviado` | `ui/Card`, `ui/PhoneNotice`, `features/auth/StepRow` |
+| 3. Código de Segurança | `/verificar` | `ui/Card`, `ui/CodeInputs`, `ui/Callout` |
+| 4. Meu Caderno da Terra | `/inicio` | `features/dashboard/*` |
+| 5. Rotação de Culturas | `/rotacao` | `features/rotacao/*` |
+| 6. Previsão do Tempo | `/clima` | `features/clima/*`, `charts/*` |
+| 7. Minha Terra e Horta | `/terra` | `features/terra/*` |
+| 8. Minhas Plantas | `/plantas` | `features/plantas/*` |
+| 9. Meu Caderninho | `/contas` | `features/contas/*` |
+| 10. Calendário de Plantio | `/plantio` | `features/plantio/*` |
+| 11. Falar com a Agrónoma | `/agronoma` | `features/agronoma/*` |
+| 12. Ouvir Ajuda | `/ajuda` | `features/ajuda/*` |
+>>>>>>> c7ff2d66 (feat(auth): implementa os 4 ecranas de autenticacao do design)
 
 ---
 
@@ -135,6 +278,7 @@ S.O.L.O. fulfills two complementary, transformative missions:
 * **Reference Evapotranspiration ($ET_0$):** Full Penman-Monteith (FAO-56) equation driven by NASA solar radiation, wind speed, temperature, and atmospheric humidity.
 * **Water Stress Factor ($K_s$):** Simulates plant stomatal closure as moisture declines, avoiding unrealistic mathematical drying collapses.
 
+<<<<<<< HEAD
 ### 🔄 4. Crop Rotation Simulator (`/rotacao-de-culturas`)
 * **Multi-Season Planning (Main Crop / Second Season / Cover):** Allows farmers to test crop sequences and view prospective impacts prior to planting.
 * **Real-time Agroecological Indicators:** Water efficiency score (0–100%), biological nitrogen balance ($kg\,N/ha$), drought resilience, and estimated water saved ($L/m^2$).
@@ -148,6 +292,29 @@ S.O.L.O. fulfills two complementary, transformative missions:
 * **Family Farmer Registry:** Onboards producers with mobile numbers for digital payouts (e.g., Multicaixa Express, M-Pesa) and cooperative affiliations.
 * **Automated Land Diagnosis:** Analyzes plot coordinates against long-term remote sensing and agroclimatic metrics.
 * **Auditable Carbon Valuation:** Applies the stoichiometric $CO_2/C$ conversion (3.67), international risk buffer retention (20%), and financial valuation in USD.
+=======
+| # | Tarefa | Onde |
+|---|---|---|
+| 1 | Blocos base (`ui/`) | `src/components/ui/` |
+| 2 | Estrutura (`Sidebar`, `TopBar`, `AppShell`) | `src/components/layout/` |
+| 3 | Ecrãs de autenticação (1, 1B, 2, 3) | `src/app/(auth)/` |
+| 4 | Dashboard "Meu Caderno da Terra" (4) | `src/app/(app)/inicio/` |
+| 5 | Simulador de Rotação (5) | `src/app/(app)/rotacao/` |
+| 6 | Previsão do Tempo (6) | `src/app/(app)/clima/` |
+| 7 | Terra e Horta (7) | `src/app/(app)/terra/` |
+| 8 | Plantas (8) | `src/app/(app)/plantas/` |
+| 9 | Caderninho (9) | `src/app/(app)/contas/` |
+| 10 | Calendário de Plantio (10) | `src/app/(app)/plantio/` |
+| 11 | Chat com a Agrónoma (11) | `src/app/(app)/agronoma/` |
+| 12 | Ouvir Ajuda (12) | `src/app/(app)/ajuda/` |
+| 13 | Gráficos | `src/components/charts/` |
+| 14 | Responsividade mobile (360px → 4K) | transversal |
+>>>>>>> c7ff2d66 (feat(auth): implementa os 4 ecranas de autenticacao do design)
+
+> **Estado actual:** ✅ ecrãs **1, 1B, 2 e 3** (autenticação) implementados a partir do
+> `login copy.pen`, com os blocos base de `ui/` correspondentes.
+> Ver o preview em **`/design-system`** (apenas os blocos usados nestes 4 ecrãs).
+> Os restantes ecrãs e o motor de dados NASA continuam por fazer.
 
 ---
 
@@ -434,7 +601,7 @@ The web application will be live at:
 =======
 | Ficheiro | Conteúdo |
 |---|---|
-| **`login copy.pen`** | **Design completo das 12 telas** (pen.dev) — abrir na extensão Pencil |
+| **`login copy.pen`** | **Design completo dos 12 ecrãs** (pen.dev) — abrir na extensão Pencil |
 | `escopo-projecto.md` | Escopo técnico, objectivos e critérios de avaliação da NASA |
 | `stitch-design-system-prompt.md` | Especificação original do design system (9 ecrãs) |
 | `index.html` | Protótipo funcional original com simulador e catálogo de APIs |
