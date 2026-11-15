@@ -1,6 +1,5 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  CalendarDays,
   CloudSun,
   House,
   Leaf,
@@ -8,7 +7,6 @@ import {
   Repeat,
   Sprout,
   Volume2,
-  Wallet,
 } from "lucide-react";
 
 export interface NavItem {
@@ -23,12 +21,9 @@ export interface NavGroup {
 }
 
 /**
- * Menu da aplicação — 4 grupos, 9 subsecções.
+ * Menu da aplicação.
  * A ordem segue o dia-a-dia do agricultor: primeiro o que vai fazer hoje,
- * depois o plantio, depois o dinheiro, e a ajuda sempre no fim.
- *
- * Os `href` são slugs em português — é o que aparece no URL e é o que
- * a Dona Maria vai ler no ecrã do telemóvel.
+ * depois o plantio/rotação e a ajuda no fim.
  */
 export const navGroups: NavGroup[] = [
   {
@@ -44,12 +39,7 @@ export const navGroups: NavGroup[] = [
     label: "PLANTIO E ROTAÇÃO",
     items: [
       { label: "Rotação de Culturas", href: "/rotacao-de-culturas", icon: Repeat },
-      { label: "Calendário de Plantio", href: "/calendario-de-plantio", icon: CalendarDays },
     ],
-  },
-  {
-    label: "DINHEIRO",
-    items: [{ label: "Meu Caderninho", href: "/meu-caderninho", icon: Wallet }],
   },
   {
     label: "AJUDA",

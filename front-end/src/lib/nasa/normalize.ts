@@ -85,11 +85,32 @@ export function normalizePower(response: NasaPowerResponse): AgroSummary {
   }
 
   const monthlyRainMm: Record<string, number> = {};
+  const rainSumByMonth: Record<string, number> = {};
+  const rainYearsByMonth: Record<string, Set<string>> = {};
   let annualRainMm = 0;
   for (const p of points) {
     const key = p.date.slice(0, 6);
     monthlyRainMm[key] = (monthlyRainMm[key] ?? 0) + p.rainMm;
     annualRainMm += p.rainMm;
+
+    // Chuva por mês-do-ano: o TOTAL do mês, averaged over the years
+    // in which that month appears. Num período de 365 dias cada mês
+    // aparece num só ano — dividi-lo pelos dias do mês dava 30x
+    // menos chuva (ex.: 707 mm/ano passavam a 23 mm).
+    const monthOfYear = p.date.slice(4, 6);
+    rainSumByMonth[monthOfYear] =
+      (rainSumByMonth[monthOfYear] ?? 0) + p.rainMm;
+    const year = p.date.slice(0, 4);
+    if (!rainYearsByMonth[monthOfYear]) {
+      rainYearsByMonth[monthOfYear] = new Set<string>();
+    }
+    rainYearsByMonth[monthOfYear].add(year);
+  }
+
+  const rainByMonthOfYear: Record<string, number> = {};
+  for (const [month, sum] of Object.entries(rainSumByMonth)) {
+    const years = rainYearsByMonth[month]?.size || 1;
+    rainByMonthOfYear[month] = Math.round((sum / years) * 10) / 10;
   }
 
   const avg = (list: number[]) =>
@@ -110,6 +131,7 @@ export function normalizePower(response: NasaPowerResponse): AgroSummary {
     last7: points.slice(-7).reverse(),
     series: points,
     monthlyRainMm,
+    rainByMonthOfYear,
     annualRainMm: Math.round(annualRainMm),
     avgTMax: Math.round(avg(points.map((p) => p.tMax))),
     avgTMin: Math.round(avg(points.map((p) => p.tMin))),

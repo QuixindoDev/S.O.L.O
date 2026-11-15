@@ -82,8 +82,11 @@ export interface AgroSummary {
   last7: DailyPoint[];
   /** Série completa com dados válidos (do mais antigo para o mais recente) */
   series: DailyPoint[];
-  /** Chuva acumulada por mês (mm) */
+  /** Chuva acumulada por mês (mm) — chave "AAAAMM" */
   monthlyRainMm: Record<string, number>;
+  /** Chuva média por mês do ano (mm) — chave "01".."12". Média quando o
+   *  período cobre o mesmo mês em vários anos. Usado pelo simulador. */
+  rainByMonthOfYear: Record<string, number>;
   annualRainMm: number;
   avgTMax: number;
   avgTMin: number;
