@@ -13,7 +13,7 @@ Plataforma de suporte à decisão para **agricultura familiar**, que traduz dado
 ## 📌 Onde meter cada coisa
 
 > **Este é o guia principal para a divisão de tarefas.**
-> O design completo das 12 telas está no ficheiro **`login.pen`** (pen.dev). Cada ecrã do design corresponde a **uma pasta/rota** indicada na tabela abaixo.
+> O design completo das 12 telas está no ficheiro **`pen/login.pen`** (pen.dev). Cada ecrã do design corresponde a **uma pasta/rota** indicada na tabela abaixo.
 
 ### 🧩 Componentes já construídos
 
@@ -233,7 +233,7 @@ src/
 
 ### Mapa: ecrã do design → ficheiro
 
-| Ecrã (`login.pen`) | Rota | Componentes principais |
+| Ecrã (`pen/login.pen`) | Rota | Componentes principais |
 |---|---|---|
 | 1. Criar Conta | `/criar-conta` | `ui/Field`, `ui/Button` |
 | 1-B. Entrar | `/entrar` | `ui/Field`, `ui/Button` |
@@ -328,6 +328,54 @@ A fonte de verdade é o bloco `@theme` em **`src/app/globals.css`**:
 
 ---
 
+## 🌐 Domínios e subdomínios (Vercel)
+
+Num projecto Next.js, a Vercel lê os rewrites da função `rewrites()` em
+`next.config.mjs` — **não é preciso um `vercel.json` separado**.
+
+| Subdomínio | Rota interna | Ecrã |
+|---|---|---|
+| `agrosolo.earth` | `/` | App principal do agricultor |
+| `admin.agrosolo.earth` | `/admin` | Área de administração |
+| `profile.agrosolo.earth` | `/profile` | Perfil do agricultor |
+
+```js
+// next.config.mjs
+async rewrites() {
+  return {
+    beforeFiles: [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "admin.agrosolo.earth" }],
+        destination: "/admin/:path*",
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "profile.agrosolo.earth" }],
+        destination: "/profile/:path*",
+      },
+    ],
+  };
+}
+```
+
+**Notas importantes:**
+
+- **`beforeFiles`** — o rewrite é aplicado *antes* da procura de ficheiros,
+  por isso o subdomínio tem sempre prioridade.
+- **`:path*` em vez de `/(.)`** — o padrão `/(.)` só apanha **um caractere**
+  (por isso `admin.agrosolo.earth/inicio` não era reescrito e a raiz
+  `/` também não). Com `:path*` o caminho completo é capturado e
+  reencaminhado — `admin.agrosolo.earth/inicio` → `/admin/inicio`.
+- **Os subdomínios têm de estar ligados ao mesmo deployment** na Vercel
+  (Settings → Domains → Add Domain).
+- **Testar localmente** com o header `Host`:
+  ```bash
+  curl -H "Host: admin.agrosolo.earth" http://localhost:3000/
+  ```
+
+---
+
 ## 🔌 Contrato da API NASA
 
 `GET /api/nasa/power?lat=-12.97&lon=-39.51&start=20260101&end=20261231`
@@ -356,7 +404,7 @@ npm run lint       # verificação de tipos (tsc --noEmit)
 
 | Ficheiro | Conteúdo |
 |---|---|
-| **`login.pen`** | **Design completo das 12 telas** (pen.dev) — abrir na extensão Pencil |
+| **`pen/login.pen`** | **Design completo das 12 telas** (pen.dev) — abrir na extensão Pencil |
 | `escopo-projecto.md` | Escopo técnico, objectivos e critérios de avaliação da NASA |
 | `stitch-design-system-prompt.md` | Especificação original do design system (9 ecrãs) |
 | `index.html` | Protótipo funcional original com simulador e catálogo de APIs |
