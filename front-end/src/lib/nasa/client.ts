@@ -8,7 +8,7 @@ function isoDaysAgo(days: number): string {
 }
 
 const PARAMETERS =
-  "T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,ALLSKY_SFC_SW_DWN";
+  "T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,ALLSKY_SFC_SW_DWN,WS2M";
 
 /**
  * Resumo de reserva quando a NASA não responde.
@@ -25,6 +25,7 @@ export function fallbackSummary(
     elevationM: 0,
     current: null,
     last7: [],
+    series: [],
     monthlyRainMm: {},
     annualRainMm: 0,
     avgTMax: 28,

@@ -13235,7 +13235,7 @@
       "name": "Re-design",
       "clip": true,
       "width": 981,
-      "height": 979,
+      "height": 1868,
       "fill": "#FFFFFF",
       "layout": "none",
       "children": [
@@ -13645,6 +13645,1406 @@
                   "fontFamily": "$font",
                   "fontSize": 14,
                   "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "OCJr6",
+          "x": 21,
+          "y": 302,
+          "name": "Cartao Acoes",
+          "width": "fill_container(940)",
+          "fill": "$surface",
+          "cornerRadius": "$radius-card",
+          "stroke": "$border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
+          "layout": "vertical",
+          "gap": 18,
+          "padding": 26,
+          "children": [
+            {
+              "type": "text",
+              "id": "sjhNZ",
+              "name": "Title",
+              "fill": "$text-primary",
+              "content": "O que você quer ver agora?",
+              "fontFamily": "$font",
+              "fontSize": 26,
+              "fontWeight": "700"
+            },
+            {
+              "type": "frame",
+              "id": "mveox",
+              "name": "Acoes Grid",
+              "width": "fill_container",
+              "gap": 18,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "k7EtE",
+                  "name": "Acao Previsão da Semana",
+                  "width": "fill_container",
+                  "fill": "$primary",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "LifxT",
+                      "name": "Icon Box",
+                      "width": 44,
+                      "height": 44,
+                      "fill": "$surface",
+                      "cornerRadius": 14,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "gZjPh",
+                          "name": "Icon",
+                          "width": 22,
+                          "height": 22,
+                          "icon": "calendar-days",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "VwsA7",
+                      "name": "Title",
+                      "fill": "$surface",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Previsão da Semana",
+                      "fontFamily": "$font",
+                      "fontSize": 19,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Di7sP",
+                      "name": "Desc",
+                      "fill": "$surface-soft",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Sol, chuva e melhores dias de plantio",
+                      "fontFamily": "$font",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "goV2a",
+                  "name": "Acao Meu Caderninho de Contas",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Yk0Ps",
+                      "name": "Icon Box",
+                      "width": 44,
+                      "height": 44,
+                      "fill": "$surface",
+                      "cornerRadius": 14,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "fVqt4",
+                          "name": "Icon",
+                          "width": 22,
+                          "height": 22,
+                          "icon": "wallet",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "zE7YY",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Meu Caderninho de Contas",
+                      "fontFamily": "$font",
+                      "fontSize": 19,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "lE1nu",
+                      "name": "Desc",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Vendas na feira e gastos com adubo",
+                      "fontFamily": "$font",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "RUsIa",
+                  "name": "Acao Falar com a Agrônoma",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "m51ZK",
+                      "name": "Icon Box",
+                      "width": 44,
+                      "height": 44,
+                      "fill": "$surface",
+                      "cornerRadius": 14,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "fjucc",
+                          "name": "Icon",
+                          "width": 22,
+                          "height": 22,
+                          "icon": "message-circle",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "dkukM",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Falar com a Agrônoma",
+                      "fontFamily": "$font",
+                      "fontSize": 19,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "qVaCe",
+                      "name": "Desc",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Tirar dúvida rápida no WhatsApp",
+                      "fontFamily": "$font",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "i14LyH",
+          "x": 21,
+          "y": 603.0000000000009,
+          "name": "Status Solo",
+          "width": "fill_container(940)",
+          "fill": [
+            {
+              "type": "image",
+              "enabled": true,
+              "url": "monitoramento-satelite-chuva-fogo-agricultura.webp",
+              "mode": "cover",
+              "transform": [
+                1,
+                0,
+                0,
+                1.359254,
+                0,
+                -0.081941
+              ]
+            },
+            "#00000067"
+          ],
+          "cornerRadius": "$radius-card",
+          "stroke": "$border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
+          "layout": "vertical",
+          "gap": 18,
+          "padding": 28,
+          "children": [
+            {
+              "type": "frame",
+              "id": "w73ARc",
+              "name": "Status Head",
+              "width": "fill_container",
+              "gap": 20,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "yI7SB",
+                  "name": "Head Text",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "gr0Nu",
+                      "name": "Title",
+                      "fill": "$surface",
+                      "content": "Como está a sua terra",
+                      "fontFamily": "$font",
+                      "fontSize": 40,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xZKii",
+                      "name": "Sub",
+                      "fill": "$surface",
+                      "content": "Umidade do solo pela NASA SMAP",
+                      "fontFamily": "$font",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "XNK2Q",
+                  "name": "Gauge",
+                  "width": 130,
+                  "height": 130,
+                  "fill": "$primary-soft",
+                  "cornerRadius": 9999,
+                  "stroke": "$primary",
+                  "strokeWidth": 6,
+                  "strokeAlignment": "inner",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "tm62E",
+                      "name": "Gauge Col",
+                      "layout": "vertical",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "sqchW",
+                          "name": "Value",
+                          "fill": "$primary",
+                          "content": "72%",
+                          "fontFamily": "$font",
+                          "fontSize": 34,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "G6NQl",
+                          "name": "Label",
+                          "fill": "$text-secondary",
+                          "content": "Ideal",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "VB6j8",
+              "name": "Status Row",
+              "width": "fill_container",
+              "gap": 14,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "A7T6D",
+                  "name": "Metrica Umidade na Raiz",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 18,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "EqNIT",
+                      "name": "Icon Box",
+                      "width": 42,
+                      "height": 42,
+                      "fill": "$surface",
+                      "cornerRadius": 14,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "QNRO3",
+                          "name": "Icon",
+                          "width": 22,
+                          "height": 22,
+                          "icon": "droplets",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "LdTzD",
+                      "name": "Label",
+                      "fill": "$text-muted",
+                      "content": "Umidade na Raiz",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "lxoLQ",
+                      "name": "Value",
+                      "fill": "$text-primary",
+                      "content": "72%",
+                      "fontFamily": "$font",
+                      "fontSize": 24,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "a5SvWh",
+                      "name": "Note",
+                      "fill": "$text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Na medida certa para plantar",
+                      "fontFamily": "$font",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "V0S7i",
+                  "name": "Metrica Umidade na Superfície",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 18,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "JxPcl",
+                      "name": "Icon Box",
+                      "width": 42,
+                      "height": 42,
+                      "fill": "$surface",
+                      "cornerRadius": 14,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "JUG8t",
+                          "name": "Icon",
+                          "width": 22,
+                          "height": 22,
+                          "icon": "waves",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "rUObU",
+                      "name": "Label",
+                      "fill": "$text-muted",
+                      "content": "Umidade na Superfície",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "lRGer",
+                      "name": "Value",
+                      "fill": "$text-primary",
+                      "content": "55%",
+                      "fontFamily": "$font",
+                      "fontSize": 24,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "IA8Y8",
+                      "name": "Note",
+                      "fill": "$text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "O solo de cima está úmido",
+                      "fontFamily": "$font",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "sjLtr",
+                  "name": "Metrica Temperatura do Solo",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 18,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "M1Re8a",
+                      "name": "Icon Box",
+                      "width": 42,
+                      "height": 42,
+                      "fill": "$surface",
+                      "cornerRadius": 14,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "dOqbQ",
+                          "name": "Icon",
+                          "width": 22,
+                          "height": 22,
+                          "icon": "thermometer",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "wgXxs",
+                      "name": "Label",
+                      "fill": "$text-muted",
+                      "content": "Temperatura do Solo",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "cA0Cj",
+                      "name": "Value",
+                      "fill": "$text-primary",
+                      "content": "24°C",
+                      "fontFamily": "$font",
+                      "fontSize": 24,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OtwbY",
+                      "name": "Note",
+                      "fill": "$text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Frio bom para as raízes",
+                      "fontFamily": "$font",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "h2SQQc",
+                  "name": "Metrica Dias sem Chuva",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 18,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "oCeHl",
+                      "name": "Icon Box",
+                      "width": 42,
+                      "height": 42,
+                      "fill": "$surface",
+                      "cornerRadius": 14,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "EcVhx",
+                          "name": "Icon",
+                          "width": 22,
+                          "height": 22,
+                          "icon": "sun",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "H4Sv9",
+                      "name": "Label",
+                      "fill": "$text-muted",
+                      "content": "Dias sem Chuva",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "O9CR1",
+                      "name": "Value",
+                      "fill": "$text-primary",
+                      "content": "9 dias",
+                      "fontFamily": "$font",
+                      "fontSize": 24,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "nddl0",
+                      "name": "Note",
+                      "fill": "$text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Aguarde a chuva de quinta",
+                      "fontFamily": "$font",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "VUnVv",
+          "x": 21,
+          "y": 1076,
+          "name": "Semana",
+          "width": "fill_container(940)",
+          "fill": "$surface",
+          "cornerRadius": "$radius-card",
+          "stroke": "$border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
+          "layout": "vertical",
+          "gap": 18,
+          "padding": 28,
+          "children": [
+            {
+              "type": "frame",
+              "id": "xFAiy",
+              "name": "Semana Head",
+              "width": "fill_container",
+              "gap": 16,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "unAjC",
+                  "name": "Head Text",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "SvNSa",
+                      "name": "Title",
+                      "fill": "$text-primary",
+                      "content": "Os próximos 7 dias",
+                      "fontFamily": "$font",
+                      "fontSize": 24,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Zkpld",
+                      "name": "Sub",
+                      "fill": "$text-muted",
+                      "content": "Clique num dia para ouvir a previsão",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "axLXc",
+              "name": "Dias",
+              "width": "fill_container",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "G90vC",
+                  "name": "Dia Qua",
+                  "width": "fill_container",
+                  "fill": [
+                    {
+                      "type": "image",
+                      "enabled": true,
+                      "url": "images.jpg",
+                      "mode": "cover",
+                      "transform": [
+                        3.658348,
+                        0,
+                        0,
+                        1,
+                        -0.993491,
+                        0
+                      ]
+                    },
+                    "#0000004d"
+                  ],
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "cM6tn",
+                      "name": "Dia",
+                      "fill": "$surface-soft",
+                      "content": "Qua",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "kyc3J",
+                      "name": "Num",
+                      "fill": "$bg",
+                      "content": "12",
+                      "fontFamily": "$font",
+                      "fontSize": 26,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pBtDF",
+                      "name": "Icon Box",
+                      "width": 52,
+                      "height": 52,
+                      "fill": "$primary",
+                      "cornerRadius": 9999,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "b2CNx5",
+                          "name": "Icon",
+                          "width": 26,
+                          "height": 26,
+                          "icon": "sun",
+                          "library": "lucide",
+                          "fill": "$surface"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "h43vNk",
+                      "name": "Max",
+                      "fill": "$bg",
+                      "content": "28°",
+                      "fontFamily": "$font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "mVJxu",
+                      "name": "Min",
+                      "fill": "$surface",
+                      "content": "20°",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "nXxz3",
+                      "name": "Badge",
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "padding": [
+                        5,
+                        10
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "rpu3e",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "0 mm",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "PJcJx",
+                  "name": "Dia Qui",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "hQ3TX",
+                      "name": "Dia",
+                      "fill": "$text-secondary",
+                      "content": "Qui",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "oqSE3",
+                      "name": "Num",
+                      "fill": "$text-primary",
+                      "content": "13",
+                      "fontFamily": "$font",
+                      "fontSize": 26,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "uNFlx",
+                      "name": "Icon Box",
+                      "width": 52,
+                      "height": 52,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "z3V8S6",
+                          "name": "Icon",
+                          "width": 26,
+                          "height": 26,
+                          "icon": "sun",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "LtdVU",
+                      "name": "Max",
+                      "fill": "$text-primary",
+                      "content": "29°",
+                      "fontFamily": "$font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "h0Rzoc",
+                      "name": "Min",
+                      "fill": "$text-muted",
+                      "content": "21°",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "VCrKH",
+                      "name": "Badge",
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "padding": [
+                        5,
+                        10
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Dp7cZ",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "0 mm",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "OJXHG",
+                  "name": "Dia Sex",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "J3YvE",
+                      "name": "Dia",
+                      "fill": "$text-secondary",
+                      "content": "Sex",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "s58pE",
+                      "name": "Num",
+                      "fill": "$text-primary",
+                      "content": "14",
+                      "fontFamily": "$font",
+                      "fontSize": 26,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "hidx0",
+                      "name": "Icon Box",
+                      "width": 52,
+                      "height": 52,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "P062b",
+                          "name": "Icon",
+                          "width": 26,
+                          "height": 26,
+                          "icon": "cloud-sun",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "vyWAe",
+                      "name": "Max",
+                      "fill": "$text-primary",
+                      "content": "27°",
+                      "fontFamily": "$font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "QMb7n",
+                      "name": "Min",
+                      "fill": "$text-muted",
+                      "content": "20°",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "GOd2B",
+                      "name": "Badge",
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "padding": [
+                        5,
+                        10
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "bvix7",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "2 mm",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "T5S6oU",
+                  "name": "Dia Sáb",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "gT2oi",
+                      "name": "Dia",
+                      "fill": "$text-secondary",
+                      "content": "Sáb",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "k0W00Z",
+                      "name": "Num",
+                      "fill": "$text-primary",
+                      "content": "15",
+                      "fontFamily": "$font",
+                      "fontSize": 26,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "e5qC3b",
+                      "name": "Icon Box",
+                      "width": 52,
+                      "height": 52,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "qtMXC",
+                          "name": "Icon",
+                          "width": 26,
+                          "height": 26,
+                          "icon": "cloud-rain",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "zg2xF",
+                      "name": "Max",
+                      "fill": "$text-primary",
+                      "content": "25°",
+                      "fontFamily": "$font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Dqwqp",
+                      "name": "Min",
+                      "fill": "$text-muted",
+                      "content": "19°",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "h8JPEh",
+                      "name": "Badge",
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "padding": [
+                        5,
+                        10
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Ztt7G",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "18 mm",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "EBWy7",
+                  "name": "Dia Dom",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "V9mA5q",
+                      "name": "Dia",
+                      "fill": "$text-secondary",
+                      "content": "Dom",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "QLeCg",
+                      "name": "Num",
+                      "fill": "$text-primary",
+                      "content": "16",
+                      "fontFamily": "$font",
+                      "fontSize": 26,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "sK5Gh",
+                      "name": "Icon Box",
+                      "width": 52,
+                      "height": 52,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "jj58g",
+                          "name": "Icon",
+                          "width": 26,
+                          "height": 26,
+                          "icon": "cloud-rain",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "I5r0H",
+                      "name": "Max",
+                      "fill": "$text-primary",
+                      "content": "24°",
+                      "fontFamily": "$font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "LwUjv",
+                      "name": "Min",
+                      "fill": "$text-muted",
+                      "content": "18°",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Q9VvAg",
+                      "name": "Badge",
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "padding": [
+                        5,
+                        10
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "DN9SU",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "32 mm",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "q6nK1K",
+                  "name": "Dia Seg",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "JskwT",
+                      "name": "Dia",
+                      "fill": "$text-secondary",
+                      "content": "Seg",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "E8zvOP",
+                      "name": "Num",
+                      "fill": "$text-primary",
+                      "content": "17",
+                      "fontFamily": "$font",
+                      "fontSize": 26,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ME835",
+                      "name": "Icon Box",
+                      "width": 52,
+                      "height": 52,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "OhiI1",
+                          "name": "Icon",
+                          "width": 26,
+                          "height": 26,
+                          "icon": "cloud-sun",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "Huq0a",
+                      "name": "Max",
+                      "fill": "$text-primary",
+                      "content": "26°",
+                      "fontFamily": "$font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xFr2o",
+                      "name": "Min",
+                      "fill": "$text-muted",
+                      "content": "19°",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "BhTdJ",
+                      "name": "Badge",
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "padding": [
+                        5,
+                        10
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "tPZWS",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "6 mm",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "gIsrb",
+                  "name": "Dia Ter",
+                  "width": "fill_container",
+                  "fill": "$surface-soft",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ebeaW",
+                      "name": "Dia",
+                      "fill": "$text-secondary",
+                      "content": "Ter",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OY65o",
+                      "name": "Num",
+                      "fill": "$text-primary",
+                      "content": "18",
+                      "fontFamily": "$font",
+                      "fontSize": 26,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "V3syn",
+                      "name": "Icon Box",
+                      "width": 52,
+                      "height": 52,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "gfRKR",
+                          "name": "Icon",
+                          "width": 26,
+                          "height": 26,
+                          "icon": "sun",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "QACPf",
+                      "name": "Max",
+                      "fill": "$text-primary",
+                      "content": "28°",
+                      "fontFamily": "$font",
+                      "fontSize": 17,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "TeWNS",
+                      "name": "Min",
+                      "fill": "$text-muted",
+                      "content": "20°",
+                      "fontFamily": "$font",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ERuOJ",
+                      "name": "Badge",
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "padding": [
+                        5,
+                        10
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hRHYH",
+                          "name": "Text",
+                          "fill": "$primary",
+                          "content": "0 mm",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }

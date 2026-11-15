@@ -7,7 +7,8 @@ export async function GET(request: Request) {
   const start = searchParams.get("start") || "20250101";
   const end = searchParams.get("end") || "20251231";
 
-  const parameters = "T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,ALLSKY_SFC_SW_DWN";
+  const parameters =
+    "T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,RH2M,ALLSKY_SFC_SW_DWN,WS2M";
   const nasaUrl = `https://power.larc.nasa.gov/api/temporal/daily/point?parameters=${parameters}&community=AG&longitude=${lon}&latitude=${lat}&start=${start}&end=${end}&format=JSON`;
 
   try {
