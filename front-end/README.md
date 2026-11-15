@@ -46,6 +46,33 @@ Plataforma de suporte à decisão para **agricultura familiar**, que traduz dado
 
 **`src/lib/cn.ts`** — helper `cn()` (clsx + tailwind-merge).
 
+**`src/lib/nasa/`** — pipeline de dados NASA
+
+| Ficheiro | Responsabilidade |
+|---|---|
+| `normalize.ts` | Converte a resposta crua da NASA POWER em `AgroSummary` (descarta dias sem medição, `-999`) |
+| `client.ts` | `getAgroSummary(lat, lon, dias)` — busca no **servidor** com `revalidate: 86400` e fallback se a NASA falhar |
+
+**`src/lib/farm.ts`** — perfil da fazenda (nome, cidade, coordenadas). Substituir por estado persistido quando o ecrã de cadastro entrar.
+
+**`src/types/nasa.ts`** — inclui `DailyPoint` e `AgroSummary`, o formato normalizado que os ecrãs consomem.
+
+### 🖥️ Ecrãs já construídos
+
+| Ecrã | Rota | Ficheiros |
+|---|---|---|
+| **4. Meu Caderno da Terra (Início)** | `/inicio` | `features/dashboard/{WeatherCard,GardenCard,TipsGrid,QuickActions}.tsx` |
+| **6. Previsão do Tempo** | `/clima` | `features/clima/{TodaySummary,WeekForecast,NasaAlerts}.tsx` |
+
+Ambas são **Server Components** com `export const revalidate = 86400`:
+os dados do satélite são buscados no servidor e **chegam no HTML inicial** —
+sem ecrã em branco no 3G rural e sem gastar os dados móveis da Dona Maria.
+
+> ⚠️ **Transparência:** a NASA POWER só tem **histórico**, não previsões.
+> Por isso o ecrã diz *"os últimos 7 dias"* e mostra a data da última
+> observação, em vez de fingir uma previsão. É um requisito do júri
+> (critério *Data Transparency*).
+
 ---
 
 ### 📱 Responsividade

@@ -81,7 +81,8 @@
                       "fill": "$text-muted",
                       "content": "Campo Amigo",
                       "fontFamily": "$font",
-                      "fontSize": 15
+                      "fontSize": 15,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -220,7 +221,8 @@
                       "lineHeight": 1.5,
                       "textAlign": "center",
                       "fontFamily": "$font",
-                      "fontSize": 20
+                      "fontSize": 20,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -293,7 +295,8 @@
                               "fill": "$text-muted",
                               "content": "Ex: Dona Maria da Silva ou Sítio Esperança",
                               "fontFamily": "$font",
-                              "fontSize": 20
+                              "fontSize": 20,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -306,7 +309,8 @@
                           "width": "fill_container",
                           "content": "Pode ser seu nome, apelido carinhoso ou nome do sítio.",
                           "fontFamily": "$font",
-                          "fontSize": 17
+                          "fontSize": 17,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -371,7 +375,8 @@
                               "fill": "$text-muted",
                               "content": "Ex: (71) 99123-4567",
                               "fontFamily": "$font",
-                              "fontSize": 20
+                              "fontSize": 20,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -384,7 +389,8 @@
                           "width": "fill_container",
                           "content": "Usado para você receber os alertas do tempo, de forma simples.",
                           "fontFamily": "$font",
-                          "fontSize": 17
+                          "fontSize": 17,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -449,7 +455,8 @@
                               "fill": "$text-muted",
                               "content": "Ex: Feira de Santana - BA",
                               "fontFamily": "$font",
-                              "fontSize": 20
+                              "fontSize": 20,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -462,7 +469,8 @@
                           "width": "fill_container",
                           "content": "Para mostrarmos se vai fazer sol forte ou chover na sua terra.",
                           "fontFamily": "$font",
-                          "fontSize": 17
+                          "fontSize": 17,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -527,7 +535,8 @@
                               "fill": "$text-muted",
                               "content": "Uma palavra ou números fáceis",
                               "fontFamily": "$font",
-                              "fontSize": 20
+                              "fontSize": 20,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -540,7 +549,8 @@
                           "width": "fill_container",
                           "content": "Escolha algo que você lembre sem esforço no dia a dia.",
                           "fontFamily": "$font",
-                          "fontSize": 17
+                          "fontSize": 17,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -644,7 +654,8 @@
                       "width": "fill_container",
                       "content": "Seus dados estão protegidos com carinho. Não cobramos nada.",
                       "fontFamily": "$font",
-                      "fontSize": 17
+                      "fontSize": 17,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -734,7 +745,8 @@
                       "fill": "$text-muted",
                       "content": "Campo Amigo",
                       "fontFamily": "$font",
-                      "fontSize": 15
+                      "fontSize": 15,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -873,7 +885,8 @@
                       "lineHeight": 1.5,
                       "textAlign": "center",
                       "fontFamily": "$font",
-                      "fontSize": 20
+                      "fontSize": 20,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -946,7 +959,8 @@
                               "fill": "$text-muted",
                               "content": "Ex: (71) 99123-4567",
                               "fontFamily": "$font",
-                              "fontSize": 20
+                              "fontSize": 20,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -959,7 +973,8 @@
                           "width": "fill_container",
                           "content": "O mesmo número que você usou para criar a conta.",
                           "fontFamily": "$font",
-                          "fontSize": 17
+                          "fontSize": 17,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -1024,7 +1039,8 @@
                               "fill": "$text-muted",
                               "content": "Digite sua senha",
                               "fontFamily": "$font",
-                              "fontSize": 20
+                              "fontSize": 20,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -1037,7 +1053,8 @@
                           "width": "fill_container",
                           "content": "Se não lembrar, a gente ajuda pelo WhatsApp.",
                           "fontFamily": "$font",
-                          "fontSize": 17
+                          "fontSize": 17,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -1141,7 +1158,8 @@
                       "width": "fill_container",
                       "content": "Não consegue entrar? Fale com a Agrônoma pelo WhatsApp. A gente resolve junto.",
                       "fontFamily": "$font",
-                      "fontSize": 17
+                      "fontSize": 17,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -1230,7 +1248,8 @@
                       "fill": "$text-muted",
                       "content": "Campo Amigo",
                       "fontFamily": "$font",
-                      "fontSize": 15
+                      "fontSize": 15,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -1370,7 +1389,8 @@
                       "lineHeight": 1.5,
                       "textAlign": "center",
                       "fontFamily": "$font",
-                      "fontSize": 19
+                      "fontSize": 19,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -1426,7 +1446,8 @@
                           "fill": "$text-muted",
                           "content": "Mensagem enviada para",
                           "fontFamily": "$font",
-                          "fontSize": 17
+                          "fontSize": 17,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
@@ -1665,7 +1686,8 @@
                       "content": "Toque no primeiro quadradinho para começar. O teclado numérico abre sozinho no celular.",
                       "textAlign": "center",
                       "fontFamily": "$font",
-                      "fontSize": 17
+                      "fontSize": 17,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -1783,7 +1805,8 @@
                               "width": "fill_container",
                               "content": "Nossa equipe do campo está pronta para te atender com carinho.",
                               "fontFamily": "$font",
-                              "fontSize": 17
+                              "fontSize": 17,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -1914,7 +1937,8 @@
                       "fill": "$text-muted",
                       "content": "Campo Amigo",
                       "fontFamily": "$font",
-                      "fontSize": 15
+                      "fontSize": 15,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -2054,7 +2078,8 @@
                       "lineHeight": 1.5,
                       "textAlign": "center",
                       "fontFamily": "$font",
-                      "fontSize": 20
+                      "fontSize": 20,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -2110,7 +2135,8 @@
                           "fill": "$text-muted",
                           "content": "Mensagem enviada para",
                           "fontFamily": "$font",
-                          "fontSize": 17
+                          "fontSize": 17,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
@@ -2209,7 +2235,8 @@
                               "content": "O aplicativo de Mensagens (SMS) do seu celular.",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 17
+                              "fontSize": 17,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -2290,7 +2317,8 @@
                               "content": "Foram enviados junto com a mensagem.",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 17
+                              "fontSize": 17,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -2371,7 +2399,8 @@
                               "content": "Volte a esta tela e escreva o código.",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 17
+                              "fontSize": 17,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -2453,7 +2482,8 @@
                           "width": "fill_container",
                           "content": "Funciona com sinal fraco. É só receber a mensagem.",
                           "fontFamily": "$font",
-                          "fontSize": 17
+                          "fontSize": 17,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -2609,7 +2639,8 @@
                       "fill": "$text-muted",
                       "content": "Quarta-feira, 12 de novembro - Feira de Santana - BA",
                       "fontFamily": "$font",
-                      "fontSize": 16
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -2779,7 +2810,8 @@
                           "fill": "$text-secondary",
                           "content": "O solo está bem úmido. Não precisa regar hoje.",
                           "fontFamily": "$font",
-                          "fontSize": 16
+                          "fontSize": 16,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -2875,7 +2907,8 @@
                               "fill": "$text-muted",
                               "content": "Feira de Santana",
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -2900,7 +2933,8 @@
                                   "fill": "$text-muted",
                                   "content": "Temperatura do ar",
                                   "fontFamily": "$font",
-                                  "fontSize": 16
+                                  "fontSize": 16,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -2955,7 +2989,8 @@
                                   "content": "Céu claro com nuvens mansas. Vento brando soprando do leste.",
                                   "lineHeight": 1.5,
                                   "fontFamily": "$font",
-                                  "fontSize": 17
+                                  "fontSize": 17,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -3028,7 +3063,8 @@
                                   "content": "Não deve chover hoje. Ótima hora para molhar as plantas com calma.",
                                   "lineHeight": 1.45,
                                   "fontFamily": "$font",
-                                  "fontSize": 16
+                                  "fontSize": 16,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -3148,7 +3184,8 @@
                           "width": "fill_container",
                           "content": "Alface, Couve e Tomate Cereja",
                           "fontFamily": "$font",
-                          "fontSize": 16
+                          "fontSize": 16,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "frame",
@@ -3201,7 +3238,8 @@
                           "content": "A terra está úmida na medida certa. Boa de plantar e afofar.",
                           "lineHeight": 1.5,
                           "fontFamily": "$font",
-                          "fontSize": 17
+                          "fontSize": 17,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "frame",
@@ -3288,7 +3326,8 @@
                               "fill": "$text-muted",
                               "content": "3 recados para hoje",
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -3355,7 +3394,8 @@
                               "content": "Já estão florindo bastante. Hora de colocar as estacas.",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "frame",
@@ -3436,7 +3476,8 @@
                               "content": "Você economizou 4 baldes cheios de água esta semana.",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "frame",
@@ -3517,7 +3558,8 @@
                               "content": "Sábado pela manhã na praça da matriz. Leve o que sobrou.",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "frame",
@@ -3634,7 +3676,8 @@
                               "width": "fill_container",
                               "content": "Sol, chuva e melhores dias de plantio",
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -3693,7 +3736,8 @@
                               "width": "fill_container",
                               "content": "Vendas na feira e gastos com adubo",
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -3752,7 +3796,8 @@
                               "width": "fill_container",
                               "content": "Tirar dúvida rápida no WhatsApp",
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -3839,7 +3884,8 @@
                   "fill": "$text-muted",
                   "content": "Campo Amigo",
                   "fontFamily": "$font",
-                  "fontSize": 14
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -3915,7 +3961,8 @@
                   "fill": "$text-secondary",
                   "content": "Início",
                   "fontFamily": "$font",
-                  "fontSize": 18
+                  "fontSize": 18,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -3949,7 +3996,8 @@
                   "fill": "$text-secondary",
                   "content": "Previsão do Tempo",
                   "fontFamily": "$font",
-                  "fontSize": 18
+                  "fontSize": 18,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -3983,7 +4031,8 @@
                   "fill": "$text-secondary",
                   "content": "Minha Terra e Horta",
                   "fontFamily": "$font",
-                  "fontSize": 18
+                  "fontSize": 18,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -4017,7 +4066,8 @@
                   "fill": "$text-secondary",
                   "content": "Minhas Plantas",
                   "fontFamily": "$font",
-                  "fontSize": 18
+                  "fontSize": 18,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -4085,7 +4135,8 @@
                   "fill": "$text-secondary",
                   "content": "Rotação de Culturas",
                   "fontFamily": "$font",
-                  "fontSize": 18
+                  "fontSize": 18,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -4119,7 +4170,8 @@
                   "fill": "$text-secondary",
                   "content": "Calendário de Plantio",
                   "fontFamily": "$font",
-                  "fontSize": 18
+                  "fontSize": 18,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -4187,7 +4239,8 @@
                   "fill": "$text-secondary",
                   "content": "Meu Caderninho",
                   "fontFamily": "$font",
-                  "fontSize": 18
+                  "fontSize": 18,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -4255,7 +4308,8 @@
                   "fill": "$text-secondary",
                   "content": "Falar com a Agrônoma",
                   "fontFamily": "$font",
-                  "fontSize": 18
+                  "fontSize": 18,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -4289,7 +4343,8 @@
                   "fill": "$text-secondary",
                   "content": "Ouvir Ajuda",
                   "fontFamily": "$font",
-                  "fontSize": 18
+                  "fontSize": 18,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -4404,7 +4459,8 @@
                   "fill": "$text-muted",
                   "content": "Sítio Recanto Verde",
                   "fontFamily": "$font",
-                  "fontSize": 14
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -4526,7 +4582,8 @@
                       "fill": "$text-muted",
                       "content": "Planeje o que plantar em cada etapa da safra",
                       "fontFamily": "$font",
-                      "fontSize": 16
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -4630,7 +4687,8 @@
                       "fill": "$text-muted",
                       "content": "Escolha uma opção. Vamos dar mais peso a ela.",
                       "fontFamily": "$font",
-                      "fontSize": 16
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "frame",
@@ -4697,7 +4755,8 @@
                               "width": "fill_container",
                               "content": "Guardar cada gota de chuva",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -4756,7 +4815,8 @@
                               "width": "fill_container",
                               "content": "Voltar o nitrogênio para a terra",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -4815,7 +4875,8 @@
                               "width": "fill_container",
                               "content": "Ter uma boa safra para vender",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -4874,7 +4935,8 @@
                               "width": "fill_container",
                               "content": "Proteger contra o sol forte",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -4923,7 +4985,8 @@
                               "fill": "$text-muted",
                               "content": "Escolha uma cultura para cada etapa",
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -5062,7 +5125,8 @@
                               "width": "fill_container",
                               "content": "Chuva boa para crescer",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -5192,7 +5256,8 @@
                               "width": "fill_container",
                               "content": "Resiste bem à seca",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -5322,7 +5387,8 @@
                               "width": "fill_container",
                               "content": "Cobre o solo e guarda água",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -5377,7 +5443,8 @@
                               "fill": "$text-muted",
                               "content": "Dados do satélite da NASA",
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -5693,7 +5760,8 @@
                               "content": "Milho seguido de feijão-caupi e braquiária repõe o nitrogênio, economiza cerca de 35% de água na entressafra e protege a terra contra o calor.",
                               "lineHeight": 1.5,
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -5786,7 +5854,8 @@
                       "fill": "$text-muted",
                       "content": "Dados do satélite NASA POWER",
                       "fontFamily": "$font",
-                      "fontSize": 16
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -5923,7 +5992,8 @@
                                   "fill": "$text-muted",
                                   "content": "Feira de Santana - BA",
                                   "fontFamily": "$font",
-                                  "fontSize": 16
+                                  "fontSize": 16,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -5983,7 +6053,8 @@
                                   "fill": "$text-secondary",
                                   "content": "Sol morno, bom para o campo",
                                   "fontFamily": "$font",
-                                  "fontSize": 16
+                                  "fontSize": 16,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -6039,7 +6110,8 @@
                               "fill": "$text-muted",
                               "content": "Chuva",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6058,7 +6130,8 @@
                               "fill": "$text-muted",
                               "content": "Não deve chover",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -6103,7 +6176,8 @@
                               "fill": "$text-muted",
                               "content": "Umidade do Ar",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6122,7 +6196,8 @@
                               "fill": "$text-muted",
                               "content": "Amanhã: 62%",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -6167,7 +6242,8 @@
                               "fill": "$text-muted",
                               "content": "Vento",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6186,7 +6262,8 @@
                               "fill": "$text-muted",
                               "content": "Do leste",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -6231,7 +6308,8 @@
                               "fill": "$text-muted",
                               "content": "Radiação Solar",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -6250,7 +6328,8 @@
                               "fill": "$text-muted",
                               "content": "Dia forte",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -6305,7 +6384,8 @@
                               "fill": "$text-muted",
                               "content": "Clique num dia para ouvir a previsão",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -6390,7 +6470,8 @@
                               "fill": "$text-muted",
                               "content": "20°",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "frame",
@@ -6489,7 +6570,8 @@
                               "fill": "$text-muted",
                               "content": "21°",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "frame",
@@ -6588,7 +6670,8 @@
                               "fill": "$text-muted",
                               "content": "20°",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "frame",
@@ -6687,7 +6770,8 @@
                               "fill": "$text-muted",
                               "content": "19°",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "frame",
@@ -6786,7 +6870,8 @@
                               "fill": "$text-muted",
                               "content": "18°",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "frame",
@@ -6885,7 +6970,8 @@
                               "fill": "$text-muted",
                               "content": "19°",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "frame",
@@ -6984,7 +7070,8 @@
                               "fill": "$text-muted",
                               "content": "20°",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "frame",
@@ -7096,7 +7183,8 @@
                               "content": "A água do solo está 22% abaixo da média. Regue o canteiro de cima amanhã cedo.",
                               "lineHeight": 1.5,
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -7150,7 +7238,8 @@
                               "content": "A chuva volta na quinta. A terra vai estar boa para semear.",
                               "lineHeight": 1.5,
                               "fontFamily": "$font",
-                              "fontSize": 16
+                              "fontSize": 16,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -7242,7 +7331,8 @@
                       "name": "Subtitle",
                       "fill": "$text-muted",
                       "fontFamily": "$font",
-                      "fontSize": 16
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -7362,7 +7452,8 @@
                               "fill": "$text-muted",
                               "content": "Umidade do solo pela NASA SMAP",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -7461,7 +7552,8 @@
                               "fill": "$text-muted",
                               "content": "Umidade na Raiz",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -7482,7 +7574,8 @@
                               "width": "fill_container",
                               "content": "Na medida certa para plantar",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -7527,7 +7620,8 @@
                               "fill": "$text-muted",
                               "content": "Umidade na Superfície",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -7548,7 +7642,8 @@
                               "width": "fill_container",
                               "content": "O solo de cima está úmido",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -7593,7 +7688,8 @@
                               "fill": "$text-muted",
                               "content": "Temperatura do Solo",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -7614,7 +7710,8 @@
                               "width": "fill_container",
                               "content": "Frio bom para as raízes",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -7659,7 +7756,8 @@
                               "fill": "$text-muted",
                               "content": "Dias sem Chuva",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
@@ -7680,7 +7778,8 @@
                               "width": "fill_container",
                               "content": "Aguarde a chuva de quinta",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -7727,7 +7826,8 @@
                           "fill": "$text-muted",
                           "content": "Toque num canteiro para ver o detalhe",
                           "fontFamily": "$font",
-                          "fontSize": 15
+                          "fontSize": 15,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -7807,7 +7907,8 @@
                                       "width": "fill_container",
                                       "content": "Alface, Couve e Tomate Cereja",
                                       "fontFamily": "$font",
-                                      "fontSize": 15
+                                      "fontSize": 15,
+                                      "fontWeight": "normal"
                                     }
                                   ]
                                 }
@@ -7928,7 +8029,8 @@
                                       "width": "fill_container",
                                       "content": "Cebolinha, Manjericão e Salsinha",
                                       "fontFamily": "$font",
-                                      "fontSize": 15
+                                      "fontSize": 15,
+                                      "fontWeight": "normal"
                                     }
                                   ]
                                 }
@@ -8049,7 +8151,8 @@
                                       "width": "fill_container",
                                       "content": "Feijão e Milho",
                                       "fontFamily": "$font",
-                                      "fontSize": 15
+                                      "fontSize": 15,
+                                      "fontWeight": "normal"
                                     }
                                   ]
                                 }
@@ -8190,7 +8293,8 @@
                               "content": "Usar 20 litros no canteiro da horta",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -8248,7 +8352,8 @@
                               "content": "A hora boa é de manhã cedo",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -8306,7 +8411,8 @@
                               "content": "A terra do canteiro principal está pronta",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -8399,7 +8505,8 @@
                       "fill": "$text-muted",
                       "content": "O que está plantado e o que você colheu",
                       "fontFamily": "$font",
-                      "fontSize": 16
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -8519,7 +8626,8 @@
                               "fill": "$text-muted",
                               "content": "Toque para ver os cuidados de cada uma",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -8630,7 +8738,8 @@
                                   "fill": "$text-muted",
                                   "content": "Canteiro Principal",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -8641,7 +8750,8 @@
                                   "width": "fill_container",
                                   "content": "Precisa de estaca agora",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -8732,7 +8842,8 @@
                                   "fill": "$text-muted",
                                   "content": "Canteiro Principal",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -8743,7 +8854,8 @@
                                   "width": "fill_container",
                                   "content": "Pode colher em 3 dias",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -8834,7 +8946,8 @@
                                   "fill": "$text-muted",
                                   "content": "Canteiro Principal",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -8845,7 +8958,8 @@
                                   "width": "fill_container",
                                   "content": "Rega de 2 em 2 dias",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -8936,7 +9050,8 @@
                                   "fill": "$text-muted",
                                   "content": "Baixa do Riacho",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -8947,7 +9062,8 @@
                                   "width": "fill_container",
                                   "content": "Solo seco, precisa de água",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -9038,7 +9154,8 @@
                                   "fill": "$text-muted",
                                   "content": "Horta da Cozinha",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 },
                                 {
                                   "type": "text",
@@ -9049,7 +9166,8 @@
                                   "width": "fill_container",
                                   "content": "Corte as folhas de cima",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -9148,7 +9266,8 @@
                                   "fill": "$text-muted",
                                   "content": "feira",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -9179,7 +9298,8 @@
                               "fill": "$text-muted",
                               "content": "Ontem",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -9218,7 +9338,8 @@
                                   "fill": "$text-muted",
                                   "content": "feira",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -9249,7 +9370,8 @@
                               "fill": "$text-muted",
                               "content": "12 de nov",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -9288,7 +9410,8 @@
                                   "fill": "$text-muted",
                                   "content": "casa",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -9319,7 +9442,8 @@
                               "fill": "$text-muted",
                               "content": "10 de nov",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -9412,7 +9536,8 @@
                       "fill": "$text-muted",
                       "content": "Vendas na feira e gastos com o adubo",
                       "fontFamily": "$font",
-                      "fontSize": 16
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -9551,7 +9676,8 @@
                                   "fill": "$text-muted",
                                   "content": "Dinheiro que entrou",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -9572,7 +9698,8 @@
                               "fill": "$text-muted",
                               "content": "Ganhos na feira",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -9611,7 +9738,8 @@
                                   "fill": "$text-muted",
                                   "content": "Dinheiro que saiu",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -9632,7 +9760,8 @@
                               "fill": "$text-muted",
                               "content": "Adubo, sementes e água",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -9671,7 +9800,8 @@
                                   "fill": "$text-muted",
                                   "content": "Sobrou",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -9692,7 +9822,8 @@
                               "fill": "$text-muted",
                               "content": "Para o próximo mês",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -9793,7 +9924,8 @@
                                   "fill": "$text-muted",
                                   "content": "12 de nov",
                                   "fontFamily": "$font",
-                                  "fontSize": 14
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -9871,7 +10003,8 @@
                                   "fill": "$text-muted",
                                   "content": "10 de nov",
                                   "fontFamily": "$font",
-                                  "fontSize": 14
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -9949,7 +10082,8 @@
                                   "fill": "$text-muted",
                                   "content": "9 de nov",
                                   "fontFamily": "$font",
-                                  "fontSize": 14
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10027,7 +10161,8 @@
                                   "fill": "$text-muted",
                                   "content": "8 de nov",
                                   "fontFamily": "$font",
-                                  "fontSize": 14
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10105,7 +10240,8 @@
                                   "fill": "$text-muted",
                                   "content": "7 de nov",
                                   "fontFamily": "$font",
-                                  "fontSize": 14
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10183,7 +10319,8 @@
                                   "fill": "$text-muted",
                                   "content": "5 de nov",
                                   "fontFamily": "$font",
-                                  "fontSize": 14
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10288,7 +10425,8 @@
                       "fill": "$text-muted",
                       "content": "O que plantar, quando e como cuidar",
                       "fontFamily": "$font",
-                      "fontSize": 16
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -10408,7 +10546,8 @@
                               "fill": "$text-muted",
                               "content": "Calendário da sua região",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -10557,7 +10696,8 @@
                               "fill": "$text-secondary",
                               "content": "Sombreado",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -10697,7 +10837,8 @@
                               "fill": "$text-secondary",
                               "content": "Sol pleno",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -10837,7 +10978,8 @@
                               "fill": "$text-secondary",
                               "content": "Sol pleno",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -10977,7 +11119,8 @@
                               "fill": "$text-secondary",
                               "content": "Sol pleno",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -11080,7 +11223,8 @@
                                   "width": "fill_container",
                                   "content": "Cavar 20 cm e adubar com esterco",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11151,7 +11295,8 @@
                                   "width": "fill_container",
                                   "content": "Feira livre da cidade",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11231,7 +11376,8 @@
                                   "width": "fill_container",
                                   "content": "Galho de madeira de 1 metro",
                                   "fontFamily": "$font",
-                                  "fontSize": 15
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11336,7 +11482,8 @@
                       "fill": "$text-muted",
                       "content": "Tire suas dúvidas pelo WhatsApp",
                       "fontFamily": "$font",
-                      "fontSize": 16
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -11456,7 +11603,8 @@
                               "fill": "$text-muted",
                               "content": "Agrônoma Ana - responde de manhã",
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -11570,7 +11718,8 @@
                                       "content": "Bom dia, Dona Maria! Vi que o solo da Baixa do Riacho está com 35% de umidade. Já estou a ver isso.",
                                       "lineHeight": 1.45,
                                       "fontFamily": "$font",
-                                      "fontSize": 17
+                                      "fontSize": 17,
+                                      "fontWeight": "normal"
                                     }
                                   ]
                                 }
@@ -11583,7 +11732,8 @@
                               "fill": "$text-muted",
                               "content": "11:42",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -11626,7 +11776,8 @@
                                       "content": "Bom dia, Dona Maria! Vi que o solo da Baixa do Riacho está seco. Quer que eu passe aí de manhã?",
                                       "lineHeight": 1.45,
                                       "fontFamily": "$font",
-                                      "fontSize": 17
+                                      "fontSize": 17,
+                                      "fontWeight": "normal"
                                     }
                                   ]
                                 }
@@ -11639,7 +11790,8 @@
                               "fill": "$text-muted",
                               "content": "11:45",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -11682,7 +11834,8 @@
                                       "content": "Sim, por favor. Depois das 9h.",
                                       "lineHeight": 1.45,
                                       "fontFamily": "$font",
-                                      "fontSize": 17
+                                      "fontSize": 17,
+                                      "fontWeight": "normal"
                                     }
                                   ]
                                 }
@@ -11695,7 +11848,8 @@
                               "fill": "$text-muted",
                               "content": "11:47",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -11766,7 +11920,8 @@
                                       "content": "Combinado, Dona Maria! Vou levar um balde de esterco para ajudar. Não se preocupe com nada.",
                                       "lineHeight": 1.45,
                                       "fontFamily": "$font",
-                                      "fontSize": 17
+                                      "fontSize": 17,
+                                      "fontWeight": "normal"
                                     }
                                   ]
                                 }
@@ -11779,7 +11934,8 @@
                               "fill": "$text-muted",
                               "content": "11:48",
                               "fontFamily": "$font",
-                              "fontSize": 14
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -11818,7 +11974,8 @@
                       "fill": "$text-muted",
                       "content": "Toque numa pergunta para enviar",
                       "fontFamily": "$font",
-                      "fontSize": 15
+                      "fontSize": 15,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "frame",
@@ -12081,7 +12238,8 @@
                       "fill": "$text-muted",
                       "content": "A gente lê a tela para você",
                       "fontFamily": "$font",
-                      "fontSize": 16
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -12224,7 +12382,8 @@
                               "fill": "$text-secondary",
                               "content": "Dona Maria, quarta-feira, 12 de novembro. Vai levar 2 minutos.",
                               "fontFamily": "$font",
-                              "fontSize": 17
+                              "fontSize": 17,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -12301,7 +12460,8 @@
                           "fill": "$text-muted",
                           "content": "0:24",
                           "fontFamily": "$font",
-                          "fontSize": 15
+                          "fontSize": 15,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
@@ -12310,7 +12470,8 @@
                           "fill": "$text-muted",
                           "content": "2:10",
                           "fontFamily": "$font",
-                          "fontSize": 15
+                          "fontSize": 15,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -12488,7 +12649,8 @@
                       "fill": "$text-muted",
                       "content": "Toque no botão de som ao lado de cada tema",
                       "fontFamily": "$font",
-                      "fontSize": 15
+                      "fontSize": 15,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "frame",
@@ -12571,7 +12733,8 @@
                               "content": "28 graus, céu claro e sem chuva. Bom dia para regar de manhã cedo.",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -12649,7 +12812,8 @@
                               "content": "O canteiro da horta está úmido. A baixa do riacho está seca e precisa de água.",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -12727,7 +12891,8 @@
                               "content": "O tomate está florindo e precisa de estaca. A alface pode colher em 3 dias.",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -12805,7 +12970,8 @@
                               "content": "Entraram 1.480 reais e saíram 620. Sobrou 859 reais este mês.",
                               "lineHeight": 1.45,
                               "fontFamily": "$font",
-                              "fontSize": 15
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -13054,6 +13220,431 @@
                       ]
                     }
                   ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dpIVV",
+      "x": -1809,
+      "y": 3686,
+      "name": "Frame 1",
+      "clip": true,
+      "width": 981,
+      "height": 979,
+      "fill": "#FFFFFF",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "O2GlN",
+          "x": 49,
+          "y": 229,
+          "name": "Metricas",
+          "width": "fill_container(884)",
+          "gap": 14,
+          "children": [
+            {
+              "type": "frame",
+              "id": "rbR3o",
+              "name": "Metrica Chuva",
+              "width": "fill_container",
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "2649_Cuidados_Plantacao_Chuva.png",
+                  "mode": "cover",
+                  "transform": [
+                    1.501128,
+                    0,
+                    0,
+                    1,
+                    -0.392724,
+                    0
+                  ]
+                },
+                {
+                  "type": "gradient",
+                  "gradientType": "linear",
+                  "enabled": true,
+                  "rotation": -90,
+                  "size": {
+                    "height": 1
+                  },
+                  "colors": [
+                    {
+                      "color": "$surface-soft",
+                      "position": 0.42
+                    },
+                    {
+                      "color": "#ffffff00",
+                      "position": 1
+                    }
+                  ]
+                }
+              ],
+              "cornerRadius": 16,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "yCHLX",
+                  "name": "Icon Box",
+                  "width": 42,
+                  "height": 42,
+                  "fill": "$primary",
+                  "cornerRadius": 14,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "criho",
+                      "name": "Icon",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "cloud-rain",
+                      "library": "lucide",
+                      "fill": "$surface"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "v8AXS7",
+                  "name": "Label",
+                  "fill": "$text-primary",
+                  "content": "Chuva",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "a1Yek",
+                  "name": "Value",
+                  "fill": "$primary",
+                  "content": "0 mm",
+                  "fontFamily": "$font",
+                  "fontSize": 24,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "kGLbC",
+                  "name": "Note",
+                  "fill": "$warm-text",
+                  "content": "Não deve chover",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "nsNWw",
+              "name": "Metrica Umidade do Ar",
+              "width": "fill_container",
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "formacao-de-nuvens.jpg",
+                  "mode": "cover",
+                  "transform": [
+                    1.19715,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "type": "gradient",
+                  "gradientType": "linear",
+                  "enabled": true,
+                  "rotation": -90,
+                  "size": {
+                    "height": 1
+                  },
+                  "colors": [
+                    {
+                      "color": "$surface-soft",
+                      "position": 0.4
+                    },
+                    {
+                      "color": "#ffffff00",
+                      "position": 1
+                    }
+                  ]
+                }
+              ],
+              "cornerRadius": 16,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "e2trxV",
+                  "name": "Icon Box",
+                  "width": 42,
+                  "height": 42,
+                  "fill": "$primary",
+                  "cornerRadius": 14,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "JNGMS",
+                      "name": "Icon",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "droplets",
+                      "library": "lucide",
+                      "fill": "$surface"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "pw0O3",
+                  "name": "Label",
+                  "fill": "$text-primary",
+                  "content": "Umidade do Ar",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "JB4vl",
+                  "name": "Value",
+                  "fill": "$primary",
+                  "content": "58%",
+                  "fontFamily": "$font",
+                  "fontSize": 24,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "g8bQV",
+                  "name": "Note",
+                  "fill": "$text-primary",
+                  "content": "Amanhã: 62%",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "DuaQG",
+              "name": "Metrica Vento",
+              "width": "fill_container",
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "POR-DENTRO-DA-SAFRA-27.png",
+                  "mode": "cover",
+                  "transform": [
+                    1.18962,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "type": "gradient",
+                  "gradientType": "linear",
+                  "enabled": true,
+                  "rotation": -90,
+                  "size": {
+                    "height": 1
+                  },
+                  "colors": [
+                    {
+                      "color": "$surface-soft",
+                      "position": 0.4
+                    },
+                    {
+                      "color": "#ffffff00",
+                      "position": 1
+                    }
+                  ]
+                }
+              ],
+              "cornerRadius": 16,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "QWP7w",
+                  "name": "Icon Box",
+                  "width": 42,
+                  "height": 42,
+                  "fill": "$primary",
+                  "cornerRadius": 14,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "A3Li8Z",
+                      "name": "Icon",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "wind",
+                      "library": "lucide",
+                      "fill": "$surface"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "HoydW",
+                  "name": "Label",
+                  "fill": "$text-primary",
+                  "content": "Vento",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "tltlW",
+                  "name": "Value",
+                  "fill": "$primary",
+                  "content": "12 km/h",
+                  "fontFamily": "$font",
+                  "fontSize": 24,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "MpaU7",
+                  "name": "Note",
+                  "fill": "$text-primary",
+                  "content": "Do leste",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Ep5og",
+              "name": "Metrica Radiação Solar",
+              "width": "fill_container",
+              "fill": [
+                {
+                  "type": "image",
+                  "enabled": true,
+                  "url": "images.jpg",
+                  "mode": "cover",
+                  "transform": [
+                    1.399539,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "type": "gradient",
+                  "gradientType": "linear",
+                  "enabled": true,
+                  "rotation": -90,
+                  "size": {
+                    "height": 1
+                  },
+                  "colors": [
+                    {
+                      "color": "$surface-soft",
+                      "position": 0.4
+                    },
+                    {
+                      "color": "#ffffff00",
+                      "position": 1
+                    }
+                  ]
+                }
+              ],
+              "cornerRadius": 16,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "qZZbt",
+                  "name": "Icon Box",
+                  "width": 42,
+                  "height": 42,
+                  "fill": "$primary",
+                  "cornerRadius": 14,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "zc2kx",
+                      "name": "Icon",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "sun",
+                      "library": "lucide",
+                      "fill": "$surface"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "rO2Oc",
+                  "name": "Label",
+                  "fill": "$text-primary",
+                  "content": "Radiação Solar",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "Bowly",
+                  "name": "Value",
+                  "fill": "$primary",
+                  "content": "6,4 kWh",
+                  "fontFamily": "$font",
+                  "fontSize": 24,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "x1HBBV",
+                  "name": "Note",
+                  "fill": "$text-primary",
+                  "content": "Dia forte",
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             }
