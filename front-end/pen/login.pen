@@ -9087,7 +9087,7 @@
       "name": "10. Calendário de Plantio",
       "clip": true,
       "width": 1280,
-      "height": 1400,
+      "height": 1455,
       "fill": "$bg",
       "children": [
         {
@@ -9234,8 +9234,1973 @@
               "children": [
                 {
                   "type": "frame",
-                  "id": "N5GJR6",
-                  "name": "Calendario",
+                  "id": "a2ePVI",
+                  "name": "Calendario Rotacao",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": "$radius-card",
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 28,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "N9M0N",
+                      "name": "Head",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Jesep",
+                          "name": "Head Text",
+                          "layout": "vertical",
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "X4ROQ",
+                              "name": "Title",
+                              "fill": "$text-primary",
+                              "content": "A tua rotação no calendário",
+                              "fontFamily": "$font",
+                              "fontSize": 22,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "CX7Ji",
+                              "name": "Sub",
+                              "fill": "$text-muted",
+                              "content": "Cada barra é um ciclo da tua rotação. Vê o que plantar, quando e o que a NASA mediu.",
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "AqsOn",
+                      "name": "Cabecalho Meses",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "TIwOh",
+                          "name": "Rotulo",
+                          "width": 150,
+                          "height": 22
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ccFsk",
+                          "name": "Trilho",
+                          "width": "fill_container",
+                          "height": 22,
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "cEUjF",
+                              "name": "Mes Jan",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "a0pYB",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Jan",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "r4ETp",
+                              "name": "Mes Fev",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "YvxSY",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Fev",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "GhOiK",
+                              "name": "Mes Mar",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "pEdDR",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Mar",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "C4fgI",
+                              "name": "Mes Abr",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "EBoLo",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Abr",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "xCYNM",
+                              "name": "Mes Mai",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "B12FP1",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Mai",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "aYDYx",
+                              "name": "Mes Jun",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "qWFYP",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Jun",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "MO82x",
+                              "name": "Mes Jul",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "wO5hx",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Jul",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "JYQ6a",
+                              "name": "Mes Ago",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "vk5ty",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Ago",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "yb79M",
+                              "name": "Mes Set",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "ejAfm",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Set",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "ibzP2",
+                              "name": "Mes Out",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "RirqA",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Out",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "yT51L",
+                              "name": "Mes Nov",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$primary-soft",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "WSdnF",
+                                  "name": "Label",
+                                  "fill": "$primary",
+                                  "content": "Nov",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "W5lJq",
+                              "name": "Mes Dez",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "cornerRadius": 6,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "hNTXB",
+                                  "name": "Label",
+                                  "fill": "$text-muted",
+                                  "content": "Dez",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "rZvye",
+                      "name": "Linha Milho",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "fsrTA",
+                          "name": "Rotulo",
+                          "width": 150,
+                          "gap": 10,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "XiKId",
+                              "name": "Icon Box",
+                              "width": 40,
+                              "height": 40,
+                              "fill": "$primary",
+                              "cornerRadius": 12,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "pC7VB",
+                                  "name": "Icon",
+                                  "width": 20,
+                                  "height": 20,
+                                  "icon": "wheat",
+                                  "library": "lucide",
+                                  "fill": "$surface"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "hwhbO",
+                              "name": "Textos",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "z9HUg",
+                                  "name": "Nome",
+                                  "fill": "$text-primary",
+                                  "content": "Milho",
+                                  "fontFamily": "$font",
+                                  "fontSize": 16,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "rIIx1",
+                                  "name": "Periodo",
+                                  "fill": "$text-muted",
+                                  "content": "Jan – Abr",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "QQ2JN",
+                                  "name": "Accao",
+                                  "fill": "$primary",
+                                  "content": "Semear em Jan",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "r8tVEQ",
+                          "name": "Trilho",
+                          "width": "fill_container",
+                          "height": 52,
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "yooUZ",
+                              "name": "Mes Jan",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$primary",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "QTJxn",
+                                  "name": "Icon",
+                                  "width": 18,
+                                  "height": 18,
+                                  "icon": "wheat",
+                                  "library": "lucide",
+                                  "fill": "$surface"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "vGp8M",
+                              "name": "Mes Fev",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$primary",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "U6loEY",
+                              "name": "Mes Mar",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$primary",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "bIXAu",
+                              "name": "Mes Abr",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$primary",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "nyu5L",
+                              "name": "Mes Mai",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "h8W8o3",
+                              "name": "Mes Jun",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "XzJFt",
+                              "name": "Mes Jul",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "qPq7S",
+                              "name": "Mes Ago",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "T0mMia",
+                              "name": "Mes Set",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "edr5j",
+                              "name": "Mes Out",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "KV6Eb",
+                              "name": "Mes Nov",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "bX6j5",
+                              "name": "Mes Dez",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Kpb3s",
+                      "name": "Linha Feijao Caupi",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "lpDjg",
+                          "name": "Rotulo",
+                          "width": 150,
+                          "gap": 10,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "R1vKB",
+                              "name": "Icon Box",
+                              "width": 40,
+                              "height": 40,
+                              "fill": "$warn",
+                              "cornerRadius": 12,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "mz41k",
+                                  "name": "Icon",
+                                  "width": 20,
+                                  "height": 20,
+                                  "icon": "bean",
+                                  "library": "lucide",
+                                  "fill": "$surface"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "fsJHM",
+                              "name": "Textos",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "i7dZS3",
+                                  "name": "Nome",
+                                  "fill": "$text-primary",
+                                  "content": "Feijão-Caupi",
+                                  "fontFamily": "$font",
+                                  "fontSize": 16,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "pCWa0",
+                                  "name": "Periodo",
+                                  "fill": "$text-muted",
+                                  "content": "Mai – Ago",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "NMEFu",
+                                  "name": "Accao",
+                                  "fill": "$primary",
+                                  "content": "Semear em Mai",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "CmdVT",
+                          "name": "Trilho",
+                          "width": "fill_container",
+                          "height": 52,
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "FdRDE",
+                              "name": "Mes Jan",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "KtWKK",
+                              "name": "Mes Fev",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "S3Wce",
+                              "name": "Mes Mar",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "sBMV6",
+                              "name": "Mes Abr",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "tJVSL",
+                              "name": "Mes Mai",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$warn",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "c2PVOK",
+                                  "name": "Icon",
+                                  "width": 18,
+                                  "height": 18,
+                                  "icon": "bean",
+                                  "library": "lucide",
+                                  "fill": "$surface"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "tu0Ny",
+                              "name": "Mes Jun",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$warn",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "u3mi4",
+                              "name": "Mes Jul",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$warn",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "rvohx",
+                              "name": "Mes Ago",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$warn",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "lGUxD",
+                              "name": "Mes Set",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "KKfgX",
+                              "name": "Mes Out",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Duuyu",
+                              "name": "Mes Nov",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "mJ70M",
+                              "name": "Mes Dez",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TI2cV",
+                      "name": "Linha Braquiaria",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "eP8pw",
+                          "name": "Rotulo",
+                          "width": 150,
+                          "gap": 10,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "dO8ei",
+                              "name": "Icon Box",
+                              "width": 40,
+                              "height": 40,
+                              "fill": "$water",
+                              "cornerRadius": 12,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "Y0CXA",
+                                  "name": "Icon",
+                                  "width": 20,
+                                  "height": 20,
+                                  "icon": "sprout",
+                                  "library": "lucide",
+                                  "fill": "$surface"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "eFcND",
+                              "name": "Textos",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "TuDOJ",
+                                  "name": "Nome",
+                                  "fill": "$text-primary",
+                                  "content": "Braquiária",
+                                  "fontFamily": "$font",
+                                  "fontSize": 16,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "mvOZk",
+                                  "name": "Periodo",
+                                  "fill": "$text-muted",
+                                  "content": "Set – Dez",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "YvE73",
+                                  "name": "Accao",
+                                  "fill": "$primary",
+                                  "content": "Semear em Set",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "WIe6G",
+                          "name": "Trilho",
+                          "width": "fill_container",
+                          "height": 52,
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "vILHc",
+                              "name": "Mes Jan",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "PfACD",
+                              "name": "Mes Fev",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "YrAVt",
+                              "name": "Mes Mar",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "su40x",
+                              "name": "Mes Abr",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "DX1bi",
+                              "name": "Mes Mai",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "DeZXk",
+                              "name": "Mes Jun",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "jh1wN",
+                              "name": "Mes Jul",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "s0ZUJ",
+                              "name": "Mes Ago",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$surface-soft",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "VQTZ9",
+                              "name": "Mes Set",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$water",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "blxiR",
+                                  "name": "Icon",
+                                  "width": 18,
+                                  "height": 18,
+                                  "icon": "sprout",
+                                  "library": "lucide",
+                                  "fill": "$surface"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "eNm7H",
+                              "name": "Mes Out",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$water",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "ziCYk",
+                              "name": "Mes Nov",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$water",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "ZgrOY",
+                              "name": "Mes Dez",
+                              "width": "fill_container",
+                              "height": "fill_container",
+                              "fill": "$water",
+                              "cornerRadius": 8,
+                              "justifyContent": "center",
+                              "alignItems": "center"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UESs9",
+                      "name": "Linha Chuva",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "alignItems": "end",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "HVgPz",
+                          "name": "Rotulo",
+                          "width": 150,
+                          "layout": "vertical",
+                          "gap": 1,
+                          "padding": [
+                            0,
+                            0,
+                            6,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "G5fFSe",
+                              "name": "Nome",
+                              "fill": "$text-secondary",
+                              "content": "Chuva (NASA)",
+                              "fontFamily": "$font",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "vFStC",
+                              "name": "Sub",
+                              "fill": "$text-muted",
+                              "content": "mm por mês",
+                              "fontFamily": "$font",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "p760FZ",
+                          "name": "Trilho",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "Ng2qa",
+                              "name": "Barras",
+                              "width": "fill_container",
+                              "height": 60,
+                              "gap": 3,
+                              "alignItems": "end",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "y5XRk",
+                                  "name": "Mes Jan",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "X1LzFd",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 58,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "aHQJ0",
+                                  "name": "Mes Fev",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "iM5cL",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 48,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "N8J7T",
+                                  "name": "Mes Mar",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "T5nRV",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 45,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "Humpb",
+                                  "name": "Mes Abr",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "qJrym",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 29,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "cszt1",
+                                  "name": "Mes Mai",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "MnwIv",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 10,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "YzzP5",
+                                  "name": "Mes Jun",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "lE1ry",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 3,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "GBeJz",
+                                  "name": "Mes Jul",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "wOjbT",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 3,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "Y7ZBu",
+                                  "name": "Mes Ago",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "n6dLL",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 3,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "sopKS",
+                                  "name": "Mes Set",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "aPhj7",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 5,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "E3zy1S",
+                                  "name": "Mes Out",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "PZySW",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 19,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "jkHBI",
+                                  "name": "Mes Nov",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "ohfko",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 39,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "ZndJq",
+                                  "name": "Mes Dez",
+                                  "width": "fill_container",
+                                  "height": "fill_container",
+                                  "justifyContent": "end",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "o9Kxe",
+                                      "name": "Barra",
+                                      "width": "fill_container",
+                                      "height": 55,
+                                      "fill": "$water-light",
+                                      "cornerRadius": [
+                                        6,
+                                        6,
+                                        0,
+                                        0
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "SF60O",
+                              "name": "Base",
+                              "width": "fill_container",
+                              "height": 1,
+                              "fill": "$border"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "vCJRS",
+                      "name": "Legenda",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Bnu0O",
+                          "name": "Rotulo",
+                          "width": 150,
+                          "height": 20
+                        },
+                        {
+                          "type": "frame",
+                          "id": "VnG3Y",
+                          "name": "Itens",
+                          "width": "fill_container",
+                          "gap": 18,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "GNeiY",
+                              "name": "Milho (Ciclo 1)",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "eMm0P",
+                                  "name": "Ponto",
+                                  "width": 14,
+                                  "height": 14,
+                                  "fill": "$primary",
+                                  "cornerRadius": 9999
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "VCUiq",
+                                  "name": "Label",
+                                  "fill": "$text-secondary",
+                                  "content": "Milho (Ciclo 1)",
+                                  "fontFamily": "$font",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "hCYRB",
+                              "name": "Feijão-Caupi (Ciclo 2)",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "l5QK7",
+                                  "name": "Ponto",
+                                  "width": 14,
+                                  "height": 14,
+                                  "fill": "$warn",
+                                  "cornerRadius": 9999
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "OX4Mw",
+                                  "name": "Label",
+                                  "fill": "$text-secondary",
+                                  "content": "Feijão-Caupi (Ciclo 2)",
+                                  "fontFamily": "$font",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Au84L",
+                              "name": "Braquiária (Ciclo 3)",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "JHeEe",
+                                  "name": "Ponto",
+                                  "width": 14,
+                                  "height": 14,
+                                  "fill": "$water",
+                                  "cornerRadius": 9999
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "CFnJL",
+                                  "name": "Label",
+                                  "fill": "$text-secondary",
+                                  "content": "Braquiária (Ciclo 3)",
+                                  "fontFamily": "$font",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "S9YEJn",
+                              "name": "Chuva medida pela NASA",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "rWRaf",
+                                  "name": "Ponto",
+                                  "width": 14,
+                                  "height": 14,
+                                  "fill": "$water-light",
+                                  "cornerRadius": 9999
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "k9lJPJ",
+                                  "name": "Label",
+                                  "fill": "$text-secondary",
+                                  "content": "Chuva medida pela NASA",
+                                  "fontFamily": "$font",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "TVHWN",
+                  "name": "Secao Titulo",
+                  "fill": "$text-primary",
+                  "content": "O que fazer no teu campo",
+                  "fontFamily": "$font",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "uohnv",
+                  "name": "Tarefas",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": "$radius-card",
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 28,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "m023a",
+                      "name": "Tarefa Preparar o terreno para o Milho",
+                      "width": "fill_container",
+                      "gap": 14,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "J9iQdP",
+                          "name": "Check",
+                          "width": 32,
+                          "height": 32,
+                          "fill": "$surface-soft",
+                          "cornerRadius": 9999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "U3ljC",
+                              "name": "Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "circle",
+                              "library": "lucide",
+                              "fill": "$primary"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "rCeQa",
+                          "name": "Texts",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "T0i5Vp",
+                              "name": "Name",
+                              "fill": "$text-primary",
+                              "content": "Preparar o terreno para o Milho",
+                              "fontFamily": "$font",
+                              "fontSize": 17,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "oldb9",
+                              "name": "Desc",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Cavar 20 cm e adubar com esterco antes da primeira chuva boa",
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "eQTu6",
+                          "name": "Data",
+                          "height": 34,
+                          "fill": "$surface-soft",
+                          "cornerRadius": 9999,
+                          "padding": [
+                            0,
+                            14
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "VVJRE",
+                              "name": "Label",
+                              "fill": "$primary",
+                              "content": "Janeiro",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QgInN",
+                      "name": "Tarefa Comprar sementes de Feijão-Caupi",
+                      "width": "fill_container",
+                      "gap": 14,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "wDEpl",
+                          "name": "Check",
+                          "width": 32,
+                          "height": 32,
+                          "fill": "$surface-soft",
+                          "cornerRadius": 9999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "X7724d",
+                              "name": "Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "circle",
+                              "library": "lucide",
+                              "fill": "$warn"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "c84glv",
+                          "name": "Texts",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "k1ziA",
+                              "name": "Name",
+                              "fill": "$text-primary",
+                              "content": "Comprar sementes de Feijão-Caupi",
+                              "fontFamily": "$font",
+                              "fontSize": 17,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "v6TS5f",
+                              "name": "Desc",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Feira livre da cidade — semear só depois de o Milho estar colhido",
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "s4Lin",
+                          "name": "Data",
+                          "height": 34,
+                          "fill": "$surface-soft",
+                          "cornerRadius": 9999,
+                          "padding": [
+                            0,
+                            14
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Z077ro",
+                              "name": "Label",
+                              "fill": "$warn",
+                              "content": "Abril",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "O8GkWW",
+                      "name": "Tarefa Semear a Braquiária",
+                      "width": "fill_container",
+                      "gap": 14,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "xURs9",
+                          "name": "Check",
+                          "width": 32,
+                          "height": 32,
+                          "fill": "$surface-soft",
+                          "cornerRadius": 9999,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "g3y98",
+                              "name": "Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "circle",
+                              "library": "lucide",
+                              "fill": "$water"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "bD3M1",
+                          "name": "Texts",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "tDEOx",
+                              "name": "Name",
+                              "fill": "$text-primary",
+                              "content": "Semear a Braquiária",
+                              "fontFamily": "$font",
+                              "fontSize": 17,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "fzOhJ",
+                              "name": "Desc",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Espalha as sementes e deixa crescer — é a cobertura que protege a terra do sol",
+                              "fontFamily": "$font",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "fYKoW",
+                          "name": "Data",
+                          "height": 34,
+                          "fill": "$surface-soft",
+                          "cornerRadius": 9999,
+                          "padding": [
+                            0,
+                            14
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "CRIDp",
+                              "name": "Label",
+                              "fill": "$water",
+                              "content": "Setembro",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "h04ti",
+                  "name": "CTA",
+                  "width": "fill_container",
+                  "fill": "$primary",
+                  "cornerRadius": 20,
+                  "gap": 20,
+                  "padding": [
+                    18,
+                    22
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "P8UrlV",
+                      "name": "CTA Button",
+                      "height": 54,
+                      "fill": "$surface",
+                      "cornerRadius": 9999,
+                      "gap": 10,
+                      "padding": [
+                        0,
+                        26
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "FqgAF",
+                          "name": "Label",
+                          "fill": "$primary",
+                          "content": "Ver a minha rotação",
+                          "fontFamily": "$font",
+                          "fontSize": 17,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "KXJoH",
+                          "name": "Arrow",
+                          "width": 20,
+                          "height": 20,
+                          "icon": "arrow-right",
+                          "library": "lucide",
+                          "fill": "$primary"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "XEXY5",
+                  "name": "CTA Text",
+                  "layout": "vertical",
+                  "gap": 3,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "vlHev",
+                      "name": "Textos",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "auwPe",
+                          "name": "Title",
+                          "fill": "$surface",
+                          "content": "Queres mudar a rotação?",
+                          "fontFamily": "$font",
+                          "fontSize": 19,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ylI3k",
+                          "name": "Sub",
+                          "fill": "$primary-soft",
+                          "content": "Volta ao ecrã Rotação de Culturas e escolhe outro plano — o calendário muda contigo.",
+                          "fontFamily": "$font",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "joGKs",
+                  "name": "Secao Mes Titulo",
+                  "fill": "$text-primary",
+                  "content": "Este mês na tua terra",
+                  "fontFamily": "$font",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "qzC94",
+                  "name": "Cartao Mes",
                   "width": "fill_container",
                   "fill": "$surface",
                   "cornerRadius": "$radius-card",
@@ -9248,36 +11213,73 @@
                   "children": [
                     {
                       "type": "frame",
-                      "id": "UdHUH",
+                      "id": "qgFlL",
                       "name": "Head",
                       "width": "fill_container",
                       "gap": 16,
-                      "justifyContent": "space_between",
                       "alignItems": "center",
                       "children": [
                         {
                           "type": "frame",
-                          "id": "fFuRb",
-                          "name": "Head Text",
+                          "id": "g5tZB",
+                          "name": "Mes Badge",
+                          "width": 96,
+                          "height": 96,
+                          "fill": "$primary",
+                          "cornerRadius": 20,
                           "layout": "vertical",
                           "gap": 2,
+                          "justifyContent": "center",
+                          "alignItems": "center",
                           "children": [
                             {
                               "type": "text",
-                              "id": "zRjLh",
-                              "name": "Title",
-                              "fill": "$text-primary",
-                              "content": "Próximos plantios",
+                              "id": "S52Q3i",
+                              "name": "Nome",
+                              "fill": "$surface",
+                              "content": "NOV",
                               "fontFamily": "$font",
-                              "fontSize": 24,
+                              "fontSize": 30,
                               "fontWeight": "700"
                             },
                             {
                               "type": "text",
-                              "id": "S7hHZ9",
+                              "id": "bwPT7",
+                              "name": "Ano",
+                              "fill": "$primary-soft",
+                              "content": "2026",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "rVwEh",
+                          "name": "Textos",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "xdr1l",
+                              "name": "Title",
+                              "fill": "$text-primary",
+                              "content": "Ciclo 3 · A Braquiária está a cobrir a terra",
+                              "fontFamily": "$font",
+                              "fontSize": 20,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "EEJtQ",
                               "name": "Sub",
-                              "fill": "$text-muted",
-                              "content": "Calendário da sua região",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A Braquiária é a planta que protege o solo no calor. Deixa-a crescer até ao fim do ciclo e só depois cortas — é essa palhada que guarda a humidade para o Milho.",
                               "fontFamily": "$font",
                               "fontSize": 15,
                               "fontWeight": "normal"
@@ -9288,842 +11290,137 @@
                     },
                     {
                       "type": "frame",
-                      "id": "Vhe8Q",
-                      "name": "Meses",
+                      "id": "GgEd8",
+                      "name": "Stats",
                       "width": "fill_container",
                       "gap": 14,
                       "children": [
                         {
                           "type": "frame",
-                          "id": "Hay2X",
-                          "name": "Mes NOVEMBRO",
+                          "id": "Rfoqd",
+                          "name": "Stat Chuva este mês",
                           "width": "fill_container",
                           "fill": "$surface-soft",
                           "cornerRadius": 16,
                           "layout": "vertical",
-                          "gap": 12,
-                          "padding": 20,
+                          "gap": 3,
+                          "padding": 18,
                           "children": [
                             {
                               "type": "text",
-                              "id": "kMiJT",
-                              "name": "Mes",
-                              "fill": "$text-muted",
-                              "content": "NOVEMBRO",
+                              "id": "gSVrY",
+                              "name": "Label",
+                              "fill": "$text-secondary",
+                              "content": "Chuva este mês",
                               "fontFamily": "$font",
-                              "fontSize": 14,
-                              "fontWeight": "700"
-                            },
-                            {
-                              "type": "frame",
-                              "id": "DhDOd",
-                              "name": "Lista",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 8,
-                              "children": [
-                                {
-                                  "type": "frame",
-                                  "id": "rQfND",
-                                  "name": "Item 1",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "Z9Hdx7",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "b43Irh",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "Alface",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "beJBm",
-                                  "name": "Item 2",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "wy8Fw",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "JXtfy",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "Couve",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "u6s9Dn",
-                                  "name": "Item 3",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "rnwQT",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "pElEL",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "milho",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "Nfwu2",
-                              "name": "Divider",
-                              "width": "fill_container",
-                              "height": 1,
-                              "fill": "$border"
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
-                              "id": "b97Qh",
-                              "name": "Sol",
-                              "fill": "$text-secondary",
-                              "content": "Sombreado",
+                              "id": "s68GhD",
+                              "name": "Value",
+                              "fill": "$water",
+                              "content": "120 mm",
                               "fontFamily": "$font",
-                              "fontSize": 15,
+                              "fontSize": 26,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "gUtrE",
+                              "name": "Sub",
+                              "fill": "$text-muted",
+                              "content": "medida pela NASA",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
                               "fontWeight": "normal"
                             }
                           ]
                         },
                         {
                           "type": "frame",
-                          "id": "Apmc4",
-                          "name": "Mes DEZEMBRO",
+                          "id": "ev0iv",
+                          "name": "Stat Água que falta",
                           "width": "fill_container",
                           "fill": "$surface-soft",
                           "cornerRadius": 16,
                           "layout": "vertical",
-                          "gap": 12,
-                          "padding": 20,
+                          "gap": 3,
+                          "padding": 18,
                           "children": [
                             {
                               "type": "text",
-                              "id": "uCsWk",
-                              "name": "Mes",
-                              "fill": "$text-muted",
-                              "content": "DEZEMBRO",
+                              "id": "xG0XI",
+                              "name": "Label",
+                              "fill": "$text-secondary",
+                              "content": "Água que falta",
                               "fontFamily": "$font",
-                              "fontSize": 14,
-                              "fontWeight": "700"
-                            },
-                            {
-                              "type": "frame",
-                              "id": "K3YRNp",
-                              "name": "Lista",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 8,
-                              "children": [
-                                {
-                                  "type": "frame",
-                                  "id": "PHtQV",
-                                  "name": "Item 1",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "SV7L7",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "zZTGU",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "Cebola",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "H9fXp",
-                                  "name": "Item 2",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "QyKuL",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "aIwia",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "Tomate",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "T8lDO",
-                                  "name": "Item 3",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "yJ2Y0",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "olCQs",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "feijao",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "nakka",
-                              "name": "Divider",
-                              "width": "fill_container",
-                              "height": 1,
-                              "fill": "$border"
+                              "fontSize": 15,
+                              "fontWeight": "normal"
                             },
                             {
                               "type": "text",
-                              "id": "okPO8",
-                              "name": "Sol",
-                              "fill": "$text-secondary",
-                              "content": "Sol pleno",
+                              "id": "YMGFg",
+                              "name": "Value",
+                              "fill": "$warn",
+                              "content": "291 mm",
                               "fontFamily": "$font",
-                              "fontSize": 15,
+                              "fontSize": 26,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "KFg6W",
+                              "name": "Sub",
+                              "fill": "$text-muted",
+                              "content": "no Ciclo 2 — prepara a rega",
+                              "fontFamily": "$font",
+                              "fontSize": 14,
                               "fontWeight": "normal"
                             }
                           ]
                         },
                         {
                           "type": "frame",
-                          "id": "pvBh2",
-                          "name": "Mes JANEIRO",
+                          "id": "ZTqDY",
+                          "name": "Stat Terra coberta",
                           "width": "fill_container",
                           "fill": "$surface-soft",
                           "cornerRadius": 16,
                           "layout": "vertical",
-                          "gap": 12,
-                          "padding": 20,
+                          "gap": 3,
+                          "padding": 18,
                           "children": [
                             {
                               "type": "text",
-                              "id": "HHWuP",
-                              "name": "Mes",
-                              "fill": "$text-muted",
-                              "content": "JANEIRO",
-                              "fontFamily": "$font",
-                              "fontSize": 14,
-                              "fontWeight": "700"
-                            },
-                            {
-                              "type": "frame",
-                              "id": "Fh73a",
-                              "name": "Lista",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 8,
-                              "children": [
-                                {
-                                  "type": "frame",
-                                  "id": "YTb8y",
-                                  "name": "Item 1",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "Oj4Qa",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "UNYvc",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "Abóbora",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "VKZ3e",
-                                  "name": "Item 2",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "tqkw1",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "rzddz",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "Pepino",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "d42TZT",
-                                  "name": "Item 3",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "iaGbN",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "H05ap",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "milho",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "VMKG2",
-                              "name": "Divider",
-                              "width": "fill_container",
-                              "height": 1,
-                              "fill": "$border"
-                            },
-                            {
-                              "type": "text",
-                              "id": "xBFnB",
-                              "name": "Sol",
+                              "id": "Lkf0Z",
+                              "name": "Label",
                               "fill": "$text-secondary",
-                              "content": "Sol pleno",
+                              "content": "Terra coberta",
                               "fontFamily": "$font",
                               "fontSize": 15,
                               "fontWeight": "normal"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "QJJtd",
-                          "name": "Mes FEVEREIRO",
-                          "width": "fill_container",
-                          "fill": "$surface-soft",
-                          "cornerRadius": 16,
-                          "layout": "vertical",
-                          "gap": 12,
-                          "padding": 20,
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "Q0kTyl",
-                              "name": "Mes",
-                              "fill": "$text-muted",
-                              "content": "FEVEREIRO",
-                              "fontFamily": "$font",
-                              "fontSize": 14,
-                              "fontWeight": "700"
-                            },
-                            {
-                              "type": "frame",
-                              "id": "p4dwG",
-                              "name": "Lista",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 8,
-                              "children": [
-                                {
-                                  "type": "frame",
-                                  "id": "DL3kq",
-                                  "name": "Item 1",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "pDVMl",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "KcAcv",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "Couve-flor",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "iI5nc",
-                                  "name": "Item 2",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "w43pU",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "qRvLq",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "Alface",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "BQsTz",
-                                  "name": "Item 3",
-                                  "width": "fill_container",
-                                  "gap": 10,
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "icon",
-                                      "id": "gqpxs",
-                                      "name": "Icon",
-                                      "width": 18,
-                                      "height": 18,
-                                      "icon": "leaf",
-                                      "library": "lucide",
-                                      "fill": "$primary"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "a30u0G",
-                                      "name": "Text",
-                                      "fill": "$text-primary",
-                                      "content": "cenoura",
-                                      "fontFamily": "$font",
-                                      "fontSize": 17,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "mnCQy",
-                              "name": "Divider",
-                              "width": "fill_container",
-                              "height": 1,
-                              "fill": "$border"
                             },
                             {
                               "type": "text",
-                              "id": "CqhNv",
-                              "name": "Sol",
-                              "fill": "$text-secondary",
-                              "content": "Sol pleno",
-                              "fontFamily": "$font",
-                              "fontSize": 15,
-                              "fontWeight": "normal"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "TMB43",
-                  "name": "Tarefas",
-                  "width": "fill_container",
-                  "fill": "$surface",
-                  "cornerRadius": "$radius-card",
-                  "stroke": "$border",
-                  "strokeWidth": 1,
-                  "strokeAlignment": "inner",
-                  "layout": "vertical",
-                  "gap": 16,
-                  "padding": 28,
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "ITNvP",
-                      "name": "Title",
-                      "fill": "$text-primary",
-                      "content": "Para fazer esta semana",
-                      "fontFamily": "$font",
-                      "fontSize": 24,
-                      "fontWeight": "700"
-                    },
-                    {
-                      "type": "frame",
-                      "id": "ZT0JP",
-                      "name": "Lista",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 15,
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "ivAPu",
-                          "name": "Tarefa Preparar o canteiro da couve",
-                          "width": "fill_container",
-                          "fill": "$surface-soft",
-                          "cornerRadius": 16,
-                          "gap": 16,
-                          "padding": [
-                            18,
-                            20
-                          ],
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "yW8Lm",
-                              "name": "Check",
-                              "width": 32,
-                              "height": 32,
+                              "id": "TTUEf",
+                              "name": "Value",
                               "fill": "$primary",
-                              "cornerRadius": 9999,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "ETL6v",
-                                  "name": "Icon",
-                                  "width": 18,
-                                  "height": 18,
-                                  "icon": "check",
-                                  "library": "lucide",
-                                  "fill": "#FFFFFF"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "bUie8",
-                              "name": "Texts",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 3,
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "lsQa5",
-                                  "name": "Name",
-                                  "fill": "$text-primary",
-                                  "content": "Preparar o canteiro da couve",
-                                  "fontFamily": "$font",
-                                  "fontSize": 18,
-                                  "fontWeight": "700"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "z5NSO1",
-                                  "name": "Desc",
-                                  "fill": "$text-secondary",
-                                  "textGrowth": "fixed-width",
-                                  "width": "fill_container",
-                                  "content": "Cavar 20 cm e adubar com esterco",
-                                  "fontFamily": "$font",
-                                  "fontSize": 15,
-                                  "fontWeight": "normal"
-                                }
-                              ]
+                              "content": "3 meses",
+                              "fontFamily": "$font",
+                              "fontSize": 26,
+                              "fontWeight": "700"
                             },
                             {
                               "type": "text",
-                              "id": "C4A82",
-                              "name": "Data",
+                              "id": "BNFcf",
+                              "name": "Sub",
                               "fill": "$text-muted",
-                              "content": "Amanhã",
+                              "content": "até ao próximo plantio",
                               "fontFamily": "$font",
-                              "fontSize": 15,
-                              "fontWeight": "700"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "dhs0i",
-                          "name": "Tarefa Comprar sementes de alface",
-                          "width": "fill_container",
-                          "fill": "$surface-soft",
-                          "cornerRadius": 16,
-                          "gap": 16,
-                          "padding": [
-                            18,
-                            20
-                          ],
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "upAZN",
-                              "name": "Check",
-                              "width": 32,
-                              "height": 32,
-                              "fill": "$surface",
-                              "cornerRadius": 9999,
-                              "stroke": "$border",
-                              "strokeWidth": 2,
-                              "strokeAlignment": "inner",
-                              "justifyContent": "center",
-                              "alignItems": "center"
-                            },
-                            {
-                              "type": "frame",
-                              "id": "y3C6E",
-                              "name": "Texts",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 3,
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "S6PWam",
-                                  "name": "Name",
-                                  "fill": "$text-primary",
-                                  "content": "Comprar sementes de alface",
-                                  "fontFamily": "$font",
-                                  "fontSize": 18,
-                                  "fontWeight": "700"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "EzGq5",
-                                  "name": "Desc",
-                                  "fill": "$text-secondary",
-                                  "textGrowth": "fixed-width",
-                                  "width": "fill_container",
-                                  "content": "Feira livre da cidade",
-                                  "fontFamily": "$font",
-                                  "fontSize": 15,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "text",
-                              "id": "OtcHm",
-                              "name": "Data",
-                              "fill": "$text-muted",
-                              "content": "Sexta, de manhã",
-                              "fontFamily": "$font",
-                              "fontSize": 15,
-                              "fontWeight": "700"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "Y3KU2",
-                          "name": "Tarefa Fazer a estaca do tomate",
-                          "width": "fill_container",
-                          "fill": "$surface-soft",
-                          "cornerRadius": 16,
-                          "gap": 16,
-                          "padding": [
-                            18,
-                            20
-                          ],
-                          "alignItems": "center",
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "V5Dz9",
-                              "name": "Check",
-                              "width": 32,
-                              "height": 32,
-                              "fill": "$primary",
-                              "cornerRadius": 9999,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon",
-                                  "id": "tmEB8",
-                                  "name": "Icon",
-                                  "width": 18,
-                                  "height": 18,
-                                  "icon": "check",
-                                  "library": "lucide",
-                                  "fill": "#FFFFFF"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "Q3d9X0",
-                              "name": "Texts",
-                              "width": "fill_container",
-                              "layout": "vertical",
-                              "gap": 3,
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "siVtc",
-                                  "name": "Name",
-                                  "fill": "$text-primary",
-                                  "content": "Fazer a estaca do tomate",
-                                  "fontFamily": "$font",
-                                  "fontSize": 18,
-                                  "fontWeight": "700"
-                                },
-                                {
-                                  "type": "text",
-                                  "id": "Wg580",
-                                  "name": "Desc",
-                                  "fill": "$text-secondary",
-                                  "textGrowth": "fixed-width",
-                                  "width": "fill_container",
-                                  "content": "Galho de madeira de 1 metro",
-                                  "fontFamily": "$font",
-                                  "fontSize": 15,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "text",
-                              "id": "xHPi8",
-                              "name": "Data",
-                              "fill": "$text-muted",
-                              "content": "Hoje",
-                              "fontFamily": "$font",
-                              "fontSize": 15,
-                              "fontWeight": "700"
+                              "fontSize": 14,
+                              "fontWeight": "normal"
                             }
                           ]
                         }
@@ -14142,91 +15439,9 @@
                       "children": [
                         {
                           "type": "frame",
-                          "id": "kpxVZ",
-                          "x": 145.93901686020718,
-                          "y": 48.995278309873356,
-                          "name": "Badge de Status Rústico e Tranquilo:margin",
-                          "layout": "vertical",
-                          "padding": [
-                            0,
-                            0,
-                            20,
-                            0
-                          ],
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "QJ8OG",
-                              "name": "Badge de Status Rústico e Tranquilo",
-                              "fill": "#ffddb0ff",
-                              "cornerRadius": 9999,
-                              "effect": {
-                                "type": "shadow",
-                                "shadowType": "outer",
-                                "color": "#0000000d",
-                                "offset": {
-                                  "x": 0,
-                                  "y": 1
-                                },
-                                "blur": 1.75
-                              },
-                              "gap": 6,
-                              "padding": [
-                                6,
-                                20
-                              ],
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "frame",
-                                  "id": "U2xSq6",
-                                  "name": "Container",
-                                  "layout": "vertical",
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "path",
-                                      "id": "L9RSf5",
-                                      "name": "Icon",
-                                      "geometry": "M6 15l0-3-3.75 0-2.25-2.25 2.25-2.25 3.75 0 0-1.5-5.25 0 0-4.5 5.25 0 0-1.5 1.5 0 0 1.5 3.75 0 2.25 2.25-2.25 2.25-3.75 0 0 1.5 5.25 0 0 4.5-5.25 0 0 3-1.5 0 0 0m-3.75-10.5l8.38125 0 0.75-0.75-0.75-0.75-8.38125 0 0 1.5 0 0m0.61875 6l8.38125 0 0-1.5-8.38125 0-0.75 0.75 0.75 0.75 0 0m-0.61875-6l0-1.5 0 0 0 0.75 0 0.75 0 0 0 0m9 6l0-0.75 0-0.75 0 0 0 1.5 0 0 0 0",
-                                      "fill": "#281800ff",
-                                      "width": 13.5,
-                                      "height": 15
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "ttkJ3",
-                                  "name": "Container",
-                                  "layout": "vertical",
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "text",
-                                      "id": "o9ZSc",
-                                      "name": "Text",
-                                      "fill": "#281800ff",
-                                      "content": "CAMINHO NÃO ENCONTRADO • ERRO 404",
-                                      "lineHeight": 1.3846153846153846,
-                                      "textAlign": "center",
-                                      "textAlignVertical": "middle",
-                                      "fontFamily": "Liberation Serif",
-                                      "fontSize": 13,
-                                      "fontWeight": "700",
-                                      "letterSpacing": 0.6499999761581421
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
                           "id": "oQyMt",
-                          "x": 22.579016249855613,
-                          "y": 294.9905566197467,
+                          "x": 79.57901624985561,
+                          "y": 328.99527830987336,
                           "name": "Heading 1 - Título Grande e Acolhedor:margin",
                           "layout": "vertical",
                           "padding": [
@@ -14252,6 +15467,8 @@
                                   "id": "f2PJIj",
                                   "name": "Text",
                                   "fill": "#1f1b17ff",
+                                  "textGrowth": "fixed-width",
+                                  "width": 447,
                                   "content": "Eita! Parece que esse canteiro ainda\nnão foi plantado.",
                                   "lineHeight": 1.25,
                                   "textAlign": "center",
@@ -14260,112 +15477,6 @@
                                   "fontSize": 32,
                                   "fontWeight": "700",
                                   "letterSpacing": -0.3199999928474426
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "REqA5",
-                          "x": 63.189016860207175,
-                          "y": 380.99527830987336,
-                          "name": "Texto Explicativo Simples:margin",
-                          "layout": "vertical",
-                          "padding": [
-                            0,
-                            0,
-                            20,
-                            0
-                          ],
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "U2NYGC",
-                              "name": "Texto Explicativo Simples",
-                              "width": 512,
-                              "height": 84,
-                              "layout": "none",
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "luSro",
-                                  "x": -41.61000061035156,
-                                  "y": 0,
-                                  "name": "Text",
-                                  "fill": "#3e4a3dff",
-                                  "content": "A página ou anotação que você estava procurando mudou de lugar ou",
-                                  "lineHeight": 1.5555555555555556,
-                                  "textAlign": "center",
-                                  "textAlignVertical": "middle",
-                                  "fontFamily": "Liberation Serif",
-                                  "fontSize": 18,
-                                  "fontWeight": "normal"
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "CsvwV",
-                                  "x": 168.38999938964844,
-                                  "y": 42,
-                                  "name": "Strong",
-                                  "width": 365.4800109863281,
-                                  "height": 48,
-                                  "layout": "none",
-                                  "children": [
-                                    {
-                                      "type": "group",
-                                      "id": "UPpKn",
-                                      "x": -192,
-                                      "y": -14,
-                                      "children": [
-                                        {
-                                          "type": "text",
-                                          "id": "TyN6O",
-                                          "x": 0,
-                                          "y": 0,
-                                          "name": "Text",
-                                          "fill": "#3e4a3dff",
-                                          "content": "não existe mais. Mas não se preocupe: ",
-                                          "lineHeight": 1.5555555555555556,
-                                          "textAlign": "center",
-                                          "textAlignVertical": "middle",
-                                          "fontFamily": "Liberation Serif",
-                                          "fontSize": 18,
-                                          "fontWeight": "normal"
-                                        },
-                                        {
-                                          "type": "text",
-                                          "id": "PG5Sx",
-                                          "x": 337,
-                                          "y": 0,
-                                          "name": "Text",
-                                          "fill": "#006b2cff",
-                                          "content": "todas as suas colheitas e",
-                                          "lineHeight": 1.5555555555555556,
-                                          "textAlign": "center",
-                                          "textAlignVertical": "middle",
-                                          "fontFamily": "Liberation Serif",
-                                          "fontSize": 18,
-                                          "fontWeight": "700"
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "text",
-                                      "id": "G3wsjB",
-                                      "x": -71.5,
-                                      "y": 14,
-                                      "name": "Text",
-                                      "fill": "#006b2cff",
-                                      "content": "contas continuam salvas e seguras!",
-                                      "lineHeight": 1.5555555555555556,
-                                      "textAlign": "center",
-                                      "textAlignVertical": "middle",
-                                      "fontFamily": "Liberation Serif",
-                                      "fontSize": 18,
-                                      "fontWeight": "700"
-                                    }
-                                  ]
                                 }
                               ]
                             }
@@ -14482,18 +15593,6 @@
                         {
                           "type": "rectangle",
                           "cornerRadius": 9999,
-                          "id": "W1Np6",
-                          "x": 512,
-                          "y": -64,
-                          "name": "Fundo sutil e orgânico interno",
-                          "opacity": 0.6000000238418579,
-                          "fill": "#fcf2ebff",
-                          "width": 192,
-                          "height": 192
-                        },
-                        {
-                          "type": "rectangle",
-                          "cornerRadius": 9999,
                           "id": "AQUjn",
                           "x": -64,
                           "y": 699,
@@ -14528,35 +15627,6 @@
                               "justifyContent": "center",
                               "alignItems": "center",
                               "children": [
-                                {
-                                  "type": "rectangle",
-                                  "cornerRadius": 9999,
-                                  "id": "FWHwG",
-                                  "layoutPosition": "absolute",
-                                  "x": 4.400000095367432,
-                                  "y": 4.400000095367432,
-                                  "name": "Aura de solo fértil e sol suave",
-                                  "fill": "#f0e6e0ff",
-                                  "width": 176,
-                                  "height": 176
-                                },
-                                {
-                                  "type": "rectangle",
-                                  "cornerRadius": 9999,
-                                  "id": "Coy4F",
-                                  "layoutPosition": "absolute",
-                                  "x": 32,
-                                  "y": 32,
-                                  "name": "Background+Blur",
-                                  "opacity": 0.20000000298023224,
-                                  "fill": "#feb63cff",
-                                  "width": 112,
-                                  "height": 112,
-                                  "effect": {
-                                    "type": "blur",
-                                    "radius": 21
-                                  }
-                                },
                                 {
                                   "type": "frame",
                                   "id": "MylGX",
@@ -14891,248 +15961,156 @@
                         },
                         {
                           "type": "frame",
-                          "id": "mNgAq",
+                          "id": "oFEKR",
                           "x": 47.189016860207175,
                           "y": 562.9952783098734,
-                          "name": "Botões de Ação Imediata (Áreas de toque generosas para quem usa no campo):margin",
-                          "width": 544,
-                          "layout": "vertical",
+                          "name": "Link - Ação Principal",
+                          "width": 310,
+                          "fill": "#006b2cff",
+                          "cornerRadius": 8,
                           "padding": [
-                            0,
-                            0,
-                            32,
-                            0
+                            12,
+                            11
                           ],
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "r8Apy",
-                              "name": "Botões de Ação Imediata (Áreas de toque generosas para quem usa no campo)",
-                              "width": "fill_container",
-                              "gap": 12,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "frame",
-                                  "id": "oFEKR",
-                                  "name": "Link - Ação Principal",
-                                  "fill": "#006b2cff",
-                                  "cornerRadius": 8,
-                                  "gap": 6,
-                                  "padding": [
-                                    12,
-                                    32
-                                  ],
-                                  "justifyContent": "center",
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "rectangle",
-                                      "cornerRadius": 8,
-                                      "id": "fyfi9",
-                                      "layoutPosition": "absolute",
-                                      "x": 0,
-                                      "y": 0,
-                                      "name": "Link - Ação Principal:shadow",
-                                      "fill": "#ffffff00",
-                                      "width": 361.5299987792969,
-                                      "height": 72,
-                                      "effect": [
-                                        {
-                                          "type": "shadow",
-                                          "shadowType": "outer",
-                                          "color": "#0000001a",
-                                          "offset": {
-                                            "x": 0,
-                                            "y": 2
-                                          },
-                                          "blur": 3.5
-                                        },
-                                        {
-                                          "type": "shadow",
-                                          "shadowType": "outer",
-                                          "color": "#0000001a",
-                                          "offset": {
-                                            "x": 0,
-                                            "y": 4
-                                          },
-                                          "blur": 5.25
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "frame",
-                                      "id": "Y4eUNc",
-                                      "name": "Container",
-                                      "layout": "vertical",
-                                      "alignItems": "center",
-                                      "children": [
-                                        {
-                                          "type": "path",
-                                          "id": "SU9rC",
-                                          "name": "Icon",
-                                          "geometry": "M13 5.9l0-1.7c0.55-0.23333 1.1125-0.40833 1.6875-0.525 0.575-0.11667 1.17917-0.175 1.8125-0.175 0.43333 0 0.85833 0.03333 1.275 0.1 0.41667 0.06667 0.825 0.15 1.225 0.25l0 1.6c-0.4-0.15-0.80417-0.2625-1.2125-0.3375-0.40833-0.075-0.8375-0.1125-1.2875-0.1125-0.63333 0-1.24167 0.07917-1.825 0.2375-0.58333 0.15833-1.14167 0.37917-1.675 0.6625l0 0m0 5.5l0-1.7c0.55-0.23333 1.1125-0.40833 1.6875-0.525 0.575-0.11667 1.17917-0.175 1.8125-0.175 0.43333 0 0.85833 0.03333 1.275 0.1 0.41667 0.06667 0.825 0.15 1.225 0.25l0 1.6c-0.4-0.15-0.80417-0.2625-1.2125-0.3375-0.40833-0.075-0.8375-0.1125-1.2875-0.1125-0.63333 0-1.24167 0.075-1.825 0.225-0.58333 0.15-1.14167 0.375-1.675 0.675l0 0m0-2.75l0-1.7c0.55-0.23333 1.1125-0.40833 1.6875-0.525 0.575-0.11667 1.17917-0.175 1.8125-0.175 0.43333 0 0.85833 0.03333 1.275 0.1 0.41667 0.06667 0.825 0.15 1.225 0.25l0 1.6c-0.4-0.15-0.80417-0.2625-1.2125-0.3375-0.40833-0.075-0.8375-0.1125-1.2875-0.1125-0.63333 0-1.24167 0.07917-1.825 0.2375-0.58333 0.15833-1.14167 0.37917-1.675 0.6625l0 0m-7.5 3.35c0.78333 0 1.54583 0.0875 2.2875 0.2625 0.74167 0.175 1.47917 0.4375 2.2125 0.7875l0-9.85c-0.68333-0.4-1.40833-0.7-2.175-0.9-0.76667-0.2-1.54167-0.3-2.325-0.3-0.6 0-1.19583 0.05833-1.7875 0.175-0.59167 0.11667-1.1625 0.29167-1.7125 0.525l0 0 0 0 0 9.9 0 0 0 0c0.58333-0.2 1.1625-0.35 1.7375-0.45 0.575-0.1 1.1625-0.15 1.7625-0.15l0 0m6.5 1.05c0.73333-0.35 1.47083-0.6125 2.2125-0.7875 0.74167-0.175 1.50417-0.2625 2.2875-0.2625 0.6 0 1.1875 0.05 1.7625 0.15 0.575 0.1 1.15416 0.25 1.7375 0.45l0 0 0 0 0-9.9 0 0 0 0c-0.55-0.23333-1.12083-0.40833-1.7125-0.525-0.59167-0.11667-1.1875-0.175-1.7875-0.175-0.78333 0-1.55833 0.1-2.325 0.3-0.76667 0.2-1.49167 0.5-2.175 0.9l0 9.85 0 0m-1 2.95c-0.8-0.63333-1.66667-1.125-2.6-1.475-0.93333-0.35-1.9-0.525-2.9-0.525-0.7 0-1.3875 0.09167-2.0625 0.275-0.675 0.18333-1.32083 0.44167-1.9375 0.775-0.35 0.18333-0.6875 0.175-1.0125-0.025-0.325-0.2-0.4875-0.49167-0.4875-0.875l0-12.05c0-0.18333 0.04583-0.35833 0.1375-0.525 0.09167-0.16667 0.22917-0.29167 0.4125-0.375 0.76667-0.4 1.56667-0.7 2.4-0.9 0.83333-0.2 1.68333-0.3 2.55-0.3 0.96667 0 1.9125 0.125 2.8375 0.375 0.925 0.25 1.8125 0.625 2.6625 1.125 0.85-0.5 1.7375-0.875 2.6625-1.125 0.925-0.25 1.87083-0.375 2.8375-0.375 0.86667 0 1.71666 0.1 2.55 0.3 0.83333 0.2 1.63333 0.5 2.4 0.9 0.18333 0.08333 0.32083 0.20833 0.4125 0.375 0.09167 0.16667 0.1375 0.34167 0.1375 0.525l0 12.05c0 0.38333-0.1625 0.675-0.4875 0.875-0.325 0.2-0.6625 0.20833-1.0125 0.025-0.61667-0.33333-1.2625-0.59167-1.9375-0.775-0.675-0.18333-1.3625-0.275-2.0625-0.275-1 0-1.96667 0.175-2.9 0.525-0.93333 0.35-1.8 0.84167-2.6 1.475l0 0m-5-8.35l0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
-                                          "fill": "#ffffffff",
-                                          "width": 22,
-                                          "height": 16
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "frame",
-                                      "id": "FauS3",
-                                      "name": "Container",
-                                      "layout": "vertical",
-                                      "padding": [
-                                        0,
-                                        23.260000228881836,
-                                        0,
-                                        23.25
-                                      ],
-                                      "alignItems": "center",
-                                      "children": [
-                                        {
-                                          "type": "text",
-                                          "id": "kAYkE",
-                                          "name": "Text",
-                                          "fill": "#ffffffff",
-                                          "content": "Voltar para meu Caderno da\nTerra",
-                                          "lineHeight": 1.3333333333333333,
-                                          "textAlign": "center",
-                                          "textAlignVertical": "middle",
-                                          "fontFamily": "Liberation Serif",
-                                          "fontSize": 18,
-                                          "fontWeight": "700"
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "frame",
-                                  "id": "C12uTK",
-                                  "name": "Button - Ação Secundária",
-                                  "fill": "#f6ece6ff",
-                                  "cornerRadius": 8,
-                                  "gap": 6,
-                                  "padding": [
-                                    12,
-                                    20
-                                  ],
-                                  "justifyContent": "center",
-                                  "alignItems": "center",
-                                  "children": [
-                                    {
-                                      "type": "frame",
-                                      "id": "t4mxd",
-                                      "name": "Container",
-                                      "layout": "vertical",
-                                      "alignItems": "center",
-                                      "children": [
-                                        {
-                                          "type": "path",
-                                          "id": "iyogJ",
-                                          "name": "Icon",
-                                          "geometry": "M3.50625 8.25l5.13333 5.13333-1.30625 1.28334-7.33333-7.33334 7.33333-7.33333 1.30625 1.28333-5.13333 5.13334 11.16042 0 0 1.83333-11.16042 0 0 0",
-                                          "fill": "#1f1b17ff",
-                                          "width": 14.666666984558105,
-                                          "height": 14.666666984558105
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "frame",
-                                      "id": "oue7T",
-                                      "name": "Container",
-                                      "layout": "vertical",
-                                      "padding": [
-                                        0,
-                                        23.329999923706055
-                                      ],
-                                      "alignItems": "center",
-                                      "children": [
-                                        {
-                                          "type": "text",
-                                          "id": "I2kgls",
-                                          "name": "Text",
-                                          "fill": "#1f1b17ff",
-                                          "content": "Página\nAnterior",
-                                          "lineHeight": 1.3333333333333333,
-                                          "textAlign": "center",
-                                          "textAlignVertical": "middle",
-                                          "fontFamily": "Liberation Serif",
-                                          "fontSize": 15,
-                                          "fontWeight": "700"
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "EaRqW",
-                      "name": "Dica Amiga de Conforto e Segurança no Rodapé do Bloco:margin",
-                      "layout": "vertical",
-                      "padding": [
-                        20,
-                        0,
-                        0,
-                        0
-                      ],
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "YeJYu",
-                          "name": "Dica Amiga de Conforto e Segurança no Rodapé do Bloco",
-                          "gap": 6,
                           "justifyContent": "center",
                           "alignItems": "center",
                           "children": [
                             {
-                              "type": "frame",
-                              "id": "DbZnH",
-                              "name": "Container",
-                              "layout": "vertical",
-                              "children": [
+                              "type": "rectangle",
+                              "cornerRadius": 8,
+                              "id": "fyfi9",
+                              "layoutPosition": "absolute",
+                              "x": 0,
+                              "y": 0,
+                              "name": "Link - Ação Principal:shadow",
+                              "fill": "#ffffff00",
+                              "width": 361.5299987792969,
+                              "height": 72,
+                              "effect": [
                                 {
-                                  "type": "path",
-                                  "id": "DcLGD",
-                                  "name": "Icon",
-                                  "geometry": "M5.79167 11.29167l4.70833-4.70834-1.1875-1.1875-3.52083 3.52084-1.75-1.75-1.1875 1.1875 2.9375 2.9375 0 0m0.875 5.375c-1.93056-0.48611-3.52431-1.59375-4.78125-3.32292-1.25694-1.72917-1.88542-3.64931-1.88542-5.76042l0-5.08333 6.66667-2.5 6.66666 2.5 0 5.08333c0 2.11111-0.62847 4.03125-1.88541 5.76042-1.25694 1.72917-2.85069 2.8368-4.78125 3.32292l0 0",
-                                  "fill": "#006b2cff",
-                                  "width": 13.333333015441895,
-                                  "height": 16.66666603088379
+                                  "type": "shadow",
+                                  "shadowType": "outer",
+                                  "color": "#0000001a",
+                                  "offset": {
+                                    "x": 0,
+                                    "y": 2
+                                  },
+                                  "blur": 3.5
+                                },
+                                {
+                                  "type": "shadow",
+                                  "shadowType": "outer",
+                                  "color": "#0000001a",
+                                  "offset": {
+                                    "x": 0,
+                                    "y": 4
+                                  },
+                                  "blur": 5.25
                                 }
                               ]
                             },
                             {
                               "type": "frame",
-                              "id": "ojLFi",
+                              "id": "Y4eUNc",
                               "name": "Container",
                               "layout": "vertical",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "path",
+                                  "id": "SU9rC",
+                                  "name": "Icon",
+                                  "geometry": "M13 5.9l0-1.7c0.55-0.23333 1.1125-0.40833 1.6875-0.525 0.575-0.11667 1.17917-0.175 1.8125-0.175 0.43333 0 0.85833 0.03333 1.275 0.1 0.41667 0.06667 0.825 0.15 1.225 0.25l0 1.6c-0.4-0.15-0.80417-0.2625-1.2125-0.3375-0.40833-0.075-0.8375-0.1125-1.2875-0.1125-0.63333 0-1.24167 0.07917-1.825 0.2375-0.58333 0.15833-1.14167 0.37917-1.675 0.6625l0 0m0 5.5l0-1.7c0.55-0.23333 1.1125-0.40833 1.6875-0.525 0.575-0.11667 1.17917-0.175 1.8125-0.175 0.43333 0 0.85833 0.03333 1.275 0.1 0.41667 0.06667 0.825 0.15 1.225 0.25l0 1.6c-0.4-0.15-0.80417-0.2625-1.2125-0.3375-0.40833-0.075-0.8375-0.1125-1.2875-0.1125-0.63333 0-1.24167 0.075-1.825 0.225-0.58333 0.15-1.14167 0.375-1.675 0.675l0 0m0-2.75l0-1.7c0.55-0.23333 1.1125-0.40833 1.6875-0.525 0.575-0.11667 1.17917-0.175 1.8125-0.175 0.43333 0 0.85833 0.03333 1.275 0.1 0.41667 0.06667 0.825 0.15 1.225 0.25l0 1.6c-0.4-0.15-0.80417-0.2625-1.2125-0.3375-0.40833-0.075-0.8375-0.1125-1.2875-0.1125-0.63333 0-1.24167 0.07917-1.825 0.2375-0.58333 0.15833-1.14167 0.37917-1.675 0.6625l0 0m-7.5 3.35c0.78333 0 1.54583 0.0875 2.2875 0.2625 0.74167 0.175 1.47917 0.4375 2.2125 0.7875l0-9.85c-0.68333-0.4-1.40833-0.7-2.175-0.9-0.76667-0.2-1.54167-0.3-2.325-0.3-0.6 0-1.19583 0.05833-1.7875 0.175-0.59167 0.11667-1.1625 0.29167-1.7125 0.525l0 0 0 0 0 9.9 0 0 0 0c0.58333-0.2 1.1625-0.35 1.7375-0.45 0.575-0.1 1.1625-0.15 1.7625-0.15l0 0m6.5 1.05c0.73333-0.35 1.47083-0.6125 2.2125-0.7875 0.74167-0.175 1.50417-0.2625 2.2875-0.2625 0.6 0 1.1875 0.05 1.7625 0.15 0.575 0.1 1.15416 0.25 1.7375 0.45l0 0 0 0 0-9.9 0 0 0 0c-0.55-0.23333-1.12083-0.40833-1.7125-0.525-0.59167-0.11667-1.1875-0.175-1.7875-0.175-0.78333 0-1.55833 0.1-2.325 0.3-0.76667 0.2-1.49167 0.5-2.175 0.9l0 9.85 0 0m-1 2.95c-0.8-0.63333-1.66667-1.125-2.6-1.475-0.93333-0.35-1.9-0.525-2.9-0.525-0.7 0-1.3875 0.09167-2.0625 0.275-0.675 0.18333-1.32083 0.44167-1.9375 0.775-0.35 0.18333-0.6875 0.175-1.0125-0.025-0.325-0.2-0.4875-0.49167-0.4875-0.875l0-12.05c0-0.18333 0.04583-0.35833 0.1375-0.525 0.09167-0.16667 0.22917-0.29167 0.4125-0.375 0.76667-0.4 1.56667-0.7 2.4-0.9 0.83333-0.2 1.68333-0.3 2.55-0.3 0.96667 0 1.9125 0.125 2.8375 0.375 0.925 0.25 1.8125 0.625 2.6625 1.125 0.85-0.5 1.7375-0.875 2.6625-1.125 0.925-0.25 1.87083-0.375 2.8375-0.375 0.86667 0 1.71666 0.1 2.55 0.3 0.83333 0.2 1.63333 0.5 2.4 0.9 0.18333 0.08333 0.32083 0.20833 0.4125 0.375 0.09167 0.16667 0.1375 0.34167 0.1375 0.525l0 12.05c0 0.38333-0.1625 0.675-0.4875 0.875-0.325 0.2-0.6625 0.20833-1.0125 0.025-0.61667-0.33333-1.2625-0.59167-1.9375-0.775-0.675-0.18333-1.3625-0.275-2.0625-0.275-1 0-1.96667 0.175-2.9 0.525-0.93333 0.35-1.8 0.84167-2.6 1.475l0 0m-5-8.35l0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+                                  "fill": "#ffffffff",
+                                  "width": 22,
+                                  "height": 16
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "FauS3",
+                              "name": "Container",
+                              "width": 228,
+                              "layout": "vertical",
+                              "gap": 15,
+                              "padding": [
+                                0,
+                                23.260000228881836,
+                                0,
+                                23.25
+                              ],
+                              "alignItems": "center",
                               "children": [
                                 {
                                   "type": "text",
-                                  "id": "IKNco",
+                                  "id": "kAYkE",
                                   "name": "Text",
-                                  "fill": "#3e4a3dff",
-                                  "content": "Seus dados e anotações estão sãos e salvos no sistema.",
-                                  "lineHeight": 1.3846153846153846,
+                                  "fill": "#ffffffff",
+                                  "content": "Voltar para meu Caderno",
+                                  "lineHeight": 1.3333333333333333,
+                                  "textAlign": "center",
                                   "textAlignVertical": "middle",
                                   "fontFamily": "Liberation Serif",
-                                  "fontSize": 13,
-                                  "fontWeight": "normal"
+                                  "fontSize": 18,
+                                  "fontWeight": "700"
                                 }
                               ]
                             }
                           ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "t4mxd",
+                          "x": 437.5790162498556,
+                          "y": 579.6619448175943,
+                          "name": "Container",
+                          "width": 20,
+                          "height": 15,
+                          "layout": "vertical",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "iyogJ",
+                              "name": "Icon",
+                              "geometry": "M3.50625 8.25l5.13333 5.13333-1.30625 1.28334-7.33333-7.33334 7.33333-7.33333 1.30625 1.28333-5.13333 5.13334 11.16042 0 0 1.83333-11.16042 0 0 0",
+                              "fill": "#1f1b17ff",
+                              "width": 14.666666984558105,
+                              "height": 14.666666984558105
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "I2kgls",
+                          "x": 473.8663725716947,
+                          "y": 576.9952783098734,
+                          "name": "Text",
+                          "fill": "#1f1b17ff",
+                          "textGrowth": "fixed-width",
+                          "width": 118,
+                          "content": "Página Anterior",
+                          "lineHeight": 1.3333333333333333,
+                          "textAlign": "center",
+                          "textAlignVertical": "middle",
+                          "fontFamily": "Liberation Serif",
+                          "fontSize": 15,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "rectangle",
+                          "id": "cXZPh",
+                          "x": 208.5790162498556,
+                          "y": 18.995278309873356,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "404.png",
+                            "mode": "cover"
+                          },
+                          "width": 222.00001450892861,
+                          "height": 285.1376519495413
                         }
                       ]
                     }
@@ -19373,6 +20351,10 @@
     "warn-soft": {
       "type": "color",
       "value": "#FFF1D6"
+    },
+    "water-light": {
+      "type": "color",
+      "value": "#8FB8D6"
     }
   },
   "fileToken": "b9e6ded7-2cd1-4718-b264-0e25463ab43d"
