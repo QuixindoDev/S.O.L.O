@@ -26,19 +26,19 @@ const DEFAULT_ACTIONS: QuickAction[] = [
     title: "Previsão da Semana",
     description: "Sol, chuva e melhores dias de plantio",
     icon: CalendarDays,
-    href: "/clima",
+    href: "/previsao-do-tempo",
   },
   {
     title: "Meu Caderninho de Contas",
     description: "Vendas na feira e gastos com adubo",
     icon: Wallet,
-    href: "/contas",
+    href: "/meu-caderninho",
   },
   {
     title: "Falar com a Agrônoma",
     description: "Tirar dúvida rápida no WhatsApp",
     icon: MessageCircle,
-    href: "/agronoma",
+    href: "/falar-com-a-agronoma",
   },
 ];
 

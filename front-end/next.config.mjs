@@ -7,33 +7,39 @@ const nextConfig = {
   devIndicators: false,
 
   /**
-   * Rewrites por subdomínio.
+   * Subdomínios (Vercel).
    *
-   * A Vercel lê esta função — num projecto Next.js não é preciso
+   * Num projecto Next.js a Vercel lê esta função — não é preciso
    * um `vercel.json` separado.
    *
-   *   admin.agrosolo.earth/*    →  /admin/*
-   *   profile.agrosolo.earth/*  →  /profile/*
+   *   www.agrosolo.earth/                    →  /              (app principal)
+   *   www.profile.agrosolo.earth/             →  /inicio        (dashboard)
+   *   www.profile.agrosolo.earth/minhas-plantas      →  /minhas-plantas
+   *   www.profile.agrosolo.earth/previsao-do-tempo   →  /previsao-do-tempo
+   *   www.admin.agrosolo.earth/*              →  /admin/*
+   *
+   * O subdomínio `profile` serve a MESMA aplicação do domínio principal —
+   * por isso só a raiz precisa de rewrite. Todas as outras rotas
+   * (`/minhas-plantas`, `/previsao-do-tempo`, …) já existem como páginas
+   * e são servidas tal e qual.
    *
    * `beforeFiles` para o rewrite acontecer ANTES da procura de ficheiros:
-   * assim o subdomínio tem sempre prioridade e não depende de a rota
-   * existir fisicamente para o rewrite ser aplicado.
-   *
-   * `:path*` captura o caminho completo (incluindo vazio, para a raiz),
-   * ao contrário de `/(.)` que só apanha um caractere e perdia o resto.
+   * assim o subdomínio tem sempre prioridade.
    */
   async rewrites() {
     return {
       beforeFiles: [
         {
-          source: "/:path*",
-          has: [{ type: "host", value: "admin.agrosolo.earth" }],
-          destination: "/admin/:path*",
+          // A raiz do subdomínio profile abre directamente o dashboard.
+          source: "/",
+          has: [{ type: "host", value: "www.profile.agrosolo.earth" }],
+          destination: "/inicio",
         },
         {
+          // Área de administração (para quando o subdomínio ficar pronto).
           source: "/:path*",
-          has: [{ type: "host", value: "profile.agrosolo.earth" }],
-          destination: "/profile/:path*",
+          has: [{ type: "host", value: "www.admin.agrosolo.earth" }],
+          destination: "/admin/:path*",
         },
       ],
       afterFiles: [],

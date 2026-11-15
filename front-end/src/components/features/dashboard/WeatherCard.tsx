@@ -95,7 +95,7 @@ export function WeatherCard({ summary, city }: WeatherCardProps) {
       </div>
 
       <div className="mt-auto pt-1">
-        <Button fullWidth icon={CalendarDays} onClick={() => router.push("/clima")}>
+        <Button fullWidth icon={CalendarDays} onClick={() => router.push("/previsao-do-tempo")}>
           Ver os próximos 7 dias
         </Button>
       </div>
