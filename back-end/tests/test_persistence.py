@@ -344,8 +344,9 @@ def test_agronomist_messages_and_nasa_cache_persistence():
         session.add(msg)
 
         # Adicionar item ao cache da NASA
+        unique_cache_key = f"power_-12.97_-39.51_{uuid.uuid4().hex[:8]}"
         cache_item = NasaCacheRecord(
-            cache_key="power_-12.97_-39.51_20260101_20261231",
+            cache_key=unique_cache_key,
             service="power",
             latitude=-12.97,
             longitude=-39.51,
@@ -367,7 +368,7 @@ def test_agronomist_messages_and_nasa_cache_persistence():
 
         # Consultar cache
         queried_cache = session.query(NasaCacheRecord).filter(
-            NasaCacheRecord.cache_key == "power_-12.97_-39.51_20260101_20261231"
+            NasaCacheRecord.cache_key == unique_cache_key
         ).first()
         assert queried_cache is not None
         assert queried_cache.service == "power"

@@ -15,6 +15,7 @@ from src.infrastructure.outbound.persistence.postgres_repository import SQLAlche
 from src.infrastructure.outbound.external.nasa_adapter import NasaPowerAdapter
 from src.infrastructure.outbound.external.gee_adapter import GEEAdapter, MockGEEAdapter
 from src.infrastructure.inbound.http.routers import router, set_dependencies
+from src.infrastructure.inbound.http.auth_router import auth_router
 
 # Configuração de logging
 logging.basicConfig(
@@ -83,6 +84,7 @@ app.add_middleware(
 )
 
 # Registrar rotas da API
+app.include_router(auth_router)
 app.include_router(router)
 
 
@@ -90,11 +92,15 @@ app.include_router(router)
 def root():
     return {
         "projeto": "Field Shift",
-        "proposito": "Democratização do mercado voluntário de carbono para pequenos agricultores em Angola",
-        "versao": "1.0.0",
+        "proposito": "Democratização do mercado voluntário de carbono e agricultura adaptativa para pequenos agricultores",
+        "versao": "1.2.0",
         "documentacao_interativa": "/docs",
         "documentacao_redoc": "/redoc",
         "rotas_principais": {
+            "auth_cadastro": "POST /api/v1/auth/register",
+            "auth_verificar_sms": "POST /api/v1/auth/verify-otp",
+            "auth_login": "POST /api/v1/auth/login",
+            "auth_perfil": "GET /api/v1/auth/me",
             "registar_agricultor": "POST /api/v1/farmers",
             "listar_agricultores": "GET /api/v1/farmers",
             "desativar_agricultor": "PATCH /api/v1/farmers/{farmer_uuid}/deactivate (ou DELETE /api/v1/farmers/{farmer_uuid})",

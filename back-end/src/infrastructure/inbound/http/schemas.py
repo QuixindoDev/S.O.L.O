@@ -270,3 +270,143 @@ class HealthResponse(BaseModel):
     satelite_adapter: str
     gee_autenticado: bool
     banco_dados: str
+
+
+# ==============================================================================
+# SCHEMAS DE AUTENTICAÇÃO E 2FA (S.O.L.O. CAMPO AMIGO)
+# ==============================================================================
+
+class RegisterRequest(BaseModel):
+    """Payload de cadastro do agricultor (Ecrã 1: Criar sua Conta Grátis)."""
+    nome_completo: str = Field(
+        ...,
+        min_length=2,
+        max_length=200,
+        description="Como você quer ser chamada? (Ex: Dona Maria da Silva ou Sítio Esperança)",
+        examples=["Dona Maria da Silva"]
+    )
+    telefone: str = Field(
+        ...,
+        min_length=6,
+        max_length=50,
+        description="Seu WhatsApp ou Celular para receber alertas do tempo",
+        examples=["(71) 99123-4567"]
+    )
+    senha: str = Field(
+        ...,
+        min_length=4,
+        max_length=100,
+        description="Crie uma Senha Simples (uma palavra ou números fáceis)",
+        examples=["solo2026"]
+    )
+    apelido: Optional[str] = Field(
+        default=None,
+        max_length=100,
+        description="Apelido carinhoso ou nome curto",
+        examples=["Dona Maria"]
+    )
+    cidade_estado: Optional[str] = Field(
+        default=None,
+        max_length=150,
+        description="Sua Cidade e Estado (Ex: Feira de Santana - BA)",
+        examples=["Feira de Santana - BA"]
+    )
+    cidade: Optional[str] = Field(default=None, max_length=100)
+    estado: Optional[str] = Field(default=None, max_length=50)
+    nome_sitio: Optional[str] = Field(
+        default=None,
+        max_length=200,
+        description="Nome do sítio ou roça",
+        examples=["Sítio Recanto Verde"]
+    )
+    tipo_solo: Optional[str] = Field(
+        default="argiloso",
+        description="Textura do solo: arenoso | argiloso | franco",
+        examples=["argiloso"]
+    )
+    cooperativa: Optional[str] = Field(default=None, max_length=150)
+
+    @field_validator("nome_completo", "telefone", "senha")
+    @classmethod
+    def validar_obrigatorios(cls, v: str) -> str:
+        clean = v.strip()
+        if not clean:
+            raise ValueError("O campo não pode estar em branco.")
+        return clean
+
+
+class RegisterResponse(BaseModel):
+    """Resposta ao cadastrar (redireciona para o Ecrã 2: SMS Enviado)."""
+    mensagem: str = Field(default="Conta criada com sucesso! Enviamos um SMS com o código de verificação.")
+    farmer_uuid: str
+    telefone_mascarado: str
+    sms_enviado: bool = True
+    proximo_passo: str = Field(default="Digite o código de 6 números enviado por SMS.")
+    otp_debug: Optional[str] = Field(default=None, description="Apenas em ambiente de desenvolvimento")
+
+
+class LoginRequest(BaseModel):
+    """Payload de entrada (Ecrã 1-B: Entrar na minha conta)."""
+    telefone: str = Field(..., description="Seu WhatsApp ou Celular", examples=["(71) 99123-4567"])
+    senha: str = Field(..., description="Sua Senha", examples=["solo2026"])
+
+    @field_validator("telefone", "senha")
+    @classmethod
+    def validar_login(cls, v: str) -> str:
+        clean = v.strip()
+        if not clean:
+            raise ValueError("O telefone e a senha são obrigatórios.")
+        return clean
+
+
+class VerifyOtpRequest(BaseModel):
+    """Payload de validação de 2FA (Ecrã 3: Verificação de Segurança)."""
+    codigo_otp: str = Field(
+        ...,
+        min_length=6,
+        max_length=6,
+        description="Digite os 6 números do SMS",
+        examples=["482910"]
+    )
+    telefone: Optional[str] = Field(default=None, description="Número de telefone vinculado")
+    farmer_uuid: Optional[str] = Field(default=None, description="UUID do agricultor")
+
+    @field_validator("codigo_otp")
+    @classmethod
+    def validar_codigo(cls, v: str) -> str:
+        clean = v.strip()
+        if not clean.isdigit() or len(clean) != 6:
+            raise ValueError("O código de verificação deve conter exatamente 6 dígitos numéricos.")
+        return clean
+
+
+class ResendOtpRequest(BaseModel):
+    """Payload para reenviar código SMS."""
+    telefone: Optional[str] = Field(default=None)
+    farmer_uuid: Optional[str] = Field(default=None)
+
+
+class AuthTokenResponse(BaseModel):
+    """Resposta com token Bearer JWT e perfil após login/2FA com sucesso."""
+    access_token: str
+    token_type: str = "bearer"
+    expires_in: int
+    usuario: dict
+
+
+class UserProfileResponse(BaseModel):
+    """Perfil completo do agricultor compatível com Sidebar, TopBar e FarmProfile do front-end."""
+    id: str
+    uuid: str
+    userName: str
+    farmName: str
+    userInitials: str
+    city: str
+    state: str
+    locationLabel: str
+    latitude: float
+    longitude: float
+    soil: str
+    phone: str
+    isPhoneVerified: bool
+    cooperativa: Optional[str] = None

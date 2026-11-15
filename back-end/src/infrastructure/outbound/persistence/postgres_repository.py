@@ -104,6 +104,39 @@ class SQLAlchemyLandAnalysisRepository(LandAnalysisRepositoryPort):
         finally:
             session.close()
 
+    def find_farmer_by_phone(self, phone: str) -> Optional[FarmerRecord]:
+        """Recupera o registro ORM do agricultor pelo telefone (ou dígitos limpos)."""
+        session: Session = self.session_factory()
+        try:
+            clean_input = phone.strip()
+            # 1. Busca direta exata
+            record = session.query(FarmerRecord).filter(
+                FarmerRecord.telefone == clean_input
+            ).first()
+            if record:
+                return record
+
+            # 2. Busca por dígitos limpos
+            digits_input = "".join(filter(str.isdigit, clean_input))
+            if digits_input:
+                all_farmers = session.query(FarmerRecord).all()
+                for f in all_farmers:
+                    if "".join(filter(str.isdigit, f.telefone)) == digits_input:
+                        return f
+            return None
+        finally:
+            session.close()
+
+    def get_farmer_record_by_uuid(self, farmer_uuid: str) -> Optional[FarmerRecord]:
+        """Recupera o registro ORM bruto do agricultor pelo UUID."""
+        session: Session = self.session_factory()
+        try:
+            return session.query(FarmerRecord).filter(
+                FarmerRecord.uuid == str(farmer_uuid)
+            ).first()
+        finally:
+            session.close()
+
     def list_farmers(self, limit: int = 50, offset: int = 0, only_active: bool = True) -> List[Agricultor]:
         """
         Lista os agricultores cadastrados com suporte a paginação.
