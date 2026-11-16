@@ -437,14 +437,20 @@ async rewrites() {
 ## 🔌 Contrato da API (back-end Field Shift)
 
 O front-end **nunca chama a NASA directamente**: passa sempre pelo
-back-end (`http://localhost:8000` por omissão), que normaliza, cacheia
-(24 h) e protege o telemóvel da Dona Maria.
+back-end, que normaliza, cacheia (24 h) e protege o telemóvel da Dona Maria.
 
 Configuração em `front-end/.env.local`:
 
 ```bash
-NEXT_PUBLIC_API_URL=http://localhost:8000
+# Produção
+NEXT_PUBLIC_API_URL=https://api.agrosolo.earth
+
+# Desenvolvimento local (servidor FastAPI na máquina)
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 ```
+
+Sem a variável, a aplicação usa `https://api.agrosolo.earth` (ver
+`src/lib/api/config.ts`).
 
 ### Camada de acesso (`src/lib/api/`)
 

@@ -5,13 +5,17 @@
  * back-end, que normaliza, cacheia e protege o telemóvel da Dona Maria.
  *
  * Variáveis de ambiente (ver `front-end/.env.local`):
- *   NEXT_PUBLIC_API_URL=http://localhost:8000
+ *   NEXT_PUBLIC_API_URL=https://api.agrosolo.earth
+ *
+ * Sem a variável, a aplicação usa o endereço de produção. Para
+ * desenvolvimento local, define `NEXT_PUBLIC_API_URL=http://127.0.0.1:8000`.
  */
 
+/** Endereço de produção da API. */
+export const DEFAULT_API_BASE_URL = "https://api.agrosolo.earth";
+
 export const API_BASE_URL = (
-  process.env.NEXT_PUBLIC_API_URL ??
-  process.env.API_URL ??
-  "http://localhost:8000"
+  process.env.NEXT_PUBLIC_API_URL ?? DEFAULT_API_BASE_URL
 ).replace(/\/+$/, "");
 
 /** Caminhos da API — a fonte única de verdade dos endpoints. */

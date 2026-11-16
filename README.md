@@ -365,9 +365,9 @@ uvicorn main:app --reload --port 8000
 ```
 
 The backend services will be available at:
-* 📖 **Interactive Swagger UI Documentation:** [`http://localhost:8000/docs`](http://localhost:8000/docs)
-* 📑 **Redoc Specification:** [`http://localhost:8000/redoc`](http://localhost:8000/redoc)
-* 🩺 **Health Check:** [`http://localhost:8000/health`](http://localhost:8000/health)
+* 📖 **Interactive Swagger UI Documentation:** [`https://api.agrosolo.earth/docs`](https://api.agrosolo.earth/docs) (local: `http://127.0.0.1:8000/docs`)
+* 📑 **Redoc Specification:** [`https://api.agrosolo.earth/redoc`](https://api.agrosolo.earth/redoc) (local: `http://127.0.0.1:8000/redoc`)
+* 🩺 **Health Check:** [`https://api.agrosolo.earth/health`](https://api.agrosolo.earth/health) (local: `http://127.0.0.1:8000/health`)
 
 #### Running Backend Automated Tests
 ```bash
@@ -412,8 +412,11 @@ DATABASE_URL=sqlite:///./field_shift.db
 
 #### Frontend (`front-end/.env.local`):
 ```ini
-# Backend API Base URL
-NEXT_PUBLIC_API_URL=http://localhost:8000
+# Backend API Base URL — production
+NEXT_PUBLIC_API_URL=https://api.agrosolo.earth
+
+# Local development (FastAPI running on your machine):
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 ```
 
 ---
