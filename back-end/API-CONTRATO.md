@@ -120,7 +120,11 @@ O front-end já aponta para este back-end. A configuração está em
 `../front-end/.env.local`:
 
 ```bash
-NEXT_PUBLIC_API_URL=http://localhost:8000
+# Produção
+NEXT_PUBLIC_API_URL=https://api.agrosolo.earth
+
+# Desenvolvimento local
+# NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 ```
 
 E a camada de acesso do front-end é `../front-end/src/lib/api/`

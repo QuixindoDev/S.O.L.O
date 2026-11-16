@@ -80,9 +80,9 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-* **Swagger UI interativo:** `http://localhost:8000/docs`
-* **Redoc:** `http://localhost:8000/redoc`
-* **Health Check:** `http://localhost:8000/api/v1/health`
+* **Swagger UI interativo:** `https://api.agrosolo.earth/docs` (local: `http://127.0.0.1:8000/docs`)
+* **Redoc:** `https://api.agrosolo.earth/redoc` (local: `http://127.0.0.1:8000/redoc`)
+* **Health Check:** `https://api.agrosolo.earth/api/v1/health` (local: `http://127.0.0.1:8000/api/v1/health`)
 
 ### 4.3. Execução dos Testes Automatizados
 
@@ -135,7 +135,11 @@ pytest -v
 | `GET` | `/api/nasa/gpm` | Precipitação IMERG (requer credenciais NASA Earthdata — ainda não configurado) |
 
 ```bash
-curl "http://localhost:8000/api/nasa/power?lat=-12.776&lon=15.739&start=20260101&end=20261231"
+# Produção
+curl "https://api.agrosolo.earth/api/nasa/power?lat=-12.776&lon=15.739&start=20260101&end=20261231"
+
+# Desenvolvimento local
+curl "http://127.0.0.1:8000/api/nasa/power?lat=-12.776&lon=15.739&start=20260101&end=20261231"
 ```
 
 Variáveis de ambiente: `NASA_TIMEOUT_SECONDS` (timeout da NASA) e `CACHE_TTL_SECONDS` (TTL do cache, 86400 por omissão).
