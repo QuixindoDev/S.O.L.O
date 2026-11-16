@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Activity, ShieldCheck, Sprout, TriangleAlert } from "lucide-react";
+import { NotificationBell } from "@/components/layout/NotificationBell";
 import { api } from "@/lib/api/endpoints";
 import { getServerToken } from "@/lib/api/server";
 import type { DiagnosticoDto, FarmerDto } from "@/lib/api/types";
@@ -35,9 +36,13 @@ export default async function AdminPage() {
   const activos = farmers.filter((f) => f.is_active).length;
 
   return (
-    <main className="flex min-h-screen flex-col gap-6 bg-bg px-6 py-10">
+    <main className="relative flex min-h-screen flex-col gap-6 bg-bg px-6 py-10">
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-6">
         <header className="flex flex-col items-center gap-3 text-center">
+          <div className="absolute right-4 top-4">
+            <NotificationBell />
+          </div>
+
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary-soft">
             <ShieldCheck size={30} className="text-primary" aria-hidden />
           </div>

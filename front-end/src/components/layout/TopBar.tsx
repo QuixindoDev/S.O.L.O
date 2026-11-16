@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { MapPin, Menu, Volume2 } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { NotificationBell } from "./NotificationBell";
 
 export interface TopBarProps {
   title: string;
@@ -70,6 +71,9 @@ export function TopBar({
             </span>
           </div>
         )}
+
+        {/* Sino das notificações — cada resposta da API cai aqui */}
+        <NotificationBell />
 
         {!hideHelp && (
           <Link

@@ -477,6 +477,29 @@ Sem a variável, a aplicação usa `https://api.agrosolo.earth` (ver
 | `/admin` | `GET /api/v1/farmers`, `GET /api/v1/analyses`, `GET /health` |
 | `/api/nasa/power` (route handler) | Proxy para `GET /api/nasa/power` do back-end |
 
+### 🔔 Notificações
+
+Cada resposta da API — **positiva ou negativa** — cai no sino do
+cabeçalho (`src/components/layout/NotificationBell.tsx`):
+
+- **Sucesso** → "Planta guardada", "Colheita registada", "Diagnóstico da
+  terra guardado"…
+- **Erro** → título amigável + a mensagem que veio do servidor
+  ("Canteiro não encontrado", "Não foi possível contactar o servidor"…)
+
+O store fica em `src/lib/notifications/store.ts` (com `useSyncExternalStore`,
+sem dependências) e as notificações são guardadas no dispositivo
+(`localStorage`), para não se perderem quando a página recarrega. Ao abrir
+o sino, tudo é marcado como lido.
+
+O `apiFetch()` (`src/lib/api/http.ts`) é que empurra as notificações —
+por isso qualquer chamada nova à API aparece no sino sem trabalho extra.
+
+> As chamadas feitas **no servidor** (Server Components) não geram
+> notificações no browser — quem as vê é o log do servidor. O sino faz
+> uma verificação de saúde silenciosa ao abrir a app: se o back-end não
+> responder, aparece "O servidor não está a responder".
+
 Consultar `src/types/nasa.ts` para os tipos exactos da NASA e
 `../back-end/API-CONTRATO.md` para o contrato completo.
 

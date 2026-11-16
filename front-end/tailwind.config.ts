@@ -28,6 +28,7 @@ const config: Config = {
         warm: "#FFDDB0",
         "warm-text": "#281800",
         danger: "#B3261E",
+        "danger-soft": "#FBE9E7",
         warning: "#8A5A00",
         "warning-soft": "#FFF4DC",
       },
