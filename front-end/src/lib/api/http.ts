@@ -9,6 +9,7 @@
  */
 
 import { apiUrl } from "./config";
+import { notifyApiError, notifyApiSuccess } from "@/lib/notifications/store";
 
 export class ApiError extends Error {
   readonly status: number;
@@ -39,6 +40,11 @@ export interface ApiFetchOptions {
   revalidate?: number;
   /** `true` para nunca usar cache (mutações e leituras “fresh”). */
   noStore?: boolean;
+  /**
+   * `true` para não gerar notificação desta chamada (ex.: verificações
+   * silenciosas de saúde do servidor).
+   */
+  silent?: boolean;
 }
 
 const DEFAULT_TIMEOUT_MS = 30_000;
@@ -75,6 +81,7 @@ export async function apiFetch<T>(
     timeoutMs = DEFAULT_TIMEOUT_MS,
     revalidate,
     noStore,
+    silent = false,
   } = options;
 
   const url = apiUrl(path, query);
@@ -121,23 +128,40 @@ export async function apiFetch<T>(
       throw new ApiError(message, response.status, detail);
     }
 
-    return payload as T;
-  } catch (error) {
-    if (error instanceof ApiError) throw error;
-
-    if ((error as Error)?.name === "AbortError") {
-      throw new ApiError(
-        "O servidor demorou demasiado tempo a responder. Tente novamente.",
-        504,
-      );
+    // Toda a resposta da API (positiva ou negativa) fica no sino das
+    // notificações — no browser, onde a pessoa está a ver.
+    if (!isServer && !silent) {
+      notifyApiSuccess(method, path, response.status);
     }
 
-    throw new ApiError(
-      `Não foi possível contactar o servidor (${url}). Verifique se o back-end está ligado.`,
-      0,
-      error,
-    );
+    return payload as T;
+  } catch (error) {
+    const apiError = toApiError(error);
+
+    if (!isServer && !silent) {
+      notifyApiError(method, path, apiError.message, apiError.status || undefined);
+    }
+
+    throw apiError;
   } finally {
     clearTimeout(timer);
   }
+}
+
+/** Converte qualquer erro num `ApiError` com mensagem legível. */
+function toApiError(error: unknown): ApiError {
+  if (error instanceof ApiError) return error;
+
+  if ((error as Error)?.name === "AbortError") {
+    return new ApiError(
+      "O servidor demorou demasiado tempo a responder. Tente novamente.",
+      504,
+    );
+  }
+
+  return new ApiError(
+    `Não foi possível contactar o servidor. Verifique se a ligação está boa e tente novamente.`,
+    0,
+    error,
+  );
 }

@@ -30,25 +30,41 @@ export function Dialog({
 }: DialogProps) {
   const panelRef = useRef<HTMLDivElement>(null);
 
+  // O `onClose` muda de identidade a cada render do componente pai.
+  // Guardamo-lo numa ref para que o efeito abaixo (que mexe no foco)
+  // só corra quando o diálogo abre — senão, a cada tecla escrita num
+  // campo, o foco saltava para o botão de fechar e o cursor sumia.
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
   useEffect(() => {
     if (!open) return;
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") onCloseRef.current();
     }
 
     document.addEventListener("keydown", onKeyDown);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const first = panelRef.current?.querySelector<HTMLElement>("button, a");
-    first?.focus();
+    // Só pomos o foco no primeiro campo quando o diálogo acaba de
+    // abrir — nunca quando a pessoa já está a escrever.
+    const panel = panelRef.current;
+    if (panel && !panel.contains(document.activeElement)) {
+      const first = panel.querySelector<HTMLElement>(
+        "input, textarea, select, button, a",
+      );
+      first?.focus();
+    }
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
     };
-  }, [open, onClose]);
+  }, [open]);
 
   if (!open || typeof document === "undefined") return null;
 
