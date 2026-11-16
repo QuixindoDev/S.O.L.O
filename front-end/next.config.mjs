@@ -1,4 +1,31 @@
 /** @type {import('next').NextConfig} */
+import fs from "node:fs";
+import path from "node:path";
+
+/**
+ * Ficheiros que NÃO podem ser reescritos pelo wildcard do subdomínio
+ * `admin`.
+ *
+ * O wildcard `/admin/:path*` é muito abrangente: apanha também os
+ * assets do Next (`/_next/static/chunks/*.css`) e as imagens da pasta
+ * `public/` — que devolviam 404 e deixavam a página sem estilos.
+ *
+ * Construímos a lista de excepções a partir do que existe em
+ * `public/`, para não ter de a manter à mão.
+ */
+function nomesDosAssetsPublicos() {
+  const pasta = path.join(process.cwd(), "public");
+
+  try {
+    return fs
+      .readdirSync(pasta, { withFileTypes: true })
+      .filter((entrada) => entrada.isFile())
+      .map((entrada) => entrada.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  } catch {
+    return [];
+  }
+}
+
 const nextConfig = {
   reactStrictMode: true,
   // O indicador de desenvolvimento do Next.js aparece no canto inferior
@@ -42,8 +69,22 @@ const nextConfig = {
       destination: "/inicio",
     }));
 
+    /**
+     * Caminhos que o wildcard do subdomínio `admin` não pode apanhar:
+     * os assets do Next e os ficheiros da pasta `public/`.
+     */
+    const exclusoes = ["_next", ...nomesDosAssetsPublicos()];
+    const naoReescrever = `:path((?!${exclusoes.join("|")}).*)`;
+
     const adminRules = hostsOf("admin").map((host) => ({
-      source: "/:path*",
+      // ⚠️ O caminho NÃO pode começar por `_next` nem por nenhum
+      // ficheiro de `public/`.
+      //
+      // Com `source: "/:path*"` o wildcard apanhava também os assets
+      // do Next (`/_next/static/chunks/*.css`), reescrevendo-os para
+      // `/admin/_next/...` — que devolvia 404. O HTML da página
+      // carregava, mas o CSS não: a página ficava sem estilos.
+      source: `/${naoReescrever}`,
       has: [{ type: "host", value: host }],
       destination: "/admin/:path*",
     }));

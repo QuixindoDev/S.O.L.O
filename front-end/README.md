@@ -374,6 +374,21 @@ Num projecto Next.js, a Vercel lê os rewrites da função `rewrites()` em
 
 ```js
 // next.config.mjs
+import fs from "node:fs";
+import path from "node:path";
+
+/** Ficheiros de `public/` que o wildcard não pode apanhar. */
+function nomesDosAssetsPublicos() {
+  try {
+    return fs
+      .readdirSync(path.join(process.cwd(), "public"), { withFileTypes: true })
+      .filter((e) => e.isFile())
+      .map((e) => e.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  } catch {
+    return [];
+  }
+}
+
 async rewrites() {
   const AGRO = "agrosolo.earth";
 
@@ -387,8 +402,13 @@ async rewrites() {
     destination: "/inicio",
   }));
 
+  // ⚠️ O wildcard do admin NÃO pode apanhar os assets (`/_next/...`
+  // nem os ficheiros de `public/`) — senão devolvem 404 e a página
+  // fica sem CSS.
+  const exclusoes = ["_next", ...nomesDosAssetsPublicos()];
+
   const adminRules = hostsOf("admin").map((host) => ({
-    source: "/:path*",
+    source: `/:path((?!${exclusoes.join("|")}).*)`,
     has: [{ type: "host", value: host }],
     destination: "/admin/:path*",
   }));
@@ -416,6 +436,13 @@ async rewrites() {
   ```bash
   curl -H "Host: profile.agrosolo.earth" http://localhost:3000/
   ```
+
+> 🐛 **Armadilha do wildcard (já corrigida):** com `source: "/:path*"`,
+> o rewrite do subdomínio `admin` também reescrevia os **assets** do
+> Next (`/_next/static/chunks/*.css`) e as imagens de `public/` para
+> `/admin/...` — devolviam 404 e a página ficava **sem estilos**
+> (enquanto em `localhost` funcionava, porque aí não há rewrite).
+> A solução é o lookahead negativo `/:path((?!_next|ficheiro1|...).*)`.
 
 ### Rotas da aplicação
 
